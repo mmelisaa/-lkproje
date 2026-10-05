@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Hayat İşleri</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: rgba(11, 12, 16, 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255,255,255,0.06);">
+        <div class="container">
+            <!-- Sol Apple Tarzı Modern Logo -->
+            <a class="navbar-brand d-flex align-items-center gap-2 text-decoration-none" asp-controller="Home" asp-action="Index">
+                <div class="d-flex align-items-center justify-content-center rounded-3" style="width: 32px; height: 32px; background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%); color: #0b0c10; font-weight: 800; font-size: 0.95rem; letter-spacing: -0.5px;">
+                    H
+                </div>
+                <span class="fw-semibold tracking-tight" style="color: #f5f5f7; font-size: 1.05rem; letter-spacing: -0.3px;">Hayat İşleri</span>
+            </a>
+
+            <!-- Mobil Menü Butonu -->
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#appleNavbarCollapse" aria-controls="appleNavbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Orta Kısım: Tam Ortalanmış Menü Linkleri -->
+            <div class="collapse navbar-collapse justify-content-center" id="appleNavbarCollapse">
+                <ul class="navbar-nav align-items-center gap-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50 px-3 py-2 small fw-medium" asp-controller="Home" asp-action="Index">Anasayfa</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-white-50 px-3 py-2 small fw-medium dropdown-toggle" href="#" id="kurumsalDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Kurumsal
+                        </a>
+                        <ul class="dropdown-menu shadow-lg border-0 rounded-4 p-2 mt-2" aria-labelledby="kurumsalDropdown" style="background: rgba(18, 20, 28, 0.95); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.08) !important;">
+                            <li><a class="dropdown-item py-2 px-3 rounded-3 text-white-50 small" asp-controller="Home" asp-action="Hakkimizda">Hakkımızda</a></li>
+                            <li><a class="dropdown-item py-2 px-3 rounded-3 text-white-50 small" asp-controller="Home" asp-action="InsanKaynaklari">İnsan Kaynakları</a></li>
+                            <li><hr class="dropdown-divider my-1 border-secondary opacity-25"></li>
+                            <li><a class="dropdown-item py-2 px-3 rounded-3 text-white-50 small" asp-controller="Home" asp-action="HesapNumaralarimiz">Hesap Numaralarımız</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50 px-3 py-2 small fw-medium" asp-controller="Home" asp-action="Hizmetlerimiz">Hizmetlerimiz</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50 px-3 py-2 small fw-medium" asp-controller="Home" asp-action="Referanslarimiz">Referanslarımız</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50 px-3 py-2 small fw-medium" asp-controller="Home" asp-action="Blog">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50 px-3 py-2 small fw-medium" asp-controller="Home" asp-action="Contact">İletişim</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Sağ Buton -->
+            <div class="d-none d-lg-block">
+                <a asp-controller="Home" asp-action="TeklifAl" class="btn btn-light rounded-pill px-4 btn-sm fw-semibold" style="font-size: 0.85rem; background-color: #f5f5f7; color: #0b0c10; transition: all 0.2s;">TEKLİF ALIN</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Ana İçerik -->
+    <div class="container" style="padding-top: 100px;">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Mega Footer ve Kartlı Sosyal Medya Alanı -->
+    <footer class="text-white pt-5 pb-4 mt-5" style="background-color: #0b0c10; border-top: 1px solid rgba(255,255,255,0.08);">
+        <div class="container text-center text-md-start">
+
+            <!-- Sosyal Medya Kartları Alanı -->
+            <div class="mb-5 pb-4 border-bottom border-secondary border-opacity-25">
+                <h5 class="text-white fw-bold mb-1" style="letter-spacing: -0.2px;">Sosyal medya hesaplarımız</h5>
+                <p class="text-muted small mb-4">Projelerimizden, güncel yazılımlardan ve teknolojik gelişmelerden haberdar olmak için bizi takip edin.</p>
+
+                <div class="row g-3">
+                    <!-- Instagram Kartı -->
+                    <div class="col-md-4">
+                        <a href="#" class="text-decoration-none">
+                            <div class="p-3 rounded-4 d-flex align-items-center gap-3 transition-hover" style="background-color: #12141c; border: 1px solid rgba(255,255,255,0.08);">
+                                <div class="fs-4 text-danger d-flex align-items-center justify-content-center rounded-circle" style="width: 44px; height: 44px; background: rgba(255,255,255,0.03);">
+                                    <i class="bi bi-instagram"></i>
+                                </div>
+                                <div class="text-start">
+                                    <h6 class="text-white mb-0 fw-semibold small">Instagram</h6>
+                                    <span class="text-muted" style="font-size: 0.75rem;">Hayat İşleri</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- LinkedIn Kartı -->
+                    <div class="col-md-4">
+                        <a href="#" class="text-decoration-none">
+                            <div class="p-3 rounded-4 d-flex align-items-center gap-3 transition-hover" style="background-color: #12141c; border: 1px solid rgba(255,255,255,0.08);">
+                                <div class="fs-4 text-primary d-flex align-items-center justify-content-center rounded-circle" style="width: 44px; height: 44px; background: rgba(255,255,255,0.03);">
+                                    <i class="bi bi-linkedin"></i>
+                                </div>
+                                <div class="text-start">
+                                    <h6 class="text-white mb-0 fw-semibold small">LinkedIn</h6>
+                                    <span class="text-muted" style="font-size: 0.75rem;">Hayat İşleri</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Twitter / X Kartı -->
+                    <div class="col-md-4">
+                        <a href="#" class="text-decoration-none">
+                            <div class="p-3 rounded-4 d-flex align-items-center gap-3 transition-hover" style="background-color: #12141c; border: 1px solid rgba(255,255,255,0.08);">
+                                <div class="fs-4 text-info d-flex align-items-center justify-content-center rounded-circle" style="width: 44px; height: 44px; background: rgba(255,255,255,0.03);">
+                                    <i class="bi bi-twitter-x"></i>
+                                </div>
+                                <div class="text-start">
+                                    <h6 class="text-white mb-0 fw-semibold small">Twitter / X</h6>
+                                    <span class="text-muted" style="font-size: 0.75rem;">Hayat İşleri</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alt Hizmet ve Bilgi Sütunları -->
+            <div class="row mt-4 g-4">
+                <!-- 1. Sütun: Web Tasarım -->
+                <div class="col-md-3 col-6">
+                    <h6 class="text-uppercase fw-bold text-white mb-3" style="font-size: 0.85rem; letter-spacing: 0.5px;">Web Tasarım</h6>
+                    <ul class="list-unstyled small text-muted lh-lg">
+                        <li><a asp-controller="Home" asp-action="Hizmetlerimiz" class="text-decoration-none text-muted">Kurumsal Web Sitesi</a></li>
+                        <li><a asp-controller="Home" asp-action="Hizmetlerimiz" class="text-decoration-none text-muted">Mobil Uyumlu Tasarım</a></li>
+                        <li><a asp-controller="Home" asp-action="Hizmetlerimiz" class="text-decoration-none text-muted">UI-UX Tasarım</a></li>
+                        <li><a asp-controller="Home" asp-action="Hizmetlerimiz" class="text-decoration-none text-muted">Landing Page Tasarımı</a></li>
+                        <li><a asp-controller="Home" asp-action="Hizmetlerimiz" class="text-decoration-none text-muted">Web Sitesi Yenileme</a></li>
+                    </ul>
+                </div>
+
+                <!-- 2. Sütun: Web Yazılım -->
+                <div class="col-md-3 col-6">
+                    <h6 class="text-uppercase fw-bold text-white mb-3" style="font-size: 0.85rem; letter-spacing: 0.5px;">Web Yazılım</h6>
+                    <ul class="list-unstyled small text-muted lh-lg">
+                        <li><a asp-controller="Home" asp-action="Hizmetlerimiz" class="text-decoration-none text-muted">Özel Yazılım Çözümleri</a></li>
+                        <li><a asp-controller="Home" asp-action="Hizmetlerimiz" class="text-decoration-none text-muted">API Entegrasyonu</a></li>
+                        <li><a asp-controller="Home" asp-action="Hizmetlerimiz" class="text-decoration-none text-muted">Ödeme Sistemi Entegrasyonu</a></li>
+                        <li><a asp-controller="Home" asp-action="Hizmetlerimiz" class="text-decoration-none text-muted">Yönetim Paneli Geliştirme</a></li>
+                        <li><a asp-controller="Home" asp-action="Hizmetlerimiz" class="text-decoration-none text-muted">Yazılım Bakım ve Destek</a></li>
+                    </ul>
+                </div>
+
+                <!-- 3. Sütun: Kurumsal -->
+                <div class="col-md-3 col-6">
+                    <h6 class="text-uppercase fw-bold text-white mb-3" style="font-size: 0.85rem; letter-spacing: 0.5px;">Kurumsal</h6>
+                    <ul class="list-unstyled small text-muted lh-lg">
+                        <li><a asp-controller="Home" asp-action="Hakkimizda" class="text-decoration-none text-muted">Hakkımızda</a></li>
+                        <li><a asp-controller="Home" asp-action="InsanKaynaklari" class="text-decoration-none text-muted">İnsan Kaynakları</a></li>
+                        <li><a asp-controller="Home" asp-action="HesapNumaralarimiz" class="text-decoration-none text-muted">Hesap Numaralarımız</a></li>
+                        <li><a asp-controller="Home" asp-action="Referanslarimiz" class="text-decoration-none text-muted">Referanslarımız</a></li>
+                        <li><a asp-controller="Home" asp-action="Blog" class="text-decoration-none text-muted">Blog & Duyurular</a></li>
+                    </ul>
+                </div>
+
+                <!-- 4. Sütun: Yasal & Destek (Güncellendi) -->
+                <div class="col-md-3 col-6">
+                    <h6 class="text-uppercase fw-bold text-white mb-3" style="font-size: 0.85rem; letter-spacing: 0.5px;">Yasal & Destek</h6>
+                    <ul class="list-unstyled small text-muted lh-lg">
+                        <li><a asp-controller="Home" asp-action="Contact" class="text-decoration-none text-muted">İletişim Sayfası</a></li>
+                        <li><a asp-controller="Home" asp-action="Privacy" class="text-decoration-none text-muted">Gizlilik Politikası</a></li>
+                        <li><a href="#" class="text-decoration-none text-muted">KVKK Aydınlatma Metni</a></li>
+                        <li><a href="#" class="text-decoration-none text-muted">Çerez Politikası</a></li>
+                        <li><a href="#" class="text-decoration-none text-muted">Kullanım Koşulları</a></li>
+                        <li><a href="mailto:info@hayatisleri.com" class="text-decoration-none text-muted">info@hayatisleri.com</a></li>
+                        <li><span class="text-muted">Elazığ / Merkez & İstanbul</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- En Alt Telif Satırı -->
+            <hr class="my-4 border-secondary opacity-25">
+            <div class="row align-items-center">
+                <div class="col-md-12 text-center">
+                    <p class="text-muted small mb-0">
+                        <i class="bi bi-geo-alt-fill me-1 text-info"></i> Merkez / Elazığ & İstanbul &nbsp;|&nbsp; &copy; 2026 Hayat İşleri. Tüm Hakları Saklıdır.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

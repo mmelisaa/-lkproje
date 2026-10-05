@@ -1,0 +1,87 @@
+﻿@{
+    ViewData["Title"] = "İletişim";
+}
+
+<div class="container py-5">
+    <!-- Sayfa Başlığı -->
+    <div class="text-center mb-5">
+        <h1 class="fw-bold display-6 mb-2" style="color: #E0E6ED !important;">Bizimle İletişime Geçin</h1>
+        <p class="fs-6 mb-0" style="color: #94A3B8 !important;">Sorularınız, projeleriniz veya iş birliği teklifleriniz için bize her zaman ulaşabilirsiniz.</p>
+    </div>
+
+    <div class="row g-5">
+        <!-- İletişim Bilgileri ve Sosyal Medya -->
+        <div class="col-lg-5">
+            <div class="p-4 rounded-4 h-100 shadow-sm" style="background-color: #12141c; border: 1px solid rgba(255,255,255,0.08) !important;">
+                <h3 class="text-white fw-bold mb-4 fs-4">İletişim Bilgileri</h3>
+
+                <div class="d-flex align-items-start mb-4">
+                    <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-3 me-3 fs-5">
+                        <i class="bi bi-geo-alt-fill"></i>
+                    </div>
+                    <div>
+                        <h6 class="text-white fw-bold mb-1">Adres</h6>
+                        <p class="text-muted small mb-0">İstanbul / Türkiye</p>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-start mb-4">
+                    <div class="bg-success bg-opacity-10 text-success p-3 rounded-3 me-3 fs-5">
+                        <i class="bi bi-telephone-fill"></i>
+                    </div>
+                    <div>
+                        <h6 class="text-white fw-bold mb-1">Telefon</h6>
+                        <p class="text-muted small mb-0">+90 (500) 000 00 00</p>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-start mb-4">
+                    <div class="bg-warning bg-opacity-10 text-warning p-3 rounded-3 me-3 fs-5">
+                        <i class="bi bi-envelope-fill"></i>
+                    </div>
+                    <div>
+                        <h6 class="text-white fw-bold mb-1">E-Posta</h6>
+                        <p class="text-muted small mb-0">bilgi@hayatisleri.com</p>
+                    </div>
+                </div>
+
+                <hr class="border-secondary opacity-25 my-4">
+
+                <h6 class="text-white fw-bold mb-3">Çalışma Saatleri</h6>
+                <p class="text-muted small mb-1">Pazartesi - Cuma: 09:00 - 18:00</p>
+                <p class="text-muted small mb-0">Cumartesi - Pazar: Kapalı</p>
+            </div>
+        </div>
+
+        <!-- İletişim Formu -->
+        <div class="col-lg-7">
+            <div class="p-4 p-md-5 rounded-4 shadow-sm" style="background-color: #12141c; border: 1px solid rgba(255,255,255,0.08) !important;">
+                <h3 class="text-white fw-bold mb-4 fs-4">Bize Mesaj Gönderin</h3>
+
+                <form>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="name" class="form-label text-light small fw-semibold">Adınız Soyadınız</label>
+                            <input type="text" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" id="name" placeholder="Adınız Soyadınız" required style="font-size: 0.95rem;">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="email" class="form-label text-light small fw-semibold">E-Posta Adresiniz</label>
+                            <input type="email5" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" id="email" placeholder="ornek@mail.com" required style="font-size: 0.95rem;">
+                        </div>
+                        <div class="col-12">
+                            <label for="subject" class="form-label text-light small fw-semibold">Konu</label>
+                            <input type="text" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" id="subject" placeholder="Mesajınızın konusu nedir?" required style="font-size: 0.95rem;">
+                        </div>
+                        <div class="col-12">
+                            <label for="message" class="form-label text-light small fw-semibold">Mesajınız</label>
+                            <textarea class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" id="message" rows="4" placeholder="Mesajınızı buraya yazabilirsiniz..." required style="font-size: 0.95rem;"></textarea>
+                        </div>
+                        <div class="col-12 mt-4">
+                            <button type="submit" class="btn btn-primary w-100 py-3 rounded-3 fw-bold shadow-sm">Mesajı Gönder</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

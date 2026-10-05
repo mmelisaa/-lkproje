@@ -1,0 +1,76 @@
+﻿@model IEnumerable<WebApplication1.Models.Siniflar.ReferansProje>
+
+@{
+    ViewData["Title"] = "Referanslarımız ve Projelerimiz";
+}
+
+<!-- Üst Başlık Bölümü (Hero Section) -->
+<div class="container py-5 text-center">
+    <span class="text-primary fw-semibold text-uppercase small" style="letter-spacing: 2px;">BAŞARI HİKÂYELERİMİZ</span>
+    <h1 class="display-5 fw-bold text-dark mt-2 mb-3" style="letter-spacing: -1px;">Projelerimiz ve Referanslarımız</h1>
+    <p class="text-muted mx-auto lead" style="max-width: 650px; font-size: 1.05rem;">
+        Hayat İşleri olarak geliştirdiğimiz özel yazılımlar, kurumsal web tasarımları ve e-ticaret çözümleriyle iş ortaklarımızın dijital dönüşümüne değer katıyoruz.
+    </p>
+</div>
+
+<!-- Portfolyo Kartları Gridi -->
+<div class="container pb-5 mb-5">
+    <div class="row g-4">
+        @foreach (var proje in Model)
+        {
+            <div class="col-md-6 col-lg-6">
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100 transition-card" style="background-color: #fbfbfd; border: 1px solid rgba(0,0,0,0.04) !important;">
+                    <div class="position-relative overflow-hidden" style="height: 280px;">
+                        <img src="@proje.GorselUrl" class="w-100 h-100 object-fit-cover hover-zoom" alt="@proje.Baslik" />
+                        <span class="position-absolute top-0 end-0 m-3 badge bg-white text-dark shadow-sm px-3 py-2 rounded-pill fw-medium" style="font-size: 0.75rem;">
+                            @proje.Kategori
+                        </span>
+                    </div>
+                    <div class="card-body p-4 d-flex flex-column justify-content-between">
+                        <div>
+                            <h3 class="h4 fw-bold text-dark mb-2" style="letter-spacing: -0.5px;">@proje.Baslik</h3>
+                            <p class="text-muted small mb-4" style="line-height: 1.6;">@proje.Aciklama</p>
+                        </div>
+                        <div>
+                            <div class="d-flex flex-wrap gap-1 mb-3">
+                                @foreach (var etiket in proje.Etiketler.Split(','))
+                                {
+                                    <span class="badge bg-light text-secondary border px-2.5 py-1 rounded-2" style="font-size: 11px;">@etiket.Trim()</span>
+                                }
+                            </div>
+                            <a href="#" class="btn btn-outline-dark btn-sm rounded-pill px-4 fw-medium w-100 py-2">Projeyi İncele <i class="bi bi-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Alt Çağrı Alanı (Call to Action) -->
+    <div class="mt-5 p-5 rounded-5 text-center text-white position-relative overflow-hidden shadow-lg" style="background: linear-gradient(135deg, #1d1d1f 0%, #08090c 100%);">
+        <div class="position-relative z-1 py-3">
+            <h3 class="fw-bold mb-3" style="letter-spacing: -0.5px;">Sizin Projenizi de Hayata Geçirelim</h3>
+            <p class="text-muted mb-4 mx-auto" style="max-width: 550px; font-size: 0.95rem;">
+                İşletmenizi dijital dünyada bir adım öne taşıyacak özel yazılım veya web tasarım çözümleri için ekibimizle hemen tanışın.
+            </p>
+            <a href="#" class="btn btn-primary px-4 py-2.5 rounded-pill fw-medium shadow-sm">Teklif Alın <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Hafif hover efektleri */
+    .transition-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .transition-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 1rem 3rem rgba(0,0,0,.08) !important;
+    }
+    .hover-zoom {
+        transition: transform 0.5s ease;
+    }
+    .transition-card:hover .hover-zoom {
+        transform: scale(1.05);
+    }
+</style>

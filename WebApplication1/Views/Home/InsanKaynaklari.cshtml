@@ -1,0 +1,87 @@
+﻿@model WebApplication1.Models.Siniflar.InsanKaynaklari
+@{
+    ViewData["Title"] = Model.AnaBaslik;
+}
+
+<!-- Hakkımızda sayfasındaki ile birebir aynı tam ekran arka plan sarmalı -->
+<div style="background-color: #f4f6f9; margin-top: -1.5rem; margin-bottom: -3rem; padding-top: 3rem; padding-bottom: 5rem; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
+    <div class="container" style="max-width: 900px;">
+        
+        <!-- Üst Başlık ve Tanıtım Alanı -->
+        <div class="text-center mb-5">
+            <span class="badge rounded-pill px-3 py-2 mb-3 text-uppercase fw-semibold" style="background-color: #e2e8f0; color: #3b71ca; font-size: 0.85rem; letter-spacing: 1px;">
+                @Model.UstBaslik
+            </span>
+            <h1 class="fw-bold display-5 text-dark mb-3">@Model.AnaBaslik</h1>
+            <p class="lead text-secondary mx-auto" style="max-width: 650px; line-height: 1.6;">
+                @Model.Aciklama
+            </p>
+            <div class="mx-auto mt-3" style="width: 50px; height: 3px; background-color: #3b71ca; border-radius: 2px;"></div>
+        </div>
+
+        <!-- Büyük Apple Tarzı Ana Kart -->
+        <div class="card border-0 shadow-sm rounded-4 bg-white p-4 p-lg-5">
+            <div class="card-body">
+                
+                <div class="mb-4 pb-3 border-bottom">
+                    <span class="text-uppercase fw-bold text-muted" style="font-size: 0.75rem; letter-spacing: 1.5px;">İş Başvuru Formu</span>
+                    <h3 class="fw-bold text-dark mt-1 fs-4" style="color: #1e293b;">@Model.FormBaslik</h3>
+                    <p class="text-secondary small mb-0">@Model.FormAltBaslik</p>
+                </div>
+
+                <!-- Form Başlangıcı -->
+                <form>
+                    <div class="row g-3 mb-3">
+                        <!-- Ad Soyad için ayrı küçük kutucuk -->
+                        <div class="col-md-6">
+                            <div class="p-3 rounded-3 border bg-light shadow-sm">
+                                <label class="form-label fw-bold text-dark small mb-1" style="font-size: 0.85rem;">Adınız Soyadınız *</label>
+                                <input type="text" class="form-control bg-white border-0 shadow-none py-2 px-0" style="font-size: 0.95rem;" placeholder="Örn: Melisa Can" required>
+                            </div>
+                        </div>
+                        <!-- E-Posta için ayrı küçük kutucuk -->
+                        <div class="col-md-6">
+                            <div class="p-3 rounded-3 border bg-light shadow-sm">
+                                <label class="form-label fw-bold text-dark small mb-1" style="font-size: 0.85rem;">E-Posta Adresiniz *</label>
+                                <input type="email" class="form-control bg-white border-0 shadow-none py-2 px-0" style="font-size: 0.95rem;" placeholder="ornek@mail.com" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pozisyon için ayrı küçük kutucuk -->
+                    <div class="mb-3">
+                        <div class="p-3 rounded-3 border bg-light shadow-sm">
+                            <label class="form-label fw-bold text-dark small mb-1" style="font-size: 0.85rem;">Başvurmak İstediğiniz Pozisyon / Alan</label>
+                            <input type="text" class="form-control bg-white border-0 shadow-none py-2 px-0" style="font-size: 0.95rem;" placeholder="Örn: Web Geliştirici, UI/UX Tasarımcı...">
+                        </div>
+                    </div>
+
+                    <!-- CV Dosyası için ayrı küçük kutucuk -->
+                    <div class="mb-3">
+                        <div class="p-3 rounded-3 border bg-light shadow-sm">
+                            <label class="form-label fw-bold text-dark small mb-1" style="font-size: 0.85rem;">CV / Özgeçmiş Dosyanız (PDF, DOC, DOCX - Maks 5 MB)</label>
+                            <input type="file" class="form-control bg-white border-0 shadow-none py-2 px-0" style="font-size: 0.95rem;">
+                        </div>
+                    </div>
+
+                    <!-- Ön Yazı için ayrı küçük kutucuk -->
+                    <div class="mb-4">
+                        <div class="p-3 rounded-3 border bg-light shadow-sm">
+                            <label class="form-label fw-bold text-dark small mb-1" style="font-size: 0.85rem;">Ön Yazınız / Kendinizden Bahsedin</label>
+                            <textarea class="form-control bg-white border-0 shadow-none px-0" rows="3" style="font-size: 0.95rem;" placeholder="Yeteneklerinizi ve kariyer hedeflerinizi kısaca bahsedin..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="d-grid pt-2">
+                        <button type="submit" class="btn text-white py-3 fw-bold rounded-3 shadow" style="background-color: #3b71ca; font-size: 1rem; transition: all 0.3s;">
+                            Başvuruyu Gönder
+                        </button>
+                    </div>
+                </form>
+                <!-- Form Bitişi -->
+
+            </div>
+        </div>
+
+    </div>
+</div>
