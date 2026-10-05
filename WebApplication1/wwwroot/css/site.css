@@ -15,8 +15,325 @@ html {
 html {
   position: relative;
   min-height: 100%;
+  background-color: #050c1a;
+}
+
+html, body {
+  background-color: #050c1a;
+  color: #f1f5f9;
+  overflow-x: hidden;
 }
 
 body {
-  margin-bottom: 60px;
+  margin-bottom: 0;
+  min-height: 100vh;
 }
+
+/* ============================================================
+   Modern Hero Banner Styles
+   ============================================================ */
+.hero-banner-wrapper {
+  width: 100%;
+  position: relative;
+  margin-top: 0;
+  margin-bottom: 0;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4);
+}
+
+.hero-gradient-text {
+  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.hero-badge {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.hero-pulse-dot {
+  width: 9px;
+  height: 9px;
+  background-color: #38bdf8;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7);
+  animation: hero-pulse-ring 2s infinite cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+@keyframes hero-pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(56, 189, 248, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
+  }
+}
+
+.hero-glass-card {
+  background: rgba(18, 24, 38, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.hero-glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 60px -12px rgba(56, 189, 248, 0.2);
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+.hero-btn-primary {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.hero-btn-primary:hover {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.5);
+  color: #fff;
+}
+
+.hero-btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.hero-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.hero-stat-box {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  padding: 0.85rem 1.25rem;
+  transition: all 0.2s ease;
+}
+
+.hero-stat-box:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+.transition-hover {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.transition-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* ============================================================
+   Futuristic Tech & Cyber Elements
+   ============================================================ */
+:root {
+  --tech-cyan: #38bdf8;
+  --tech-indigo: #818cf8;
+  --tech-purple: #c084fc;
+  --tech-emerald: #10b981;
+  --tech-card-bg: rgba(14, 23, 42, 0.78);
+  --tech-border: rgba(56, 189, 248, 0.15);
+}
+
+/* Cyber Grid Background */
+.tech-grid-bg {
+  background-image: 
+    linear-gradient(to right, rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Floating Ambient Orbs */
+@keyframes floatOrb1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -25px) scale(1.08); }
+}
+
+@keyframes floatOrb2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-35px, 20px) scale(0.92); }
+}
+
+.ambient-orb-1 {
+  animation: floatOrb1 12s ease-in-out infinite;
+}
+
+.ambient-orb-2 {
+  animation: floatOrb2 15s ease-in-out infinite;
+}
+
+/* Tech Glassmorphic Cards */
+.tech-card {
+  background: var(--tech-card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.25rem;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.tech-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--tech-cyan), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.tech-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(56, 189, 248, 0.38);
+  box-shadow: 0 20px 40px -15px rgba(56, 189, 248, 0.22), 0 0 25px rgba(56, 189, 248, 0.08);
+}
+
+.tech-card:hover::before {
+  opacity: 1;
+}
+
+/* Tech Icon Box with Neon Glow */
+.tech-icon-box {
+  width: 58px;
+  height: 58px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tech-icon-box::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 1.1rem;
+  background: inherit;
+  filter: blur(12px);
+  opacity: 0.4;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.tech-card:hover .tech-icon-box {
+  transform: scale(1.1) rotate(3deg);
+}
+
+.tech-card:hover .tech-icon-box::after {
+  opacity: 0.8;
+}
+
+/* Server Status LED Blinker */
+@keyframes serverLedBlink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.85); }
+}
+
+.server-led {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  animation: serverLedBlink 2s infinite ease-in-out;
+}
+
+.server-led.delay-1 { animation-delay: 0.4s; }
+.server-led.delay-2 { animation-delay: 0.8s; }
+.server-led.delay-3 { animation-delay: 1.2s; }
+
+/* Radar Sonar Pulse */
+@keyframes radarSweep {
+  0% { transform: scale(0.7); opacity: 0.8; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+.radar-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid rgba(56, 189, 248, 0.4);
+  animation: radarSweep 3s cubic-bezier(0.2, 0.8, 0.4, 1) infinite;
+  pointer-events: none;
+}
+
+.radar-ring.ring-2 { animation-delay: 1s; }
+.radar-ring.ring-3 { animation-delay: 2s; }
+
+/* Glowing Pill & Chips */
+.tech-pill-badge {
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  color: var(--tech-cyan);
+  padding: 0.35rem 0.9rem;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+/* Subtle Tech Scan Line */
+@keyframes scanLineMove {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(1000%); }
+}
+
+.scanline-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: linear-gradient(180deg, transparent, rgba(56, 189, 248, 0.08), transparent);
+  animation: scanLineMove 6s linear infinite;
+  pointer-events: none;
+}
+
+/* Animated Data Stream Line */
+@keyframes dataStreamFlow {
+  0% { background-position: 0 0; }
+  100% { background-position: 100% 0; }
+}
+
+.tech-divider-stream {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.5), rgba(129, 140, 248, 0.7), transparent);
+  background-size: 200% 100%;
+  animation: dataStreamFlow 4s linear infinite;
+}
+
+/* Blinking Cursor */
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: cursorBlink 0.9s infinite step-start;
+}
+

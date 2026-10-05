@@ -1,85 +1,218 @@
-﻿@model WebApplication1.Models.Siniflar.HesapNumaralarimiz
+@model WebApplication1.Models.Siniflar.HesapNumaralarimiz
 
 @{
     ViewData["Title"] = Model.AnaBaslik;
 }
 
-<div class="container my-5">
-    <!-- Üst Başlık ve Açıklama Alanı -->
-    <div class="row text-center mb-5">
-        <div class="col-lg-8 mx-auto">
-            <span class="badge bg-light text-primary px-3 py-2 rounded-pill fw-bold mb-3 shadow-sm">@Model.UstBaslik</span>
-            <h1 class="display-5 fw-bold text-dark mb-3">@Model.AnaBaslik</h1>
-            <p class="lead text-muted">@Model.Aciklama</p>
-        </div>
-    </div>
+<!-- ========== HERO BANNER - Canvas Animasyonlu ========== -->
+<section class="position-relative overflow-hidden text-white w-100" id="hesapHeroBanner" style="background:#050c1a; min-height:360px; display:flex; align-items:center;">
+    <canvas id="hesapCanvas" class="position-absolute w-100 h-100" style="top:0;left:0;z-index:0;"></canvas>
+    <div class="position-absolute w-100 h-100" style="top:0;left:0;z-index:1;background:linear-gradient(135deg,rgba(5,12,26,0.75) 0%,rgba(10,22,55,0.65) 60%,rgba(5,12,26,0.75) 100%);"></div>
+    <div class="position-absolute ambient-orb-1" style="top:-80px;right:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(56,189,248,0.2) 0%,transparent 70%);filter:blur(60px);z-index:1;pointer-events:none;"></div>
+    <div class="position-absolute ambient-orb-2" style="bottom:-80px;left:-80px;width:380px;height:380px;background:radial-gradient(circle,rgba(99,102,241,0.2) 0%,transparent 70%);filter:blur(55px);z-index:1;pointer-events:none;"></div>
 
-    <!-- Banka Kartları Alanı -->
-    <div class="row g-4 justify-content-center">
-        <!-- Ziraat Bankası Örneği -->
-        <div class="col-md-6 col-lg-5">
-            <div class="card border-0 shadow-lg rounded-4 h-100 overflow-hidden">
-                <div class="card-body p-4 p-md-5 d-flex flex-column justify-content-between">
-                    <div>
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <h3 class="fw-bold text-dark mb-0">Ziraat Bankası</h3>
-                            <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill">TL Hesabı</span>
-                        </div>
-                        <div class="mb-3">
-                            <span class="text-muted small d-block mb-1">Hesap Sahibi</span>
-                            <h5 class="fw-semibold text-dark">Hayat İşleri Yazılım Teknolojileri</h5>
-                        </div>
-                        <div class="mb-3">
-                            <span class="text-muted small d-block mb-1">Şube / Kod</span>
-                            <p class="text-dark fw-medium mb-0">Merkez Şube (1234)</p>
-                        </div>
-                        <div class="mb-4">
-                            <span class="text-muted small d-block mb-1">IBAN Numarası</span>
-                            <div class="p-3 bg-light rounded-3 font-monospace fw-bold text-dark user-select-all">
-                                TR93 0001 0001 2345 6789 0123 45
+    <div class="container position-relative text-center py-5" style="z-index:2;">
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill mb-4 shadow-sm" style="background:rgba(255,255,255,0.06);border:1px solid rgba(56,189,248,0.3);backdrop-filter:blur(12px);">
+            <span class="ref-pulse-dot"></span>
+            <span class="text-white small fw-bold text-uppercase" style="letter-spacing:2px;">
+                <i class="bi bi-wallet2 text-info me-1"></i> @Model.UstBaslik
+            </span>
+        </div>
+        <h1 class="display-4 fw-bold text-white mb-3" style="letter-spacing:-1.2px;">@Model.AnaBaslik</h1>
+        <p class="lead text-light text-opacity-75 mx-auto" style="max-width:650px; line-height: 1.75;">
+            @Model.Aciklama
+        </p>
+    </div>
+</section>
+
+<!-- Veri Akışı Ayracı -->
+<div class="tech-divider-stream opacity-40"></div>
+
+<!-- ========== BANKA KARTLARI ALANI ========== -->
+<div class="position-relative w-100 py-5 overflow-hidden" style="background: radial-gradient(circle at 50% 0%, #0a1329 0%, #050b17 100%);">
+    <div class="position-absolute w-100 h-100 tech-grid-bg" style="top:0;left:0;opacity:0.5;pointer-events:none;"></div>
+    <div class="position-absolute ambient-orb-1" style="top:20%;right:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(56,189,248,0.12) 0%,transparent 70%);filter:blur(60px);pointer-events:none;"></div>
+    <div class="position-absolute ambient-orb-2" style="bottom:10%;left:-80px;width:420px;height:420px;background:radial-gradient(circle,rgba(168,85,247,0.12) 0%,transparent 70%);filter:blur(60px);pointer-events:none;"></div>
+
+    <div class="container position-relative py-4" style="z-index:2;">
+        
+        <div class="row g-4 justify-content-center">
+            <!-- Ziraat Bankası -->
+            <div class="col-md-6 col-lg-5">
+                <div class="tech-card h-100 p-4 p-md-5 position-relative tech-tilt-card" style="border: 1px solid rgba(56,189,248,0.22); background: rgba(14, 23, 42, 0.88);">
+                    <div class="scanline-effect"></div>
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="tech-icon-box" style="background: rgba(239, 68, 68, 0.12); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.25); width: 48px; height: 48px;">
+                                <i class="bi bi-bank2 fs-4"></i>
                             </div>
+                            <h3 class="fw-bold text-white mb-0 fs-4">Ziraat Bankası</h3>
+                        </div>
+                        <span class="badge bg-success bg-opacity-20 text-success border border-success border-opacity-25 px-3 py-1.5 rounded-pill font-monospace small">
+                            <span class="server-led" style="background-color: #10b981; width: 6px; height: 6px;"></span> TL Hesabı
+                        </span>
+                    </div>
+
+                    <div class="mb-3">
+                        <span class="text-white-50 small d-block mb-1">Hesap Sahibi</span>
+                        <h5 class="fw-semibold text-white">Hayat İşleri Yazılım Teknolojileri</h5>
+                    </div>
+
+                    <div class="mb-3">
+                        <span class="text-white-50 small d-block mb-1">Şube / Kod</span>
+                        <p class="text-light fw-medium mb-0 font-monospace">Merkez Şube (1234)</p>
+                    </div>
+
+                    <div class="mb-2">
+                        <span class="text-white-50 small d-block mb-1">IBAN Numarası</span>
+                        <div class="p-3 rounded-3 font-monospace fw-bold text-info user-select-all d-flex align-items-center justify-content-between" style="background: rgba(0, 0, 0, 0.45); border: 1px solid rgba(56,189,248,0.2); font-size: 0.95rem;">
+                            <span>TR93 0001 0001 2345 6789 0123 45</span>
+                            <i class="bi bi-clipboard text-white-50 small"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Garanti BBVA -->
+            <div class="col-md-6 col-lg-5">
+                <div class="tech-card h-100 p-4 p-md-5 position-relative tech-tilt-card" style="border: 1px solid rgba(56,189,248,0.22); background: rgba(14, 23, 42, 0.88);">
+                    <div class="scanline-effect"></div>
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="tech-icon-box" style="background: rgba(16, 185, 129, 0.12); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.25); width: 48px; height: 48px;">
+                                <i class="bi bi-bank fs-4"></i>
+                            </div>
+                            <h3 class="fw-bold text-white mb-0 fs-4">Garanti BBVA</h3>
+                        </div>
+                        <span class="badge bg-success bg-opacity-20 text-success border border-success border-opacity-25 px-3 py-1.5 rounded-pill font-monospace small">
+                            <span class="server-led delay-1" style="background-color: #10b981; width: 6px; height: 6px;"></span> TL Hesabı
+                        </span>
+                    </div>
+
+                    <div class="mb-3">
+                        <span class="text-white-50 small d-block mb-1">Hesap Sahibi</span>
+                        <h5 class="fw-semibold text-white">Hayat İşleri Yazılım Teknolojileri</h5>
+                    </div>
+
+                    <div class="mb-3">
+                        <span class="text-white-50 small d-block mb-1">Şube / Kod</span>
+                        <p class="text-light fw-medium mb-0 font-monospace">Elazığ Şube (5678)</p>
+                    </div>
+
+                    <div class="mb-2">
+                        <span class="text-white-50 small d-block mb-1">IBAN Numarası</span>
+                        <div class="p-3 rounded-3 font-monospace fw-bold text-info user-select-all d-flex align-items-center justify-content-between" style="background: rgba(0, 0, 0, 0.45); border: 1px solid rgba(56,189,248,0.2); font-size: 0.95rem;">
+                            <span>TR62 0006 2001 1234 5678 9012 34</span>
+                            <i class="bi bi-clipboard text-white-50 small"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Garanti BBVA Örneği -->
-        <div class="col-md-6 col-lg-5">
-            <div class="card border-0 shadow-lg rounded-4 h-100 overflow-hidden">
-                <div class="card-body p-4 p-md-5 d-flex flex-column justify-content-between">
-                    <div>
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <h3 class="fw-bold text-dark mb-0">Garanti BBVA</h3>
-                            <span class="badge bg-danger bg-opacity-10 text-danger px-3 py-2 rounded-pill">TL Hesabı</span>
-                        </div>
-                        <div class="mb-3">
-                            <span class="text-muted small d-block mb-1">Hesap Sahibi</span>
-                            <h5 class="fw-semibold text-dark">Hayat İşleri Yazılım Teknolojileri</h5>
-                        </div>
-                        <div class="mb-3">
-                            <span class="text-muted small d-block mb-1">Şube / Kod</span>
-                            <p class="text-dark fw-medium mb-0">Elazığ Şube (5678)</p>
-                        </div>
-                        <div class="mb-4">
-                            <span class="text-muted small d-block mb-1">IBAN Numarası</span>
-                            <div class="p-3 bg-light rounded-3 font-monospace fw-bold text-dark user-select-all">
-                                TR62 0006 2001 1234 5678 9012 34
-                            </div>
-                        </div>
+        <!-- Bilgilendirme Kutusu -->
+        <div class="row mt-5">
+            <div class="col-lg-8 mx-auto text-center">
+                <div class="tech-card p-4 position-relative overflow-hidden" style="background: rgba(14, 23, 42, 0.7); border: 1px solid rgba(56, 189, 248, 0.2);">
+                    <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3 text-info" style="width: 44px; height: 44px; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.25);">
+                        <i class="bi bi-info-circle-fill fs-5"></i>
                     </div>
+                    <h5 class="fw-bold text-white mb-2" style="letter-spacing: -0.3px;">@Model.UyariBaslik</h5>
+                    <p class="text-light text-opacity-75 mb-0" style="line-height: 1.7; font-size: 0.92rem;">@Model.UyariMetni</p>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Bilgilendirme Kutusu (Ortalanmış ve Şık Mavi Tonlarında) -->
-    <div class="row mt-5">
-        <div class="col-lg-8 mx-auto text-center">
-            <div class="p-4 rounded-4 shadow-sm border border-primary border-opacity-10" style="background-color: #f0f4f8;">
-                <h5 class="fw-bold text-dark mb-2">@Model.UyariBaslik</h5>
-                <p class="text-muted mb-0">@Model.UyariMetni</p>
-            </div>
-        </div>
     </div>
 </div>
+
+@section Scripts {
+<script>
+(function () {
+    const canvas = document.getElementById('hesapCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const banner = document.getElementById('hesapHeroBanner');
+    function resize() { canvas.width = banner.offsetWidth; canvas.height = banner.offsetHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const mouse = { x: null, y: null, radius: 150 };
+    banner.addEventListener('mousemove', function(e) {
+        const rect = banner.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+    });
+    banner.addEventListener('mouseleave', function() {
+        mouse.x = null;
+        mouse.y = null;
+    });
+
+    const COUNT = 65, DIST = 135;
+    const clrs = ['#38bdf8','#818cf8','#c084fc','#67e8f9'];
+    const pts = Array.from({ length: COUNT }, () => ({
+        x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.55, vy: (Math.random() - 0.5) * 0.55,
+        r: Math.random() * 2.2 + 1, c: clrs[Math.floor(Math.random() * clrs.length)]
+    }));
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < pts.length; i++) {
+            for (let j = i + 1; j < pts.length; j++) {
+                const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
+                const d = Math.sqrt(dx*dx + dy*dy);
+                if (d < DIST) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(56,189,248,${(1-d/DIST)*0.35})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.moveTo(pts[i].x, pts[i].y);
+                    ctx.lineTo(pts[j].x, pts[j].y);
+                    ctx.stroke();
+                }
+            }
+
+            if (mouse.x !== null && mouse.y !== null) {
+                const mdx = pts[i].x - mouse.x;
+                const mdy = pts[i].y - mouse.y;
+                const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+                if (mdist < mouse.radius) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(129, 140, 248, ${(1 - mdist / mouse.radius) * 0.45})`;
+                    ctx.lineWidth = 1;
+                    ctx.moveTo(pts[i].x, pts[i].y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.stroke();
+                }
+            }
+        }
+        for (const p of pts) {
+            ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+            ctx.fillStyle = p.c; ctx.shadowBlur = 8; ctx.shadowColor = p.c;
+            ctx.fill(); ctx.shadowBlur = 0;
+            p.x += p.vx; p.y += p.vy;
+            if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+        }
+        requestAnimationFrame(draw);
+    }
+    draw();
+
+    // 3D Tilt
+    const tiltCards = document.querySelectorAll('.tech-tilt-card');
+    tiltCards.forEach(card => {
+        card.addEventListener('mouseenter', () => { card.style.transition = 'none'; });
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            card.style.transform = `perspective(1000px) rotateX(${-y * 5}deg) rotateY(${x * 5}deg) translateY(-4px)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transition = 'transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease';
+            card.style.transform = '';
+        });
+    });
+})();
+</script>
+}

@@ -1,93 +1,243 @@
-﻿@model WebApplication1.Models.Siniflar.Kurumsal.Hakkimizda
+@model WebApplication1.Models.Siniflar.Kurumsal.Hakkimizda
 @{
     ViewData["Title"] = Model.Baslik;
 }
 
-<!-- Sayfanın kenar boşluklarını sıfırlayıp ekranı tam kaplamasını sağlayan sarmal -->
-<div style="background-color: #f4f6f9; margin-top: -1.5rem; margin-bottom: -3rem; padding-top: 3rem; padding-bottom: 4rem; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
-    <div class="container">
-        
-        <!-- Üst Banner / Giriş Alanı -->
-        <div class="row align-items-center mb-5 bg-white p-4 p-lg-5 rounded-4 shadow-sm border border-light">
-            <div class="col-lg-6 mb-4 mb-lg-0">
-                <h1 class="fw-bold display-6 text-dark mb-3">@Model.Baslik</h1>
-                <p class="lead text-secondary" style="line-height: 1.8;">
+<!-- ========== HERO BANNER - Canvas Animasyonlu ========== -->
+<section class="position-relative overflow-hidden text-white w-100" id="hakkimizdaHeroBanner" style="background:#050c1a; min-height:420px; display:flex; align-items:center;">
+    <canvas id="hakkimizdaCanvas" class="position-absolute w-100 h-100" style="top:0;left:0;z-index:0;"></canvas>
+    <div class="position-absolute w-100 h-100" style="top:0;left:0;z-index:1;background:linear-gradient(135deg,rgba(5,12,26,0.75) 0%,rgba(10,22,55,0.65) 60%,rgba(5,12,26,0.75) 100%);"></div>
+    <div class="position-absolute ambient-orb-1" style="top:-80px;right:-80px;width:440px;height:440px;background:radial-gradient(circle,rgba(56,189,248,0.2) 0%,transparent 70%);filter:blur(60px);z-index:1;pointer-events:none;"></div>
+    <div class="position-absolute ambient-orb-2" style="bottom:-80px;left:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(99,102,241,0.2) 0%,transparent 70%);filter:blur(55px);z-index:1;pointer-events:none;"></div>
+
+    <div class="container position-relative py-5" style="z-index:2;">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7 text-start">
+                <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill mb-4 shadow-sm" style="background:rgba(255,255,255,0.06);border:1px solid rgba(56,189,248,0.3);backdrop-filter:blur(12px);">
+                    <span class="ref-pulse-dot"></span>
+                    <span class="text-white small fw-bold text-uppercase" style="letter-spacing:2px;">
+                        <i class="bi bi-buildings-fill text-info me-1"></i> Kurumsal Profil
+                    </span>
+                    <span class="badge bg-primary bg-opacity-75 rounded-pill px-2 py-1 ms-1 small" style="font-size: 0.72rem;">Elazığ &amp; Türkiye</span>
+                </div>
+                <h1 class="display-4 fw-bold text-white mb-3" style="letter-spacing:-1.2px;">@Model.Baslik</h1>
+                <p class="lead text-light text-opacity-80 fs-5 mb-0" style="line-height: 1.8; max-width: 620px;">
                     @Model.Aciklama
                 </p>
             </div>
-            <div class="col-lg-6">
-                <img src="@Model.GorselUrl" alt="Hayat İşleri Teknoloji" class="img-fluid rounded-4 shadow w-100" style="object-fit: cover; height: 350px;">
+            <div class="col-lg-5">
+                <div class="tech-card p-2 position-relative overflow-hidden shadow-lg tech-tilt-card" style="border: 1px solid rgba(56,189,248,0.25);">
+                    <div class="scanline-effect"></div>
+                    <img src="@Model.GorselUrl" alt="Hayat İşleri Teknoloji" class="img-fluid rounded-4 w-100" style="object-fit: cover; height: 320px;">
+                </div>
             </div>
         </div>
+    </div>
+</section>
 
-        <!-- Kurumsal Detaylar ve 6 Temel Alan Başlığı -->
+<!-- Veri Akışı Ayracı -->
+<div class="tech-divider-stream opacity-40"></div>
+
+<!-- ========== 6 TEMEL KURUMSAL KART ALANI ========== -->
+<div class="position-relative w-100 py-5 overflow-hidden" style="background: radial-gradient(circle at 50% 0%, #0a1329 0%, #050b17 100%);">
+    <div class="position-absolute w-100 h-100 tech-grid-bg" style="top:0;left:0;opacity:0.5;pointer-events:none;"></div>
+    <div class="position-absolute ambient-orb-1" style="top:25%;right:-70px;width:380px;height:380px;background:radial-gradient(circle,rgba(56,189,248,0.12) 0%,transparent 70%);filter:blur(60px);pointer-events:none;"></div>
+    <div class="position-absolute ambient-orb-2" style="bottom:15%;left:-70px;width:400px;height:400px;background:radial-gradient(circle,rgba(168,85,247,0.12) 0%,transparent 70%);filter:blur(60px);pointer-events:none;"></div>
+
+    <div class="container position-relative py-4" style="z-index:2;">
         <div class="text-center mb-5">
-            <h2 class="fw-bold text-dark">Kurumsal Yapımız ve İlkelerimiz</h2>
-            <hr class="w-25 mx-auto mt-3" style="background-color: #3b71ca; height: 3px; opacity: 1;">
+            <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill hero-badge mb-3 shadow-sm" style="border: 1px solid rgba(56, 189, 248, 0.25);">
+                <i class="bi bi-shield-check text-info small"></i>
+                <span class="text-info small fw-bold text-uppercase" style="letter-spacing:2px; font-size: 0.75rem;">STRATEJİK DEĞERLERİMİZ</span>
+            </div>
+            <h2 class="fw-bold text-white mb-3 display-6" style="letter-spacing: -0.5px;">Kurumsal Yapımız ve İlkelerimiz</h2>
+            <div class="mx-auto" style="width: 80px; height: 3px; background: linear-gradient(90deg, #38bdf8, #818cf8); border-radius: 99px;"></div>
         </div>
 
         <!-- 6 Kutucuk / Kart Alanı -->
         <div class="row g-4">
             <!-- 1. Hizmet Alanları -->
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm p-3 rounded-4 bg-white">
-                    <div class="card-body">
-                        <h4 class="card-title fw-bold mb-3 fs-5" style="color: #3b71ca;">Hizmet Alanlarımız</h4>
-                        <p class="card-text text-secondary">@Model.HizmetAlanlari</p>
+            <div class="col-md-6 col-lg-4">
+                <div class="tech-card h-100 p-4 position-relative tech-tilt-card" style="border: 1px solid rgba(255,255,255,0.08); background: rgba(14, 23, 42, 0.85);">
+                    <div class="scanline-effect"></div>
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div class="tech-icon-box" style="background: rgba(56, 189, 248, 0.12); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.25);">
+                            <i class="bi bi-grid-1x2-fill fs-4"></i>
+                        </div>
+                        <span class="server-led" style="background-color: #38bdf8;"></span>
                     </div>
+                    <h4 class="card-title fw-bold mb-3 fs-5 text-white" style="letter-spacing: -0.3px;">Hizmet Alanlarımız</h4>
+                    <p class="card-text text-light text-opacity-75" style="line-height: 1.7; font-size: 0.92rem;">@Model.HizmetAlanlari</p>
                 </div>
             </div>
 
             <!-- 2. Kurumsal Gücümüz -->
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm p-3 rounded-4 bg-white">
-                    <div class="card-body">
-                        <h4 class="card-title fw-bold mb-3 fs-5" style="color: #3b71ca;">Kurumsal Gücümüz</h4>
-                        <p class="card-text text-secondary">@Model.KurumsalGucumuz</p>
+            <div class="col-md-6 col-lg-4">
+                <div class="tech-card h-100 p-4 position-relative tech-tilt-card" style="border: 1px solid rgba(255,255,255,0.08); background: rgba(14, 23, 42, 0.85);">
+                    <div class="scanline-effect"></div>
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div class="tech-icon-box" style="background: rgba(129, 140, 248, 0.14); color: #818cf8; border: 1px solid rgba(129, 140, 248, 0.28);">
+                            <i class="bi bi-lightning-charge-fill fs-4"></i>
+                        </div>
+                        <span class="server-led delay-1" style="background-color: #818cf8;"></span>
                     </div>
+                    <h4 class="card-title fw-bold mb-3 fs-5 text-white" style="letter-spacing: -0.3px;">Kurumsal Gücümüz</h4>
+                    <p class="card-text text-light text-opacity-75" style="line-height: 1.7; font-size: 0.92rem;">@Model.KurumsalGucumuz</p>
                 </div>
             </div>
 
             <!-- 3. Çalışma İlkelerimiz -->
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm p-3 rounded-4 bg-white">
-                    <div class="card-body">
-                        <h4 class="card-title fw-bold mb-3 fs-5" style="color: #3b71ca;">Çalışma İlkelerimiz</h4>
-                        <p class="card-text text-secondary">@Model.CalismaIlkelerimiz</p>
+            <div class="col-md-6 col-lg-4">
+                <div class="tech-card h-100 p-4 position-relative tech-tilt-card" style="border: 1px solid rgba(255,255,255,0.08); background: rgba(14, 23, 42, 0.85);">
+                    <div class="scanline-effect"></div>
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div class="tech-icon-box" style="background: rgba(16, 185, 129, 0.12); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.25);">
+                            <i class="bi bi-shield-check fs-4"></i>
+                        </div>
+                        <span class="server-led delay-2" style="background-color: #10b981;"></span>
                     </div>
+                    <h4 class="card-title fw-bold mb-3 fs-5 text-white" style="letter-spacing: -0.3px;">Çalışma İlkelerimiz</h4>
+                    <p class="card-text text-light text-opacity-75" style="line-height: 1.7; font-size: 0.92rem;">@Model.CalismaIlkelerimiz</p>
                 </div>
             </div>
 
             <!-- 4. Vizyonumuz -->
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm p-3 rounded-4 bg-white">
-                    <div class="card-body">
-                        <h4 class="card-title fw-bold mb-3 fs-5" style="color: #3b71ca;">Vizyonumuz</h4>
-                        <p class="card-text text-secondary">@Model.Vizyonumuz</p>
+            <div class="col-md-6 col-lg-4">
+                <div class="tech-card h-100 p-4 position-relative tech-tilt-card" style="border: 1px solid rgba(255,255,255,0.08); background: rgba(14, 23, 42, 0.85);">
+                    <div class="scanline-effect"></div>
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div class="tech-icon-box" style="background: rgba(245, 158, 11, 0.12); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.25);">
+                            <i class="bi bi-eye-fill fs-4"></i>
+                        </div>
+                        <span class="server-led delay-3" style="background-color: #f59e0b;"></span>
                     </div>
+                    <h4 class="card-title fw-bold mb-3 fs-5 text-white" style="letter-spacing: -0.3px;">Vizyonumuz</h4>
+                    <p class="card-text text-light text-opacity-75" style="line-height: 1.7; font-size: 0.92rem;">@Model.Vizyonumuz</p>
                 </div>
             </div>
 
             <!-- 5. Misyonumuz -->
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm p-3 rounded-4 bg-white">
-                    <div class="card-body">
-                        <h4 class="card-title fw-bold mb-3 fs-5" style="color: #3b71ca;">Misyonumuz</h4>
-                        <p class="card-text text-secondary">@Model.Misyonumuz</p>
+            <div class="col-md-6 col-lg-4">
+                <div class="tech-card h-100 p-4 position-relative tech-tilt-card" style="border: 1px solid rgba(255,255,255,0.08); background: rgba(14, 23, 42, 0.85);">
+                    <div class="scanline-effect"></div>
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div class="tech-icon-box" style="background: rgba(192, 132, 252, 0.14); color: #c084fc; border: 1px solid rgba(192, 132, 252, 0.28);">
+                            <i class="bi bi-compass-fill fs-4"></i>
+                        </div>
+                        <span class="server-led" style="background-color: #c084fc;"></span>
                     </div>
+                    <h4 class="card-title fw-bold mb-3 fs-5 text-white" style="letter-spacing: -0.3px;">Misyonumuz</h4>
+                    <p class="card-text text-light text-opacity-75" style="line-height: 1.7; font-size: 0.92rem;">@Model.Misyonumuz</p>
                 </div>
             </div>
 
             <!-- 6. Önceliklerimiz -->
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm p-3 rounded-4 bg-white">
-                    <div class="card-body">
-                        <h4 class="card-title fw-bold mb-3 fs-5" style="color: #3b71ca;">Önceliklerimiz</h4>
-                        <p class="card-text text-secondary">@Model.Onceliklerimiz</p>
+            <div class="col-md-6 col-lg-4">
+                <div class="tech-card h-100 p-4 position-relative tech-tilt-card" style="border: 1px solid rgba(255,255,255,0.08); background: rgba(14, 23, 42, 0.85);">
+                    <div class="scanline-effect"></div>
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div class="tech-icon-box" style="background: rgba(239, 68, 68, 0.12); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.25);">
+                            <i class="bi bi-bullseye fs-4"></i>
+                        </div>
+                        <span class="server-led delay-1" style="background-color: #ef4444;"></span>
                     </div>
+                    <h4 class="card-title fw-bold mb-3 fs-5 text-white" style="letter-spacing: -0.3px;">Önceliklerimiz</h4>
+                    <p class="card-text text-light text-opacity-75" style="line-height: 1.7; font-size: 0.92rem;">@Model.Onceliklerimiz</p>
                 </div>
             </div>
         </div>
 
     </div>
 </div>
+
+@section Scripts {
+<script>
+(function () {
+    const canvas = document.getElementById('hakkimizdaCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const banner = document.getElementById('hakkimizdaHeroBanner');
+    function resize() { canvas.width = banner.offsetWidth; canvas.height = banner.offsetHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const mouse = { x: null, y: null, radius: 150 };
+    banner.addEventListener('mousemove', function(e) {
+        const rect = banner.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+    });
+    banner.addEventListener('mouseleave', function() {
+        mouse.x = null;
+        mouse.y = null;
+    });
+
+    const COUNT = 70, DIST = 135;
+    const clrs = ['#38bdf8','#818cf8','#c084fc','#67e8f9'];
+    const pts = Array.from({ length: COUNT }, () => ({
+        x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.55, vy: (Math.random() - 0.5) * 0.55,
+        r: Math.random() * 2.2 + 1, c: clrs[Math.floor(Math.random() * clrs.length)]
+    }));
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < pts.length; i++) {
+            for (let j = i + 1; j < pts.length; j++) {
+                const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
+                const d = Math.sqrt(dx*dx + dy*dy);
+                if (d < DIST) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(56,189,248,${(1-d/DIST)*0.35})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.moveTo(pts[i].x, pts[i].y);
+                    ctx.lineTo(pts[j].x, pts[j].y);
+                    ctx.stroke();
+                }
+            }
+
+            if (mouse.x !== null && mouse.y !== null) {
+                const mdx = pts[i].x - mouse.x;
+                const mdy = pts[i].y - mouse.y;
+                const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+                if (mdist < mouse.radius) {
+                    const mAlpha = (1 - mdist / mouse.radius) * 0.45;
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(129, 140, 248, ${mAlpha})`;
+                    ctx.lineWidth = 1;
+                    ctx.moveTo(pts[i].x, pts[i].y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.stroke();
+                }
+            }
+        }
+        for (const p of pts) {
+            ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+            ctx.fillStyle = p.c; ctx.shadowBlur = 8; ctx.shadowColor = p.c;
+            ctx.fill(); ctx.shadowBlur = 0;
+            p.x += p.vx; p.y += p.vy;
+            if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+        }
+        requestAnimationFrame(draw);
+    }
+    draw();
+
+    // 3D Tilt
+    const tiltCards = document.querySelectorAll('.tech-tilt-card');
+    tiltCards.forEach(card => {
+        card.addEventListener('mouseenter', () => { card.style.transition = 'none'; });
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            card.style.transform = `perspective(1000px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg) translateY(-6px)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transition = 'transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease';
+            card.style.transform = '';
+        });
+    });
+})();
+</script>
+}

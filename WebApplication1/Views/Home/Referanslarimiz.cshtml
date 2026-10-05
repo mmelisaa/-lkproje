@@ -1,76 +1,264 @@
-﻿@model IEnumerable<WebApplication1.Models.Siniflar.ReferansProje>
+@model IEnumerable<WebApplication1.Models.Siniflar.ReferansProje>
 
 @{
     ViewData["Title"] = "Referanslarımız ve Projelerimiz";
 }
 
-<!-- Üst Başlık Bölümü (Hero Section) -->
-<div class="container py-5 text-center">
-    <span class="text-primary fw-semibold text-uppercase small" style="letter-spacing: 2px;">BAŞARI HİKÂYELERİMİZ</span>
-    <h1 class="display-5 fw-bold text-dark mt-2 mb-3" style="letter-spacing: -1px;">Projelerimiz ve Referanslarımız</h1>
-    <p class="text-muted mx-auto lead" style="max-width: 650px; font-size: 1.05rem;">
-        Hayat İşleri olarak geliştirdiğimiz özel yazılımlar, kurumsal web tasarımları ve e-ticaret çözümleriyle iş ortaklarımızın dijital dönüşümüne değer katıyoruz.
-    </p>
-</div>
+<!-- ========== HERO BANNER - Canvas Animasyonlu ========== -->
+<section class="position-relative overflow-hidden text-white w-100" id="refHeroBanner" style="background:#050c1a; min-height:380px; display:flex; align-items:center;">
+    <canvas id="refCanvas" class="position-absolute w-100 h-100" style="top:0;left:0;z-index:0;"></canvas>
+    <div class="position-absolute w-100 h-100" style="top:0;left:0;z-index:1;background:linear-gradient(135deg,rgba(5,12,26,0.75) 0%,rgba(10,22,55,0.65) 60%,rgba(5,12,26,0.75) 100%);"></div>
+    <div class="position-absolute ambient-orb-1" style="top:-80px;right:-80px;width:420px;height:420px;background:radial-gradient(circle,rgba(56,189,248,0.2) 0%,transparent 70%);filter:blur(60px);z-index:1;pointer-events:none;"></div>
+    <div class="position-absolute ambient-orb-2" style="bottom:-80px;left:-80px;width:380px;height:380px;background:radial-gradient(circle,rgba(99,102,241,0.2) 0%,transparent 70%);filter:blur(55px);z-index:1;pointer-events:none;"></div>
 
-<!-- Portfolyo Kartları Gridi -->
-<div class="container pb-5 mb-5">
-    <div class="row g-4">
-        @foreach (var proje in Model)
-        {
-            <div class="col-md-6 col-lg-6">
-                <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100 transition-card" style="background-color: #fbfbfd; border: 1px solid rgba(0,0,0,0.04) !important;">
-                    <div class="position-relative overflow-hidden" style="height: 280px;">
-                        <img src="@proje.GorselUrl" class="w-100 h-100 object-fit-cover hover-zoom" alt="@proje.Baslik" />
-                        <span class="position-absolute top-0 end-0 m-3 badge bg-white text-dark shadow-sm px-3 py-2 rounded-pill fw-medium" style="font-size: 0.75rem;">
-                            @proje.Kategori
-                        </span>
-                    </div>
-                    <div class="card-body p-4 d-flex flex-column justify-content-between">
-                        <div>
-                            <h3 class="h4 fw-bold text-dark mb-2" style="letter-spacing: -0.5px;">@proje.Baslik</h3>
-                            <p class="text-muted small mb-4" style="line-height: 1.6;">@proje.Aciklama</p>
-                        </div>
-                        <div>
-                            <div class="d-flex flex-wrap gap-1 mb-3">
-                                @foreach (var etiket in proje.Etiketler.Split(','))
-                                {
-                                    <span class="badge bg-light text-secondary border px-2.5 py-1 rounded-2" style="font-size: 11px;">@etiket.Trim()</span>
-                                }
+    <div class="container position-relative text-center py-5" style="z-index:2;">
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill mb-4 shadow-sm" style="background:rgba(255,255,255,0.06);border:1px solid rgba(56,189,248,0.3);backdrop-filter:blur(12px);">
+            <span class="ref-pulse-dot"></span>
+            <span class="text-white small fw-bold text-uppercase" style="letter-spacing:2px;">
+                <i class="bi bi-stars text-warning me-1"></i> Başarı Hikâyelerimiz
+            </span>
+        </div>
+        <h1 class="display-4 fw-bold text-white mb-3" style="letter-spacing:-1.2px;">Projelerimiz &amp; <span class="ref-gradient-text">Referanslarımız</span></h1>
+        <p class="lead text-light text-opacity-75 mx-auto" style="max-width:650px;">
+            Hayat İşleri olarak geliştirdiğimiz özel yazılımlar, kurumsal web tasarımları ve e-ticaret çözümleriyle iş ortaklarımızın dijital dönüşümüne değer katıyoruz.
+        </p>
+        <div class="d-flex justify-content-center flex-wrap gap-4 mt-5 pt-3 border-top border-white border-opacity-10">
+            <div class="text-center px-3">
+                <div class="h3 fw-bold text-white mb-0 font-monospace">50+</div>
+                <div class="text-white-50 small">Tamamlanan Proje</div>
+            </div>
+            <div class="border-start border-white border-opacity-10 ps-4 pe-3 text-center">
+                <div class="h3 fw-bold text-info mb-0 font-monospace">%100</div>
+                <div class="text-white-50 small">Müşteri Memnuniyeti</div>
+            </div>
+            <div class="border-start border-white border-opacity-10 ps-4 pe-3 text-center">
+                <div class="h3 fw-bold text-success mb-0 font-monospace">7/24</div>
+                <div class="text-white-50 small">Destek</div>
+            </div>
+            <div class="border-start border-white border-opacity-10 ps-4 pe-3 text-center">
+                <div class="h3 fw-bold text-warning mb-0 font-monospace">10+</div>
+                <div class="text-white-50 small">Sektör Deneyimi</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Veri Akışı Ayracı -->
+<div class="tech-divider-stream opacity-40"></div>
+
+<!-- ========== PORTFOLYO KARTLARI ========== -->
+<div class="position-relative w-100 py-5 overflow-hidden" style="background: radial-gradient(circle at 50% 0%, #0a1329 0%, #050b17 100%);">
+    <!-- Siber Izgara -->
+    <div class="position-absolute w-100 h-100 tech-grid-bg" style="top:0;left:0;opacity:0.5;pointer-events:none;"></div>
+    <div class="position-absolute ambient-orb-1" style="top:30%;right:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(56,189,248,0.12) 0%,transparent 70%);filter:blur(60px);pointer-events:none;"></div>
+    <div class="position-absolute ambient-orb-2" style="bottom:20%;left:-80px;width:420px;height:420px;background:radial-gradient(circle,rgba(168,85,247,0.12) 0%,transparent 70%);filter:blur(60px);pointer-events:none;"></div>
+
+    <div class="container position-relative py-4" style="z-index:2;">
+        <div class="text-center mb-5">
+            <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill hero-badge mb-2 shadow-sm" style="border: 1px solid rgba(56, 189, 248, 0.25);">
+                <i class="bi bi-collection-fill text-info small"></i>
+                <span class="text-info small fw-bold text-uppercase" style="letter-spacing:2px; font-size: 0.75rem;">Tüm Projeler</span>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            @foreach (var proje in Model)
+            {
+                <div class="col-md-6 col-lg-6">
+                    <div class="tech-card h-100 overflow-hidden position-relative tech-tilt-card" style="border: 1px solid rgba(255,255,255,0.08); background: rgba(14, 23, 42, 0.88);">
+                        <div class="scanline-effect"></div>
+
+                        <!-- Görsel -->
+                        <div class="ref-card-img-wrap position-relative overflow-hidden" style="height:270px;">
+                            <img src="@proje.GorselUrl" class="ref-card-img w-100 h-100 object-fit-cover" alt="@proje.Baslik" />
+                            <div class="position-absolute w-100 h-100" style="top:0;left:0;background:linear-gradient(180deg, rgba(5,12,26,0.3) 0%, rgba(14,23,42,0.95) 100%);"></div>
+                            
+                            <span class="position-absolute top-0 start-0 m-3 badge rounded-pill fw-semibold px-3 py-2 d-inline-flex align-items-center gap-1.5" style="background:rgba(10,22,55,0.85);color:#38bdf8;font-size:0.75rem;backdrop-filter:blur(10px);border:1px solid rgba(56,189,248,0.35);">
+                                <span class="server-led" style="background-color: #38bdf8; width: 6px; height: 6px;"></span>
+                                <i class="bi bi-tag-fill me-1"></i>@proje.Kategori
+                            </span>
+
+                            <div class="ref-card-overlay position-absolute w-100 h-100 d-flex align-items-center justify-content-center flex-column gap-2" style="top:0;left:0;">
+                                <span class="text-white fw-bold fs-5">Projeyi İncele</span>
+                                <a href="#" class="btn btn-info btn-sm rounded-pill px-4 fw-semibold text-white shadow" style="background: linear-gradient(135deg, #0284c7, #38bdf8); border: none;">
+                                    <i class="bi bi-arrow-right me-1"></i> Detaylar
+                                </a>
                             </div>
-                            <a href="#" class="btn btn-outline-dark btn-sm rounded-pill px-4 fw-medium w-100 py-2">Projeyi İncele <i class="bi bi-arrow-right ms-1"></i></a>
                         </div>
+
+                        <!-- Gövde -->
+                        <div class="card-body p-4 d-flex flex-column justify-content-between" style="min-height:190px;">
+                            <div>
+                                <h3 class="h5 fw-bold text-white mb-2" style="letter-spacing:-0.4px;">@proje.Baslik</h3>
+                                <p class="text-light text-opacity-75 mb-3" style="font-size:0.92rem;line-height:1.7;">@proje.Aciklama</p>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 pt-2 border-top border-white border-opacity-10">
+                                <div class="d-flex flex-wrap gap-1.5">
+                                    @foreach (var etiket in proje.Etiketler.Split(','))
+                                    {
+                                        <span class="badge rounded-pill px-2.5 py-1 font-monospace" style="background:rgba(56,189,248,0.08);color:#38bdf8;border:1px solid rgba(56,189,248,0.22);font-size:0.72rem;">@etiket.Trim()</span>
+                                    }
+                                </div>
+                                <a href="#" class="btn btn-sm rounded-pill fw-semibold px-3 py-1 ref-btn-outline d-inline-flex align-items-center gap-1">
+                                    <i class="bi bi-box-arrow-up-right me-1"></i>İncele
+                                </a>
+                            </div>
+                        </div>
+                        <div style="height:2px;background:linear-gradient(90deg,#38bdf8,#818cf8,#c084fc);"></div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- ========== CALL TO ACTION ========== -->
+        <div class="mt-5 pt-4">
+            <div class="tech-card p-5 text-center text-white position-relative overflow-hidden tech-tilt-card" style="background:linear-gradient(135deg,#071126 0%,#0f214d 50%,#071126 100%); border: 1px solid rgba(56,189,248,0.25);">
+                <div class="scanline-effect"></div>
+                <div class="position-absolute" style="top:-80px;right:-60px;width:340px;height:340px;background:radial-gradient(circle,rgba(56,189,248,0.2) 0%,transparent 70%);filter:blur(50px);pointer-events:none;"></div>
+                <div class="position-absolute" style="bottom:-80px;left:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(99,102,241,0.2) 0%,transparent 70%);filter:blur(45px);pointer-events:none;"></div>
+                
+                <div class="position-relative" style="z-index:2;">
+                    <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill mb-4" style="background:rgba(255,255,255,0.06);border:1px solid rgba(56,189,248,0.3);">
+                        <i class="bi bi-lightning-charge-fill text-warning"></i>
+                        <span class="text-white small fw-bold text-uppercase" style="letter-spacing:1.5px;">Bir Sonraki Proje Sizin</span>
+                    </div>
+                    <h3 class="fw-bold mb-3 display-6" style="letter-spacing:-0.5px;">Sizin Projenizi de <span class="ref-gradient-text">Hayata Geçirelim</span></h3>
+                    <p class="text-light text-opacity-75 mb-4 mx-auto" style="max-width:560px; line-height: 1.75;">
+                        İşletmenizi dijital dünyada bir adım öne taşıyacak özel yazılım veya web tasarım çözümleri için ekibimizle hemen tanışın.
+                    </p>
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+                        <a asp-controller="Home" asp-action="TeklifAl" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow-lg hero-btn-primary d-inline-flex align-items-center gap-2 text-decoration-none">
+                            <i class="bi bi-lightning-charge-fill text-warning"></i>
+                            <span>Hemen Teklif Alın</span>
+                        </a>
+                        <a asp-controller="Home" asp-action="Contact" class="btn btn-outline-light btn-lg rounded-pill px-5 py-3 fw-semibold hero-btn-secondary d-inline-flex align-items-center gap-2 text-decoration-none">
+                            <i class="bi bi-telephone"></i>
+                            <span>İletişime Geçin</span>
+                        </a>
                     </div>
                 </div>
             </div>
-        }
-    </div>
-
-    <!-- Alt Çağrı Alanı (Call to Action) -->
-    <div class="mt-5 p-5 rounded-5 text-center text-white position-relative overflow-hidden shadow-lg" style="background: linear-gradient(135deg, #1d1d1f 0%, #08090c 100%);">
-        <div class="position-relative z-1 py-3">
-            <h3 class="fw-bold mb-3" style="letter-spacing: -0.5px;">Sizin Projenizi de Hayata Geçirelim</h3>
-            <p class="text-muted mb-4 mx-auto" style="max-width: 550px; font-size: 0.95rem;">
-                İşletmenizi dijital dünyada bir adım öne taşıyacak özel yazılım veya web tasarım çözümleri için ekibimizle hemen tanışın.
-            </p>
-            <a href="#" class="btn btn-primary px-4 py-2.5 rounded-pill fw-medium shadow-sm">Teklif Alın <i class="bi bi-arrow-right ms-1"></i></a>
         </div>
     </div>
 </div>
 
 <style>
-    /* Hafif hover efektleri */
-    .transition-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .ref-gradient-text {
+        background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
     }
-    .transition-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 1rem 3rem rgba(0,0,0,.08) !important;
+    .ref-pulse-dot {
+        width: 9px; height: 9px;
+        background-color: #38bdf8;
+        border-radius: 50%;
+        display: inline-block;
+        box-shadow: 0 0 0 0 rgba(56,189,248,0.7);
+        animation: refPulse 2s infinite;
     }
-    .hover-zoom {
-        transition: transform 0.5s ease;
+    @@keyframes refPulse {
+        0%   { box-shadow: 0 0 0 0 rgba(56,189,248,0.7); }
+        70%  { box-shadow: 0 0 0 10px rgba(56,189,248,0); }
+        100% { box-shadow: 0 0 0 0 rgba(56,189,248,0); }
     }
-    .transition-card:hover .hover-zoom {
-        transform: scale(1.05);
-    }
+    .ref-card-img { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+    .tech-card:hover .ref-card-img { transform: scale(1.08); }
+    .ref-card-overlay { background: rgba(5,12,26,0.75); opacity: 0; transition: opacity 0.35s ease; backdrop-filter: blur(4px); }
+    .tech-card:hover .ref-card-overlay { opacity: 1; }
+    .ref-btn-outline { color: #38bdf8; border: 1px solid rgba(56,189,248,0.4); background: rgba(56,189,248,0.08); transition: all 0.25s ease; }
+    .ref-btn-outline:hover { background: rgba(56,189,248,0.2); border-color: #38bdf8; color: #fff; transform: translateY(-2px); }
 </style>
+
+@section Scripts {
+<script>
+(function () {
+    const canvas = document.getElementById('refCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const banner = document.getElementById('refHeroBanner');
+    function resize() { canvas.width = banner.offsetWidth; canvas.height = banner.offsetHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const mouse = { x: null, y: null, radius: 150 };
+    banner.addEventListener('mousemove', function(e) {
+        const rect = banner.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+    });
+    banner.addEventListener('mouseleave', function() {
+        mouse.x = null;
+        mouse.y = null;
+    });
+
+    const COUNT = 75, DIST = 135;
+    const clrs = ['#38bdf8','#818cf8','#c084fc','#67e8f9'];
+    const pts = Array.from({ length: COUNT }, () => ({
+        x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.6, vy: (Math.random() - 0.5) * 0.6,
+        r: Math.random() * 2.2 + 1, c: clrs[Math.floor(Math.random() * clrs.length)]
+    }));
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < pts.length; i++) {
+            for (let j = i + 1; j < pts.length; j++) {
+                const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
+                const d = Math.sqrt(dx*dx + dy*dy);
+                if (d < DIST) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(56,189,248,${(1-d/DIST)*0.35})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.moveTo(pts[i].x, pts[i].y);
+                    ctx.lineTo(pts[j].x, pts[j].y);
+                    ctx.stroke();
+                }
+            }
+
+            if (mouse.x !== null && mouse.y !== null) {
+                const mdx = pts[i].x - mouse.x;
+                const mdy = pts[i].y - mouse.y;
+                const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+                if (mdist < mouse.radius) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(129, 140, 248, ${(1 - mdist / mouse.radius) * 0.45})`;
+                    ctx.lineWidth = 1;
+                    ctx.moveTo(pts[i].x, pts[i].y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.stroke();
+                }
+            }
+        }
+        for (const p of pts) {
+            ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+            ctx.fillStyle = p.c; ctx.shadowBlur = 8; ctx.shadowColor = p.c;
+            ctx.fill(); ctx.shadowBlur = 0;
+            p.x += p.vx; p.y += p.vy;
+            if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+        }
+        requestAnimationFrame(draw);
+    }
+    draw();
+
+    // 3D Tilt
+    const tiltCards = document.querySelectorAll('.tech-tilt-card');
+    tiltCards.forEach(card => {
+        card.addEventListener('mouseenter', () => { card.style.transition = 'none'; });
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            card.style.transform = `perspective(1000px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg) translateY(-6px)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transition = 'transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease';
+            card.style.transform = '';
+        });
+    });
+})();
+</script>
+}
+
+

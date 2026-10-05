@@ -1,106 +1,264 @@
-﻿@{
+@{
     ViewData["Title"] = "Blog & Duyurular";
 }
 
-<div class="container py-5">
-    <!-- Başlık (Sitenin genel tasarımıyla tam uyumlu, net okunan renk tonu) -->
-    <div class="text-center mb-5">
-        <h1 class="fw-bold display-6 mb-2" style="color: #E0E6ED !important;">Teknoloji ve Yazılım Blogumuz</h1>
-        <p class="fs-6 mb-0" style="color: #94A3B8 !important;">Yazılım dünyasındaki son trendler, web geliştirme ipuçları ve dijital çözümler üzerine güncel içerikler.</p>
+<!-- ========== HERO BANNER - Canvas Animasyonlu ========== -->
+<section class="position-relative overflow-hidden text-white" id="blogHeroBanner" style="background:#050c1a; min-height:320px; display:flex; align-items:center; margin-bottom:0;">
+    <canvas id="blogCanvas" class="position-absolute w-100 h-100" style="top:0;left:0;z-index:0;"></canvas>
+    <div class="position-absolute w-100 h-100" style="top:0;left:0;z-index:1;background:linear-gradient(135deg,rgba(5,12,26,0.72) 0%,rgba(10,22,55,0.62) 60%,rgba(5,12,26,0.72) 100%);"></div>
+    <div class="position-absolute" style="top:-60px;right:-60px;width:340px;height:340px;background:radial-gradient(circle,rgba(56,189,248,0.18) 0%,transparent 70%);filter:blur(50px);z-index:1;pointer-events:none;"></div>
+    <div class="position-absolute" style="bottom:-60px;left:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(192,132,252,0.16) 0%,transparent 70%);filter:blur(45px);z-index:1;pointer-events:none;"></div>
+
+    <div class="container position-relative text-center py-5" style="z-index:2;">
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill mb-3" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);backdrop-filter:blur(12px);">
+            <span class="blog-pulse-dot"></span>
+            <span class="text-white small fw-bold text-uppercase" style="letter-spacing:2px;">
+                <i class="bi bi-rss-fill text-warning me-1"></i> Güncel İçerikler
+            </span>
+        </div>
+        <h1 class="display-4 fw-bold mb-3 text-white" style="letter-spacing:-1.2px;">
+            Teknoloji ve Yazılım Blogumuz
+        </h1>
+        <p class="lead text-light text-opacity-75 mx-auto" style="max-width:600px;">
+            Yazılım dünyasındaki son trendler, web geliştirme ipuçları ve dijital çözümler üzerine güncel içerikler.
+        </p>
     </div>
+</section>
 
-    <!-- Blog Kartları (Gerçekçi ve İlgili Fotoğraflarla) -->
-    <div class="row g-4">
-        
-        <!-- Blog 1 -->
-        <div class="col-md-4">
-            <div class="card h-100 border-0 rounded-4 shadow-sm overflow-hidden" style="background-color: #12141c; border: 1px solid rgba(255,255,255,0.08) !important;">
-                <div style="height: 190px; overflow: hidden;">
-                    <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80" alt="UI/UX Tasarım" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9;">
-                </div>
-                <div class="card-body p-4">
-                    <span class="badge bg-primary bg-opacity-10 text-primary mb-3 px-3 py-2 rounded-pill small">Web Tasarım</span>
-                    <h5 class="card-title text-white fw-bold mb-3 fs-5">Kurumsal Web Sitesinde UI/UX Trendleri 2026</h5>
-                    <p class="card-text text-muted small mb-4">Kullanıcı deneyimini artıran modern arayüz tasarımları ve şirketinizin dijital yüzünü güçlendirecek ipuçları.</p>
-                    <a href="#" class="text-info text-decoration-none small fw-semibold d-flex align-items-center gap-1">Devamını Oku <i class="bi bi-arrow-right"></i></a>
-                </div>
-            </div>
+<!-- ========== BLOG KARTLARI ========== -->
+<div style="background:#0b1120; padding-bottom:5rem;">
+    <div class="container py-5">
+
+        <!-- Üst Ayraç -->
+        <div class="d-flex align-items-center gap-3 mb-5">
+            <div style="height:2px;flex:1;background:linear-gradient(90deg,transparent,rgba(56,189,248,0.3));"></div>
+            <span class="text-white-50 small text-uppercase fw-semibold" style="letter-spacing:2px;">Tüm Yazılar</span>
+            <div style="height:2px;flex:1;background:linear-gradient(90deg,rgba(56,189,248,0.3),transparent);"></div>
         </div>
 
-        <!-- Blog 2 -->
-        <div class="col-md-4">
-            <div class="card h-100 border-0 rounded-4 shadow-sm overflow-hidden" style="background-color: #12141c; border: 1px solid rgba(255,255,255,0.08) !important;">
-                <div style="height: 190px; overflow: hidden;">
-                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80" alt="Yazılım Geliştirme" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9;">
-                </div>
-                <div class="card-body p-4">
-                    <span class="badge bg-success bg-opacity-10 text-success mb-3 px-3 py-2 rounded-pill small">Yazılım Çözümleri</span>
-                    <h5 class="card-title text-white fw-bold mb-3 fs-5">Özel Yazılım Geliştirme Neden Şart?</h5>
-                    <p class="card-text text-muted small mb-4">Hazır paket programlar yerine şirketinize özel yazılımların iş süreçlerinize sağladığı hız ve esneklik.</p>
-                    <a href="#" class="text-info text-decoration-none small fw-semibold d-flex align-items-center gap-1">Devamını Oku <i class="bi bi-arrow-right"></i></a>
+        <div class="row g-4">
+
+            <!-- Blog 1 -->
+            <div class="col-md-4">
+                <div class="blog-card rounded-4 overflow-hidden h-100 position-relative" style="background:#12192e;border:1px solid rgba(56,189,248,0.1);">
+                    <div class="blog-card-img-wrap position-relative overflow-hidden" style="height:200px;">
+                        <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80" alt="UI/UX Tasarım" class="blog-card-img w-100 h-100 object-fit-cover">
+                        <div class="blog-card-overlay position-absolute w-100 h-100" style="top:0;left:0;background:linear-gradient(180deg,transparent 40%,rgba(5,12,26,0.85) 100%);"></div>
+                        <span class="position-absolute top-0 start-0 m-3 badge rounded-pill px-3 py-2 fw-semibold" style="background:rgba(37,99,235,0.85);color:#fff;font-size:0.72rem;backdrop-filter:blur(6px);">
+                            <i class="bi bi-palette2 me-1"></i>Web Tasarım
+                        </span>
+                        <span class="position-absolute bottom-0 end-0 m-3 text-white-50" style="font-size:0.72rem;"><i class="bi bi-clock me-1"></i>5 dk okuma</span>
+                    </div>
+                    <div class="p-4 d-flex flex-column" style="flex:1;">
+                        <h5 class="fw-bold mb-2" style="color:#e2eaff;letter-spacing:-0.3px;line-height:1.4;">Kurumsal Web Sitesinde UI/UX Trendleri 2026</h5>
+                        <p class="mb-4" style="color:#6b7fa3;font-size:0.88rem;line-height:1.7;">Kullanıcı deneyimini artıran modern arayüz tasarımları ve şirketinizin dijital yüzünü güçlendirecek ipuçları.</p>
+                        <a href="#" class="blog-read-more mt-auto d-inline-flex align-items-center gap-2 fw-semibold" style="font-size:0.88rem;">Devamını Oku <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                    <div style="height:2px;background:linear-gradient(90deg,#38bdf8,#818cf8);"></div>
                 </div>
             </div>
-        </div>
 
-        <!-- Blog 3 -->
-        <div class="col-md-4">
-            <div class="card h-100 border-0 rounded-4 shadow-sm overflow-hidden" style="background-color: #12141c; border: 1px solid rgba(255,255,255,0.08) !important;">
-                <div style="height: 190px; overflow: hidden;">
-                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=600&q=80" alt="API ve Ödeme Sistemleri" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9;">
-                </div>
-                <div class="card-body p-4">
-                    <span class="badge bg-warning bg-opacity-10 text-warning mb-3 px-3 py-2 rounded-pill small">API Entegrasyonu</span>
-                    <h5 class="card-title text-white fw-bold mb-3 fs-5">E-Ticarette Ödeme Sistemleri ve API Güvenliği</h5>
-                    <p class="card-text text-muted small mb-4">Güvenli ödeme altyapıları kurarken dikkat edilmesi gerekenler ve kusursuz API entegrasyon süreçleri.</p>
-                    <a href="#" class="text-info text-decoration-none small fw-semibold d-flex align-items-center gap-1">Devamını Oku <i class="bi bi-arrow-right"></i></a>
+            <!-- Blog 2 -->
+            <div class="col-md-4">
+                <div class="blog-card rounded-4 overflow-hidden h-100 position-relative" style="background:#12192e;border:1px solid rgba(129,140,248,0.1);">
+                    <div class="blog-card-img-wrap position-relative overflow-hidden" style="height:200px;">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80" alt="Yazılım Geliştirme" class="blog-card-img w-100 h-100 object-fit-cover">
+                        <div class="blog-card-overlay position-absolute w-100 h-100" style="top:0;left:0;background:linear-gradient(180deg,transparent 40%,rgba(5,12,26,0.85) 100%);"></div>
+                        <span class="position-absolute top-0 start-0 m-3 badge rounded-pill px-3 py-2 fw-semibold" style="background:rgba(5,150,105,0.85);color:#fff;font-size:0.72rem;backdrop-filter:blur(6px);">
+                            <i class="bi bi-code-slash me-1"></i>Yazılım
+                        </span>
+                        <span class="position-absolute bottom-0 end-0 m-3 text-white-50" style="font-size:0.72rem;"><i class="bi bi-clock me-1"></i>7 dk okuma</span>
+                    </div>
+                    <div class="p-4 d-flex flex-column" style="flex:1;">
+                        <h5 class="fw-bold mb-2" style="color:#e2eaff;letter-spacing:-0.3px;line-height:1.4;">Özel Yazılım Geliştirme Neden Şart?</h5>
+                        <p class="mb-4" style="color:#6b7fa3;font-size:0.88rem;line-height:1.7;">Hazır paket programlar yerine şirketinize özel yazılımların iş süreçlerinize sağladığı hız ve esneklik.</p>
+                        <a href="#" class="blog-read-more mt-auto d-inline-flex align-items-center gap-2 fw-semibold" style="font-size:0.88rem;">Devamını Oku <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                    <div style="height:2px;background:linear-gradient(90deg,#34d399,#38bdf8);"></div>
                 </div>
             </div>
-        </div>
 
-        <!-- Blog 4 -->
-        <div class="col-md-4">
-            <div class="card h-100 border-0 rounded-4 shadow-sm overflow-hidden" style="background-color: #12141c; border: 1px solid rgba(255,255,255,0.08) !important;">
-                <div style="height: 190px; overflow: hidden;">
-                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=600&q=80" alt="Mobil Uyum" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9;">
-                </div>
-                <div class="card-body p-4">
-                    <span class="badge bg-info bg-opacity-10 text-info mb-3 px-3 py-2 rounded-pill small">Mobil Uyum</span>
-                    <h5 class="card-title text-white fw-bold mb-3 fs-5">Mobil Uyumlu Tasarımın SEO'ya Etkisi</h5>
-                    <p class="card-text text-muted small mb-4">Arama motorlarında üst sıralara çıkmak için mobil optimizasyonun ve responsive yapının önemi.</p>
-                    <a href="#" class="text-info text-decoration-none small fw-semibold d-flex align-items-center gap-1">Devamını Oku <i class="bi bi-arrow-right"></i></a>
+            <!-- Blog 3 -->
+            <div class="col-md-4">
+                <div class="blog-card rounded-4 overflow-hidden h-100 position-relative" style="background:#12192e;border:1px solid rgba(251,191,36,0.1);">
+                    <div class="blog-card-img-wrap position-relative overflow-hidden" style="height:200px;">
+                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=600&q=80" alt="API Entegrasyonu" class="blog-card-img w-100 h-100 object-fit-cover">
+                        <div class="blog-card-overlay position-absolute w-100 h-100" style="top:0;left:0;background:linear-gradient(180deg,transparent 40%,rgba(5,12,26,0.85) 100%);"></div>
+                        <span class="position-absolute top-0 start-0 m-3 badge rounded-pill px-3 py-2 fw-semibold" style="background:rgba(180,130,0,0.85);color:#fff;font-size:0.72rem;backdrop-filter:blur(6px);">
+                            <i class="bi bi-plug-fill me-1"></i>API
+                        </span>
+                        <span class="position-absolute bottom-0 end-0 m-3 text-white-50" style="font-size:0.72rem;"><i class="bi bi-clock me-1"></i>6 dk okuma</span>
+                    </div>
+                    <div class="p-4 d-flex flex-column" style="flex:1;">
+                        <h5 class="fw-bold mb-2" style="color:#e2eaff;letter-spacing:-0.3px;line-height:1.4;">E-Ticarette Ödeme Sistemleri ve API Güvenliği</h5>
+                        <p class="mb-4" style="color:#6b7fa3;font-size:0.88rem;line-height:1.7;">Güvenli ödeme altyapıları kurarken dikkat edilmesi gerekenler ve kusursuz API entegrasyon süreçleri.</p>
+                        <a href="#" class="blog-read-more mt-auto d-inline-flex align-items-center gap-2 fw-semibold" style="font-size:0.88rem;">Devamını Oku <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                    <div style="height:2px;background:linear-gradient(90deg,#fbbf24,#f87171);"></div>
                 </div>
             </div>
-        </div>
 
-        <!-- Blog 5 -->
-        <div class="col-md-4">
-            <div class="card h-100 border-0 rounded-4 shadow-sm overflow-hidden" style="background-color: #12141c; border: 1px solid rgba(255,255,255,0.08) !important;">
-                <div style="height: 190px; overflow: hidden;">
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Hız Optimizasyonu" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9;">
-                </div>
-                <div class="card-body p-4">
-                    <span class="badge bg-danger bg-opacity-10 text-danger mb-3 px-3 py-2 rounded-pill small">Performans</span>
-                    <h5 class="card-title text-white fw-bold mb-3 fs-5">Web Sitesi Hız Optimizasyonu Nasıl Yapılır?</h5>
-                    <p class="card-text text-muted small mb-4">Yavaş açılan sitelerin müşteri kaybına yol açmasını engellemek için uyguladığımız teknik optimizasyonlar.</p>
-                    <a href="#" class="text-info text-decoration-none small fw-semibold d-flex align-items-center gap-1">Devamını Oku <i class="bi bi-arrow-right"></i></a>
+            <!-- Blog 4 -->
+            <div class="col-md-4">
+                <div class="blog-card rounded-4 overflow-hidden h-100 position-relative" style="background:#12192e;border:1px solid rgba(56,189,248,0.1);">
+                    <div class="blog-card-img-wrap position-relative overflow-hidden" style="height:200px;">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=600&q=80" alt="Mobil Uyum" class="blog-card-img w-100 h-100 object-fit-cover">
+                        <div class="blog-card-overlay position-absolute w-100 h-100" style="top:0;left:0;background:linear-gradient(180deg,transparent 40%,rgba(5,12,26,0.85) 100%);"></div>
+                        <span class="position-absolute top-0 start-0 m-3 badge rounded-pill px-3 py-2 fw-semibold" style="background:rgba(6,182,212,0.85);color:#fff;font-size:0.72rem;backdrop-filter:blur(6px);">
+                            <i class="bi bi-phone me-1"></i>Mobil Uyum
+                        </span>
+                        <span class="position-absolute bottom-0 end-0 m-3 text-white-50" style="font-size:0.72rem;"><i class="bi bi-clock me-1"></i>4 dk okuma</span>
+                    </div>
+                    <div class="p-4 d-flex flex-column" style="flex:1;">
+                        <h5 class="fw-bold mb-2" style="color:#e2eaff;letter-spacing:-0.3px;line-height:1.4;">Mobil Uyumlu Tasarımın SEO'ya Etkisi</h5>
+                        <p class="mb-4" style="color:#6b7fa3;font-size:0.88rem;line-height:1.7;">Arama motorlarında üst sıralara çıkmak için mobil optimizasyonun ve responsive yapının önemi.</p>
+                        <a href="#" class="blog-read-more mt-auto d-inline-flex align-items-center gap-2 fw-semibold" style="font-size:0.88rem;">Devamını Oku <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                    <div style="height:2px;background:linear-gradient(90deg,#38bdf8,#c084fc);"></div>
                 </div>
             </div>
-        </div>
 
-        <!-- Blog 6 -->
-        <div class="col-md-4">
-            <div class="card h-100 border-0 rounded-4 shadow-sm overflow-hidden" style="background-color: #12141c; border: 1px solid rgba(255,255,255,0.08) !important;">
-                <div style="height: 190px; overflow: hidden;">
-                    <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=600&q=80" alt="Dijital Çözümler" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9;">
-                </div>
-                <div class="card-body p-4">
-                    <span class="badge bg-secondary bg-opacity-10 text-light mb-3 px-3 py-2 rounded-pill small">Dijital Çözümler</span>
-                    <h5 class="card-title text-white fw-bold mb-3 fs-5">Landing Page Tasarımı ile Dönüşüm Oranlarını Artırın</h5>
-                    <p class="card-text text-muted small mb-4">Reklam kampanyalarınızdan maksimum verim almanızı sağlayacak yüksek dönüşümlü sayfa kurguları.</p>
-                    <a href="#" class="text-info text-decoration-none small fw-semibold d-flex align-items-center gap-1">Devamını Oku <i class="bi bi-arrow-right"></i></a>
+            <!-- Blog 5 -->
+            <div class="col-md-4">
+                <div class="blog-card rounded-4 overflow-hidden h-100 position-relative" style="background:#12192e;border:1px solid rgba(248,113,113,0.1);">
+                    <div class="blog-card-img-wrap position-relative overflow-hidden" style="height:200px;">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Hız Optimizasyonu" class="blog-card-img w-100 h-100 object-fit-cover">
+                        <div class="blog-card-overlay position-absolute w-100 h-100" style="top:0;left:0;background:linear-gradient(180deg,transparent 40%,rgba(5,12,26,0.85) 100%);"></div>
+                        <span class="position-absolute top-0 start-0 m-3 badge rounded-pill px-3 py-2 fw-semibold" style="background:rgba(220,38,38,0.82);color:#fff;font-size:0.72rem;backdrop-filter:blur(6px);">
+                            <i class="bi bi-speedometer2 me-1"></i>Performans
+                        </span>
+                        <span class="position-absolute bottom-0 end-0 m-3 text-white-50" style="font-size:0.72rem;"><i class="bi bi-clock me-1"></i>8 dk okuma</span>
+                    </div>
+                    <div class="p-4 d-flex flex-column" style="flex:1;">
+                        <h5 class="fw-bold mb-2" style="color:#e2eaff;letter-spacing:-0.3px;line-height:1.4;">Web Sitesi Hız Optimizasyonu Nasıl Yapılır?</h5>
+                        <p class="mb-4" style="color:#6b7fa3;font-size:0.88rem;line-height:1.7;">Yavaş açılan sitelerin müşteri kaybına yol açmasını engellemek için uyguladığımız teknik optimizasyonlar.</p>
+                        <a href="#" class="blog-read-more mt-auto d-inline-flex align-items-center gap-2 fw-semibold" style="font-size:0.88rem;">Devamını Oku <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                    <div style="height:2px;background:linear-gradient(90deg,#f87171,#fbbf24);"></div>
                 </div>
             </div>
-        </div>
 
+            <!-- Blog 6 -->
+            <div class="col-md-4">
+                <div class="blog-card rounded-4 overflow-hidden h-100 position-relative" style="background:#12192e;border:1px solid rgba(192,132,252,0.1);">
+                    <div class="blog-card-img-wrap position-relative overflow-hidden" style="height:200px;">
+                        <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=600&q=80" alt="Dijital Çözümler" class="blog-card-img w-100 h-100 object-fit-cover">
+                        <div class="blog-card-overlay position-absolute w-100 h-100" style="top:0;left:0;background:linear-gradient(180deg,transparent 40%,rgba(5,12,26,0.85) 100%);"></div>
+                        <span class="position-absolute top-0 start-0 m-3 badge rounded-pill px-3 py-2 fw-semibold" style="background:rgba(124,58,237,0.85);color:#fff;font-size:0.72rem;backdrop-filter:blur(6px);">
+                            <i class="bi bi-graph-up-arrow me-1"></i>Dijital
+                        </span>
+                        <span class="position-absolute bottom-0 end-0 m-3 text-white-50" style="font-size:0.72rem;"><i class="bi bi-clock me-1"></i>5 dk okuma</span>
+                    </div>
+                    <div class="p-4 d-flex flex-column" style="flex:1;">
+                        <h5 class="fw-bold mb-2" style="color:#e2eaff;letter-spacing:-0.3px;line-height:1.4;">Landing Page ile Dönüşüm Oranlarını Artırın</h5>
+                        <p class="mb-4" style="color:#6b7fa3;font-size:0.88rem;line-height:1.7;">Reklam kampanyalarınızdan maksimum verim almanızı sağlayacak yüksek dönüşümlü sayfa kurguları.</p>
+                        <a href="#" class="blog-read-more mt-auto d-inline-flex align-items-center gap-2 fw-semibold" style="font-size:0.88rem;">Devamını Oku <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                    <div style="height:2px;background:linear-gradient(90deg,#c084fc,#818cf8);"></div>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
+
+<style>
+    /* Gradient başlık */
+    .blog-gradient-text {
+        background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
+    }
+
+    /* Pulse dot */
+    .blog-pulse-dot {
+        width: 9px; height: 9px;
+        background: #38bdf8;
+        border-radius: 50%;
+        display: inline-block;
+        animation: blogPulse 2s infinite;
+    }
+    @@keyframes blogPulse {
+        0%   { box-shadow: 0 0 0 0 rgba(56,189,248,0.7); }
+        70%  { box-shadow: 0 0 0 10px rgba(56,189,248,0); }
+        100% { box-shadow: 0 0 0 0 rgba(56,189,248,0); }
+    }
+
+    /* Blog kart */
+    .blog-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .blog-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        border-color: rgba(56,189,248,0.35) !important;
+    }
+
+    /* Görsel zoom */
+    .blog-card-img {
+        transition: transform 0.5s ease;
+    }
+    .blog-card:hover .blog-card-img {
+        transform: scale(1.07);
+    }
+
+    /* "Devamını Oku" linki */
+    .blog-read-more {
+        color: #38bdf8;
+        text-decoration: none;
+        transition: gap 0.2s ease, color 0.2s ease;
+    }
+    .blog-read-more:hover {
+        color: #7dd3fc;
+        gap: 10px !important;
+    }
+</style>
+
+@section Scripts {
+<script>
+(function () {
+    const canvas = document.getElementById('blogCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const banner = document.getElementById('blogHeroBanner');
+    function resize() { canvas.width = banner.offsetWidth; canvas.height = banner.offsetHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+    const COUNT = 55, DIST = 120;
+    const clrs = ['#38bdf8','#818cf8','#c084fc','#67e8f9'];
+    const pts = Array.from({ length: COUNT }, () => ({
+        x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.55, vy: (Math.random() - 0.5) * 0.55,
+        r: Math.random() * 2.2 + 1, c: clrs[Math.floor(Math.random() * clrs.length)]
+    }));
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < pts.length; i++) {
+            for (let j = i + 1; j < pts.length; j++) {
+                const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
+                const d = Math.sqrt(dx*dx + dy*dy);
+                if (d < DIST) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(56,189,248,${(1-d/DIST)*0.30})`;
+                    ctx.lineWidth = 0.7;
+                    ctx.moveTo(pts[i].x, pts[i].y);
+                    ctx.lineTo(pts[j].x, pts[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+        for (const p of pts) {
+            ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+            ctx.fillStyle = p.c; ctx.shadowBlur = 7; ctx.shadowColor = p.c;
+            ctx.fill(); ctx.shadowBlur = 0;
+            p.x += p.vx; p.y += p.vy;
+            if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+        }
+        requestAnimationFrame(draw);
+    }
+    draw();
+})();
+</script>
+}

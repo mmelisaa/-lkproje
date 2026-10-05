@@ -1,17 +1,25 @@
-﻿@{
+@{
     ViewData["Title"] = "Hizmetlerimiz";
 }
 
-<!-- Üst Başlık / Hero Alanı -->
-<div class="py-5 mb-5 text-center rounded-5 shadow-sm border border-opacity-10" style="background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);">
-    <div class="col-lg-8 mx-auto py-3">
-        <span class="badge bg-primary bg-opacity-10 text-primary px-4 py-2 rounded-pill fw-bold mb-3 shadow-sm">
-            <i class="bi bi-grid-1x2 me-2"></i> UÇTAN UCA TEKNOLOJİ
-        </span>
-        <h1 class="display-5 fw-bold text-dark mb-3">Faaliyet Alanlarımız & Hizmetlerimiz</h1>
-        <p class="lead text-muted">Donanımdan özel yazılıma, kurumsal web tasarımdan e-ticaret sistemlerine kadar işletmenizin ihtiyaç duyduğu tüm dijital ve fiziksel altyapıyı tek çatı altında sunuyoruz.</p>
+<!-- Üst Başlık / Hero Alanı - Canlı Canvas Animasyonlu -->
+<section class="hero-banner-wrapper text-white py-5 position-relative overflow-hidden" id="hizmetHeroBanner" style="background: #050c1a; min-height: 400px; display: flex; align-items: center; margin-bottom: 5rem;">
+    <!-- Canvas Animasyonu -->
+    <canvas id="hizmetCanvas" class="position-absolute w-100 h-100" style="top:0;left:0;z-index:0;"></canvas>
+
+    <!-- Gradient Perde -->
+    <div class="position-absolute w-100 h-100" style="top:0;left:0;z-index:1;background:linear-gradient(135deg,rgba(5,12,26,0.70) 0%,rgba(10,22,55,0.60) 50%,rgba(5,12,26,0.70) 100%);"></div>
+
+    <div class="container position-relative text-center py-5" style="z-index: 2;">
+        <div class="col-lg-8 mx-auto">
+            <span class="badge bg-white bg-opacity-10 text-info border border-info border-opacity-25 px-4 py-2 rounded-pill fw-bold mb-3 shadow-sm">
+                <i class="bi bi-grid-1x2 me-2"></i> UÇTAN UCA TEKNOLOJİ
+            </span>
+            <h1 class="display-4 fw-bold text-white mb-3">Faaliyet Alanlarımız & Hizmetlerimiz</h1>
+            <p class="lead text-light text-opacity-75 fs-5">Donanımdan özel yazılıma, kurumsal web tasarımdan e-ticaret sistemlerine kadar işletmenizin ihtiyaç duyduğu tüm dijital ve fiziksel altyapıyı tek çatı altında sunuyoruz.</p>
+        </div>
     </div>
-</div>
+</section>
 
 <div class="container my-5">
     
@@ -133,3 +141,69 @@
     </div>
 
 </div>
+
+@section Scripts {
+<script>
+(function() {
+    const canvas = document.getElementById('hizmetCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const banner = document.getElementById('hizmetHeroBanner');
+
+    function resize() {
+        canvas.width = banner.offsetWidth;
+        canvas.height = banner.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const PARTICLE_COUNT = 70;
+    const CONNECTION_DIST = 130;
+    const colors = ['#38bdf8', '#818cf8', '#c084fc', '#67e8f9'];
+
+    const particles = Array.from({ length: PARTICLE_COUNT }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.6,
+        vy: (Math.random() - 0.5) * 0.6,
+        r: Math.random() * 2.5 + 1,
+        color: colors[Math.floor(Math.random() * colors.length)]
+    }));
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < CONNECTION_DIST) {
+                    const alpha = 1 - dist / CONNECTION_DIST;
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(56,189,248,${alpha * 0.35})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+        for (const p of particles) {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = p.color;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+            p.x += p.vx;
+            p.y += p.vy;
+            if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+        }
+        requestAnimationFrame(draw);
+    }
+    draw();
+})();
+</script>
+}

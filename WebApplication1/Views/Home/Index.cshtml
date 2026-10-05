@@ -1,129 +1,499 @@
-﻿@{
+@{
     ViewData["Title"] = "Anasayfa";
 }
 
-<!-- 1. Tüm Sayfayı (Baştan Başa) Kaplayan Canlı Teknoloji Alanı (Siyah Yok, Ferah ve Kurumsal Renkler) -->
-<div class="position-relative overflow-hidden w-100 text-white text-center py-5 mb-5 shadow-sm" style="min-height: 600px; display: flex; align-items: center; justify-content: center; margin-top: -1.5rem;">
-    <!-- Arka Planda Akıp Giden Canlı Video -->
-    <video autoplay muted loop playsinline class="position-absolute w-100 h-100 object-fit-cover" style="top: 0; left: 0; z-index: -2;">
-        <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-with-codes-and-numbers-31950-large.mp4" type="video/mp4">
-    </video>
-    
-    <!-- Üzerindeki Perde: Siyah Yerine Şık, Kurumsal Derin Mavi / Lacivert Tonu -->
-    <div class="position-absolute w-100 h-100" style="top: 0; left: 0; background: linear-gradient(135deg, rgba(13, 37, 63, 0.88), rgba(30, 58, 138, 0.82)); z-index: -1;"></div>
+<!-- 1. Modern Kurumsal Hero Banner - Canlı Etkileşimli Canvas Ağ Animasyonu -->
+<section class="hero-banner-wrapper text-white py-5 position-relative overflow-hidden" id="heroBanner" style="background: #050c1a;">
+    <!-- Canvas Animasyonu (İnteraktif Ağ/Parçacık Sistemi) -->
+    <canvas id="heroCanvas" class="position-absolute w-100 h-100" style="top:0;left:0;z-index:0;"></canvas>
 
-    <div class="container position-relative py-5" style="z-index: 1;">
-        <div class="col-lg-10 mx-auto">
-            <span class="badge bg-white text-primary px-4 py-2 rounded-pill fw-bold mb-3 shadow-sm text-uppercase tracking-wider">
-                <i class="bi bi-cpu me-2"></i> Donanım & Yazılım Entegrasyonu
-            </span>
-            <h1 class="display-3 fw-bold mb-4 tracking-tight text-white">Donanımdan Yazılıma Uçtan Uca Teknoloji Çözümleri</h1>
-            <p class="lead text-light opacity-90 mb-5 fs-5">Elazığ merkezli gücümüzle; yüksek performanslı donanım altyapıları ve işletmenizi geleceğe taşıyan özel yazılım projelerinde güvenilir çözüm ortağınız.</p>
-            <div class="d-flex justify-content-center gap-3">
-                <a asp-controller="Home" asp-action="Hakkimizda" class="btn btn-light text-primary px-5 py-3 rounded-pill fw-bold shadow">Hakkımızda</a>
-                <a asp-controller="Home" asp-action="HesapNumaralarimiz" class="btn btn-outline-light px-5 py-3 rounded-pill fw-bold">Finansal İşlemler</a>
-            </div>
-        </div>
-    </div>
-</div>
+    <!-- Gradient Perde & Arka Plan Işık Efektleri -->
+    <div class="position-absolute w-100 h-100" style="top:0;left:0;z-index:1;background:linear-gradient(135deg,rgba(5,12,26,0.72) 0%,rgba(10,22,55,0.60) 50%,rgba(5,12,26,0.75) 100%);"></div>
 
-<div class="container my-5 py-4">
-    <!-- 2. Hizmet Alanlarımız (Donanım + Yazılım) -->
-    <div class="row text-center mb-5">
-        <div class="col-lg-8 mx-auto">
-            <h2 class="fw-bold text-dark mb-3">Faaliyet Alanlarımız</h2>
-            <p class="text-muted fs-5">Güçlü donanım sistemleri ve ölçeklenebilir yazılım mimarilerini tek çatı altında buluşturuyoruz.</p>
-        </div>
-    </div>
+    <div class="position-absolute ambient-orb-1" style="top:-120px;right:-100px;width:520px;height:520px;background:radial-gradient(circle,rgba(56,189,248,0.22) 0%,transparent 70%);filter:blur(65px);pointer-events:none;z-index:1;"></div>
+    <div class="position-absolute ambient-orb-2" style="bottom:-100px;left:-100px;width:480px;height:480px;background:radial-gradient(circle,rgba(99,102,241,0.20) 0%,transparent 70%);filter:blur(60px);pointer-events:none;z-index:1;"></div>
 
-    <div class="row g-4 justify-content-center mb-5">
-        <!-- Hizmet 1: Donanım Altyapıları -->
-        <div class="col-md-6 col-lg-4">
-            <div class="card border-0 shadow-sm rounded-4 h-100 p-4 bg-white position-relative overflow-hidden transition-hover border-top border-primary border-4">
-                <div class="card-body">
-                    <div class="mb-4 text-primary bg-primary bg-opacity-10 d-inline-block p-3 rounded-4 fs-4">
-                        <i class="bi bi-hdd-rack"></i>
-                    </div>
-                    <h4 class="fw-bold text-dark mb-3">Donanım Çözümleri</h4>
-                    <p class="text-muted mb-0">Sunucu sistemleri, kurumsal donanım tedariği ve kesintisiz teknolojik altyapı kurulumları.</p>
+    <div class="container position-relative py-lg-4" style="z-index: 2;">
+        <div class="row align-items-center g-5">
+            
+            <!-- Sol Kolon: Başlık, Açıklama, Butonlar ve İstatistikler -->
+            <div class="col-lg-7 text-start">
+                <!-- Üst Rozet (Badge) -->
+                <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill hero-badge mb-4 shadow-sm" style="border: 1px solid rgba(56, 189, 248, 0.3); background: rgba(15, 23, 42, 0.65);">
+                    <span class="hero-pulse-dot"></span>
+                    <span class="text-white small fw-bold text-uppercase tracking-wider">
+                        <i class="bi bi-cpu-fill text-info me-1"></i> Donanım &amp; Yazılım Entegrasyonu
+                    </span>
+                    <span class="badge bg-primary bg-opacity-75 rounded-pill px-2 py-1 ms-1 small" style="font-size: 0.72rem;">Elazığ &amp; Türkiye</span>
                 </div>
-            </div>
-        </div>
 
-        <!-- Hizmet 2: Özel Yazılım -->
-        <div class="col-md-6 col-lg-4">
-            <div class="card border-0 shadow-sm rounded-4 h-100 p-4 bg-white position-relative overflow-hidden transition-hover border-top border-primary border-4">
-                <div class="card-body">
-                    <div class="mb-4 text-primary bg-primary bg-opacity-10 d-inline-block p-3 rounded-4 fs-4">
-                        <i class="bi bi-code-slash"></i>
-                    </div>
-                    <h4 class="fw-bold text-dark mb-3">Yazılım Geliştirme</h4>
-                    <p class="text-muted mb-0">İş süreçlerinizi hızlandıran, tamamen ihtiyaçlarınıza özel güvenli web ve masaüstü yazılımlar.</p>
-                </div>
-            </div>
-        </div>
+                <!-- Ana Başlık -->
+                <h1 class="display-4 fw-bold mb-3 tracking-tight text-white" style="letter-spacing: -1.2px; line-height: 1.18;">
+                    Geleceğin Teknolojisini <br class="d-none d-sm-inline">
+                    <span class="hero-gradient-text">Bugünden İnşa Ediyoruz</span>
+                </h1>
 
-        <!-- Hizmet 3: Web & E-Ticaret -->
-        <div class="col-md-6 col-lg-4">
-            <div class="card border-0 shadow-sm rounded-4 h-100 p-4 bg-white position-relative overflow-hidden transition-hover border-top border-primary border-4">
-                <div class="card-body">
-                    <div class="mb-4 text-primary bg-primary bg-opacity-10 d-inline-block p-3 rounded-4 fs-4">
-                        <i class="bi bi-globe"></i>
-                    </div>
-                    <h4 class="fw-bold text-dark mb-3">Web & E-Ticaret</h4>
-                    <p class="text-muted mb-0">Markanızı dijitalde zirveye taşıyan, modern arayüzlü kurumsal web siteleri ve e-ticaret sistemleri.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 3. Neden Hayat İşleri? (Çift Kanatlı Güç Vurgusu) -->
-    <div class="row mt-5 pt-5 align-items-center">
-        <div class="col-lg-6 mb-4 mb-lg-0">
-            <div class="p-5 rounded-4 shadow-sm border border-light" style="background-color: #f8fafc;">
-                <span class="badge bg-primary text-white px-3 py-2 rounded-pill fw-bold mb-3 shadow-sm">ELAZIĞ MERKEZLİ TEKNOLOJİ ÜSSÜ</span>
-                <h3 class="fw-bold text-dark mb-3">Donanım ve Yazılımın Mükemmel Uyumu</h3>
-                <p class="text-muted mb-4 fs-6">
-                    Hayat İşleri olarak sadece kod yazmıyor; aynı zamanda güçlü donanım altyapılarını kurarak sistemlerinizin her katmanında kusursuz performans sağlıyoruz.
+                <!-- Açıklama Metni -->
+                <p class="lead text-light text-opacity-80 mb-4 fs-5" style="line-height: 1.75; max-width: 620px;">
+                    Elazığ merkezli gücümüzle; kurumsal sunucu altyapıları, yüksek performanslı donanım tedariği ve firmanıza özel güvenli yazılım projelerinde uçtan uca güvenilir çözüm ortağınız.
                 </p>
-                <div class="d-flex gap-4">
-                    <div>
-                        <h3 class="fw-bold text-primary mb-1">%100</h3>
-                        <span class="text-muted small fw-semibold">Entegre Çözüm</span>
+
+                <!-- Harekete Geçirici Butonlar (CTA) -->
+                <div class="d-flex flex-wrap align-items-center gap-3 mb-5">
+                    <a asp-controller="Home" asp-action="TeklifAl" class="btn btn-primary btn-lg rounded-pill px-4 py-3 fw-bold shadow-lg hero-btn-primary d-inline-flex align-items-center gap-2 text-decoration-none">
+                        <i class="bi bi-lightning-charge-fill text-warning"></i>
+                        <span>Hemen Teklif Alın</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                    <a asp-controller="Home" asp-action="Hizmetlerimiz" class="btn btn-outline-light btn-lg rounded-pill px-4 py-3 fw-semibold hero-btn-secondary d-inline-flex align-items-center gap-2 text-decoration-none">
+                        <i class="bi bi-grid-1x2-fill"></i>
+                        <span>Hizmetlerimiz</span>
+                    </a>
+                    <a asp-controller="Home" asp-action="Hakkimizda" class="btn btn-link text-white-50 text-decoration-none px-3 py-2 fw-medium d-inline-flex align-items-center gap-1">
+                        <i class="bi bi-info-circle"></i>
+                        <span>Hakkımızda</span>
+                    </a>
+                </div>
+
+                <!-- Güven ve Kalite Rozetleri -->
+                <div class="row g-3 pt-2 border-top border-white border-opacity-10">
+                    <div class="col-6 col-sm-4">
+                        <div class="hero-stat-box tech-tilt-card">
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <i class="bi bi-speedometer2 text-info fs-5"></i>
+                                <span class="h5 fw-bold text-white mb-0">%99.9</span>
+                            </div>
+                            <span class="text-white-50 small">Yüksek Uptime</span>
+                        </div>
                     </div>
-                    <div class="border-start ps-4">
-                        <h3 class="fw-bold text-primary mb-1">7/24</h3>
-                        <span class="text-muted small fw-semibold">Teknik Destek</span>
+                    <div class="col-6 col-sm-4">
+                        <div class="hero-stat-box tech-tilt-card">
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <i class="bi bi-shield-check text-success fs-5"></i>
+                                <span class="h5 fw-bold text-white mb-0">256-Bit</span>
+                            </div>
+                            <span class="text-white-50 small">Kurumsal Güvenlik</span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <div class="hero-stat-box tech-tilt-card">
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <i class="bi bi-headset text-warning fs-5"></i>
+                                <span class="h5 fw-bold text-white mb-0">7/24</span>
+                            </div>
+                            <span class="text-white-50 small">Kesintisiz Destek</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-lg-6">
-            <div class="row g-3">
-                <div class="col-12">
-                    <div class="p-4 rounded-4 bg-white shadow-sm border border-light d-flex align-items-center">
-                        <div class="fs-3 text-primary me-4 bg-primary bg-opacity-10 p-3 rounded-3">
-                            <i class="bi bi-cpu-fill"></i>
+            <!-- Sağ Kolon: Yüksek Teknolojili Canlı Sistem & Konsol Kartı (Glassmorphic Terminal Card) -->
+            <div class="col-lg-5">
+                <div class="hero-glass-card rounded-4 p-4 text-start position-relative overflow-hidden tech-tilt-card" id="terminalCard">
+                    <!-- Tarama Çizgisi Animasyonu -->
+                    <div class="scanline-effect"></div>
+
+                    <!-- Üst Bar: MacOS Tarzı Butonlar & Başlık -->
+                    <div class="d-flex align-items-center justify-content-between pb-3 mb-3 border-bottom border-white border-opacity-10">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="rounded-circle" style="width: 12px; height: 12px; background-color: #ef4444; display: inline-block;"></span>
+                            <span class="rounded-circle" style="width: 12px; height: 12px; background-color: #f59e0b; display: inline-block;"></span>
+                            <span class="rounded-circle" style="width: 12px; height: 12px; background-color: #10b981; display: inline-block;"></span>
                         </div>
-                        <div>
-                            <h5 class="fw-bold text-dark mb-1">Güçlü Donanım Altyapısı</h5>
-                            <p class="text-muted small mb-0">İşletmenizin ihtiyaç duyduğu en dayanıklı ve ölçeklenebilir donanım bileşenleri.</p>
+                        <span class="text-white-50 small font-monospace" style="font-size: 0.8rem;">
+                            <i class="bi bi-terminal-fill me-1 text-info"></i> hayat-isleri.sys
+                        </span>
+                        <span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-25 small d-inline-flex align-items-center gap-1">
+                            <span class="server-led" style="background-color: #10b981; width: 7px; height: 7px;"></span> Çevrimiçi
+                        </span>
+                    </div>
+
+                    <!-- Canlı Metrik ve Hizmet Listesi -->
+                    <div class="d-flex flex-column gap-3 mb-4">
+                        <div class="p-3 rounded-3 position-relative overflow-hidden" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); transition: all 0.3s ease;">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="text-white small fw-semibold">
+                                    <i class="bi bi-hdd-network text-primary me-2"></i>Donanım &amp; Ağ Altyapısı
+                                </span>
+                                <span class="badge bg-primary bg-opacity-20 text-info font-monospace small d-inline-flex align-items-center gap-1">
+                                    <span class="server-led delay-1 bg-info"></span> Aktif
+                                </span>
+                            </div>
+                            <small class="text-white-50" style="font-size: 0.78rem;">Kurumsal sunucular, network kurulumu ve kesintisiz yedekleme</small>
+                        </div>
+
+                        <div class="p-3 rounded-3 position-relative overflow-hidden" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); transition: all 0.3s ease;">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="text-white small fw-semibold">
+                                    <i class="bi bi-code-slash text-info me-2"></i>Özel Yazılım &amp; API Entegrasyonu
+                                </span>
+                                <span class="badge bg-info bg-opacity-20 text-info font-monospace small d-inline-flex align-items-center gap-1">
+                                    <span class="server-led delay-2 bg-primary"></span> v2.4 Live
+                                </span>
+                            </div>
+                            <small class="text-white-50" style="font-size: 0.78rem;">İş süreçlerinizi hızlandıran esnek ve ölçeklenebilir kod mimarisi</small>
+                        </div>
+
+                        <div class="p-3 rounded-3 position-relative overflow-hidden" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); transition: all 0.3s ease;">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="text-white small fw-semibold">
+                                    <i class="bi bi-cart-check text-warning me-2"></i>E-Ticaret &amp; Web Sistemleri
+                                </span>
+                                <span class="badge bg-warning bg-opacity-20 text-warning font-monospace small d-inline-flex align-items-center gap-1">
+                                    <span class="server-led delay-3 bg-warning"></span> Optimize
+                                </span>
+                            </div>
+                            <small class="text-white-50" style="font-size: 0.78rem;">Hızlı ödeme altyapıları, SEO dostu ve mobil uyumlu tasarımlar</small>
                         </div>
                     </div>
+
+                    <!-- Alt Konsol Bildirimi -->
+                    <div class="p-2.5 px-3 rounded-3 font-monospace d-flex align-items-center justify-content-between" style="background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.75rem;">
+                        <span class="text-white-50">
+                            <span class="text-success">$</span> ready --enterprise-mode <span class="cursor-blink text-info">_</span>
+                        </span>
+                        <span class="text-info font-monospace" id="livePing">Ping: 12ms</span>
+                    </div>
                 </div>
-                <div class="col-12">
-                    <div class="p-4 rounded-4 bg-white shadow-sm border border-light d-flex align-items-center">
-                        <div class="fs-3 text-primary me-4 bg-primary bg-opacity-10 p-3 rounded-3">
-                            <i class="bi bi-shield-check"></i>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Veri Akışı ve Bölüm Bağlantı Çizgisi -->
+<div class="tech-divider-stream my-2 opacity-50"></div>
+
+<!-- 2. Faaliyet Alanlarımız (Donanım + Yazılım) - Yüksek Teknolojili Kartlar -->
+<section class="position-relative py-5 overflow-hidden w-100" style="background: radial-gradient(circle at 50% 0%, #0c162d 0%, #070d1a 100%);">
+    <!-- Siber Izgara Arka Planı -->
+    <div class="position-absolute w-100 h-100 tech-grid-bg" style="top:0;left:0;opacity:0.6;pointer-events:none;"></div>
+    
+    <!-- Arka Plan Işık Küreleri -->
+    <div class="position-absolute ambient-orb-1" style="top:20%;left:-60px;width:380px;height:380px;background:radial-gradient(circle,rgba(56,189,248,0.12) 0%,transparent 70%);filter:blur(50px);pointer-events:none;"></div>
+    <div class="position-absolute ambient-orb-2" style="bottom:10%;right:-60px;width:400px;height:400px;background:radial-gradient(circle,rgba(168,85,247,0.12) 0%,transparent 70%);filter:blur(50px);pointer-events:none;"></div>
+
+    <div class="container position-relative py-4" style="z-index: 2;">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill hero-badge mb-3 shadow-sm" style="border: 1px solid rgba(56, 189, 248, 0.25);">
+                    <i class="bi bi-diagram-3-fill text-info small"></i>
+                    <span class="text-info small fw-bold text-uppercase tracking-wider" style="font-size: 0.75rem;">ENTEGRE ALTYAPI &amp; GELİŞTİRME</span>
+                </div>
+                <h2 class="fw-bold text-white mb-3 display-6" style="letter-spacing: -0.5px;">Faaliyet Alanlarımız</h2>
+                <p class="text-light text-opacity-75 fs-5" style="max-width: 680px; margin: 0 auto;">Güçlü donanım sistemleri ve ölçeklenebilir yazılım mimarilerini tek çatı altında buluşturuyoruz.</p>
+            </div>
+        </div>
+
+        <div class="row g-4 justify-content-center mb-4">
+            <!-- Hizmet 1: Donanım Altyapıları -->
+            <div class="col-md-6 col-lg-4">
+                <div class="tech-card h-100 p-4 position-relative tech-tilt-card">
+                    <div class="scanline-effect"></div>
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div class="tech-icon-box" style="background: rgba(56, 189, 248, 0.12); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.25);">
+                            <i class="bi bi-hdd-rack fs-3"></i>
                         </div>
-                        <div>
-                            <h5 class="fw-bold text-dark mb-1">Uçtan Uca Güvenlik</h5>
-                            <p class="text-muted small mb-0">Donanımdan yazılıma kadar sızdırmaz ve koruma altında olan kurumsal mimariler.</p>
+                        <div class="d-flex align-items-center gap-1 px-2.5 py-1 rounded-pill" style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.2);">
+                            <span class="server-led" style="background-color: #38bdf8;"></span>
+                            <span class="font-monospace text-info" style="font-size: 0.7rem;">HARDWARE</span>
                         </div>
+                    </div>
+                    <h4 class="fw-bold text-white mb-3" style="letter-spacing: -0.3px;">Donanım Çözümleri</h4>
+                    <p class="text-light text-opacity-75 mb-0" style="line-height: 1.7; font-size: 0.95rem;">Sunucu sistemleri, kurumsal donanım tedariği ve kesintisiz teknolojik altyapı kurulumları.</p>
+                    
+                    <!-- Kart Altı Dekoratif Siber Çizgi -->
+                    <div class="mt-4 pt-3 border-top border-white border-opacity-10 d-flex justify-content-between align-items-center">
+                        <span class="text-white-50 small font-monospace" style="font-size: 0.75rem;">Enterprise Grade</span>
+                        <i class="bi bi-arrow-right text-info"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hizmet 2: Özel Yazılım -->
+            <div class="col-md-6 col-lg-4">
+                <div class="tech-card h-100 p-4 position-relative tech-tilt-card">
+                    <div class="scanline-effect"></div>
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div class="tech-icon-box" style="background: rgba(129, 140, 248, 0.14); color: #818cf8; border: 1px solid rgba(129, 140, 248, 0.28);">
+                            <i class="bi bi-code-slash fs-3"></i>
+                        </div>
+                        <div class="d-flex align-items-center gap-1 px-2.5 py-1 rounded-pill" style="background: rgba(129, 140, 248, 0.08); border: 1px solid rgba(129, 140, 248, 0.2);">
+                            <span class="server-led delay-1" style="background-color: #818cf8;"></span>
+                            <span class="font-monospace text-primary-emphasis" style="font-size: 0.7rem; color: #a5b4fc !important;">SOFTWARE</span>
+                        </div>
+                    </div>
+                    <h4 class="fw-bold text-white mb-3" style="letter-spacing: -0.3px;">Yazılım Geliştirme</h4>
+                    <p class="text-light text-opacity-75 mb-0" style="line-height: 1.7; font-size: 0.95rem;">İş süreçlerinizi hızlandıran, tamamen ihtiyaçlarınıza özel güvenli web ve masaüstü yazılımlar.</p>
+
+                    <!-- Kart Altı Dekoratif Siber Çizgi -->
+                    <div class="mt-4 pt-3 border-top border-white border-opacity-10 d-flex justify-content-between align-items-center">
+                        <span class="text-white-50 small font-monospace" style="font-size: 0.75rem;">Custom Architecture</span>
+                        <i class="bi bi-arrow-right text-primary" style="color: #818cf8 !important;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hizmet 3: Web & E-Ticaret -->
+            <div class="col-md-6 col-lg-4">
+                <div class="tech-card h-100 p-4 position-relative tech-tilt-card">
+                    <div class="scanline-effect"></div>
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div class="tech-icon-box" style="background: rgba(16, 185, 129, 0.12); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.25);">
+                            <i class="bi bi-globe fs-3"></i>
+                        </div>
+                        <div class="d-flex align-items-center gap-1 px-2.5 py-1 rounded-pill" style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.2);">
+                            <span class="server-led delay-2" style="background-color: #10b981;"></span>
+                            <span class="font-monospace text-success" style="font-size: 0.7rem;">PLATFORM</span>
+                        </div>
+                    </div>
+                    <h4 class="fw-bold text-white mb-3" style="letter-spacing: -0.3px;">Web & E-Ticaret</h4>
+                    <p class="text-light text-opacity-75 mb-0" style="line-height: 1.7; font-size: 0.95rem;">Markanızı dijitalde zirveye taşıyan, modern arayüzlü kurumsal web siteleri ve e-ticaret sistemleri.</p>
+
+                    <!-- Kart Altı Dekoratif Siber Çizgi -->
+                    <div class="mt-4 pt-3 border-top border-white border-opacity-10 d-flex justify-content-between align-items-center">
+                        <span class="text-white-50 small font-monospace" style="font-size: 0.75rem;">High Conversion</span>
+                        <i class="bi bi-arrow-right text-success"></i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
+
+<!-- Veri Akışı Çizgisi -->
+<div class="tech-divider-stream my-2 opacity-50"></div>
+
+<!-- 3. Neden Hayat İşleri? (Çift Kanatlı Güç Vurgusu & Siber Komuta Paneli) -->
+<section class="position-relative py-5 overflow-hidden w-100" style="background: #050c1a;">
+    <div class="container position-relative py-4" style="z-index: 2;">
+        <div class="row align-items-center g-5">
+            
+            <!-- Sol Panel: Siber Komuta ve Güç Merkezi -->
+            <div class="col-lg-6">
+                <div class="tech-card p-5 position-relative overflow-hidden tech-tilt-card" style="border: 1px solid rgba(56, 189, 248, 0.22); background: rgba(13, 22, 42, 0.85);">
+                    <!-- Arka Plan Radar Sonar Dalgaları -->
+                    <div style="position: absolute; right: -40px; top: -40px; width: 220px; height: 220px; display: flex; align-items: center; justify-content: center; pointer-events: none;">
+                        <div class="radar-ring" style="width: 140px; height: 140px;"></div>
+                        <div class="radar-ring ring-2" style="width: 190px; height: 190px;"></div>
+                        <div class="radar-ring ring-3" style="width: 240px; height: 240px;"></div>
+                        <i class="bi bi-broadcast text-info opacity-40 fs-3"></i>
+                    </div>
+
+                    <span class="badge bg-primary text-white px-3 py-2 rounded-pill fw-bold mb-3 shadow-sm d-inline-flex align-items-center gap-2" style="background: linear-gradient(135deg, #2563eb, #7c3aed) !important; font-size: 0.8rem; letter-spacing: 0.5px;">
+                        <span class="hero-pulse-dot" style="width: 7px; height: 7px;"></span> ELAZIĞ MERKEZLİ TEKNOLOJİ ÜSSÜ
+                    </span>
+                    <h3 class="fw-bold text-white mb-3 display-6" style="letter-spacing: -0.5px;">Donanım ve Yazılımın Mükemmel Uyumu</h3>
+                    <p class="text-light text-opacity-80 mb-4 fs-6" style="line-height: 1.8;">
+                        Hayat İşleri olarak sadece kod yazmıyor; aynı zamanda güçlü donanım altyapılarını kurarak sistemlerinizin her katmanında kusursuz performans sağlıyoruz.
+                    </p>
+                    
+                    <!-- Metrik Sayaçları ve Canlı İlerleme Çubukları -->
+                    <div class="d-flex flex-wrap gap-4 pt-3 border-top border-white border-opacity-10">
+                        <div class="pe-4">
+                            <div class="d-flex align-items-baseline gap-2 mb-1">
+                                <h3 class="fw-bold text-info mb-0" style="letter-spacing: -1px;">%100</h3>
+                                <i class="bi bi-arrow-up-right text-success small"></i>
+                            </div>
+                            <span class="text-white-50 small fw-semibold">Entegre Çözüm</span>
+                            <div class="mt-2" style="width: 100px; height: 3px; background: rgba(255,255,255,0.1); border-radius: 99px; overflow: hidden;">
+                                <div style="width: 100%; height: 100%; background: linear-gradient(90deg, #38bdf8, #818cf8);"></div>
+                            </div>
+                        </div>
+
+                        <div class="border-start border-white border-opacity-10 ps-4">
+                            <div class="d-flex align-items-baseline gap-2 mb-1">
+                                <h3 class="fw-bold text-primary-emphasis mb-0" style="color: #a5b4fc !important; letter-spacing: -1px;">7/24</h3>
+                                <span class="server-led" style="background-color: #10b981; width: 7px; height: 7px;"></span>
+                            </div>
+                            <span class="text-white-50 small fw-semibold">Teknik Destek</span>
+                            <div class="mt-2" style="width: 100px; height: 3px; background: rgba(255,255,255,0.1); border-radius: 99px; overflow: hidden;">
+                                <div style="width: 100%; height: 100%; background: linear-gradient(90deg, #818cf8, #10b981);"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sağ Panel: Güç ve Güvenlik Altyapı Kartları -->
+            <div class="col-lg-6">
+                <div class="row g-4">
+                    <!-- Donanım Vurgusu Kartı -->
+                    <div class="col-12">
+                        <div class="tech-card p-4 d-flex align-items-center position-relative tech-tilt-card" style="border: 1px solid rgba(255, 255, 255, 0.09);">
+                            <div class="scanline-effect"></div>
+                            <div class="fs-3 text-info me-4 p-3 rounded-4 d-flex align-items-center justify-content-center" style="background: rgba(56, 189, 248, 0.12); width: 62px; height: 62px; flex-shrink: 0; border: 1px solid rgba(56, 189, 248, 0.25);">
+                                <i class="bi bi-cpu-fill"></i>
+                            </div>
+                            <div>
+                                <div class="d-flex align-items-center gap-2 mb-1">
+                                    <h5 class="fw-bold text-white mb-0">Güçlü Donanım Altyapısı</h5>
+                                    <span class="server-led delay-1 bg-info"></span>
+                                </div>
+                                <p class="text-light text-opacity-75 small mb-0" style="line-height: 1.6;">İşletmenizin ihtiyaç duyduğu en dayanıklı ve ölçeklenebilir donanım bileşenleri.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Güvenlik Vurgusu Kartı -->
+                    <div class="col-12">
+                        <div class="tech-card p-4 d-flex align-items-center position-relative tech-tilt-card" style="border: 1px solid rgba(255, 255, 255, 0.09);">
+                            <div class="scanline-effect"></div>
+                            <div class="fs-3 text-success me-4 p-3 rounded-4 d-flex align-items-center justify-content-center" style="background: rgba(16, 185, 129, 0.12); width: 62px; height: 62px; flex-shrink: 0; border: 1px solid rgba(16, 185, 129, 0.25);">
+                                <i class="bi bi-shield-check"></i>
+                            </div>
+                            <div>
+                                <div class="d-flex align-items-center gap-2 mb-1">
+                                    <h5 class="fw-bold text-white mb-0">Uçtan Uca Güvenlik</h5>
+                                    <span class="server-led delay-2 bg-success"></span>
+                                </div>
+                                <p class="text-light text-opacity-75 small mb-0" style="line-height: 1.6;">Donanımdan yazılıma kadar sızdırmaz ve koruma altında olan kurumsal mimariler.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+<script>
+(function() {
+    // 1. Etkileşimli ve Bağlantılı Siber Ağ Canvas Animasyonu
+    const canvas = document.getElementById('heroCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const banner = document.getElementById('heroBanner');
+
+    function resize() {
+        canvas.width = banner.offsetWidth;
+        canvas.height = banner.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Mouse Etkileşim Takibi
+    const mouse = { x: null, y: null, radius: 160 };
+    banner.addEventListener('mousemove', function(e) {
+        const rect = banner.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+    });
+    banner.addEventListener('mouseleave', function() {
+        mouse.x = null;
+        mouse.y = null;
+    });
+
+    const PARTICLE_COUNT = 90;
+    const CONNECTION_DIST = 145;
+    const colors = ['#38bdf8', '#818cf8', '#c084fc', '#67e8f9', '#10b981'];
+
+    const particles = Array.from({ length: PARTICLE_COUNT }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.65,
+        vy: (Math.random() - 0.5) * 0.65,
+        r: Math.random() * 2.2 + 1,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        pulse: Math.random() * Math.PI
+    }));
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Bağlantı Çizgileri ve Siber Veri Akışı
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < CONNECTION_DIST) {
+                    const alpha = (1 - dist / CONNECTION_DIST) * 0.4;
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(56, 189, 248, ${alpha})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+
+            // Mouse Etkileşimi (İmlece Doğru Esnek Çekim ve Bağlantı Çizgisi)
+            if (mouse.x !== null && mouse.y !== null) {
+                const mdx = particles[i].x - mouse.x;
+                const mdy = particles[i].y - mouse.y;
+                const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+                if (mdist < mouse.radius) {
+                    const mAlpha = (1 - mdist / mouse.radius) * 0.5;
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(129, 140, 248, ${mAlpha})`;
+                    ctx.lineWidth = 1.2;
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.stroke();
+
+                    // Hafif manyetik itme/çekme
+                    particles[i].x += (mdx / mdist) * 0.5;
+                    particles[i].y += (mdy / mdist) * 0.5;
+                }
+            }
+        }
+
+        // Parçacıkların Çizimi ve Hareketi
+        for (const p of particles) {
+            p.pulse += 0.04;
+            const currentR = p.r + Math.sin(p.pulse) * 0.5;
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, Math.max(0.5, currentR), 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = p.color;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            p.x += p.vx;
+            p.y += p.vy;
+
+            if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+        }
+
+        requestAnimationFrame(draw);
+    }
+    draw();
+
+    // 2. Canlı Ping Osilasyon Animasyonu (Terminal)
+    const pingEl = document.getElementById('livePing');
+    if (pingEl) {
+        setInterval(() => {
+            const randomPing = Math.floor(Math.random() * 5) + 11; // 11ms - 15ms arası
+            pingEl.textContent = `Ping: ${randomPing}ms`;
+        }, 3200);
+    }
+
+    // 3. Kartlarda Manyetik 3D Eğim (Tilt) Etkisi
+    const tiltCards = document.querySelectorAll('.tech-tilt-card');
+    tiltCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transition = 'none';
+        });
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            const tiltX = -y * 8;
+            const tiltY = x * 8;
+            card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-6px)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transition = 'transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease';
+            card.style.transform = '';
+        });
+    });
+})();
+</script>
+}
