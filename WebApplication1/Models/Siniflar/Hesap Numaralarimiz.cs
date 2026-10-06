@@ -1,7 +1,10 @@
-﻿namespace WebApplication1.Models.Siniflar
+using System.Collections.Generic;
+
+namespace WebApplication1.Models.Siniflar
 {
     public class HesapNumaralarimiz
     {
+        public int Id { get; set; }
         public string UstBaslik { get; set; }
         public string AnaBaslik { get; set; }
         public string Aciklama { get; set; }
@@ -15,7 +18,11 @@
 
     public class BankaBilgisi
     {
-        BankaBilgisi() { }
+        public int Id { get; set; }
+        public int HesapNumaralarimizId { get; set; }
+        public HesapNumaralarimiz HesapNumaralarimiz { get; set; }
+
+        public BankaBilgisi() { }
         public BankaBilgisi(string bankaAdi, string aliciAdi, string iban)
         {
             BankaAdi = bankaAdi;

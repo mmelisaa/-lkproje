@@ -1,0 +1,39 @@
+@model WebApplication1.Models.Siniflar.InsanKaynaklari
+@{
+    ViewData["Title"] = "İnsan Kaynakları Düzenle";
+}
+
+<div class="container mt-5" style="max-width: 700px;">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold">İnsan Kaynakları Sayfasını Düzenle</h3>
+        <a asp-action="Index" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i> Panele Dön</a>
+    </div>
+    <form asp-action="InsanKaynaklariDuzenle" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+        <div class="mb-3">
+            <label asp-for="UstBaslik" class="form-label fw-semibold">Üst Başlık</label>
+            <input asp-for="UstBaslik" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="AnaBaslik" class="form-label fw-semibold">Ana Başlık</label>
+            <input asp-for="AnaBaslik" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Aciklama" class="form-label fw-semibold">Açıklama</label>
+            <textarea asp-for="Aciklama" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+            <label asp-for="FormBaslik" class="form-label fw-semibold">Form Başlığı</label>
+            <input asp-for="FormBaslik" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="FormAltBaslik" class="form-label fw-semibold">Form Alt Başlığı</label>
+            <input asp-for="FormAltBaslik" class="form-control" />
+        </div>
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg"></i> Kaydet</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">İptal</a>
+        </div>
+    </form>
+</div>

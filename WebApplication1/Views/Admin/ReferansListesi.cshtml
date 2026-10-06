@@ -1,0 +1,63 @@
+@model IEnumerable<WebApplication1.Models.Siniflar.ReferansProje>
+@{
+    ViewData["Title"] = "Referans Yönetimi";
+}
+
+@if (TempData["Mesaj"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        @TempData["Mesaj"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold">Referans Projeleri</h3>
+        <div>
+            <a asp-action="ReferansEkle" class="btn btn-success btn-sm"><i class="bi bi-plus-lg"></i> Yeni Referans Ekle</a>
+            <a asp-action="Index" class="btn btn-outline-secondary btn-sm ms-2"><i class="bi bi-arrow-left"></i> Panele Dön</a>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Başlık</th>
+                    <th>Kategori</th>
+                    <th>Etiketler</th>
+                    <th class="text-end">İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Baslik</td>
+                            <td><span class="badge bg-success">@item.Kategori</span></td>
+                            <td><small class="text-muted">@item.Etiketler</small></td>
+                            <td class="text-end">
+                                <a asp-action="ReferansDuzenle" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i> Düzenle</a>
+                                <form asp-action="ReferansSil" asp-route-id="@item.Id" method="post" class="d-inline" onsubmit="return confirm('Bu referansı silmek istediğinize emin misiniz?');">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i> Sil</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="text-center text-muted py-4">Henüz referans proje eklenmemiş.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

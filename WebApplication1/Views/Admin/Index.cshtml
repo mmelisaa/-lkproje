@@ -1,0 +1,85 @@
+@{
+    ViewData["Title"] = "Admin Panel";
+}
+
+@if (TempData["Mesaj"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        @TempData["Mesaj"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="container mt-5">
+    <div class="d-flex align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Admin Paneli</h2>
+            <p class="text-muted mb-0">Hoş geldiniz, <strong>@User.Identity?.Name</strong>. Tüm site içeriklerini buradan yönetebilirsiniz.</p>
+        </div>
+    </div>
+    <hr />
+
+    <div class="row g-4">
+        <!-- Blog Yönetimi -->
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center p-4">
+                    <div class="mb-3">
+                        <i class="bi bi-pencil-square fs-1 text-primary"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Blog Yönetimi</h5>
+                    <p class="card-text text-muted small">Blog yazılarını ekle, düzenle veya sil.</p>
+                    <span class="badge bg-primary mb-3">@ViewBag.BlogSayisi yazı</span>
+                    <br />
+                    <a asp-action="BlogListesi" class="btn btn-outline-primary btn-sm">Yönet</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Referans Yönetimi -->
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center p-4">
+                    <div class="mb-3">
+                        <i class="bi bi-collection fs-1 text-success"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Referans Yönetimi</h5>
+                    <p class="card-text text-muted small">Referans projelerinizi yönetin.</p>
+                    <span class="badge bg-success mb-3">@ViewBag.ReferansSayisi proje</span>
+                    <br />
+                    <a asp-action="ReferansListesi" class="btn btn-outline-success btn-sm">Yönet</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hakkımızda Yönetimi -->
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center p-4">
+                    <div class="mb-3">
+                        <i class="bi bi-building fs-1 text-info"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Hakkımızda</h5>
+                    <p class="card-text text-muted small">Hakkımızda sayfasını düzenleyin.</p>
+                    <br />
+                    <a asp-action="HakkimizdaDuzenle" class="btn btn-outline-info btn-sm">Düzenle</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- İnsan Kaynakları Yönetimi -->
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center p-4">
+                    <div class="mb-3">
+                        <i class="bi bi-people fs-1 text-warning"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">İnsan Kaynakları</h5>
+                    <p class="card-text text-muted small">İK sayfası ayarlarını düzenleyin.</p>
+                    <br />
+                    <a asp-action="InsanKaynaklariDuzenle" class="btn btn-outline-warning btn-sm">Düzenle</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

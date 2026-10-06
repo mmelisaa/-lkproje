@@ -1,7 +1,8 @@
-﻿namespace WebApplication1.Models.Siniflar
+namespace WebApplication1.Models.Siniflar
 {
     public class InsanKaynaklari
     {
+        public int Id { get; set; }
         public string UstBaslik { get; set; }
         public string AnaBaslik { get; set; }
         public string Aciklama { get; set; }

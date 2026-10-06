@@ -1,0 +1,41 @@
+@model WebApplication1.Models.Siniflar.ReferansProje
+@{
+    ViewData["Title"] = "Referans Ekle";
+}
+
+<div class="container mt-5" style="max-width: 700px;">
+    <h3 class="fw-bold mb-4">Yeni Referans Proje Ekle</h3>
+    <form asp-action="ReferansEkle" method="post">
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            <label asp-for="Baslik" class="form-label fw-semibold">Proje Başlığı</label>
+            <input asp-for="Baslik" class="form-control" placeholder="Proje adı" />
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="Kategori" class="form-label fw-semibold">Kategori</label>
+                <input asp-for="Kategori" class="form-control" placeholder="Örn: E-Ticaret" />
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="Etiketler" class="form-label fw-semibold">Etiketler</label>
+                <input asp-for="Etiketler" class="form-control" placeholder="Örn: ASP.NET, React" />
+            </div>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Aciklama" class="form-label fw-semibold">Açıklama</label>
+            <textarea asp-for="Aciklama" class="form-control" rows="3" placeholder="Proje hakkında kısa açıklama"></textarea>
+        </div>
+        <div class="mb-3">
+            <label asp-for="GorselUrl" class="form-label fw-semibold">Görsel URL</label>
+            <input asp-for="GorselUrl" class="form-control" placeholder="https://..." />
+        </div>
+        <div class="mb-3">
+            <label asp-for="ProjeLinki" class="form-label fw-semibold">Proje Linki</label>
+            <input asp-for="ProjeLinki" class="form-control" placeholder="https://..." />
+        </div>
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-success"><i class="bi bi-check-lg"></i> Kaydet</button>
+            <a asp-action="ReferansListesi" class="btn btn-outline-secondary">İptal</a>
+        </div>
+    </form>
+</div>
