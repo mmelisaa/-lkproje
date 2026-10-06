@@ -1,85 +1,414 @@
 @{
-    ViewData["Title"] = "Admin Panel";
+    ViewData["Title"] = "Admin Kontrol Paneli";
 }
 
-@if (TempData["Mesaj"] != null)
-{
-    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-        @TempData["Mesaj"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-}
-
-<div class="container mt-5">
-    <div class="d-flex align-items-center mb-4">
+<div class="container-fluid py-4 px-lg-5">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-white border-opacity-10">
         <div>
-            <h2 class="fw-bold mb-1">Admin Paneli</h2>
-            <p class="text-muted mb-0">Hoş geldiniz, <strong>@User.Identity?.Name</strong>. Tüm site içeriklerini buradan yönetebilirsiniz.</p>
+            <span class="badge bg-primary bg-opacity-20 text-info border border-info border-opacity-25 px-3 py-1.5 rounded-pill small fw-bold text-uppercase mb-2">
+                <i class="bi bi-shield-lock-fill me-1"></i> Admin Portal
+            </span>
+            <h2 class="fw-bold text-white mb-0" style="letter-spacing: -0.5px;">Yönetim Kontrol Paneli</h2>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+            <span class="text-light text-opacity-75 small">
+                <i class="bi bi-person-circle text-info me-1"></i> @User.Identity?.Name
+            </span>
+            <a asp-action="MesajListesi" class="btn btn-outline-info position-relative btn-sm rounded-pill px-3">
+                <i class="bi bi-envelope-fill me-1"></i> Mesajlar
+                @if (ViewBag.OkunmamisMesaj > 0)
+                {
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        @ViewBag.OkunmamisMesaj
+                    </span>
+                }
+            </a>
         </div>
     </div>
-    <hr />
 
-    <div class="row g-4">
+    @if (TempData["Mesaj"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show mb-4 rounded-4 border-0 shadow-lg" role="alert" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3) !important; color: #34d399;">
+            <i class="bi bi-check-circle-fill me-2"></i> @TempData["Mesaj"]
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <!-- 1. ZİYARETÇİ İSTATİSTİK KARTLARI -->
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+            <div class="p-3.5 rounded-4 shadow-sm h-100" style="background: rgba(18, 24, 38, 0.85); border: 1px solid rgba(56, 189, 248, 0.2); backdrop-filter: blur(12px);">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-light text-opacity-75 small fw-semibold">Bugünkü Ziyaret</span>
+                    <div class="p-2 rounded-3 text-info" style="background: rgba(56, 189, 248, 0.1);">
+                        <i class="bi bi-calendar-day fs-5"></i>
+                    </div>
+                </div>
+                <h3 class="fw-bold text-white mb-0">@ViewBag.BugunkuZiyaret</h3>
+                <small class="text-info opacity-75"><i class="bi bi-clock-history me-1"></i>Son 24 Saat</small>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="p-3.5 rounded-4 shadow-sm h-100" style="background: rgba(18, 24, 38, 0.85); border: 1px solid rgba(129, 140, 248, 0.2); backdrop-filter: blur(12px);">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-light text-opacity-75 small fw-semibold">Haftalık Ziyaret</span>
+                    <div class="p-2 rounded-3 text-primary" style="background: rgba(129, 140, 248, 0.1);">
+                        <i class="bi bi-calendar-week fs-5"></i>
+                    </div>
+                </div>
+                <h3 class="fw-bold text-white mb-0">@ViewBag.HaftalikZiyaret</h3>
+                <small class="text-primary opacity-75"><i class="bi bi-graph-up me-1"></i>Son 7 Gün</small>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="p-3.5 rounded-4 shadow-sm h-100" style="background: rgba(18, 24, 38, 0.85); border: 1px solid rgba(192, 132, 252, 0.2); backdrop-filter: blur(12px);">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-light text-opacity-75 small fw-semibold">Aylık Ziyaret</span>
+                    <div class="p-2 rounded-3 text-warning" style="background: rgba(192, 132, 252, 0.1);">
+                        <i class="bi bi-calendar-month fs-5"></i>
+                    </div>
+                </div>
+                <h3 class="fw-bold text-white mb-0">@ViewBag.AylikZiyaret</h3>
+                <small class="text-warning opacity-75"><i class="bi bi-bar-chart me-1"></i>Son 30 Gün</small>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="p-3.5 rounded-4 shadow-sm h-100" style="background: rgba(18, 24, 38, 0.85); border: 1px solid rgba(52, 211, 153, 0.2); backdrop-filter: blur(12px);">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-light text-opacity-75 small fw-semibold">Toplam Trafik</span>
+                    <div class="p-2 rounded-3 text-success" style="background: rgba(52, 211, 153, 0.1);">
+                        <i class="bi bi-activity fs-5"></i>
+                    </div>
+                </div>
+                <h3 class="fw-bold text-white mb-0">@ViewBag.ToplamZiyaret</h3>
+                <small class="text-success opacity-75"><i class="bi bi-infinity me-1"></i>Tüm Zamanlar</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. GRAFİK VE KARŞILAŞTIRMA SEKTÖRÜ -->
+    <div class="row g-4 mb-4">
+        <!-- Ziyaretçi Grafiği -->
+        <div class="col-lg-8">
+            <div class="p-4 rounded-4 shadow-sm h-100" style="background: rgba(18, 24, 38, 0.85); border: 1px solid rgba(255,255,255,0.08);">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <h5 class="fw-bold text-white mb-1"><i class="bi bi-graph-up-arrow text-info me-2"></i>Ziyaretçi Analitiği</h5>
+                        <p class="text-light text-opacity-60 small mb-0">Seçilen döneme göre ziyaretçi trend grafiği</p>
+                    </div>
+                    <div class="btn-group btn-group-sm" role="group">
+                        <button type="button" class="btn btn-outline-info active" onclick="loadChart('gunluk', this)">Günlük</button>
+                        <button type="button" class="btn btn-outline-info" onclick="loadChart('haftalik', this)">Haftalık</button>
+                        <button type="button" class="btn btn-outline-info" onclick="loadChart('aylik', this)">Aylık</button>
+                        <button type="button" class="btn btn-outline-info" onclick="loadChart('yillik', this)">Yıllık</button>
+                    </div>
+                </div>
+                <div style="position: relative; height: 280px;">
+                    <canvas id="ziyaretciChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dönem Karşılaştırma Kartı -->
+        <div class="col-lg-4">
+            <div class="p-4 rounded-4 shadow-sm h-100" style="background: rgba(18, 24, 38, 0.85); border: 1px solid rgba(255,255,255,0.08);">
+                <h5 class="fw-bold text-white mb-1"><i class="bi bi-arrow-down-up text-warning me-2"></i>Dönem Karşılaştırmaları</h5>
+                <p class="text-light text-opacity-60 small mb-4">Önceki dönemler ile performans kıyaslaması</p>
+
+                <!-- Haftalık Kıyaslama -->
+                <div class="mb-4 pb-3 border-bottom border-white border-opacity-10">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span class="text-light small font-monospace">Haftalık (Bu Hafta vs Geçen Hafta)</span>
+                        <span id="haftaDegisim" class="badge bg-success bg-opacity-20 text-success small">...</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-white fw-bold fs-5" id="buHaftaVal">0</span>
+                        <span class="text-muted small">vs <span id="gecenHaftaVal">0</span></span>
+                    </div>
+                    <div class="progress mt-2" style="height: 6px; background: rgba(255,255,255,0.08);">
+                        <div id="haftaBar" class="progress-bar bg-info" role="progressbar" style="width: 50%;"></div>
+                    </div>
+                </div>
+
+                <!-- Aylık Kıyaslama -->
+                <div class="mb-4 pb-3 border-bottom border-white border-opacity-10">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span class="text-light small font-monospace">Aylık (Bu Ay vs Geçen Ay)</span>
+                        <span id="ayDegisim" class="badge bg-primary bg-opacity-20 text-primary small">...</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-white fw-bold fs-5" id="buAyVal">0</span>
+                        <span class="text-muted small">vs <span id="gecenAyVal">0</span></span>
+                    </div>
+                    <div class="progress mt-2" style="height: 6px; background: rgba(255,255,255,0.08);">
+                        <div id="ayBar" class="progress-bar bg-primary" role="progressbar" style="width: 50%;"></div>
+                    </div>
+                </div>
+
+                <!-- Yıllık Kıyaslama -->
+                <div>
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span class="text-light small font-monospace">Yıllık (Bu Yıl vs Geçen Yıl)</span>
+                        <span id="yilDegisim" class="badge bg-warning bg-opacity-20 text-warning small">...</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-white fw-bold fs-5" id="buYilVal">0</span>
+                        <span class="text-muted small">vs <span id="gecenYilVal">0</span></span>
+                    </div>
+                    <div class="progress mt-2" style="height: 6px; background: rgba(255,255,255,0.08);">
+                        <div id="yilBar" class="progress-bar bg-warning" role="progressbar" style="width: 50%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. HIZLI ERİŞİM KARTLARI (YÖNETİM MODÜLLERİ) -->
+    <div class="row g-4 mb-4">
+        <!-- Mesaj & Başvurular -->
+        <div class="col-md-3">
+            <div class="p-4 rounded-4 shadow-sm h-100 transition-hover" style="background: rgba(18, 24, 38, 0.85); border: 1px solid rgba(56, 189, 248, 0.25);">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <div class="p-3 rounded-3 text-info" style="background: rgba(56, 189, 248, 0.1);">
+                        <i class="bi bi-inbox-fill fs-3"></i>
+                    </div>
+                    <span class="badge bg-info bg-opacity-20 text-info border border-info border-opacity-25 px-2.5 py-1">
+                        @ViewBag.MesajSayisi Mesaj
+                    </span>
+                </div>
+                <h5 class="fw-bold text-white mb-2">Form & Başvurular</h5>
+                <p class="text-light text-opacity-60 small mb-3">İletişim, İş Başvuruları ve Teklif taleplerini inceleyin.</p>
+                <a asp-action="MesajListesi" class="btn btn-outline-info btn-sm rounded-pill w-100">Mesajları İncele</a>
+            </div>
+        </div>
+
         <!-- Blog Yönetimi -->
         <div class="col-md-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body text-center p-4">
-                    <div class="mb-3">
-                        <i class="bi bi-pencil-square fs-1 text-primary"></i>
+            <div class="p-4 rounded-4 shadow-sm h-100 transition-hover" style="background: rgba(18, 24, 38, 0.85); border: 1px solid rgba(129, 140, 248, 0.25);">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <div class="p-3 rounded-3 text-primary" style="background: rgba(129, 140, 248, 0.1);">
+                        <i class="bi bi-journal-richtext fs-3"></i>
                     </div>
-                    <h5 class="card-title fw-bold">Blog Yönetimi</h5>
-                    <p class="card-text text-muted small">Blog yazılarını ekle, düzenle veya sil.</p>
-                    <span class="badge bg-primary mb-3">@ViewBag.BlogSayisi yazı</span>
-                    <br />
-                    <a asp-action="BlogListesi" class="btn btn-outline-primary btn-sm">Yönet</a>
+                    <span class="badge bg-primary bg-opacity-20 text-primary border border-primary border-opacity-25 px-2.5 py-1">
+                        @ViewBag.BlogSayisi Yazı
+                    </span>
                 </div>
+                <h5 class="fw-bold text-white mb-2">Blog Yönetimi</h5>
+                <p class="text-light text-opacity-60 small mb-3">Yeni blog yazıları ekleyin, mevcutları güncelleyin veya silin.</p>
+                <a asp-action="BlogListesi" class="btn btn-outline-primary btn-sm rounded-pill w-100">Blogları Yönet</a>
             </div>
         </div>
 
-        <!-- Referans Yönetimi -->
+        <!-- Referans Projeleri -->
         <div class="col-md-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body text-center p-4">
-                    <div class="mb-3">
-                        <i class="bi bi-collection fs-1 text-success"></i>
+            <div class="p-4 rounded-4 shadow-sm h-100 transition-hover" style="background: rgba(18, 24, 38, 0.85); border: 1px solid rgba(52, 211, 153, 0.25);">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <div class="p-3 rounded-3 text-success" style="background: rgba(52, 211, 153, 0.1);">
+                        <i class="bi bi-collection-fill fs-3"></i>
                     </div>
-                    <h5 class="card-title fw-bold">Referans Yönetimi</h5>
-                    <p class="card-text text-muted small">Referans projelerinizi yönetin.</p>
-                    <span class="badge bg-success mb-3">@ViewBag.ReferansSayisi proje</span>
-                    <br />
-                    <a asp-action="ReferansListesi" class="btn btn-outline-success btn-sm">Yönet</a>
+                    <span class="badge bg-success bg-opacity-20 text-success border border-success border-opacity-25 px-2.5 py-1">
+                        @ViewBag.ReferansSayisi Proje
+                    </span>
                 </div>
+                <h5 class="fw-bold text-white mb-2">Referans Projeler</h5>
+                <p class="text-light text-opacity-60 small mb-3">Tamamlanan projeleri portfolyonuza ekleyin.</p>
+                <a asp-action="ReferansListesi" class="btn btn-outline-success btn-sm rounded-pill w-100">Referansları Yönet</a>
             </div>
         </div>
 
-        <!-- Hakkımızda Yönetimi -->
+        <!-- Kurumsal Sayfalar -->
         <div class="col-md-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body text-center p-4">
-                    <div class="mb-3">
-                        <i class="bi bi-building fs-1 text-info"></i>
+            <div class="p-4 rounded-4 shadow-sm h-100 transition-hover" style="background: rgba(18, 24, 38, 0.85); border: 1px solid rgba(192, 132, 252, 0.25);">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <div class="p-3 rounded-3 text-warning" style="background: rgba(192, 132, 252, 0.1);">
+                        <i class="bi bi-gear-wide-connected fs-3"></i>
                     </div>
-                    <h5 class="card-title fw-bold">Hakkımızda</h5>
-                    <p class="card-text text-muted small">Hakkımızda sayfasını düzenleyin.</p>
-                    <br />
-                    <a asp-action="HakkimizdaDuzenle" class="btn btn-outline-info btn-sm">Düzenle</a>
+                    <span class="badge bg-warning bg-opacity-20 text-warning border border-warning border-opacity-25 px-2.5 py-1">
+                        Sayfalar
+                    </span>
+                </div>
+                <h5 class="fw-bold text-white mb-2">Kurumsal Sayfalar</h5>
+                <p class="text-light text-opacity-60 small mb-3">Hakkımızda ve İnsan Kaynakları içeriklerini düzenleyin.</p>
+                <div class="d-flex gap-2">
+                    <a asp-action="HakkimizdaDuzenle" class="btn btn-outline-warning btn-sm rounded-pill flex-fill">Hakkımızda</a>
+                    <a asp-action="InsanKaynaklariDuzenle" class="btn btn-outline-warning btn-sm rounded-pill flex-fill">İK</a>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- İnsan Kaynakları Yönetimi -->
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body text-center p-4">
-                    <div class="mb-3">
-                        <i class="bi bi-people fs-1 text-warning"></i>
-                    </div>
-                    <h5 class="card-title fw-bold">İnsan Kaynakları</h5>
-                    <p class="card-text text-muted small">İK sayfası ayarlarını düzenleyin.</p>
-                    <br />
-                    <a asp-action="InsanKaynaklariDuzenle" class="btn btn-outline-warning btn-sm">Düzenle</a>
-                </div>
-            </div>
+    <!-- 4. SON GELEN MESAJLAR ÖNİZLEMESİ -->
+    <div class="p-4 rounded-4 shadow-sm" style="background: rgba(18, 24, 38, 0.85); border: 1px solid rgba(255,255,255,0.08);">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold text-white mb-0"><i class="bi bi-clock-history text-info me-2"></i>Son Gelen Form ve Başvurular</h5>
+            <a asp-action="MesajListesi" class="btn btn-sm btn-link text-info text-decoration-none small">Tümünü Gör →</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle mb-0" style="background: transparent;">
+                <thead>
+                    <tr class="text-secondary small">
+                        <th>Gönderen</th>
+                        <th>E-Posta</th>
+                        <th>Tür</th>
+                        <th>Konu / Pozisyon</th>
+                        <th>Tarih</th>
+                        <th class="text-end">İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.SonMesajlar != null && ((List<WebApplication1.Models.Siniflar.SiteMesaj>)ViewBag.SonMesajlar).Any())
+                    {
+                        @foreach (var m in (List<WebApplication1.Models.Siniflar.SiteMesaj>)ViewBag.SonMesajlar)
+                        {
+                            <tr>
+                                <td class="fw-semibold text-white">
+                                    @m.AdSoyad
+                                    @if (!m.Okundu)
+                                    {
+                                        <span class="badge bg-danger ms-1 small">Yeni</span>
+                                    }
+                                </td>
+                                <td class="text-light text-opacity-75">@m.Eposta</td>
+                                <td>
+                                    @if (m.FormTipi == "İş Başvurusu")
+                                    {
+                                        <span class="badge bg-warning bg-opacity-20 text-warning border border-warning border-opacity-25 px-2.5">İş Başvurusu</span>
+                                    }
+                                    else if (m.FormTipi == "Teklif Talebi")
+                                    {
+                                        <span class="badge bg-success bg-opacity-20 text-success border border-success border-opacity-25 px-2.5">Teklif Talebi</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-info bg-opacity-20 text-info border border-info border-opacity-25 px-2.5">İletişim</span>
+                                    }
+                                </td>
+                                <td class="text-light text-opacity-75">@(m.Konu ?? m.Pozisyon ?? "-")</td>
+                                <td class="text-light text-opacity-60 small">@m.GonderimTarihi.ToString("dd.MM.yyyy HH:mm")</td>
+                                <td class="text-end">
+                                    <a asp-action="MesajDetay" asp-route-id="@m.Id" class="btn btn-sm btn-outline-info rounded-pill px-3">Oku</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center py-4 text-muted">Henüz gelen mesaj veya başvuru bulunmuyor.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let myChart = null;
+
+        function loadChart(periyot, btn) {
+            if (btn) {
+                document.querySelectorAll('.btn-group .btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            }
+
+            fetch('/Admin/ZiyaretciVerileri?periyot=' + periyot)
+                .then(res => res.json())
+                .then(data => {
+                    const ctx = document.getElementById('ziyaretciChart').getContext('2d');
+                    
+                    if (myChart) myChart.destroy();
+
+                    myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: data.labels,
+                            datasets: [{
+                                label: 'Ziyaretçi Sayısı',
+                                data: data.values,
+                                borderColor: '#38bdf8',
+                                backgroundColor: 'rgba(56, 189, 248, 0.12)',
+                                fill: true,
+                                tension: 0.4,
+                                pointBackgroundColor: '#818cf8',
+                                pointRadius: 4,
+                                pointHoverRadius: 6
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false }
+                            },
+                            scales: {
+                                x: {
+                                    grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                                    ticks: { color: 'rgba(255, 255, 255, 0.6)' }
+                                },
+                                y: {
+                                    beginAtZero: true,
+                                    grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                                    ticks: { color: 'rgba(255, 255, 255, 0.6)', stepSize: 1 }
+                                }
+                            }
+                        }
+                    });
+                });
+        }
+
+        function loadKarsilastirma() {
+            fetch('/Admin/ZiyaretciKarsilastirma')
+                .then(res => res.json())
+                .then(d => {
+                    // Hafta
+                    document.getElementById('buHaftaVal').innerText = d.hafta.mevcut;
+                    document.getElementById('gecenHaftaVal').innerText = d.hafta.onceki;
+                    setDegisim('haftaDegisim', 'haftaBar', d.hafta.mevcut, d.hafta.onceki);
+
+                    // Ay
+                    document.getElementById('buAyVal').innerText = d.ay.mevcut;
+                    document.getElementById('gecenAyVal').innerText = d.ay.onceki;
+                    setDegisim('ayDegisim', 'ayBar', d.ay.mevcut, d.ay.onceki);
+
+                    // Yıl
+                    document.getElementById('buYilVal').innerText = d.yil.mevcut;
+                    document.getElementById('gecenYilVal').innerText = d.yil.onceki;
+                    setDegisim('yilDegisim', 'yilBar', d.yil.mevcut, d.yil.onceki);
+                });
+        }
+
+        function setDegisim(badgeId, barId, mevcut, onceki) {
+            const badge = document.getElementById(badgeId);
+            const bar = document.getElementById(barId);
+            let pct = 0;
+            if (onceki === 0) {
+                pct = mevcut > 0 ? 100 : 0;
+            } else {
+                pct = Math.round(((mevcut - onceki) / onceki) * 100);
+            }
+            if (pct >= 0) {
+                badge.className = "badge bg-success bg-opacity-20 text-success small";
+                badge.innerText = "+" + pct + "%";
+            } else {
+                badge.className = "badge bg-danger bg-opacity-20 text-danger small";
+                badge.innerText = pct + "%";
+            }
+
+            const total = (mevcut + onceki) || 1;
+            const barPct = Math.round((mevcut / total) * 100);
+            bar.style.width = Math.max(barPct, 10) + "%";
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadChart('haftalik');
+            loadKarsilastirma();
+        });
+    </script>
+}

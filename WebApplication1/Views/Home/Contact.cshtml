@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewData["Title"] = "İletişim";
 }
 
@@ -8,6 +8,14 @@
         <h1 class="fw-bold display-6 mb-2" style="color: #E0E6ED !important;">Bizimle İletişime Geçin</h1>
         <p class="fs-6 mb-0" style="color: #94A3B8 !important;">Sorularınız, projeleriniz veya iş birliği teklifleriniz için bize her zaman ulaşabilirsiniz.</p>
     </div>
+
+    @if (TempData["FormMesaj"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show mb-4 rounded-4 border-0 shadow-lg" role="alert" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3) !important; color: #34d399;">
+            <i class="bi bi-check-circle-fill me-2"></i> @TempData["FormMesaj"]
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+        </div>
+    }
 
     <div class="row g-5">
         <!-- İletişim Bilgileri ve Sosyal Medya -->
@@ -21,7 +29,7 @@
                     </div>
                     <div>
                         <h6 class="text-white fw-bold mb-1">Adres</h6>
-                        <p class="text-muted small mb-0">İstanbul / Türkiye</p>
+                        <p class="text-muted small mb-0">İstanbul & Elazığ / Türkiye</p>
                     </div>
                 </div>
 
@@ -41,7 +49,7 @@
                     </div>
                     <div>
                         <h6 class="text-white fw-bold mb-1">E-Posta</h6>
-                        <p class="text-muted small mb-0">bilgi@hayatisleri.com</p>
+                        <p class="text-muted small mb-0">info@hayatisleri.com</p>
                     </div>
                 </div>
 
@@ -58,23 +66,24 @@
             <div class="p-4 p-md-5 rounded-4 shadow-sm" style="background-color: #12141c; border: 1px solid rgba(255,255,255,0.08) !important;">
                 <h3 class="text-white fw-bold mb-4 fs-4">Bize Mesaj Gönderin</h3>
 
-                <form>
+                <form asp-controller="Home" asp-action="Contact" method="post">
+                    @Html.AntiForgeryToken()
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label for="name" class="form-label text-light small fw-semibold">Adınız Soyadınız</label>
-                            <input type="text" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" id="name" placeholder="Adınız Soyadınız" required style="font-size: 0.95rem;">
+                            <label for="adSoyad" class="form-label text-light small fw-semibold">Adınız Soyadınız *</label>
+                            <input type="text" name="adSoyad" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" id="adSoyad" placeholder="Adınız Soyadınız" required style="font-size: 0.95rem;">
                         </div>
                         <div class="col-md-6">
-                            <label for="email" class="form-label text-light small fw-semibold">E-Posta Adresiniz</label>
-                            <input type="email5" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" id="email" placeholder="ornek@mail.com" required style="font-size: 0.95rem;">
+                            <label for="eposta" class="form-label text-light small fw-semibold">E-Posta Adresiniz *</label>
+                            <input type="email" name="eposta" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" id="eposta" placeholder="ornek@mail.com" required style="font-size: 0.95rem;">
                         </div>
                         <div class="col-12">
-                            <label for="subject" class="form-label text-light small fw-semibold">Konu</label>
-                            <input type="text" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" id="subject" placeholder="Mesajınızın konusu nedir?" required style="font-size: 0.95rem;">
+                            <label for="konu" class="form-label text-light small fw-semibold">Konu</label>
+                            <input type="text" name="konu" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" id="konu" placeholder="Mesajınızın konusu nedir?" style="font-size: 0.95rem;">
                         </div>
                         <div class="col-12">
-                            <label for="message" class="form-label text-light small fw-semibold">Mesajınız</label>
-                            <textarea class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" id="message" rows="4" placeholder="Mesajınızı buraya yazabilirsiniz..." required style="font-size: 0.95rem;"></textarea>
+                            <label for="mesaj" class="form-label text-light small fw-semibold">Mesajınız *</label>
+                            <textarea name="mesaj" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" id="mesaj" rows="4" placeholder="Mesajınızı buraya yazabilirsiniz..." required style="font-size: 0.95rem;"></textarea>
                         </div>
                         <div class="col-12 mt-4">
                             <button type="submit" class="btn btn-primary w-100 py-3 rounded-3 fw-bold shadow-sm">Mesajı Gönder</button>

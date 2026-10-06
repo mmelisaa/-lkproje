@@ -3,37 +3,40 @@
     ViewData["Title"] = "İnsan Kaynakları Düzenle";
 }
 
-<div class="container mt-5" style="max-width: 700px;">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3 class="fw-bold">İnsan Kaynakları Sayfasını Düzenle</h3>
-        <a asp-action="Index" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i> Panele Dön</a>
+<div class="container py-4" style="max-width: 750px;">
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-white border-opacity-10">
+        <h3 class="fw-bold text-white mb-0"><i class="bi bi-people text-warning me-2"></i>İnsan Kaynakları Sayfasını Düzenle</h3>
+        <a asp-action="Index" class="btn btn-outline-secondary btn-sm rounded-pill px-3"><i class="bi bi-arrow-left me-1"></i> Panele Dön</a>
     </div>
-    <form asp-action="InsanKaynaklariDuzenle" method="post">
-        @Html.AntiForgeryToken()
-        <input type="hidden" asp-for="Id" />
-        <div class="mb-3">
-            <label asp-for="UstBaslik" class="form-label fw-semibold">Üst Başlık</label>
-            <input asp-for="UstBaslik" class="form-control" />
-        </div>
-        <div class="mb-3">
-            <label asp-for="AnaBaslik" class="form-label fw-semibold">Ana Başlık</label>
-            <input asp-for="AnaBaslik" class="form-control" />
-        </div>
-        <div class="mb-3">
-            <label asp-for="Aciklama" class="form-label fw-semibold">Açıklama</label>
-            <textarea asp-for="Aciklama" class="form-control" rows="3"></textarea>
-        </div>
-        <div class="mb-3">
-            <label asp-for="FormBaslik" class="form-label fw-semibold">Form Başlığı</label>
-            <input asp-for="FormBaslik" class="form-control" />
-        </div>
-        <div class="mb-3">
-            <label asp-for="FormAltBaslik" class="form-label fw-semibold">Form Alt Başlığı</label>
-            <input asp-for="FormAltBaslik" class="form-control" />
-        </div>
-        <div class="d-flex gap-2">
-            <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg"></i> Kaydet</button>
-            <a asp-action="Index" class="btn btn-outline-secondary">İptal</a>
-        </div>
-    </form>
+
+    <div class="p-4 p-md-5 rounded-4 shadow-lg" style="background: rgba(18, 24, 38, 0.85); border: 1px solid rgba(255,255,255,0.08);">
+        <form asp-action="InsanKaynaklariDuzenle" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+            <div class="mb-3">
+                <label asp-for="UstBaslik" class="form-label text-white small fw-semibold">Üst Başlık</label>
+                <input asp-for="UstBaslik" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="AnaBaslik" class="form-label text-white small fw-semibold">Ana Başlık</label>
+                <input asp-for="AnaBaslik" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Aciklama" class="form-label text-white small fw-semibold">Açıklama</label>
+                <textarea asp-for="Aciklama" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <label asp-for="FormBaslik" class="form-label text-white small fw-semibold">Form Başlığı</label>
+                <input asp-for="FormBaslik" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" />
+            </div>
+            <div class="mb-4">
+                <label asp-for="FormAltBaslik" class="form-label text-white small fw-semibold">Form Alt Başlığı</label>
+                <input asp-for="FormAltBaslik" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" />
+            </div>
+            <div class="d-flex gap-2 pt-2">
+                <button type="submit" class="btn btn-warning rounded-pill px-4 text-dark fw-bold"><i class="bi bi-check-lg me-1"></i> Değişiklikleri Kaydet</button>
+                <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4">İptal</a>
+            </div>
+        </form>
+    </div>
 </div>

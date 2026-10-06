@@ -50,8 +50,17 @@
                 </span>
             </div>
 
+            @if (TempData["FormMesaj"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show mb-4 rounded-4 border-0 shadow-lg" role="alert" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3) !important; color: #34d399;">
+                    <i class="bi bi-check-circle-fill me-2"></i> @TempData["FormMesaj"]
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
             <!-- Form Başlangıcı -->
-            <form>
+            <form asp-controller="Home" asp-action="InsanKaynaklariBasvuru" method="post">
+                @Html.AntiForgeryToken()
                 <div class="row g-3 mb-3">
                     <!-- Ad Soyad -->
                     <div class="col-md-6">
@@ -59,7 +68,7 @@
                             <label class="form-label fw-semibold text-white small mb-1">
                                 <i class="bi bi-person-fill text-info me-1"></i> Adınız Soyadınız *
                             </label>
-                            <input type="text" class="form-control bg-transparent border-0 text-white shadow-none py-1 px-0" style="font-size: 0.95rem;" placeholder="Örn: Melisa Can" required>
+                            <input type="text" name="adSoyad" class="form-control bg-transparent border-0 text-white shadow-none py-1 px-0" style="font-size: 0.95rem;" placeholder="Örn: Melisa Can" required>
                         </div>
                     </div>
                     <!-- E-Posta -->
@@ -68,7 +77,7 @@
                             <label class="form-label fw-semibold text-white small mb-1">
                                 <i class="bi bi-envelope-fill text-info me-1"></i> E-Posta Adresiniz *
                             </label>
-                            <input type="email" class="form-control bg-transparent border-0 text-white shadow-none py-1 px-0" style="font-size: 0.95rem;" placeholder="ornek@mail.com" required>
+                            <input type="email" name="eposta" class="form-control bg-transparent border-0 text-white shadow-none py-1 px-0" style="font-size: 0.95rem;" placeholder="ornek@mail.com" required>
                         </div>
                     </div>
                 </div>
@@ -79,17 +88,7 @@
                         <label class="form-label fw-semibold text-white small mb-1">
                             <i class="bi bi-briefcase-fill text-info me-1"></i> Başvurmak İstediğiniz Pozisyon / Alan
                         </label>
-                        <input type="text" class="form-control bg-transparent border-0 text-white shadow-none py-1 px-0" style="font-size: 0.95rem;" placeholder="Örn: Web Geliştirici, UI/UX Tasarımcı...">
-                    </div>
-                </div>
-
-                <!-- CV Dosyası -->
-                <div class="mb-3">
-                    <div class="p-3 rounded-3" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.09);">
-                        <label class="form-label fw-semibold text-white small mb-1">
-                            <i class="bi bi-file-earmark-arrow-up-fill text-warning me-1"></i> CV / Özgeçmiş Dosyanız (PDF, DOC, DOCX - Maks 5 MB)
-                        </label>
-                        <input type="file" class="form-control bg-transparent border-0 text-white-50 shadow-none py-1 px-0" style="font-size: 0.9rem;">
+                        <input type="text" name="pozisyon" class="form-control bg-transparent border-0 text-white shadow-none py-1 px-0" style="font-size: 0.95rem;" placeholder="Örn: Web Geliştirici, UI/UX Tasarımcı...">
                     </div>
                 </div>
 
@@ -99,7 +98,7 @@
                         <label class="form-label fw-semibold text-white small mb-1">
                             <i class="bi bi-chat-text-fill text-info me-1"></i> Ön Yazınız / Kendinizden Bahsedin
                         </label>
-                        <textarea class="form-control bg-transparent border-0 text-white shadow-none px-0" rows="3" style="font-size: 0.95rem;" placeholder="Yeteneklerinizi ve kariyer hedeflerinizi kısaca bahsedin..."></textarea>
+                        <textarea name="onYazi" class="form-control bg-transparent border-0 text-white shadow-none px-0" rows="3" style="font-size: 0.95rem;" placeholder="Yeteneklerinizi ve kariyer hedeflerinizi kısaca bahsedin..."></textarea>
                     </div>
                 </div>
 

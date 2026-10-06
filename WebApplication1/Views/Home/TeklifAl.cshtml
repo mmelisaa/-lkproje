@@ -1,1 +1,72 @@
-﻿
+@{
+    ViewData["Title"] = "Teklif Alın";
+}
+
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-3 py-2 rounded-pill small fw-bold text-uppercase mb-3 d-inline-block">
+            <i class="bi bi-rocket-takeoff-fill me-1"></i> Projenize Başlayın
+        </span>
+        <h1 class="fw-bold display-5 text-white mb-3" style="letter-spacing: -1px;">Hızlı Teklif Formu</h1>
+        <p class="fs-6 text-light text-opacity-75 mx-auto mb-0" style="max-width: 600px;">
+            Hayalinizdeki projeyi gerçeğe dönüştürmek için detayları paylaşın, 24 saat içinde özel fiyat ve zaman teklifimizi iletelim.
+        </p>
+    </div>
+
+    @if (TempData["FormMesaj"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show mb-4 rounded-4 border-0 shadow-lg mx-auto" style="max-width: 800px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3) !important; color: #34d399;" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i> @TempData["FormMesaj"]
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="mx-auto" style="max-width: 800px;">
+        <div class="p-4 p-md-5 rounded-4 shadow-lg" style="background: rgba(18, 24, 38, 0.9); border: 1px solid rgba(56, 189, 248, 0.2); backdrop-filter: blur(20px);">
+            <form asp-controller="Home" asp-action="TeklifAl" method="post">
+                @Html.AntiForgeryToken()
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <label for="adSoyad" class="form-label text-white small fw-semibold">Adınız Soyadınız / Firma Unvanı *</label>
+                        <input type="text" name="adSoyad" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2.5 px-3" id="adSoyad" placeholder="Ad Soyad veya Firma Adı" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="eposta" class="form-label text-white small fw-semibold">E-Posta Adresiniz *</label>
+                        <input type="email" name="eposta" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2.5 px-3" id="eposta" placeholder="ornek@firma.com" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="telefon" class="form-label text-white small fw-semibold">Telefon Numarası</label>
+                        <input type="tel" name="telefon" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2.5 px-3" id="telefon" placeholder="+90 (5XX) XXX XX XX">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="konu" class="form-label text-white small fw-semibold">Hizmet Türü / Konu</label>
+                        <select name="konu" class="form-select bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2.5 px-3" id="konu">
+                            <option value="Kurumsal Web Tasarım">Kurumsal Web Tasarım</option>
+                            <option value="Özel Yazılım Geliştirme">Özel Yazılım Geliştirme</option>
+                            <option value="E-Ticaret Sistemi">E-Ticaret Sistemi</option>
+                            <option value="Mobil Uygulama">Mobil Uygulama</option>
+                            <option value="Domain & Hosting Hizmeti">Domain & Hosting Hizmeti</option>
+                            <option value="İş Birliği Projesi">İş Birliği Projesi</option>
+                            <option value="Diğer">Diğer</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="mesaj" class="form-label text-white small fw-semibold">Proje Detayları ve Talepleriniz *</label>
+                        <textarea name="mesaj" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2.5 px-3" id="mesaj" rows="4" placeholder="Projeniz hakkında detaylar, hedef kitle, bütçe veya zaman beklentileriniz..." required></textarea>
+                    </div>
+
+                    <div class="col-12 mt-4">
+                        <button type="submit" class="btn btn-primary w-100 py-3 rounded-pill fw-bold shadow-lg d-flex align-items-center justify-content-center gap-2" style="background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%); border: none;">
+                            <i class="bi bi-send-fill text-warning"></i>
+                            <span>Teklif Talebini Gönder</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

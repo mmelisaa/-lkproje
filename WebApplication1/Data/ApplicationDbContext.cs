@@ -18,5 +18,7 @@ namespace WebApplication1.Data
         public DbSet<InsanKaynaklari> InsanKaynaklari { get; set; }
         public DbSet<HesapNumaralarimiz> HesapNumaralarimiz { get; set; }
         public DbSet<BankaBilgisi> BankaBilgileri { get; set; }
+        public DbSet<SiteMesaj> SiteMesajlari { get; set; }
+        public DbSet<ZiyaretciLog> ZiyaretciLoglari { get; set; }
     }
 }

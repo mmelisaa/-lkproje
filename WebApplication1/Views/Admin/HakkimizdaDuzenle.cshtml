@@ -3,53 +3,56 @@
     ViewData["Title"] = "Hakkımızda Düzenle";
 }
 
-<div class="container mt-5" style="max-width: 800px;">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3 class="fw-bold">Hakkımızda Sayfasını Düzenle</h3>
-        <a asp-action="Index" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i> Panele Dön</a>
+<div class="container py-4" style="max-width: 850px;">
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-white border-opacity-10">
+        <h3 class="fw-bold text-white mb-0"><i class="bi bi-building text-info me-2"></i>Hakkımızda Sayfasını Düzenle</h3>
+        <a asp-action="Index" class="btn btn-outline-secondary btn-sm rounded-pill px-3"><i class="bi bi-arrow-left me-1"></i> Panele Dön</a>
     </div>
-    <form asp-action="HakkimizdaDuzenle" method="post">
-        @Html.AntiForgeryToken()
-        <input type="hidden" asp-for="HakkimizdaID" />
-        <div class="mb-3">
-            <label asp-for="Baslik" class="form-label fw-semibold">Başlık</label>
-            <input asp-for="Baslik" class="form-control" />
-        </div>
-        <div class="mb-3">
-            <label asp-for="Aciklama" class="form-label fw-semibold">Açıklama</label>
-            <textarea asp-for="Aciklama" class="form-control" rows="3"></textarea>
-        </div>
-        <div class="mb-3">
-            <label asp-for="GorselUrl" class="form-label fw-semibold">Görsel URL</label>
-            <input asp-for="GorselUrl" class="form-control" />
-        </div>
-        <div class="mb-3">
-            <label asp-for="HizmetAlanlari" class="form-label fw-semibold">Hizmet Alanları</label>
-            <textarea asp-for="HizmetAlanlari" class="form-control" rows="2"></textarea>
-        </div>
-        <div class="mb-3">
-            <label asp-for="KurumsalGucumuz" class="form-label fw-semibold">Kurumsal Gücümüz</label>
-            <textarea asp-for="KurumsalGucumuz" class="form-control" rows="2"></textarea>
-        </div>
-        <div class="mb-3">
-            <label asp-for="CalismaIlkelerimiz" class="form-label fw-semibold">Çalışma İlkelerimiz</label>
-            <textarea asp-for="CalismaIlkelerimiz" class="form-control" rows="2"></textarea>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Vizyonumuz" class="form-label fw-semibold">Vizyonumuz</label>
-            <textarea asp-for="Vizyonumuz" class="form-control" rows="2"></textarea>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Misyonumuz" class="form-label fw-semibold">Misyonumuz</label>
-            <textarea asp-for="Misyonumuz" class="form-control" rows="2"></textarea>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Onceliklerimiz" class="form-label fw-semibold">Önceliklerimiz</label>
-            <textarea asp-for="Onceliklerimiz" class="form-control" rows="2"></textarea>
-        </div>
-        <div class="d-flex gap-2">
-            <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg"></i> Kaydet</button>
-            <a asp-action="Index" class="btn btn-outline-secondary">İptal</a>
-        </div>
-    </form>
+
+    <div class="p-4 p-md-5 rounded-4 shadow-lg" style="background: rgba(18, 24, 38, 0.85); border: 1px solid rgba(255,255,255,0.08);">
+        <form asp-action="HakkimizdaDuzenle" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="HakkimizdaID" />
+            <div class="mb-3">
+                <label asp-for="Baslik" class="form-label text-white small fw-semibold">Başlık</label>
+                <input asp-for="Baslik" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Aciklama" class="form-label text-white small fw-semibold">Açıklama Metni</label>
+                <textarea asp-for="Aciklama" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <label asp-for="GorselUrl" class="form-label text-white small fw-semibold">Görsel URL</label>
+                <input asp-for="GorselUrl" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="HizmetAlanlari" class="form-label text-white small fw-semibold">Hizmet Alanları</label>
+                <textarea asp-for="HizmetAlanlari" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" rows="2"></textarea>
+            </div>
+            <div class="mb-3">
+                <label asp-for="KurumsalGucumuz" class="form-label text-white small fw-semibold">Kurumsal Gücümüz</label>
+                <textarea asp-for="KurumsalGucumuz" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" rows="2"></textarea>
+            </div>
+            <div class="mb-3">
+                <label asp-for="CalismaIlkelerimiz" class="form-label text-white small fw-semibold">Çalışma İlkelerimiz</label>
+                <textarea asp-for="CalismaIlkelerimiz" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" rows="2"></textarea>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Vizyonumuz" class="form-label text-white small fw-semibold">Vizyonumuz</label>
+                <textarea asp-for="Vizyonumuz" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" rows="2"></textarea>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Misyonumuz" class="form-label text-white small fw-semibold">Misyonumuz</label>
+                <textarea asp-for="Misyonumuz" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" rows="2"></textarea>
+            </div>
+            <div class="mb-4">
+                <label asp-for="Onceliklerimiz" class="form-label text-white small fw-semibold">Önceliklerimiz</label>
+                <textarea asp-for="Onceliklerimiz" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" rows="2"></textarea>
+            </div>
+            <div class="d-flex gap-2 pt-2">
+                <button type="submit" class="btn btn-info rounded-pill px-4 fw-bold"><i class="bi bi-check-lg me-1"></i> Değişiklikleri Kaydet</button>
+                <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4">İptal</a>
+            </div>
+        </form>
+    </div>
 </div>
