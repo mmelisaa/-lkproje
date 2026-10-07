@@ -19,7 +19,7 @@
     <div class="d-flex gap-2 mb-4 flex-wrap">
         <a asp-action="MesajListesi" asp-route-filtre="Tümü" class="btn btn-sm rounded-pill @(seciliFiltre == "Tümü" ? "btn-info" : "btn-outline-info")">Tümü</a>
         <a asp-action="MesajListesi" asp-route-filtre="İletişim" class="btn btn-sm rounded-pill @(seciliFiltre == "İletişim" ? "btn-info" : "btn-outline-info")">İletişim Mesajları</a>
-        <a asp-action="MesajListesi" asp-route-filtre="İş Başvurusu" class="btn btn-sm rounded-pill @(seciliFiltre == "İş Başvurusu" ? "btn-warning" : "btn-outline-warning")">İş Başvuruları</a>
+        <a asp-action="MesajListesi" asp-route-filtre="İş Başvurusu" class="btn btn-sm rounded-pill @(seciliFiltre == "İş Başvurusu" ? "btn-warning text-dark fw-bold" : "btn-outline-warning")">İş Başvuruları</a>
         <a asp-action="MesajListesi" asp-route-filtre="Teklif Talebi" class="btn btn-sm rounded-pill @(seciliFiltre == "Teklif Talebi" ? "btn-success" : "btn-outline-success")">Teklif Talepleri</a>
     </div>
 
@@ -32,7 +32,7 @@
                         <th>Gönderen</th>
                         <th>E-Posta</th>
                         <th>Tür</th>
-                        <th>Konu / Pozisyon</th>
+                        <th>Konu / Başvurulan Pozisyon</th>
                         <th>Tarih</th>
                         <th class="text-end">İşlemler</th>
                     </tr>
@@ -55,7 +55,7 @@
                                 <td>
                                     @if (item.FormTipi == "İş Başvurusu")
                                     {
-                                        <span class="badge bg-warning bg-opacity-20 text-warning border border-warning border-opacity-25 px-2.5">İş Başvurusu</span>
+                                        <span class="badge bg-warning text-dark fw-bold px-2.5 py-1">İş Başvurusu</span>
                                     }
                                     else if (item.FormTipi == "Teklif Talebi")
                                     {
@@ -66,7 +66,24 @@
                                         <span class="badge bg-info bg-opacity-20 text-info border border-info border-opacity-25 px-2.5">İletişim</span>
                                     }
                                 </td>
-                                <td class="text-light">@(item.Konu ?? item.Pozisyon ?? "-")</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.Pozisyon))
+                                    {
+                                        <span class="text-warning fw-bold"><i class="bi bi-briefcase me-1"></i> @item.Pozisyon</span>
+                                    }
+                                    else if (!string.IsNullOrEmpty(item.Konu))
+                                    {
+                                        <span class="text-light">@item.Konu</span>
+                                    }
+                                    else if (item.FormTipi == "İş Başvurusu")
+                                    {
+                                        <span class="text-warning font-monospace small">Genel Başvuru</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">-</span>
+                                    }
+                                </td>
                                 <td class="text-light text-opacity-60 small">@item.GonderimTarihi.ToString("dd.MM.yyyy HH:mm")</td>
                                 <td class="text-end">
                                     <a asp-action="MesajDetay" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info rounded-pill px-3 me-1">Oku</a>
