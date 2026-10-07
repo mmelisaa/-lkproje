@@ -113,6 +113,9 @@ namespace WebApplication1.Services
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("[EMAIL_SERVICE_HATASI]: " + ex.ToString());
+                Console.ResetColor();
                 _logger.LogError(ex, "E-posta gönderimi sırasında MailKit hatası oluştu: {Message}", ex.Message);
             }
         }
