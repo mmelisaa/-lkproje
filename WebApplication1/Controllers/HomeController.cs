@@ -5,6 +5,7 @@ using WebApplication1.Data;
 using WebApplication1.Models;
 using WebApplication1.Models.Siniflar;
 using WebApplication1.Models.Siniflar.Kurumsal;
+using WebApplication1.Services;
 
 namespace WebApplication1.Controllers
 {
@@ -12,11 +13,13 @@ namespace WebApplication1.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
+        private readonly IEmailService _emailService;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, IEmailService emailService)
         {
             _logger = logger;
             _context = context;
+            _emailService = emailService;
         }
 
         public IActionResult Index()
@@ -96,6 +99,10 @@ namespace WebApplication1.Controllers
             };
             _context.SiteMesajlari.Add(mesaj);
             await _context.SaveChangesAsync();
+
+            // E-Posta bildirimi gönder (berkayevrann.1903@gmail.com hesabı için)
+            _ = Task.Run(() => _emailService.SendFormNotificationAsync("İş Başvurusu", adSoyad, eposta, null, null, pozisyon, null, onYazi));
+
             TempData["FormMesaj"] = "Başvurunuz başarıyla gönderildi. En kısa sürede sizinle iletişime geçeceğiz.";
             return RedirectToAction(nameof(InsanKaynaklari));
         }
@@ -225,6 +232,10 @@ namespace WebApplication1.Controllers
             };
             _context.SiteMesajlari.Add(siteMesaj);
             await _context.SaveChangesAsync();
+
+            // E-Posta bildirimi gönder (berkayevrann.1903@gmail.com hesabı için)
+            _ = Task.Run(() => _emailService.SendFormNotificationAsync("İletişim Mesajı", adSoyad, eposta, null, konu, null, mesaj, null));
+
             TempData["FormMesaj"] = "Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.";
             return RedirectToAction(nameof(Contact));
         }
@@ -251,6 +262,10 @@ namespace WebApplication1.Controllers
             };
             _context.SiteMesajlari.Add(siteMesaj);
             await _context.SaveChangesAsync();
+
+            // E-Posta bildirimi gönder (berkayevrann.1903@gmail.com hesabı için)
+            _ = Task.Run(() => _emailService.SendFormNotificationAsync("Teklif Talebi", adSoyad, eposta, telefon, konu, null, mesaj, null));
+
             TempData["FormMesaj"] = "Teklif talebiniz alındı. Ekibimiz en kısa sürede sizinle iletişime geçecektir.";
             return RedirectToAction(nameof(TeklifAl));
         }
