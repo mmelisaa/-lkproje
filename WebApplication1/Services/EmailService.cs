@@ -1,5 +1,6 @@
-using System.Net;
-using System.Net.Mail;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using MimeKit;
 
 namespace WebApplication1.Services
 {
@@ -20,13 +21,12 @@ namespace WebApplication1.Services
             {
                 var receiverEmail = _configuration["EmailSettings:ReceiverEmail"] ?? "berkayevrann.1903@gmail.com";
                 var smtpServer = _configuration["EmailSettings:SmtpServer"] ?? "smtp.gmail.com";
-                var smtpPortStr = _configuration["EmailSettings:SmtpPort"] ?? "587";
+                var smtpPortStr = _configuration["EmailSettings:SmtpPort"] ?? "465";
                 int.TryParse(smtpPortStr, out int smtpPort);
-                if (smtpPort == 0) smtpPort = 587;
+                if (smtpPort == 0) smtpPort = 465;
 
-                var senderEmail = _configuration["EmailSettings:SenderEmail"];
-                var senderPassword = _configuration["EmailSettings:SenderPassword"];
-                var enableSsl = bool.Parse(_configuration["EmailSettings:EnableSsl"] ?? "true");
+                var senderEmail = _configuration["EmailSettings:SenderEmail"]?.Trim();
+                var senderPassword = _configuration["EmailSettings:SenderPassword"]?.Replace(" ", "").Trim();
 
                 // E-Posta şablonunu oluştur (Modern HTML E-Posta)
                 var htmlBody = $@"
@@ -52,7 +52,7 @@ namespace WebApplication1.Services
                             </tr>")}
                             {(string.IsNullOrEmpty(pozisyon) ? "" : $@"
                             <tr>
-                                <td style='padding: 10px; color: #94a3b8; font-weight: bold;'>Pozisyon:</td>
+                                <td style='padding: 10px; color: #94a3b8; font-weight: bold;'>Başvurulan Pozisyon:</td>
                                 <td style='padding: 10px; color: #f59e0b; font-weight: bold;'>{pozisyon}</td>
                             </tr>")}
                             {(string.IsNullOrEmpty(konu) ? "" : $@"
@@ -83,36 +83,37 @@ namespace WebApplication1.Services
                     </div>
                 </div>";
 
-                // Eğer sender credentials tanımlıysa SMTP ile e-posta gönder
                 if (!string.IsNullOrEmpty(senderEmail) && !string.IsNullOrEmpty(senderPassword))
                 {
-                    using var mailMessage = new MailMessage
+                    var message = new MimeMessage();
+                    message.From.Add(new MailboxAddress("Hayat İşleri Web", senderEmail));
+                    message.To.Add(new MailboxAddress("Yönetici", receiverEmail));
+                    message.Subject = $"[{formTipi}] {adSoyad} - Hayat İşleri Bildirimi";
+
+                    var bodyBuilder = new BodyBuilder
                     {
-                        From = new MailAddress(senderEmail, "Hayat İşleri Web Bildirim"),
-                        Subject = $"[{formTipi}] {adSoyad} - Hayat İşleri Form Bildirimi",
-                        Body = htmlBody,
-                        IsBodyHtml = true
+                        HtmlBody = htmlBody
                     };
+                    message.Body = bodyBuilder.ToMessageBody();
 
-                    mailMessage.To.Add(receiverEmail);
+                    using var client = new SmtpClient();
+                    
+                    // Port 465 doğrudan SSL, 587 STARTTLS kullanır. Auto hepsini otomatik yönetir.
+                    await client.ConnectAsync(smtpServer, smtpPort, SecureSocketOptions.Auto);
+                    await client.AuthenticateAsync(senderEmail, senderPassword);
+                    await client.SendAsync(message);
+                    await client.DisconnectAsync(true);
 
-                    using var smtpClient = new SmtpClient(smtpServer, smtpPort)
-                    {
-                        Credentials = new NetworkCredential(senderEmail, senderPassword),
-                        EnableSsl = enableSsl
-                    };
-
-                    await smtpClient.SendMailAsync(mailMessage);
-                    _logger.LogInformation("E-posta bildirimi {ReceiverEmail} adresine başarıyla gönderildi.", receiverEmail);
+                    _logger.LogInformation("E-posta bildirimi MailKit ile {ReceiverEmail} adresine başarıyla gönderildi.", receiverEmail);
                 }
                 else
                 {
-                    _logger.LogWarning("SMTP gönderici bilgileri (SenderEmail/SenderPassword) yapılandırılmadığı için e-posta fiziki olarak atılamadı, ancak mesaj veritabanına ve Admin paneline başarıyla kaydedildi. Alıcı e-posta: {ReceiverEmail}", receiverEmail);
+                    _logger.LogWarning("SMTP gönderici bilgileri eksik. E-posta: {SenderEmail}", senderEmail);
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "E-posta gönderimi sırasında bir hata oluştu.");
+                _logger.LogError(ex, "E-posta gönderimi sırasında MailKit hatası oluştu: {Message}", ex.Message);
             }
         }
     }

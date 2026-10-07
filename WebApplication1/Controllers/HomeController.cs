@@ -101,7 +101,7 @@ namespace WebApplication1.Controllers
             await _context.SaveChangesAsync();
 
             // E-Posta bildirimi gönder (berkayevrann.1903@gmail.com hesabı için)
-            _ = Task.Run(() => _emailService.SendFormNotificationAsync("İş Başvurusu", adSoyad, eposta, null, null, pozisyon, null, onYazi));
+            await _emailService.SendFormNotificationAsync("İş Başvurusu", adSoyad, eposta, null, null, pozisyon, null, onYazi);
 
             TempData["FormMesaj"] = "Başvurunuz başarıyla gönderildi. En kısa sürede sizinle iletişime geçeceğiz.";
             return RedirectToAction(nameof(InsanKaynaklari));
@@ -234,7 +234,7 @@ namespace WebApplication1.Controllers
             await _context.SaveChangesAsync();
 
             // E-Posta bildirimi gönder (berkayevrann.1903@gmail.com hesabı için)
-            _ = Task.Run(() => _emailService.SendFormNotificationAsync("İletişim Mesajı", adSoyad, eposta, null, konu, null, mesaj, null));
+            await _emailService.SendFormNotificationAsync("İletişim Mesajı", adSoyad, eposta, null, konu, null, mesaj, null);
 
             TempData["FormMesaj"] = "Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.";
             return RedirectToAction(nameof(Contact));
@@ -264,7 +264,7 @@ namespace WebApplication1.Controllers
             await _context.SaveChangesAsync();
 
             // E-Posta bildirimi gönder (berkayevrann.1903@gmail.com hesabı için)
-            _ = Task.Run(() => _emailService.SendFormNotificationAsync("Teklif Talebi", adSoyad, eposta, telefon, konu, null, mesaj, null));
+            await _emailService.SendFormNotificationAsync("Teklif Talebi", adSoyad, eposta, telefon, konu, null, mesaj, null);
 
             TempData["FormMesaj"] = "Teklif talebiniz alındı. Ekibimiz en kısa sürede sizinle iletişime geçecektir.";
             return RedirectToAction(nameof(TeklifAl));
