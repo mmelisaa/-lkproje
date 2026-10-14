@@ -188,72 +188,114 @@
         <div class="row g-4 justify-content-center mb-4">
             <!-- Hizmet 1: Donanım Altyapıları -->
             <div class="col-md-6 col-lg-4">
-                <div class="tech-card h-100 p-4 position-relative tech-tilt-card">
+                <div class="tech-card h-100 p-0 position-relative tech-tilt-card overflow-hidden" style="border: 1px solid rgba(56, 189, 248, 0.25); background: rgba(10, 18, 36, 0.85); box-shadow: 0 15px 35px -10px rgba(0,0,0,0.5);">
                     <div class="scanline-effect"></div>
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <div class="position-relative rounded-3 overflow-hidden flex-shrink-0" style="width: 64px; height: 64px; border: 2px solid rgba(56, 189, 248, 0.45); box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);">
-                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=300&q=80" alt="Donanım Çözümleri" style="width: 100%; height: 100%; object-fit: cover; filter: brightness(1.05);">
+                    
+                    <!-- Kart Üstü Sinematik Görsel Banner -->
+                    <div class="position-relative overflow-hidden" style="height: 175px;">
+                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80" alt="Donanım Çözümleri" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);" class="service-card-img">
+                        <!-- Gradient Karartma & Siber Efekt -->
+                        <div class="position-absolute w-100 h-100" style="top:0; left:0; background: linear-gradient(180deg, rgba(5, 12, 26, 0.25) 0%, rgba(10, 18, 36, 0.95) 100%);"></div>
+                        
+                        <!-- Sağ Üst Siber Rozet -->
+                        <div class="position-absolute" style="top: 14px; right: 14px; z-index: 2;">
+                            <span class="badge px-2.5 py-1.5 rounded-pill font-monospace d-inline-flex align-items-center gap-1.5" style="background: rgba(5, 12, 26, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(56, 189, 248, 0.45); color: #38bdf8; font-size: 0.72rem; letter-spacing: 0.5px;">
+                                <span class="server-led" style="background-color: #38bdf8; width: 6px; height: 6px;"></span> HARDWARE
+                            </span>
                         </div>
-                        <div class="d-flex align-items-center gap-1 px-2.5 py-1 rounded-pill" style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.2);">
-                            <span class="server-led" style="background-color: #38bdf8;"></span>
-                            <span class="font-monospace text-info" style="font-size: 0.7rem;">HARDWARE</span>
+
+                        <!-- Sol Alt Yüzen Cam İkon -->
+                        <div class="position-absolute d-flex align-items-center justify-content-center rounded-3" style="bottom: 12px; left: 20px; width: 46px; height: 46px; background: rgba(5, 12, 26, 0.85); border: 1px solid rgba(56, 189, 248, 0.5); backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0,0,0,0.5); z-index: 2;">
+                            <i class="bi bi-hdd-rack fs-4 text-info"></i>
                         </div>
                     </div>
-                    <h4 class="fw-bold text-white mb-3" style="letter-spacing: -0.3px;">Donanım Çözümleri</h4>
-                    <p class="text-light text-opacity-75 mb-0" style="line-height: 1.7; font-size: 0.95rem;">Sunucu sistemleri, kurumsal donanım tedariği ve kesintisiz teknolojik altyapı kurulumları.</p>
-                    
-                    <!-- Kart Altı Dekoratif Siber Çizgi -->
-                    <div class="mt-4 pt-3 border-top border-white border-opacity-10 d-flex justify-content-between align-items-center">
-                        <span class="text-white-50 small font-monospace" style="font-size: 0.75rem;">Enterprise Grade</span>
-                        <i class="bi bi-arrow-right text-info"></i>
+
+                    <!-- Kart İçerik Gövdesi -->
+                    <div class="p-4 pt-3">
+                        <h4 class="fw-bold text-white mb-2" style="letter-spacing: -0.3px;">Donanım Çözümleri</h4>
+                        <p class="text-light text-opacity-75 mb-0" style="line-height: 1.7; font-size: 0.95rem;">Sunucu sistemleri, kurumsal donanım tedariği ve kesintisiz teknolojik altyapı kurulumları.</p>
+                        
+                        <!-- Kart Altı Dekoratif Çizgi -->
+                        <div class="mt-4 pt-3 border-top border-white border-opacity-10 d-flex justify-content-between align-items-center">
+                            <span class="text-white-50 small font-monospace" style="font-size: 0.75rem;">Enterprise Grade</span>
+                            <i class="bi bi-arrow-right text-info"></i>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Hizmet 2: Özel Yazılım -->
             <div class="col-md-6 col-lg-4">
-                <div class="tech-card h-100 p-4 position-relative tech-tilt-card">
+                <div class="tech-card h-100 p-0 position-relative tech-tilt-card overflow-hidden" style="border: 1px solid rgba(129, 140, 248, 0.25); background: rgba(10, 18, 36, 0.85); box-shadow: 0 15px 35px -10px rgba(0,0,0,0.5);">
                     <div class="scanline-effect"></div>
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <div class="position-relative rounded-3 overflow-hidden flex-shrink-0" style="width: 64px; height: 64px; border: 2px solid rgba(129, 140, 248, 0.45); box-shadow: 0 0 15px rgba(129, 140, 248, 0.3);">
-                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=300&q=80" alt="Yazılım Geliştirme" style="width: 100%; height: 100%; object-fit: cover; filter: brightness(1.05);">
+
+                    <!-- Kart Üstü Sinematik Görsel Banner -->
+                    <div class="position-relative overflow-hidden" style="height: 175px;">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80" alt="Yazılım Geliştirme" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);" class="service-card-img">
+                        <!-- Gradient Karartma & Siber Efekt -->
+                        <div class="position-absolute w-100 h-100" style="top:0; left:0; background: linear-gradient(180deg, rgba(5, 12, 26, 0.25) 0%, rgba(10, 18, 36, 0.95) 100%);"></div>
+
+                        <!-- Sağ Üst Siber Rozet -->
+                        <div class="position-absolute" style="top: 14px; right: 14px; z-index: 2;">
+                            <span class="badge px-2.5 py-1.5 rounded-pill font-monospace d-inline-flex align-items-center gap-1.5" style="background: rgba(5, 12, 26, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(129, 140, 248, 0.45); color: #a5b4fc; font-size: 0.72rem; letter-spacing: 0.5px;">
+                                <span class="server-led delay-1" style="background-color: #818cf8; width: 6px; height: 6px;"></span> SOFTWARE
+                            </span>
                         </div>
-                        <div class="d-flex align-items-center gap-1 px-2.5 py-1 rounded-pill" style="background: rgba(129, 140, 248, 0.08); border: 1px solid rgba(129, 140, 248, 0.2);">
-                            <span class="server-led delay-1" style="background-color: #818cf8;"></span>
-                            <span class="font-monospace text-primary-emphasis" style="font-size: 0.7rem; color: #a5b4fc !important;">SOFTWARE</span>
+
+                        <!-- Sol Alt Yüzen Cam İkon -->
+                        <div class="position-absolute d-flex align-items-center justify-content-center rounded-3" style="bottom: 12px; left: 20px; width: 46px; height: 46px; background: rgba(5, 12, 26, 0.85); border: 1px solid rgba(129, 140, 248, 0.5); backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0,0,0,0.5); z-index: 2;">
+                            <i class="bi bi-code-slash fs-4" style="color: #a5b4fc;"></i>
                         </div>
                     </div>
-                    <h4 class="fw-bold text-white mb-3" style="letter-spacing: -0.3px;">Yazılım Geliştirme</h4>
-                    <p class="text-light text-opacity-75 mb-0" style="line-height: 1.7; font-size: 0.95rem;">İş süreçlerinizi hızlandıran, tamamen ihtiyaçlarınıza özel güvenli web ve masaüstü yazılımlar.</p>
 
-                    <!-- Kart Altı Dekoratif Siber Çizgi -->
-                    <div class="mt-4 pt-3 border-top border-white border-opacity-10 d-flex justify-content-between align-items-center">
-                        <span class="text-white-50 small font-monospace" style="font-size: 0.75rem;">Custom Architecture</span>
-                        <i class="bi bi-arrow-right text-primary" style="color: #818cf8 !important;"></i>
+                    <!-- Kart İçerik Gövdesi -->
+                    <div class="p-4 pt-3">
+                        <h4 class="fw-bold text-white mb-2" style="letter-spacing: -0.3px;">Yazılım Geliştirme</h4>
+                        <p class="text-light text-opacity-75 mb-0" style="line-height: 1.7; font-size: 0.95rem;">İş süreçlerinizi hızlandıran, tamamen ihtiyaçlarınıza özel güvenli web ve masaüstü yazılımlar.</p>
+
+                        <!-- Kart Altı Dekoratif Çizgi -->
+                        <div class="mt-4 pt-3 border-top border-white border-opacity-10 d-flex justify-content-between align-items-center">
+                            <span class="text-white-50 small font-monospace" style="font-size: 0.75rem;">Custom Architecture</span>
+                            <i class="bi bi-arrow-right text-primary" style="color: #818cf8 !important;"></i>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Hizmet 3: Web & E-Ticaret -->
             <div class="col-md-6 col-lg-4">
-                <div class="tech-card h-100 p-4 position-relative tech-tilt-card">
+                <div class="tech-card h-100 p-0 position-relative tech-tilt-card overflow-hidden" style="border: 1px solid rgba(16, 185, 129, 0.25); background: rgba(10, 18, 36, 0.85); box-shadow: 0 15px 35px -10px rgba(0,0,0,0.5);">
                     <div class="scanline-effect"></div>
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <div class="position-relative rounded-3 overflow-hidden flex-shrink-0" style="width: 64px; height: 64px; border: 2px solid rgba(16, 185, 129, 0.45); box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);">
-                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=300&q=80" alt="Web & E-Ticaret" style="width: 100%; height: 100%; object-fit: cover; filter: brightness(1.05);">
+
+                    <!-- Kart Üstü Sinematik Görsel Banner -->
+                    <div class="position-relative overflow-hidden" style="height: 175px;">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Web & E-Ticaret" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);" class="service-card-img">
+                        <!-- Gradient Karartma & Siber Efekt -->
+                        <div class="position-absolute w-100 h-100" style="top:0; left:0; background: linear-gradient(180deg, rgba(5, 12, 26, 0.25) 0%, rgba(10, 18, 36, 0.95) 100%);"></div>
+
+                        <!-- Sağ Üst Siber Rozet -->
+                        <div class="position-absolute" style="top: 14px; right: 14px; z-index: 2;">
+                            <span class="badge px-2.5 py-1.5 rounded-pill font-monospace d-inline-flex align-items-center gap-1.5" style="background: rgba(5, 12, 26, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(16, 185, 129, 0.45); color: #10b981; font-size: 0.72rem; letter-spacing: 0.5px;">
+                                <span class="server-led delay-2" style="background-color: #10b981; width: 6px; height: 6px;"></span> PLATFORM
+                            </span>
                         </div>
-                        <div class="d-flex align-items-center gap-1 px-2.5 py-1 rounded-pill" style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.2);">
-                            <span class="server-led delay-2" style="background-color: #10b981;"></span>
-                            <span class="font-monospace text-success" style="font-size: 0.7rem;">PLATFORM</span>
+
+                        <!-- Sol Alt Yüzen Cam İkon -->
+                        <div class="position-absolute d-flex align-items-center justify-content-center rounded-3" style="bottom: 12px; left: 20px; width: 46px; height: 46px; background: rgba(5, 12, 26, 0.85); border: 1px solid rgba(16, 185, 129, 0.5); backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0,0,0,0.5); z-index: 2;">
+                            <i class="bi bi-globe fs-4 text-success"></i>
                         </div>
                     </div>
-                    <h4 class="fw-bold text-white mb-3" style="letter-spacing: -0.3px;">Web & E-Ticaret</h4>
-                    <p class="text-light text-opacity-75 mb-0" style="line-height: 1.7; font-size: 0.95rem;">Markanızı dijitalde zirveye taşıyan, modern arayüzlü kurumsal web siteleri ve e-ticaret sistemleri.</p>
 
-                    <!-- Kart Altı Dekoratif Siber Çizgi -->
-                    <div class="mt-4 pt-3 border-top border-white border-opacity-10 d-flex justify-content-between align-items-center">
-                        <span class="text-white-50 small font-monospace" style="font-size: 0.75rem;">High Conversion</span>
-                        <i class="bi bi-arrow-right text-success"></i>
+                    <!-- Kart İçerik Gövdesi -->
+                    <div class="p-4 pt-3">
+                        <h4 class="fw-bold text-white mb-2" style="letter-spacing: -0.3px;">Web & E-Ticaret</h4>
+                        <p class="text-light text-opacity-75 mb-0" style="line-height: 1.7; font-size: 0.95rem;">Markanızı dijitalde zirveye taşıyan, modern arayüzlü kurumsal web siteleri ve e-ticaret sistemleri.</p>
+
+                        <!-- Kart Altı Dekoratif Çizgi -->
+                        <div class="mt-4 pt-3 border-top border-white border-opacity-10 d-flex justify-content-between align-items-center">
+                            <span class="text-white-50 small font-monospace" style="font-size: 0.75rem;">High Conversion</span>
+                            <i class="bi bi-arrow-right text-success"></i>
+                        </div>
                     </div>
                 </div>
             </div>

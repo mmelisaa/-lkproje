@@ -336,4 +336,10 @@ body {
 .cursor-blink {
   animation: cursorBlink 0.9s infinite step-start;
 }
+
+/* Service Card Image Hover Zoom */
+.tech-card:hover .service-card-img {
+  transform: scale(1.08);
+}
+
 
