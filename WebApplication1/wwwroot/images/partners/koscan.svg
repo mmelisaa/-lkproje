@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 60" height="34">
+  <g transform="translate(6, 12)">
+    <rect width="36" height="36" rx="8" fill="#e11d48"/>
+    <line x1="6" y1="18" x2="30" y2="18" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+    <line x1="10" y1="12" x2="10" y2="24" stroke="#ffffff" stroke-width="2"/>
+    <line x1="16" y1="12" x2="16" y2="24" stroke="#ffffff" stroke-width="3"/>
+    <line x1="22" y1="12" x2="22" y2="24" stroke="#ffffff" stroke-width="1.5"/>
+    <line x1="26" y1="12" x2="26" y2="24" stroke="#ffffff" stroke-width="2.5"/>
+  </g>
+  <text x="52" y="38" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, Arial, sans-serif" font-weight="900" font-size="24" letter-spacing="3">KOSCAN</text>
+</svg>

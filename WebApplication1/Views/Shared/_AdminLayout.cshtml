@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Hayat İşleri Kurumsal Yönetim Konsolu</title>
+    <link rel="icon" type="image/svg+xml" href="~/images/hayat-isleri-logo.svg" />
+
+    <!-- Google Fonts: Google Sans, Google Sans Text, Plus Jakarta Sans & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Google+Sans+Text:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5 & Bootstrap Icons -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <style>
+        :root {
+            /* Google One (https://one.google.com/intl/tr_tr/about/) Tasarım Dili */
+            --adm-bg: #f8fafd;
+            --adm-sidebar-bg: #ffffff;
+            --adm-sidebar-border: rgba(0, 0, 0, 0.06);
+            --adm-card-bg: #ffffff;
+            --adm-card-border: rgba(0, 0, 0, 0.07);
+            --adm-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(11, 87, 208, 0.03);
+            --adm-text-main: #1f1f1f;
+            --adm-text-sub: #5f6368;
+            --adm-accent: #0b57d0;
+            --adm-accent-hover: #0842a0;
+            --adm-topbar-bg: rgba(255, 255, 255, 0.94);
+            --adm-sidebar-hover: #f0f4f9;
+            --adm-sidebar-active: #c2e7ff;
+            --adm-sidebar-active-text: #001d35;
+            --adm-table-hover: #f8fafd;
+            --adm-chip-bg: rgba(0, 0, 0, 0.04);
+            --adm-group-bg: rgba(0, 0, 0, 0.015);
+            --adm-input-bg: #ffffff;
+            --adm-input-border: #dadce0;
+
+            /* Google One İmza Renkleri: Ten Rengi (Sıcak Kum/Ekru) & Google Mavisi */
+            --g1-tan-bg: #fef7ee;
+            --g1-tan-border: rgba(234, 134, 0, 0.16);
+            --g1-tan-text: #2d1b00;
+            --g1-tan-sub: #7a5830;
+            --g1-tan-accent: #b06000;
+
+            --g1-blue-bg: #edf2fc;
+            --g1-blue-border: rgba(11, 87, 208, 0.15);
+            --g1-blue-text: #041e49;
+            --g1-blue-sub: #3b5a9a;
+            --g1-blue-accent: #0b57d0;
+            --g1-blue-pill: #c2e7ff;
+
+            --g1-radius-xl: 32px;
+            --g1-radius-lg: 26px;
+            --g1-radius-md: 18px;
+            --g1-radius-pill: 9999px;
+        }
+
+        html[data-theme="dark"] {
+            --adm-bg: #0b0f19;
+            --adm-sidebar-bg: #101626;
+            --adm-sidebar-border: rgba(255, 255, 255, 0.08);
+            --adm-card-bg: #151d30;
+            --adm-card-border: rgba(255, 255, 255, 0.08);
+            --adm-card-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            --adm-text-main: #f8fafc;
+            --adm-text-sub: #94a3b8;
+            --adm-accent: #38bdf8;
+            --adm-accent-hover: #7dd3fc;
+            --adm-topbar-bg: rgba(16, 22, 38, 0.94);
+            --adm-sidebar-hover: rgba(56, 189, 248, 0.08);
+            --adm-sidebar-active: #38bdf8;
+            --adm-sidebar-active-text: #090d14;
+            --adm-table-hover: rgba(56, 189, 248, 0.04);
+            --adm-chip-bg: rgba(255, 255, 255, 0.05);
+            --adm-group-bg: rgba(255, 255, 255, 0.015);
+            --adm-input-bg: #141a29;
+            --adm-input-border: rgba(255, 255, 255, 0.12);
+
+            --g1-tan-bg: #221a12;
+            --g1-tan-border: rgba(234, 134, 0, 0.25);
+            --g1-tan-text: #ffe0b2;
+            --g1-tan-sub: #d7ccc8;
+            --g1-tan-accent: #ffb74d;
+
+            --g1-blue-bg: #131c31;
+            --g1-blue-border: rgba(56, 189, 248, 0.25);
+            --g1-blue-text: #e0f2fe;
+            --g1-blue-sub: #93c5fd;
+            --g1-blue-accent: #38bdf8;
+            --g1-blue-pill: #0369a1;
+        }
+
+        body {
+            font-family: 'Google Sans Text', 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--adm-bg);
+            color: var(--adm-text-main);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            letter-spacing: -0.01em;
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+
+        /* Ana Sayfa Danışman Barı Admin Alanında Gizlidir */
+        #hayatStickyBottomBar {
+            display: none !important;
+        }
+
+        /* Ana Taşıyıcı */
+        .admin-wrapper {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        /* Sol Sabit Modern Menü (Sidebar) */
+        .admin-sidebar {
+            width: 290px;
+            min-width: 290px;
+            max-width: 290px;
+            background: var(--adm-sidebar-bg);
+            border-right: 1px solid var(--adm-sidebar-border);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1040;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .admin-sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .admin-sidebar::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.15);
+            border-radius: 999px;
+        }
+
+        /* Sidebar Logo Alanı */
+        .admin-sidebar-header {
+            padding: 1.15rem 1.1rem;
+            border-bottom: 1px solid var(--adm-sidebar-border);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: inherit;
+            position: sticky;
+            top: 0;
+            z-index: 5;
+        }
+
+        .admin-logo-mark {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0b57d0;
+            color: #ffffff;
+            font-size: 1.15rem;
+            box-shadow: 0 2px 8px rgba(11, 87, 208, 0.25);
+            flex-shrink: 0;
+        }
+
+        html[data-theme="dark"] .admin-logo-mark {
+            background: #38bdf8;
+            color: #090d14;
+        }
+
+        .admin-brand-title {
+            font-size: 0.98rem;
+            font-weight: 800;
+            color: var(--adm-text-main);
+            letter-spacing: -0.3px;
+            line-height: 1.15;
+            margin: 0;
+        }
+
+        .admin-brand-sub {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--adm-text-sub);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: block;
+            margin-top: 1px;
+        }
+
+        /* Sidebar Menü İçi Arama */
+        .admin-sidebar-search {
+            padding: 0.65rem 0.85rem 0.45rem;
+            border-bottom: 1px solid var(--adm-sidebar-border);
+        }
+
+        .admin-sidebar-search-box {
+            position: relative;
+        }
+
+        .admin-sidebar-search-box input {
+            width: 100%;
+            background: var(--adm-card-bg);
+            border: 1px solid var(--adm-card-border);
+            color: var(--adm-text-main);
+            border-radius: 8px;
+            padding: 0.38rem 0.75rem 0.38rem 1.9rem;
+            font-size: 0.78rem;
+            outline: none;
+            transition: all 0.15s ease;
+        }
+
+        .admin-sidebar-search-box input:focus {
+            border-color: var(--adm-accent);
+            box-shadow: 0 0 0 2px rgba(11, 87, 208, 0.12);
+        }
+
+        .admin-sidebar-search-box i {
+            position: absolute;
+            left: 0.65rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--adm-text-sub);
+            font-size: 0.8rem;
+        }
+
+        /* Yüksek Kontrastlı Kurumsal Rozetler (WCAG Uyumlu & Net Okunur) */
+        .badge-hyt-success, .badge.bg-success, .badge.text-success, .badge.bg-success-subtle {
+            background: rgba(16, 185, 129, 0.16) !important;
+            color: #065f46 !important;
+            border: 1px solid rgba(16, 185, 129, 0.4) !important;
+            font-weight: 700 !important;
+        }
+        html[data-theme="dark"] .badge-hyt-success, 
+        html[data-theme="dark"] .badge.bg-success, 
+        html[data-theme="dark"] .badge.text-success,
+        html[data-theme="dark"] .badge.bg-success-subtle {
+            background: rgba(16, 185, 129, 0.24) !important;
+            color: #6ee7b7 !important;
+            border: 1px solid rgba(110, 231, 183, 0.5) !important;
+        }
+
+        .badge-hyt-info, .badge.bg-info, .badge.text-info, .badge.bg-info-subtle {
+            background: rgba(6, 182, 212, 0.16) !important;
+            color: #0e7490 !important;
+            border: 1px solid rgba(6, 182, 212, 0.4) !important;
+            font-weight: 700 !important;
+        }
+        html[data-theme="dark"] .badge-hyt-info, 
+        html[data-theme="dark"] .badge.bg-info, 
+        html[data-theme="dark"] .badge.text-info,
+        html[data-theme="dark"] .badge.bg-info-subtle {
+            background: rgba(6, 182, 212, 0.24) !important;
+            color: #67e8f9 !important;
+            border: 1px solid rgba(103, 232, 249, 0.5) !important;
+        }
+
+        .badge-hyt-primary, .badge.bg-primary, .badge.text-primary, .badge.bg-primary-subtle {
+            background: rgba(37, 99, 235, 0.14) !important;
+            color: #1e40af !important;
+            border: 1px solid rgba(37, 99, 235, 0.35) !important;
+            font-weight: 700 !important;
+        }
+        html[data-theme="dark"] .badge-hyt-primary, 
+        html[data-theme="dark"] .badge.bg-primary, 
+        html[data-theme="dark"] .badge.text-primary,
+        html[data-theme="dark"] .badge.bg-primary-subtle {
+            background: rgba(59, 130, 246, 0.24) !important;
+            color: #93c5fd !important;
+            border: 1px solid rgba(147, 197, 253, 0.5) !important;
+        }
+
+        .badge-hyt-warning, .badge.bg-warning, .badge.text-warning, .badge.bg-warning-subtle {
+            background: rgba(245, 158, 11, 0.16) !important;
+            color: #92400e !important;
+            border: 1px solid rgba(245, 158, 11, 0.4) !important;
+            font-weight: 700 !important;
+        }
+        html[data-theme="dark"] .badge-hyt-warning, 
+        html[data-theme="dark"] .badge.bg-warning, 
+        html[data-theme="dark"] .badge.text-warning,
+        html[data-theme="dark"] .badge.bg-warning-subtle {
+            background: rgba(245, 158, 11, 0.24) !important;
+            color: #fde68a !important;
+            border: 1px solid rgba(253, 230, 138, 0.5) !important;
+        }
+
+        .badge-hyt-danger, .badge.bg-danger, .badge.text-danger, .badge.bg-danger-subtle {
+            background: rgba(239, 68, 68, 0.14) !important;
+            color: #991b1b !important;
+            border: 1px solid rgba(239, 68, 68, 0.35) !important;
+            font-weight: 700 !important;
+        }
+        html[data-theme="dark"] .badge-hyt-danger, 
+        html[data-theme="dark"] .badge.bg-danger, 
+        html[data-theme="dark"] .badge.text-danger,
+        html[data-theme="dark"] .badge.bg-danger-subtle {
+            background: rgba(239, 68, 68, 0.24) !important;
+            color: #fca5a5 !important;
+            border: 1px solid rgba(252, 165, 165, 0.5) !important;
+        }
+
+        /* Menü Gövdesi */
+        .admin-nav {
+            padding: 0.65rem 0.65rem 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        /* Tekli Menü Linki */
+        .admin-nav-single-link {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.52rem 0.75rem;
+            border-radius: 9px;
+            color: var(--adm-text-main);
+            text-decoration: none;
+            font-size: 0.83rem;
+            font-weight: 700;
+            transition: all 0.15s ease;
+        }
+
+        .admin-nav-single-link i {
+            font-size: 1rem;
+            color: var(--adm-accent);
+            width: 20px;
+            text-align: center;
+        }
+
+        .admin-nav-single-link:hover {
+            background-color: var(--adm-sidebar-hover);
+            color: var(--adm-accent);
+            transform: translateX(2px);
+        }
+
+        .admin-nav-single-link.active {
+            background: var(--adm-sidebar-active);
+            color: var(--adm-sidebar-active-text) !important;
+            box-shadow: 0 2px 8px rgba(11, 87, 208, 0.2);
+        }
+
+        .admin-nav-single-link.active i {
+            color: var(--adm-sidebar-active-text) !important;
+        }
+
+        /* Akordeon Ana Menü Grubu */
+        .admin-menu-group {
+            border-radius: 9px;
+            overflow: hidden;
+            transition: background-color 0.2s ease;
+        }
+
+        .admin-menu-group.open {
+            background: var(--adm-group-bg);
+        }
+
+        /* Akordeon Başlığı */
+        .admin-group-toggle {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.52rem 0.75rem;
+            border: none;
+            background: transparent;
+            color: var(--adm-text-main);
+            font-size: 0.82rem;
+            font-weight: 700;
+            border-radius: 9px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-align: left;
+        }
+
+        .admin-group-toggle:hover {
+            background-color: var(--adm-sidebar-hover);
+            color: var(--adm-accent);
+        }
+
+        .admin-group-toggle.active-parent {
+            color: var(--adm-accent);
+        }
+
+        .admin-group-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+        }
+
+        .admin-group-title-wrap i.group-icon {
+            font-size: 0.95rem;
+            color: var(--adm-accent);
+            width: 20px;
+            text-align: center;
+        }
+
+        .admin-chevron {
+            font-size: 0.7rem;
+            color: var(--adm-text-sub);
+            transition: transform 0.2s ease;
+        }
+
+        .admin-menu-group.open .admin-chevron {
+            transform: rotate(180deg);
+            color: var(--adm-accent);
+        }
+
+        /* Alt Menü Alanı */
+        .admin-submenu {
+            display: none;
+            padding: 0.25rem 0.35rem 0.45rem 1.15rem;
+            flex-direction: column;
+            gap: 0.25rem;
+            border-left: 1.5px solid var(--adm-sidebar-border);
+            margin: 0.15rem 0 0.35rem 1.35rem;
+        }
+
+        .admin-menu-group.open .admin-submenu {
+            display: flex;
+        }
+
+        /* Alt Menü Linkleri */
+        .admin-sublink {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.48rem 0.75rem;
+            border-radius: 9px;
+            color: var(--adm-text-main);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            transition: all 0.15s ease;
+            line-height: 1.35;
+        }
+
+        .admin-sublink i {
+            font-size: 0.42rem;
+            margin-right: 0.5rem;
+            color: var(--adm-text-sub);
+            transition: all 0.15s ease;
+        }
+
+        .admin-sublink:hover {
+            background: var(--adm-sidebar-hover);
+            color: var(--adm-accent);
+            transform: translateX(2px);
+        }
+
+        .admin-sublink:hover i {
+            color: var(--adm-accent);
+        }
+
+        .admin-sublink.active {
+            background: var(--adm-sidebar-active);
+            color: var(--adm-sidebar-active-text) !important;
+            font-weight: 700;
+        }
+
+        .admin-sublink.active i {
+            color: var(--adm-sidebar-active-text) !important;
+        }
+
+        /* Rozetler (Badges) */
+        .admin-badge {
+            font-size: 0.68rem;
+            font-weight: 700;
+            padding: 0.15rem 0.5rem;
+            border-radius: 999px;
+            background: rgba(11, 87, 208, 0.1);
+            color: var(--adm-accent);
+            flex-shrink: 0;
+        }
+
+        .admin-badge-warning {
+            background: rgba(245, 158, 11, 0.12);
+            color: #d97706;
+        }
+
+        .admin-badge-danger {
+            background: rgba(239, 68, 68, 0.12);
+            color: #ef4444;
+        }
+
+        /* Sağ Ana Panel */
+        .admin-main {
+            margin-left: 290px;
+            flex-grow: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Üst Çubuk (Topbar) */
+        .admin-topbar {
+            height: 60px;
+            background: var(--adm-topbar-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--adm-sidebar-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 1030;
+        }
+
+        .admin-topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+        }
+
+        .admin-theme-toggle {
+            background: var(--adm-card-bg);
+            border: 1px solid var(--adm-card-border);
+            color: var(--adm-text-main);
+            border-radius: 8px;
+            padding: 0.35rem 0.75rem;
+            font-size: 0.78rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .admin-theme-toggle:hover {
+            border-color: var(--adm-accent);
+            color: var(--adm-accent);
+        }
+
+        .admin-user-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.32rem 0.75rem;
+            background: var(--adm-card-bg);
+            border: 1px solid var(--adm-card-border);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--adm-text-main);
+        }
+
+        .pulse-online-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #10b981;
+            display: inline-block;
+        }
+
+        /* Google One (https://one.google.com/intl/tr_tr/about/) İmza 4 Renk İnce Üst Çizgi */
+        .g1-rainbow-line {
+            height: 3.5px;
+            width: 100%;
+            background: linear-gradient(90deg, #4285F4 0%, #4285F4 25%, #EA4335 25%, #EA4335 50%, #FBBC05 50%, #FBBC05 75%, #34A853 75%, #34A853 100%);
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1050;
+        }
+
+        /* Generic Modern Cards - Google One Stili Ferah Yuvarlak Hatlar */
+        .admin-glass-card,
+        .admin-stat-card,
+        .card {
+            background-color: var(--adm-card-bg) !important;
+            border: 1px solid var(--adm-card-border) !important;
+            box-shadow: var(--adm-card-shadow) !important;
+            color: var(--adm-text-main) !important;
+            border-radius: var(--g1-radius-lg) !important;
+        }
+
+        /* GOOGLE ONE TEN RENGİ VE MAVİ KUTUCUK SİSTEMİ (https://one.google.com/intl/tr_tr/about/) */
+        .g1-card-tan {
+            background-color: var(--g1-tan-bg) !important;
+            border: 1px solid var(--g1-tan-border) !important;
+            border-radius: var(--g1-radius-lg) !important;
+            padding: 32px 36px !important;
+            color: var(--g1-tan-text) !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 8px 24px rgba(234, 134, 0, 0.04) !important;
+            transition: all 0.25s ease;
+        }
+
+        .g1-card-blue {
+            background-color: var(--g1-blue-bg) !important;
+            border: 1px solid var(--g1-blue-border) !important;
+            border-radius: var(--g1-radius-lg) !important;
+            padding: 32px 36px !important;
+            color: var(--g1-blue-text) !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 8px 24px rgba(11, 87, 208, 0.04) !important;
+            transition: all 0.25s ease;
+        }
+
+        .g1-card-white {
+            background-color: #ffffff !important;
+            border: 1px solid rgba(0, 0, 0, 0.07) !important;
+            border-radius: var(--g1-radius-lg) !important;
+            padding: 32px 36px !important;
+            color: var(--adm-text-main) !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 8px 28px rgba(11, 87, 208, 0.035) !important;
+            transition: all 0.25s ease;
+        }
+
+        html[data-theme="dark"] .g1-card-white {
+            background-color: #141a2a !important;
+            border-color: rgba(255, 255, 255, 0.08) !important;
+        }
+
+        /* Google One İkon Dairesi */
+        .g1-icon-circle-blue {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #ffffff;
+            color: #0b57d0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            box-shadow: 0 2px 8px rgba(11, 87, 208, 0.12);
+            flex-shrink: 0;
+        }
+
+        .g1-icon-circle-tan {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #ffffff;
+            color: #b06000;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            box-shadow: 0 2px 8px rgba(234, 134, 0, 0.12);
+            flex-shrink: 0;
+        }
+
+        /* Google One Butonları */
+        .g1-btn-blue {
+            background: #0b57d0 !important;
+            color: #ffffff !important;
+            border: none !important;
+            border-radius: var(--g1-radius-pill) !important;
+            padding: 12px 28px !important;
+            font-family: 'Google Sans', sans-serif !important;
+            font-weight: 600 !important;
+            font-size: 0.92rem !important;
+            box-shadow: 0 2px 10px rgba(11, 87, 208, 0.25) !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .g1-btn-blue:hover {
+            background: #0842a0 !important;
+            box-shadow: 0 4px 16px rgba(11, 87, 208, 0.35) !important;
+            transform: translateY(-1px);
+            color: #ffffff !important;
+        }
+
+        .g1-btn-tan {
+            background: #fef7ee !important;
+            color: #7a3e00 !important;
+            border: 1px solid #f9dfb9 !important;
+            border-radius: var(--g1-radius-pill) !important;
+            padding: 12px 28px !important;
+            font-family: 'Google Sans', sans-serif !important;
+            font-weight: 600 !important;
+            font-size: 0.92rem !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .g1-btn-tan:hover {
+            background: #faeedb !important;
+            color: #5c2f00 !important;
+            transform: translateY(-1px);
+        }
+
+        /* Google One Sekme Barı (Tab Bar) */
+        .g1-tab-bar {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: var(--g1-radius-pill);
+            padding: 8px 10px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            flex-wrap: nowrap;
+            scrollbar-width: none;
+        }
+
+        .g1-tab-bar::-webkit-scrollbar {
+            display: none;
+        }
+
+        html[data-theme="dark"] .g1-tab-bar {
+            background: #141a2a;
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .g1-tab-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border-radius: var(--g1-radius-pill);
+            padding: 10px 22px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            color: #444746;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .g1-tab-item:hover {
+            background: #f0f4f9;
+            color: #0b57d0;
+        }
+
+        .g1-tab-item.active {
+            background: #0b57d0 !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 14px rgba(11, 87, 208, 0.28) !important;
+        }
+
+        .g1-tab-badge {
+            border-radius: 9999px;
+            padding: 2px 10px;
+            font-size: 0.76rem;
+            font-weight: 700;
+        }
+
+        .g1-tab-item.active .g1-tab-badge {
+            background: rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+        }
+
+        .g1-tab-item:not(.active) .g1-tab-badge {
+            background: #edf2fc;
+            color: #0b57d0;
+        }
+
+        /* Google One Stili Ferah, Açık Tablo (g1-table) */
+        .g1-table-card {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.07);
+            border-radius: var(--g1-radius-lg);
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 8px 24px rgba(11, 87, 208, 0.03);
+        }
+
+        html[data-theme="dark"] .g1-table-card {
+            background: #141a2a;
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .g1-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 0;
+        }
+
+        .g1-table thead th {
+            background: #f8fafd;
+            color: #5f6368;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 18px 24px;
+            border-bottom: 1px solid #edf2f7;
+            white-space: nowrap;
+        }
+
+        html[data-theme="dark"] .g1-table thead th {
+            background: #111624;
+            color: #94a3b8;
+            border-bottom-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .g1-table tbody td {
+            padding: 20px 24px;
+            border-bottom: 1px solid #f1f3f4;
+            font-size: 0.9rem;
+            vertical-align: middle;
+            color: var(--adm-text-main);
+        }
+
+        html[data-theme="dark"] .g1-table tbody td {
+            border-bottom-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .g1-table tbody tr:hover td {
+            background-color: #f8fafd;
+        }
+
+        html[data-theme="dark"] .g1-table tbody tr:hover td {
+            background-color: rgba(56, 189, 248, 0.03);
+        }
+
+        .form-control, .form-select {
+            background-color: var(--adm-input-bg) !important;
+            border: 1px solid var(--adm-input-border) !important;
+            color: var(--adm-text-main) !important;
+            border-radius: 14px;
+            height: 48px;
+            font-size: 0.92rem;
+            padding: 10px 16px;
+        }
+
+        textarea.form-control {
+            height: auto;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #0b57d0 !important;
+            box-shadow: 0 0 0 3px rgba(11, 87, 208, 0.15) !important;
+        }
+
+        html[data-theme="dark"] .table {
+            color: var(--adm-text-main) !important;
+            border-color: var(--adm-card-border) !important;
+        }
+
+        html[data-theme="dark"] .table td,
+        html[data-theme="dark"] .table th {
+            color: var(--adm-text-main) !important;
+            border-color: rgba(255, 255, 255, 0.05) !important;
+        }
+
+        /* Mobil */
+        @@media (max-width: 992px) {
+            .admin-sidebar {
+                transform: translateX(-100%);
+            }
+            .admin-sidebar.show {
+                transform: translateX(0);
+            }
+            .admin-main {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="admin-wrapper">
+    <!-- SOL SABİT AKORDEON MENÜ: Hayat İşleri - B2B & Kurumsal Yönetim -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <!-- Logo & Başlık -->
+        <div class="admin-sidebar-header">
+            <div class="admin-logo-mark">
+                <i class="bi bi-cpu-fill"></i>
+            </div>
+            <div>
+                <h1 class="admin-brand-title">Hayat İşleri</h1>
+                <span class="admin-brand-sub">Kurumsal Yönetim Konsolu</span>
+            </div>
+        </div>
+
+        <!-- Hızlı Menü İçi Arama -->
+        <div class="admin-sidebar-search">
+            <div class="admin-sidebar-search-box">
+                <i class="bi bi-search"></i>
+                <input type="text" id="adminMenuFilterInput" placeholder="Menülerde ara..." autocomplete="off" />
+            </div>
+        </div>
+
+        <!-- Menü Ağacı -->
+        @{
+            var curMod = ViewBag.SeciliModul as string ?? "";
+            var curAct = ViewContext.RouteData.Values["Action"]?.ToString() ?? "";
+        }
+        <nav class="admin-nav" id="adminNavTree">
+            <!-- 1. GENEL BAKIŞ & KONTROL PANELİ (DASHBOARD) -->
+            <a asp-controller="Admin" asp-action="Index" class="admin-nav-single-link @(curAct == "Index" && string.IsNullOrEmpty(curMod) ? "active" : "")">
+                <i class="bi bi-speedometer2"></i>
+                <span>Kontrol Paneli (Dashboard)</span>
+                <span class="admin-badge">Canlı</span>
+            </a>
+
+            <!-- 2. ANA SAYFA & VİTRİN YÖNETİMİ -->
+            <div class="admin-menu-group" id="grpVitrin">
+                <button type="button" class="admin-group-toggle" onclick="toggleAdminGroup('grpVitrin')">
+                    <span class="admin-group-title-wrap">
+                        <i class="bi bi-layout-text-window-reverse group-icon"></i>
+                        <span>Ana Sayfa &amp; Vitrin</span>
+                    </span>
+                    <i class="bi bi-chevron-down admin-chevron"></i>
+                </button>
+                <div class="admin-submenu">
+                    <a asp-controller="Admin" asp-action="Slider" class="admin-sublink @(curMod == "Slider" || curAct == "Slider" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Slider &amp; Manşet Yönetimi</span>
+                        <span class="admin-badge">4 Slayt</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="AnasayfaAksiyonKarti" class="admin-sublink @(curMod == "AnasayfaAksiyonKarti" || curAct == "AnasayfaAksiyonKarti" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Sabit Aksiyon Kartı (CTA)</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="CozumUrunu" class="admin-sublink @(curMod == "CozumUrunu" || curAct == "CozumUrunu" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Çözüm Kartları (Vitrin)</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="SirketOlcegi" class="admin-sublink @(curMod == "SirketOlcegi" || curAct == "SirketOlcegi" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Şirket Ölçekleri</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="Sektor" class="admin-sublink @(curMod == "Sektor" || curAct == "Sektor" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Sektörel Çözümler</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 3. E-TİCARET & B2B BAYİ OPERASYONU -->
+            <div class="admin-menu-group" id="grpEticaret">
+                <button type="button" class="admin-group-toggle" onclick="toggleAdminGroup('grpEticaret')">
+                    <span class="admin-group-title-wrap">
+                        <i class="bi bi-shop group-icon"></i>
+                        <span>E-Ticaret &amp; B2B Bayi</span>
+                    </span>
+                    <i class="bi bi-chevron-down admin-chevron"></i>
+                </button>
+                <div class="admin-submenu">
+                    <a asp-controller="Admin" asp-action="YazilimUrunleri" class="admin-sublink @(curMod == "YazilimUrunleri" || curAct == "YazilimUrunleri" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Yazılım Ürün Kataloğu</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="DonanimUrunleri" class="admin-sublink @(curMod == "DonanimUrunleri" || curAct == "DonanimUrunleri" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Donanım &amp; POS Cihazları</span>
+                        <span class="admin-badge">Barkod</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="Markalar" class="admin-sublink @(curMod == "Markalar" || curAct == "Markalar" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Markalar &amp; Üreticiler</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="Kategoriler" class="admin-sublink @(curMod == "Kategoriler" || curAct == "Kategoriler" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Ürün Kategorileri</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="Bayiler" class="admin-sublink @(curMod == "Bayiler" || curAct == "Bayiler" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Bayiler &amp; Müşteriler</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="BayiPortallari" class="admin-sublink @(curMod == "BayiPortallari" || curAct == "BayiPortallari" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Bayi Portalları &amp; Yetki</span>
+                        <span class="admin-badge" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">3 Portal</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="BayiIslemLoglari" class="admin-sublink @(curMod == "BayiIslemLoglari" || curAct == "BayiIslemLoglari" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Bayi Giriş &amp; İşlem İzi</span>
+                        <span class="admin-badge">Denetim</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="BayiKampanyalari" class="admin-sublink @(curMod == "BayiKampanyalari" || curAct == "BayiKampanyalari" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Bayiye Özel Kampanyalar</span>
+                        <span class="admin-badge" style="background: rgba(234, 67, 53, 0.15); color: #ea4335;">Fırsat</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="BayiGruplari" class="admin-sublink @(curMod == "BayiGruplari" || curAct == "BayiGruplari" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Bayi İskonto Grupları</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="BankaHesaplari" class="admin-sublink @(curMod == "BankaHesaplari" || curAct == "BankaHesaplari" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Banka Hesapları &amp; IBAN</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="Lisanslar" class="admin-sublink @(curMod == "Lisanslar" || curAct == "Lisanslar" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Lisans Yönetimi</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="Siparisler" class="admin-sublink @(curMod == "Siparisler" || curAct == "Siparisler" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>B2B Siparişler &amp; Sevkiyat</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 4. BAYİ YÖNETİM & İLETİŞİM MERKEZİ -->
+            <div class="admin-menu-group" id="grpBayiOperasyon">
+                <button type="button" class="admin-group-toggle" onclick="toggleAdminGroup('grpBayiOperasyon')">
+                    <span class="admin-group-title-wrap">
+                        <i class="bi bi-buildings-fill group-icon" style="color: #6366f1;"></i>
+                        <span>Bayi Yönetim &amp; İletişim</span>
+                    </span>
+                    <i class="bi bi-chevron-down admin-chevron"></i>
+                </button>
+                <div class="admin-submenu">
+                    <a asp-controller="Admin" asp-action="BayiYonetimMerkezi" asp-route-tab="hepsi" class="admin-sublink @(curAct == "BayiYonetimMerkezi" && (ViewBag.AktifTab == "hepsi" || string.IsNullOrEmpty(ViewBag.AktifTab as string)) ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Hepsi (360° Genel Bakış)</span>
+                        <span class="admin-badge" style="background: rgba(99, 102, 241, 0.15); color: #6366f1;">360°</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="BayiYonetimMerkezi" asp-route-tab="bildirim" class="admin-sublink @(curAct == "BayiYonetimMerkezi" && ViewBag.AktifTab == "bildirim" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Duyuru &amp; Bildirim Gönder</span>
+                        <span class="admin-badge">Duyuru</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="BayiYonetimMerkezi" asp-route-tab="servis" class="admin-sublink @(curAct == "BayiYonetimMerkezi" && ViewBag.AktifTab == "servis" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Servis &amp; Saha Araç/Cihaz</span>
+                        <span class="admin-badge" style="background: rgba(245, 158, 11, 0.15); color: #d97706;">Konum &amp; Fiyat</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="BayiYonetimMerkezi" asp-route-tab="talepler" class="admin-sublink @(curAct == "BayiYonetimMerkezi" && ViewBag.AktifTab == "talepler" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Gelen Talep &amp; Şikayetler</span>
+                        <span class="admin-badge">Talep</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="BayiYonetimMerkezi" asp-route-tab="odemeler" class="admin-sublink @(curAct == "BayiYonetimMerkezi" && ViewBag.AktifTab == "odemeler" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Bayi Ödemeleri &amp; Cari</span>
+                        <span class="admin-badge" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">Tahsilat</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="BayiYonetimMerkezi" asp-route-tab="satislar" class="admin-sublink @(curAct == "BayiYonetimMerkezi" && ViewBag.AktifTab == "satislar" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Bayi Satış &amp; Sevkiyat</span>
+                        <span class="admin-badge">Satışlar</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="BayiYonetimMerkezi" asp-route-tab="degisim" class="admin-sublink @(curAct == "BayiYonetimMerkezi" && ViewBag.AktifTab == "degisim" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Değişim &amp; Bozuk Cihaz (Swap)</span>
+                        <span class="admin-badge" style="background: rgba(239, 68, 68, 0.15); color: #ef4444;">DOA</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="BayiYonetimMerkezi" asp-route-tab="eskimusteriler" class="admin-sublink @(curAct == "BayiYonetimMerkezi" && ViewBag.AktifTab == "eskimusteriler" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Eski Müşteriler &amp; Pasif Bayiler</span>
+                        <span class="admin-badge" style="background: rgba(100, 116, 139, 0.15); color: #475569;">Arşiv</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 5. KURUMSAL SATIŞ & CPQ (TEKLİF) -->
+            <div class="admin-menu-group" id="grpCpq">
+                <button type="button" class="admin-group-toggle" onclick="toggleAdminGroup('grpCpq')">
+                    <span class="admin-group-title-wrap">
+                        <i class="bi bi-calculator-fill group-icon"></i>
+                        <span>Kurumsal Satış &amp; CPQ</span>
+                    </span>
+                    <i class="bi bi-chevron-down admin-chevron"></i>
+                </button>
+                <div class="admin-submenu">
+                    <a asp-controller="Admin" asp-action="KurumsalModuller" asp-route-modul="TeklifCpq" class="admin-sublink @(curMod == "TeklifCpq" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Teklif &amp; Proforma (CPQ)</span>
+                        <span class="admin-badge">PDF</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="KurumsalModuller" asp-route-modul="PaketlemeBundle" class="admin-sublink @(curMod == "PaketlemeBundle" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Donanım + Yazılım Paketleri</span>
+                        <span class="admin-badge">Bundle</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="KurumsalModuller" asp-route-modul="IskontoOnay" class="admin-sublink @(curMod == "IskontoOnay" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>İskonto Onay Akışı</span>
+                        <span class="admin-badge admin-badge-warning">3 Bekleyen</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="KurumsalModuller" asp-route-modul="SatisPrimYonetimi" class="admin-sublink @(curMod == "SatisPrimYonetimi" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Prim &amp; Komisyon Yönetimi</span>
+                        <span class="admin-badge">Hakediş</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 5. DONANIM YAŞAM DÖNGÜSÜ & RMA SERVİS -->
+            <div class="admin-menu-group" id="grpRma">
+                <button type="button" class="admin-group-toggle" onclick="toggleAdminGroup('grpRma')">
+                    <span class="admin-group-title-wrap">
+                        <i class="bi bi-tools group-icon"></i>
+                        <span>Donanım &amp; RMA Servis</span>
+                    </span>
+                    <i class="bi bi-chevron-down admin-chevron"></i>
+                </button>
+                <div class="admin-submenu">
+                    <a asp-controller="Admin" asp-action="KurumsalModuller" asp-route-modul="SeriNoTakip" class="admin-sublink @(curMod == "SeriNoTakip" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Seri No / IMEI / MAC Takibi</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="KurumsalModuller" asp-route-modul="CihazYasamDongusu" class="admin-sublink @(curMod == "CihazYasamDongusu" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Cihaz Yaşam Döngüsü &amp; Arşiv</span>
+                        <span class="admin-badge">360° Arşiv</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="KurumsalModuller" asp-route-modul="GarantiBakim" class="admin-sublink @(curMod == "GarantiBakim" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Garanti &amp; Bakım Sözleşmeleri</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="KurumsalModuller" asp-route-modul="RmaServis" class="admin-sublink @(curMod == "RmaServis" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>RMA (Arıza &amp; Değişim)</span>
+                        <span class="admin-badge">Teknik</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="KurumsalModuller" asp-route-modul="KritikStok" class="admin-sublink @(curMod == "KritikStok" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Kritik Stok Uyarıları</span>
+                        <span class="admin-badge admin-badge-danger">&lt;5 Adet</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="KurumsalModuller" asp-route-modul="DepoLokasyonYonetimi" class="admin-sublink @(curMod == "DepoLokasyonYonetimi" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Depo &amp; Lokasyon Yönetimi</span>
+                        <span class="admin-badge">Depo</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 6. SAAS & LİSANSLAMA YÖNETİMİ -->
+            <div class="admin-menu-group" id="grpSaas">
+                <button type="button" class="admin-group-toggle" onclick="toggleAdminGroup('grpSaas')">
+                    <span class="admin-group-title-wrap">
+                        <i class="bi bi-cloud-check-fill group-icon"></i>
+                        <span>SaaS &amp; Lisanslama</span>
+                    </span>
+                    <i class="bi bi-chevron-down admin-chevron"></i>
+                </button>
+                <div class="admin-submenu">
+                    <a asp-controller="Admin" asp-action="KurumsalModuller" asp-route-modul="SaasMrrArr" class="admin-sublink @(curMod == "SaasMrrArr" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Abonelikler (MRR &amp; ARR)</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="KurumsalModuller" asp-route-modul="ModularLisans" class="admin-sublink @(curMod == "ModularLisans" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Modüler Lisanslama</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="KurumsalModuller" asp-route-modul="SurumPatch" class="admin-sublink @(curMod == "SurumPatch" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Sürüm &amp; Patch Yönetimi</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 7. PROJE TESLİMATI & SAHA SLA -->
+            <div class="admin-menu-group" id="grpSla">
+                <button type="button" class="admin-group-toggle" onclick="toggleAdminGroup('grpSla')">
+                    <span class="admin-group-title-wrap">
+                        <i class="bi bi-stopwatch-fill group-icon"></i>
+                        <span>Teslimat &amp; Saha SLA</span>
+                    </span>
+                    <i class="bi bi-chevron-down admin-chevron"></i>
+                </button>
+                <div class="admin-submenu">
+                    <a asp-controller="Admin" asp-action="KurumsalModuller" asp-route-modul="SahaKurulum" class="admin-sublink @(curMod == "SahaKurulum" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Saha Kurulum Aşamaları</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="KurumsalModuller" asp-route-modul="SlaTakip" class="admin-sublink @(curMod == "SlaTakip" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>SLA Müdahale Sayacı</span>
+                        <span class="admin-badge">4 Saat</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 8. FİNANS & B2B CARİ RİSK -->
+            <div class="admin-menu-group" id="grpFinans">
+                <button type="button" class="admin-group-toggle" onclick="toggleAdminGroup('grpFinans')">
+                    <span class="admin-group-title-wrap">
+                        <i class="bi bi-cash-stack group-icon"></i>
+                        <span>Finans &amp; B2B Risk</span>
+                    </span>
+                    <i class="bi bi-chevron-down admin-chevron"></i>
+                </button>
+                <div class="admin-submenu">
+                    <a asp-controller="Admin" asp-action="KurumsalModuller" asp-route-modul="CariRiskLimiti" class="admin-sublink @(curMod == "CariRiskLimiti" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Bayi Kredi &amp; Risk Limiti</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="KurumsalModuller" asp-route-modul="VadeKontrol" class="admin-sublink @(curMod == "VadeKontrol" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Vade &amp; Sipariş Bloke</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="KurumsalModuller" asp-route-modul="IadeMutabakatYonetimi" class="admin-sublink @(curMod == "IadeMutabakatYonetimi" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>İade, İptal &amp; Cari Mutabakat</span>
+                        <span class="admin-badge">Mutabakat</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="KurumsalModuller" asp-route-modul="DovizKurYonetimi" class="admin-sublink @(curMod == "DovizKurYonetimi" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Döviz &amp; Kur Yönetimi</span>
+                        <span class="admin-badge">TCMB</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 9. KURUMSAL İÇERİK & YAYINCILIK -->
+            <div class="admin-menu-group" id="grpIcerik">
+                <button type="button" class="admin-group-toggle" onclick="toggleAdminGroup('grpIcerik')">
+                    <span class="admin-group-title-wrap">
+                        <i class="bi bi-journal-text group-icon"></i>
+                        <span>Kurumsal İçerik</span>
+                    </span>
+                    <i class="bi bi-chevron-down admin-chevron"></i>
+                </button>
+                <div class="admin-submenu">
+                    <a asp-controller="Admin" asp-action="KurumsalSayfalar" class="admin-sublink @(curAct == "HakkimizdaDuzenle" || curAct == "KurumsalSayfalar" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Kurumsal Sayfalar (Hakkımızda)</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="Hizmetler" class="admin-sublink @(curMod == "Hizmetler" || curAct == "Hizmetler" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Hizmetlerimiz</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="OzelProjeler" class="admin-sublink @(curMod == "OzelProjeler" || curAct == "OzelProjeler" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Özel Projeler</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="ReferansListesi" class="admin-sublink @(curAct.Contains("Referans") ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Müşteri Referansları</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="BlogListesi" class="admin-sublink @(curAct.Contains("Blog") ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Teknoloji Blogu</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="Dokumanlar" class="admin-sublink @(curMod == "Dokumanlar" || curAct == "Dokumanlar" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Teknik Dokümanlar</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="Kampanyalar" class="admin-sublink @(curMod == "Kampanyalar" || curAct == "Kampanyalar" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Kampanya Yönetimi</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="KampanyaBasvurulari" class="admin-sublink @(curMod == "KampanyaBasvurulari" || curAct == "KampanyaBasvurulari" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Gelen Kampanya Başvuruları</span>
+                        <span class="admin-badge">Yeni</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 10. İLETİŞİM & İNSAN KAYNAKLARI -->
+            <div class="admin-menu-group" id="grpDestek">
+                <button type="button" class="admin-group-toggle" onclick="toggleAdminGroup('grpDestek')">
+                    <span class="admin-group-title-wrap">
+                        <i class="bi bi-headset group-icon"></i>
+                        <span>İletişim &amp; İK</span>
+                    </span>
+                    <i class="bi bi-chevron-down admin-chevron"></i>
+                </button>
+                <div class="admin-submenu">
+                    <a asp-controller="Admin" asp-action="DestekTalepleri" class="admin-sublink @(curMod == "DestekTalepleri" || curAct == "DestekTalepleri" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Destek Talepleri (Ticket)</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="MesajListesi" class="admin-sublink @(curAct.Contains("Mesaj") ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>İletişim Mesajları</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="IsIlanlari" class="admin-sublink @(curMod == "IsIlanlari" || curAct == "IsIlanlari" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Kariyer &amp; İş İlanları</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="InsanKaynaklariDuzenle" class="admin-sublink @(curAct == "InsanKaynaklariDuzenle" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>İş Başvuruları (İK)</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="DinamikFormlar" class="admin-sublink @(curMod == "DinamikFormlar" || curAct == "DinamikFormlar" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Dinamik Formlar &amp; Anketler</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="KurumsalModuller" asp-route-modul="TopluIletisimMerkezi" class="admin-sublink @(curMod == "TopluIletisimMerkezi" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Toplu İletişim &amp; Bildirim</span>
+                        <span class="admin-badge">SMS / Mail</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 11. SİSTEM, GÜVENLİK & HUKUK -->
+            <div class="admin-menu-group" id="grpSistem">
+                <button type="button" class="admin-group-toggle" onclick="toggleAdminGroup('grpSistem')">
+                    <span class="admin-group-title-wrap">
+                        <i class="bi bi-gear-wide-connected group-icon"></i>
+                        <span>Sistem &amp; Site Ayarları</span>
+                    </span>
+                    <i class="bi bi-chevron-down admin-chevron"></i>
+                </button>
+                <div class="admin-submenu">
+                    <a asp-controller="Admin" asp-action="SiteAyarlari" class="admin-sublink @(curMod == "SiteAyarlari" || curAct == "SiteAyarlari" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Genel Site Ayarları</span>
+                        <span class="admin-badge">Merkez</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="Menuler" class="admin-sublink @(curMod == "Menuler" || curAct == "Menuler" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Menü &amp; Navigasyon</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="YasalMetinler" class="admin-sublink @(curMod == "YasalMetinler" || curAct == "YasalMetinler" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Yasal Metinler &amp; KVKK</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="BayiSozlesmeOnaylari" class="admin-sublink @(curMod == "BayiSozlesmeOnaylari" || curAct == "BayiSozlesmeOnaylari" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Sözleşme Onay Logları</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="KurumsalModuller" asp-route-modul="RbacRoller" class="admin-sublink @(curMod == "RbacRoller" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Rol Yetkileri (RBAC)</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="KurumsalModuller" asp-route-modul="KritikIslemLoglari" class="admin-sublink @(curMod == "KritikIslemLoglari" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Kritik İşlem (Audit) Logları</span>
+                        <span class="admin-badge">Denetim</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="KurumsalModuller" asp-route-modul="ApiEntegrasyonLoglari" class="admin-sublink @(curMod == "ApiEntegrasyonLoglari" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>API &amp; Entegrasyon Logları</span>
+                        <span class="admin-badge">Webhook</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="GirisLoglari" class="admin-sublink @(curAct == "GirisLoglari" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Admin Giriş Logları</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- SAĞ ANA ALAN -->
+    <main class="admin-main">
+        <!-- Google One İmza 4 Renk İnce Üst Çizgi -->
+        <div class="g1-rainbow-line"></div>
+
+        <!-- TOPBAR -->
+        <header class="admin-topbar">
+            <div class="d-flex align-items-center gap-3">
+                <button class="btn btn-sm d-lg-none p-1 text-secondary" id="adminSidebarToggle">
+                    <i class="bi bi-list fs-3"></i>
+                </button>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="pulse-online-dot"></span>
+                    <span class="small fw-semibold d-none d-md-inline" style="color: var(--adm-text-sub); font-size: 0.78rem;">
+                        Sistem Çevrim İçi &bull; MS SQL &bull; Kurumsal v2.4
+                    </span>
+                </div>
+            </div>
+
+            <div class="admin-topbar-actions">
+                <!-- Tema Butonu -->
+                <button type="button" class="admin-theme-toggle" id="adminThemeToggle" title="Temayı Değiştir">
+                    <i class="bi bi-sun-fill" id="adminThemeIcon"></i>
+                    <span id="adminThemeText">Google One Tema</span>
+                </button>
+
+                <!-- TÜRKÇE & İNGİLİZCE DİL DESTEĞİ BUTONU (EMOJİ DESTEKLİ) -->
+                <button type="button" class="admin-theme-toggle" id="adminLangToggle" title="Dili Değiştir / Switch Language (TR / EN)">
+                    <span id="adminLangFlag">🇹🇷</span>
+                    <span id="adminLangText">TR</span>
+                </button>
+
+                <!-- Web Sitesini Önizle -->
+                <a asp-controller="Home" asp-action="Index" target="_blank" class="admin-theme-toggle text-decoration-none d-none d-sm-inline-flex" title="Siteyi Yeni Sekmede Aç">
+                    <i class="bi bi-box-arrow-up-right"></i>
+                    <span>Siteyi Önizle</span>
+                </a>
+
+                <!-- Profil Hapı -->
+                <div class="admin-user-pill">
+                    <i class="bi bi-person-circle text-primary"></i>
+                    <span>@User.Identity?.Name</span>
+                </div>
+
+                <!-- Çıkış Butonu -->
+                <a asp-controller="Account" asp-action="Logout" class="btn btn-sm btn-outline-danger px-2.5 py-1 rounded-2 d-inline-flex align-items-center gap-1" style="font-size: 0.78rem; font-weight: 700;" title="Güvenli Çıkış">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span class="d-none d-md-inline">Çıkış</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- SAYFA İÇERİĞİ (Google One Ferah Boşluklar) -->
+        <div class="p-4 p-md-5 flex-grow-1" style="max-width: 1720px; width: 100%; margin: 0 auto;">
+            @RenderBody()
+        </div>
+    </main>
+</div>
+
+<!-- Scripts -->
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Akordeon Menü Aç / Kapat Fonksiyonu
+    function toggleAdminGroup(groupId) {
+        const group = document.getElementById(groupId);
+        if (!group) return;
+        const isOpen = group.classList.contains('open');
+        group.classList.toggle('open', !isOpen);
+    }
+
+    (function () {
+        // Tema Yönetimi (Modern Ekru Açık vs. Obsidyen Koyu)
+        const root = document.documentElement;
+        const toggleBtn = document.getElementById('adminThemeToggle');
+        const themeIcon = document.getElementById('adminThemeIcon');
+        const themeText = document.getElementById('adminThemeText');
+        const savedTheme = localStorage.getItem('hayat_admin_theme') || 'light';
+
+        function applyTheme(theme) {
+            root.setAttribute('data-theme', theme);
+            if (theme === 'dark') {
+                themeIcon.className = 'bi bi-moon-stars-fill text-info';
+                themeText.innerText = 'Koyu Tema';
+            } else {
+                themeIcon.className = 'bi bi-sun-fill text-warning';
+                themeText.innerText = 'Ekru Tema';
+            }
+            localStorage.setItem('hayat_admin_theme', theme);
+        }
+
+        applyTheme(savedTheme);
+
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', function () {
+                const current = root.getAttribute('data-theme') || 'light';
+                applyTheme(current === 'light' ? 'dark' : 'light');
+            });
+        }
+
+        // Aktif Alt Menünün Üst Grubunu Otomatik Aç
+        const activeSublink = document.querySelector('.admin-sublink.active');
+        if (activeSublink) {
+            const parentGroup = activeSublink.closest('.admin-menu-group');
+            if (parentGroup) {
+                parentGroup.classList.add('open');
+                const toggle = parentGroup.querySelector('.admin-group-toggle');
+                if (toggle) toggle.classList.add('active-parent');
+            }
+        }
+
+        // Sidebar Arama Filtresi (Menülerde anlık süzme)
+        const filterInput = document.getElementById('adminMenuFilterInput');
+        if (filterInput) {
+            filterInput.addEventListener('input', function (e) {
+                const term = e.target.value.toLowerCase().trim();
+                const groups = document.querySelectorAll('.admin-menu-group');
+
+                if (!term) {
+                    groups.forEach(g => {
+                        g.style.display = '';
+                        const sublinks = g.querySelectorAll('.admin-sublink');
+                        sublinks.forEach(s => s.style.display = '');
+                        if (!g.querySelector('.admin-sublink.active')) {
+                            g.classList.remove('open');
+                        }
+                    });
+                    return;
+                }
+
+                groups.forEach(g => {
+                    let hasMatch = false;
+                    const groupTitle = g.querySelector('.admin-group-toggle')?.innerText.toLowerCase() || '';
+                    const sublinks = g.querySelectorAll('.admin-sublink');
+
+                    sublinks.forEach(s => {
+                        const linkText = s.innerText.toLowerCase();
+                        if (linkText.includes(term) || groupTitle.includes(term)) {
+                            s.style.display = '';
+                            hasMatch = true;
+                        } else {
+                            s.style.display = 'none';
+                        }
+                    });
+
+                    if (hasMatch) {
+                        g.style.display = '';
+                        g.classList.add('open');
+                    } else {
+                        g.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Mobil Menü Aç/Kapat
+        const sidebar = document.getElementById('adminSidebar');
+        const toggleSidebar = document.getElementById('adminSidebarToggle');
+        if (toggleSidebar && sidebar) {
+            toggleSidebar.addEventListener('click', () => {
+                sidebar.classList.toggle('show');
+            });
+        }
+    })();
+</script>
+
+@await RenderSectionAsync("Scripts", required: false)
+<!-- HAYAT İŞLERİ GLOBAL ÇOKLU DİL (I18N) MOTORU -->
+<script src="~/js/hayat-i18n.js" asp-append-version="true"></script>
+</body>
+</html>

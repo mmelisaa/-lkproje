@@ -1,41 +1,100 @@
 @model WebApplication1.Models.Siniflar.InsanKaynaklari
 @{
-    ViewData["Title"] = "İnsan Kaynakları Düzenle";
+    ViewData["Title"] = "İnsan Kaynakları Sayfasını Düzenle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="container py-4" style="max-width: 750px;">
-    <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-white border-opacity-10">
-        <h3 class="fw-bold text-white mb-0"><i class="bi bi-people text-warning me-2"></i>İnsan Kaynakları Sayfasını Düzenle</h3>
-        <a asp-action="Index" class="btn btn-outline-secondary btn-sm rounded-pill px-3"><i class="bi bi-arrow-left me-1"></i> Panele Dön</a>
+<div class="container py-4" style="max-width: 820px;">
+    <!-- Üst Başlık & Geri Dön Çubuğu (Yüksek Kontrast & Tema Uyumlu) -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 pb-3 border-bottom" style="border-color: var(--adm-card-border, #e2e8f0) !important; gap: 1rem;">
+        <div>
+            <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill mb-2" style="background: var(--adm-chip-bg, #f1f5f9); border: 1px solid var(--adm-card-border, #e2e8f0); font-size: 0.74rem; font-weight: 700; color: #0284c7; letter-spacing: 0.5px;">
+                <i class="bi bi-people-fill"></i>
+                <span>KURUMSAL İK &amp; KARİYER YÖNETİMİ</span>
+            </div>
+            <h2 class="fw-bold mb-1" style="color: var(--adm-text-main, #0f172a); letter-spacing: -0.4px; font-size: 1.65rem;">
+                İnsan Kaynakları Sayfasını Düzenle
+            </h2>
+            <p class="small mb-0" style="color: var(--adm-text-sub, #64748b);">
+                Web sitesi üzerindeki İK ve Kariyer sayfası (<span class="font-monospace">/Home/InsanKaynaklari</span>) başlık, açıklama ve form metinlerini yönetin.
+            </p>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+            <a href="/Home/InsanKaynaklari" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-2 fw-semibold d-inline-flex align-items-center gap-1.5" style="border-color: var(--adm-card-border, #cbd5e1); color: var(--adm-text-main, #334155);">
+                <i class="bi bi-box-arrow-up-right"></i>
+                <span>Canlı Sayfayı Gör</span>
+            </a>
+            <a asp-action="KurumsalErpModulu" asp-route-modul="IsIlanlari" class="btn btn-sm rounded-pill px-3 py-2 fw-semibold d-inline-flex align-items-center gap-1.5" style="background: var(--adm-chip-bg, #f1f5f9); border: 1px solid var(--adm-card-border, #cbd5e1); color: var(--adm-text-main, #334155);">
+                <i class="bi bi-briefcase me-1"></i>
+                <span>Açık Pozisyonlar</span>
+            </a>
+        </div>
     </div>
 
-    <div class="p-4 p-md-5 rounded-4 shadow-lg" style="background: rgba(18, 24, 38, 0.85); border: 1px solid rgba(255,255,255,0.08);">
+    @if (TempData["Mesaj"] != null)
+    {
+        <div class="alert alert-success d-flex align-items-center gap-2 rounded-4 shadow-sm mb-4 border-0" style="background: rgba(16, 185, 129, 0.12); color: #065f46;">
+            <i class="bi bi-check-circle-fill fs-5 text-success"></i>
+            <div class="fw-semibold">@TempData["Mesaj"]</div>
+        </div>
+    }
+
+    <!-- Düzenleme Form Kartı (Açık ve Koyu Modda %100 Okunabilir) -->
+    <div class="p-4 p-md-5 rounded-4 shadow-sm" style="background: var(--adm-card-bg, #ffffff); border: 1px solid var(--adm-card-border, #e2e8f0);">
         <form asp-action="InsanKaynaklariDuzenle" method="post">
             @Html.AntiForgeryToken()
             <input type="hidden" asp-for="Id" />
-            <div class="mb-3">
-                <label asp-for="UstBaslik" class="form-label text-white small fw-semibold">Üst Başlık</label>
-                <input asp-for="UstBaslik" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" />
-            </div>
-            <div class="mb-3">
-                <label asp-for="AnaBaslik" class="form-label text-white small fw-semibold">Ana Başlık</label>
-                <input asp-for="AnaBaslik" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" />
-            </div>
-            <div class="mb-3">
-                <label asp-for="Aciklama" class="form-label text-white small fw-semibold">Açıklama</label>
-                <textarea asp-for="Aciklama" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" rows="3"></textarea>
-            </div>
-            <div class="mb-3">
-                <label asp-for="FormBaslik" class="form-label text-white small fw-semibold">Form Başlığı</label>
-                <input asp-for="FormBaslik" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" />
-            </div>
+
             <div class="mb-4">
-                <label asp-for="FormAltBaslik" class="form-label text-white small fw-semibold">Form Alt Başlığı</label>
-                <input asp-for="FormAltBaslik" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" />
+                <label asp-for="UstBaslik" class="form-label fw-bold small mb-1.5" style="color: var(--adm-text-main, #0f172a);">
+                    <i class="bi bi-tag me-1 text-primary"></i> Üst Rozet Metni
+                </label>
+                <input asp-for="UstBaslik" class="form-control rounded-3 py-2 px-3" style="background: var(--adm-input-bg, #ffffff); border-color: var(--adm-card-border, #cbd5e1); color: var(--adm-text-main, #0f172a);" placeholder="Örn: HAYAT İŞLERİ AİLESİNE KATILIN" required />
+                <small class="form-text" style="color: var(--adm-text-sub, #64748b);">Sayfanın en üstünde rozet içerisinde gösterilen kısa slogan metni.</small>
             </div>
-            <div class="d-flex gap-2 pt-2">
-                <button type="submit" class="btn btn-warning rounded-pill px-4 text-dark fw-bold"><i class="bi bi-check-lg me-1"></i> Değişiklikleri Kaydet</button>
-                <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4">İptal</a>
+
+            <div class="mb-4">
+                <label asp-for="AnaBaslik" class="form-label fw-bold small mb-1.5" style="color: var(--adm-text-main, #0f172a);">
+                    <i class="bi bi-type-h1 me-1 text-primary"></i> Sayfa Ana Başlığı
+                </label>
+                <input asp-for="AnaBaslik" class="form-control rounded-3 py-2 px-3" style="background: var(--adm-input-bg, #ffffff); border-color: var(--adm-card-border, #cbd5e1); color: var(--adm-text-main, #0f172a);" placeholder="Örn: Geleceğin Teknolojisini Birlikte İnşa Edelim" required />
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Aciklama" class="form-label fw-bold small mb-1.5" style="color: var(--adm-text-main, #0f172a);">
+                    <i class="bi bi-card-text me-1 text-primary"></i> Hero Açıklama Paragrafı
+                </label>
+                <textarea asp-for="Aciklama" class="form-control rounded-3 py-2 px-3" rows="3" style="background: var(--adm-input-bg, #ffffff); border-color: var(--adm-card-border, #cbd5e1); color: var(--adm-text-main, #0f172a);" placeholder="Şirketimizin vizyonunu ve kariyer olanaklarını özetleyen açıklama..." required></textarea>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <label asp-for="FormBaslik" class="form-label fw-bold small mb-1.5" style="color: var(--adm-text-main, #0f172a);">
+                        <i class="bi bi-input-cursor-text me-1 text-primary"></i> Başvuru Formu Başlığı
+                    </label>
+                    <input asp-for="FormBaslik" class="form-control rounded-3 py-2 px-3" style="background: var(--adm-input-bg, #ffffff); border-color: var(--adm-card-border, #cbd5e1); color: var(--adm-text-main, #0f172a);" placeholder="Örn: Açık Pozisyonlara Başvuru Yapın" required />
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="FormAltBaslik" class="form-label fw-bold small mb-1.5" style="color: var(--adm-text-main, #0f172a);">
+                        <i class="bi bi-chat-left-dots me-1 text-primary"></i> Form Alt Açıklaması
+                    </label>
+                    <input asp-for="FormAltBaslik" class="form-control rounded-3 py-2 px-3" style="background: var(--adm-input-bg, #ffffff); border-color: var(--adm-card-border, #cbd5e1); color: var(--adm-text-main, #0f172a);" placeholder="Örn: Özgeçmişinizi ve deneyimlerinizi bize iletin, İK ekibimiz en kısa sürede size dönüş yapsın." required />
+                </div>
+            </div>
+
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 pt-3 border-top" style="border-color: var(--adm-card-border, #e2e8f0) !important;">
+                <div class="d-flex align-items-center gap-2">
+                    <button type="submit" class="btn btn-primary rounded-pill px-4 py-2.5 fw-bold shadow-sm d-inline-flex align-items-center gap-2" style="background: #0077ff; border: none;">
+                        <i class="bi bi-check-lg"></i>
+                        <span>Değişiklikleri Kaydet</span>
+                    </button>
+                    <a asp-action="KurumsalErpModulu" asp-route-modul="IsIlanlari" class="btn btn-outline-secondary rounded-pill px-3.5 py-2.5 fw-semibold" style="border-color: var(--adm-card-border, #cbd5e1); color: var(--adm-text-main, #475569);">
+                        İptal
+                    </a>
+                </div>
+                <small class="text-muted">
+                    <i class="bi bi-shield-lock me-1"></i> Yönetici yetkisi ile doğrudan yayınlanır.
+                </small>
             </div>
         </form>
     </div>

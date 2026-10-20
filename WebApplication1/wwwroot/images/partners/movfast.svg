@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 60" height="34">
+  <g transform="translate(6, 12)">
+    <polygon points="0,32 16,32 26,16 16,0 0,0 10,16" fill="#ea580c"/>
+    <polygon points="14,32 30,32 40,16 30,0 14,0 24,16" fill="#f97316"/>
+  </g>
+  <text x="56" y="38" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, Arial, sans-serif" font-weight="900" font-size="24" letter-spacing="3">MOVFAST</text>
+</svg>

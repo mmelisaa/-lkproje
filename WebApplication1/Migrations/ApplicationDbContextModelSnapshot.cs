@@ -224,6 +224,40 @@ namespace WebApplication1.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("WebApplication1.Models.Siniflar.AdminGirisLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("BasariliMi")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("GirisTarihi")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("IpAdresi")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IsletimSistemi")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("KullaniciAdi")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tarayici")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserAgent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AdminGirisLoglari");
+                });
+
             modelBuilder.Entity("WebApplication1.Models.Siniflar.BankaBilgisi", b =>
                 {
                     b.Property<int>("Id")
@@ -400,6 +434,30 @@ namespace WebApplication1.Migrations
                     b.HasKey("HakkimizdaID");
 
                     b.ToTable("Hakkimizda");
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.Siniflar.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.Siniflar.ReferansProje", b =>

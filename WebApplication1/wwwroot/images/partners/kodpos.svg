@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60">
+  <!-- Perspective Dot Matrix (Green/Cyan) -->
+  <g transform="translate(6, 4) scale(0.72)">
+    <ellipse cx="14" cy="12" rx="14" ry="11" fill="url(#kpGrad1)"/>
+    <ellipse cx="14" cy="34" rx="14" ry="11" fill="url(#kpGrad2)"/>
+    <ellipse cx="14" cy="56" rx="14" ry="11" fill="url(#kpGrad3)"/>
+    <ellipse cx="36" cy="14" rx="12" ry="10" fill="url(#kpGrad4)"/>
+    <ellipse cx="36" cy="34" rx="12" ry="10" fill="url(#kpGrad5)"/>
+    <ellipse cx="36" cy="54" rx="12" ry="10" fill="url(#kpGrad6)"/>
+    <ellipse cx="54" cy="16" rx="9" ry="8" fill="url(#kpGrad7)"/>
+    <ellipse cx="54" cy="34" rx="9" ry="8" fill="url(#kpGrad8)"/>
+    <ellipse cx="54" cy="52" rx="9" ry="8" fill="url(#kpGrad9)"/>
+  </g>
+  <!-- KODPOS Wordmark -->
+  <g fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="28" letter-spacing="3">
+    <text x="72" y="38">KOD<tspan fill="#34d399">POS</tspan></text>
+  </g>
+  <defs>
+    <linearGradient id="kpGrad1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#34d399"/><stop offset="100%" stop-color="#059669"/></linearGradient>
+    <linearGradient id="kpGrad2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#10b981"/><stop offset="100%" stop-color="#047857"/></linearGradient>
+    <linearGradient id="kpGrad3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#059669"/><stop offset="100%" stop-color="#065f46"/></linearGradient>
+    <linearGradient id="kpGrad4" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#6ee7b7"/><stop offset="100%" stop-color="#10b981"/></linearGradient>
+    <linearGradient id="kpGrad5" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#34d399"/><stop offset="100%" stop-color="#059669"/></linearGradient>
+    <linearGradient id="kpGrad6" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#10b981"/><stop offset="100%" stop-color="#047857"/></linearGradient>
+    <linearGradient id="kpGrad7" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#a7f3d0"/><stop offset="100%" stop-color="#34d399"/></linearGradient>
+    <linearGradient id="kpGrad8" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#6ee7b7"/><stop offset="100%" stop-color="#10b981"/></linearGradient>
+    <linearGradient id="kpGrad9" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#34d399"/><stop offset="100%" stop-color="#059669"/></linearGradient>
+  </defs>
+</svg>

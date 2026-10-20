@@ -1,0 +1,332 @@
+@model IEnumerable<WebApplication1.Models.Siniflar.AdminGirisLog>
+
+@{
+    ViewData["Title"] = "Admin Giriş Logları";
+    int sayfa = ViewBag.Sayfa;
+    int toplamSayfa = ViewBag.ToplamSayfa;
+    int toplamKayit = ViewBag.ToplamKayit;
+}
+
+<style>
+    .log-stat-card {
+        background: var(--adm-card-bg) !important;
+        border: 1px solid var(--adm-card-border) !important;
+        box-shadow: var(--adm-card-shadow);
+        border-radius: 1.25rem;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+    }
+    .log-stat-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--adm-accent) !important;
+        box-shadow: 0 16px 36px rgba(11, 87, 208, 0.12) !important;
+    }
+    .log-table-card {
+        background: var(--adm-card-bg) !important;
+        border: 1px solid var(--adm-card-border) !important;
+        box-shadow: var(--adm-card-shadow);
+        border-radius: 1.5rem;
+        overflow: hidden;
+    }
+    .log-table th {
+        font-weight: 600;
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--adm-text-sub);
+        background: var(--adm-sidebar-bg);
+        border-bottom: 1.5px solid var(--adm-card-border);
+    }
+    .log-table td {
+        border-bottom: 1px solid var(--adm-card-border);
+        color: var(--adm-text-main);
+        font-size: 0.9rem;
+    }
+    .log-table tr:hover td {
+        background: var(--adm-table-hover);
+    }
+</style>
+
+<div class="container-fluid py-4 px-lg-5">
+
+    <!-- Başlık & İşlem Butonları -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4 pb-3 border-bottom border-black border-opacity-10">
+        <div>
+            <span class="badge px-3 py-1.5 rounded-pill small fw-bold text-uppercase mb-2 shadow-sm d-inline-flex align-items-center gap-1.5"
+                  style="background: rgba(239, 68, 68, 0.08); color: #dc2626; border: 1px solid rgba(239, 68, 68, 0.2);">
+                <i class="bi bi-shield-lock-fill"></i> Güvenlik Denetim Logları
+            </span>
+            <h2 class="fw-bold mb-0" style="color: #1f1f1f; letter-spacing: -0.8px;">Admin Giriş Kayıtları</h2>
+            <p class="text-muted small mb-0 mt-1">Yönetici paneline gerçekleştirilen tüm oturum açma girişimleri ve sistem erişim geçmişi.</p>
+        </div>
+        <div class="d-flex align-items-center gap-2 flex-wrap">
+            <span class="badge bg-light text-dark border px-3 py-2 rounded-pill small shadow-sm">
+                <i class="bi bi-list-ul text-primary me-1"></i> Toplam: <strong class="text-primary">@toplamKayit</strong> kayıt
+            </span>
+            <a asp-action="Index" class="btn btn-outline-secondary btn-sm rounded-pill px-3 shadow-sm" style="border-color: rgba(0,0,0,0.15);">
+                <i class="bi bi-arrow-left me-1"></i> Panele Dön
+            </a>
+            <form asp-action="GirisLogTemizle" method="post" onsubmit="return confirm('90 günden eski giriş kayıtları silinecek. Onaylıyor musunuz?')">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill px-3 shadow-sm" style="border-color: rgba(220,38,38,0.25);">
+                    <i class="bi bi-trash3 me-1"></i> Eski Kayıtları Temizle
+                </button>
+            </form>
+        </div>
+    </div>
+
+    @if (TempData["Mesaj"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show mb-4 rounded-4 shadow-sm border-0 d-flex align-items-center" role="alert"
+             style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25) !important; color: #065f46;">
+            <i class="bi bi-check-circle-fill me-2 fs-5"></i>
+            <div>@TempData["Mesaj"]</div>
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <!-- İstatistik Kartları -->
+    @{
+        var bugunLog = Model.Count(l => l.GirisTarihi.Date == DateTime.Today);
+        var basariliLog = Model.Count(l => l.BasariliMi);
+        var benzersizIp = Model.Select(l => l.IpAdresi).Distinct().Count();
+        var sonGiris = Model.FirstOrDefault();
+    }
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+            <div class="p-4 log-stat-card h-100">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-muted small fw-semibold">Bugün</span>
+                    <div class="p-2 rounded-3" style="background: rgba(11, 87, 208, 0.08); color: #0b57d0;">
+                        <i class="bi bi-calendar-day fs-5"></i>
+                    </div>
+                </div>
+                <h3 class="fw-bold mb-0" style="color: #1f1f1f; font-size: 1.8rem;">@bugunLog</h3>
+                <small class="text-primary fw-medium"><i class="bi bi-door-open me-1"></i>Bugünkü Giriş</small>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="p-4 log-stat-card h-100">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-muted small fw-semibold">Başarılı</span>
+                    <div class="p-2 rounded-3" style="background: rgba(16, 185, 129, 0.08); color: #059669;">
+                        <i class="bi bi-check-circle fs-5"></i>
+                    </div>
+                </div>
+                <h3 class="fw-bold mb-0" style="color: #1f1f1f; font-size: 1.8rem;">@basariliLog</h3>
+                <small class="text-success fw-medium"><i class="bi bi-shield-check me-1"></i>Bu Sayfada</small>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="p-4 log-stat-card h-100">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-muted small fw-semibold">Benzersiz IP</span>
+                    <div class="p-2 rounded-3" style="background: rgba(124, 58, 237, 0.08); color: #7c3aed;">
+                        <i class="bi bi-geo-alt fs-5"></i>
+                    </div>
+                </div>
+                <h3 class="fw-bold mb-0" style="color: #1f1f1f; font-size: 1.8rem;">@benzersizIp</h3>
+                <small class="fw-medium" style="color: #7c3aed;"><i class="bi bi-router me-1"></i>Farklı Konum</small>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="p-4 log-stat-card h-100">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-muted small fw-semibold">Son Giriş</span>
+                    <div class="p-2 rounded-3" style="background: rgba(245, 158, 11, 0.08); color: #d97706;">
+                        <i class="bi bi-clock-history fs-5"></i>
+                    </div>
+                </div>
+                @if (sonGiris != null)
+                {
+                    <h5 class="fw-bold mb-0" style="color: #1f1f1f;">@sonGiris.GirisTarihi.ToString("dd.MM.yyyy")</h5>
+                    <small class="text-muted"><i class="bi bi-clock me-1"></i>@sonGiris.GirisTarihi.ToString("HH:mm:ss")</small>
+                }
+                else
+                {
+                    <h5 class="fw-bold mb-0 text-muted">—</h5>
+                    <small class="text-muted">Kayıt bulunamadı</small>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Log Tablosu -->
+    <div class="log-table-card p-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold mb-0" style="color: #1f1f1f;">
+                <i class="bi bi-table text-primary me-2"></i>Giriş ve Oturum Geçmişi
+            </h5>
+            <span class="badge bg-light text-muted border px-2.5 py-1 small">Sayfa @sayfa / @toplamSayfa</span>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table log-table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th class="py-3 ps-3">#</th>
+                        <th class="py-3"><i class="bi bi-person me-1"></i>Kullanıcı</th>
+                        <th class="py-3"><i class="bi bi-calendar-event me-1"></i>Tarih</th>
+                        <th class="py-3"><i class="bi bi-clock me-1"></i>Saat</th>
+                        <th class="py-3"><i class="bi bi-geo-alt me-1"></i>IP / Ağ Konumu</th>
+                        <th class="py-3"><i class="bi bi-browser-chrome me-1"></i>Tarayıcı</th>
+                        <th class="py-3"><i class="bi bi-pc-display me-1"></i>İşletim Sistemi</th>
+                        <th class="py-3 text-center pe-3">Durum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Any())
+                    {
+                        int sira = ((sayfa - 1) * 25) + 1;
+                        @foreach (var log in Model)
+                        {
+                            <tr>
+                                <td class="ps-3 text-muted small font-monospace">@sira</td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="d-flex align-items-center justify-content-center rounded-circle fw-bold small"
+                                             style="width:34px;height:34px;background:rgba(11, 87, 208,0.08);color:#0b57d0;border:1px solid rgba(11, 87, 208,0.18);">
+                                            @((log.KullaniciAdi ?? "?").FirstOrDefault().ToString().ToUpperInvariant())
+                                        </div>
+                                        <span class="fw-semibold small" style="color: #0f172a;">@(log.KullaniciAdi ?? "Bilinmiyor")</span>
+                                    </div>
+                                </td>
+                                <td class="small text-secondary">@log.GirisTarihi.ToString("dd.MM.yyyy")</td>
+                                <td>
+                                    <span class="badge rounded-pill px-2.5 py-1 font-monospace"
+                                          style="background:rgba(11, 87, 208,0.06);color:#0b57d0;border:1px solid rgba(11, 87, 208,0.18);font-size:0.75rem;">
+                                        <i class="bi bi-clock me-1"></i>@log.GirisTarihi.ToString("HH:mm:ss")
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="d-flex flex-column">
+                                        <span class="font-monospace small fw-semibold" style="color:#6b21a8;">
+                                            <i class="bi bi-router me-1"></i>@(log.IpAdresi ?? "—")
+                                        </span>
+                                        @{
+                                            var ip = log.IpAdresi ?? "";
+                                            string konumEtiketi;
+                                            string badgeStyle;
+                                            if (ip == "::1" || ip == "127.0.0.1" || ip.Contains("localhost"))
+                                            {
+                                                konumEtiketi = "Yerel Cihaz (Localhost)";
+                                                badgeStyle = "color:#0284c7;";
+                                            }
+                                            else if (ip.StartsWith("192.168.") || ip.StartsWith("10.") || ip.StartsWith("172."))
+                                            {
+                                                konumEtiketi = "Yerel Ağ (Wi-Fi / LAN)";
+                                                badgeStyle = "color:#d97706;";
+                                            }
+                                            else
+                                            {
+                                                konumEtiketi = "Dış Ağ / İnternet";
+                                                badgeStyle = "color:#059669;";
+                                            }
+                                        }
+                                        <span class="small" style="@badgeStyle font-size:0.75rem;">
+                                            <i class="bi bi-geo-alt-fill me-1"></i>@konumEtiketi
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    @{
+                                        var (biconClass, browserColor) = (log.Tarayici ?? "") switch
+                                        {
+                                            "Chrome" => ("bi-browser-chrome", "#059669"),
+                                            "Microsoft Edge" => ("bi-browser-edge", "#0b57d0"),
+                                            "Firefox" => ("bi-browser-firefox", "#ea580c"),
+                                            "Safari" => ("bi-browser-safari", "#0284c7"),
+                                            _ => ("bi-globe", "#64748b")
+                                        };
+                                    }
+                                    <span class="small fw-medium" style="color:@browserColor;">
+                                        <i class="bi @biconClass me-1"></i>@(log.Tarayici ?? "Bilinmiyor")
+                                    </span>
+                                </td>
+                                <td>
+                                    @{
+                                        var osIcon = (log.IsletimSistemi ?? "") switch
+                                        {
+                                            var s when s.Contains("Windows") => "bi-windows text-primary",
+                                            "macOS" => "bi-apple text-dark",
+                                            "Linux" => "bi-ubuntu text-danger",
+                                            "Android" => "bi-android text-success",
+                                            "iOS" => "bi-phone text-dark",
+                                            _ => "bi-pc-display text-secondary"
+                                        };
+                                    }
+                                    <span class="small text-secondary">
+                                        <i class="bi @osIcon me-1"></i>@(log.IsletimSistemi ?? "Bilinmiyor")
+                                    </span>
+                                </td>
+                                <td class="text-center pe-3">
+                                    @if (log.BasariliMi)
+                                    {
+                                        <span class="badge rounded-pill px-3 py-1.5 small fw-semibold"
+                                              style="background: rgba(16, 185, 129, 0.1); color: #047857; border: 1px solid rgba(16, 185, 129, 0.25);">
+                                            <i class="bi bi-check-circle-fill me-1"></i>Başarılı
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge rounded-pill px-3 py-1.5 small fw-semibold"
+                                              style="background: rgba(239, 68, 68, 0.1); color: #b91c1c; border: 1px solid rgba(239, 68, 68, 0.25);">
+                                            <i class="bi bi-x-circle-fill me-1"></i>Başarısız
+                                        </span>
+                                    }
+                                </td>
+                            </tr>
+                            sira++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="8" class="text-center py-5 text-muted">
+                                <i class="bi bi-inbox fs-1 d-block mb-2 text-muted opacity-50"></i>
+                                Henüz hiç giriş kaydı bulunmuyor. Admin paneline bir sonraki girişten itibaren kayıt alınacaktır.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Sayfalama -->
+        @if (toplamSayfa > 1)
+        {
+            <div class="d-flex justify-content-center mt-4 pt-3 border-top border-black border-opacity-10">
+                <nav>
+                    <ul class="pagination pagination-sm mb-0 gap-1">
+                        @if (sayfa > 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link rounded-pill px-3" asp-action="GirisLoglari" asp-route-sayfa="@(sayfa - 1)"
+                                   style="background:#ffffff;border:1px solid rgba(0,0,0,0.12);color:#0b57d0;">
+                                    <i class="bi bi-chevron-left me-1"></i>Önceki
+                                </a>
+                            </li>
+                        }
+                        @for (int i = Math.Max(1, sayfa - 2); i <= Math.Min(toplamSayfa, sayfa + 2); i++)
+                        {
+                            <li class="page-item @(i == sayfa ? "active" : "")">
+                                <a class="page-link rounded-circle d-flex align-items-center justify-content-center" asp-action="GirisLoglari" asp-route-sayfa="@i"
+                                   style="width:34px;height:34px;@(i == sayfa ? "background:#0b57d0;border-color:#0b57d0;color:#fff;" : "background:#ffffff;border:1px solid rgba(0,0,0,0.12);color:#1f1f1f;")">
+                                    @i
+                                </a>
+                            </li>
+                        }
+                        @if (sayfa < toplamSayfa)
+                        {
+                            <li class="page-item">
+                                <a class="page-link rounded-pill px-3" asp-action="GirisLoglari" asp-route-sayfa="@(sayfa + 1)"
+                                   style="background:#ffffff;border:1px solid rgba(0,0,0,0.12);color:#0b57d0;">
+                                    Sonraki<i class="bi bi-chevron-right ms-1"></i>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+        }
+    </div>
+</div>

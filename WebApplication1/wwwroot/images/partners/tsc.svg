@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" height="34">
+  <g transform="translate(6, 8)">
+    <polygon points="0,22 22,0 34,12 12,34" fill="#dc2626"/>
+    <polygon points="16,38 38,16 46,24 24,46" fill="#2563eb"/>
+  </g>
+  <text x="64" y="38" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, Arial, sans-serif" font-weight="900" font-size="30" letter-spacing="2">TSC</text>
+  <text x="66" y="50" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, Arial, sans-serif" font-weight="600" font-size="9" letter-spacing="1">Auto ID Technology</text>
+</svg>

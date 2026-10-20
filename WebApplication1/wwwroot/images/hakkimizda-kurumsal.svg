@@ -1,0 +1,245 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" width="1600" height="1120" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+  <defs>
+    <style>
+      text {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: geometricPrecision;
+      }
+    </style>
+
+    <!-- Modern Apple Light Arka Plan Gradyanları -->
+    <linearGradient id="appleCanvasBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="45%" stop-color="#f5f8ff"/>
+      <stop offset="100%" stop-color="#eaf2ff"/>
+    </linearGradient>
+
+    <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0071e3"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+
+    <linearGradient id="indigoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+
+    <!-- Frosted Glass Paneller -->
+    <linearGradient id="glassWhite" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255, 255, 255, 0.98)"/>
+      <stop offset="100%" stop-color="rgba(248, 250, 252, 0.92)"/>
+    </linearGradient>
+
+    <!-- Pürüzsüz Apple Gölgeler -->
+    <filter id="softCardShadow" x="-10%" y="-10%" width="125%" height="125%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#0071e3" flood-opacity="0.10"/>
+    </filter>
+    <filter id="floatShadow" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- 1. Arka Plan Tuvali -->
+  <rect width="800" height="560" rx="28" fill="url(#appleCanvasBg)"/>
+  
+  <!-- Yumuşak Geometrik Izgara Çizgileri -->
+  <g stroke="#0071e3" stroke-opacity="0.06" stroke-width="1">
+    <line x1="60" y1="0" x2="60" y2="560"/>
+    <line x1="200" y1="0" x2="200" y2="560"/>
+    <line x1="400" y1="0" x2="400" y2="560"/>
+    <line x1="600" y1="0" x2="600" y2="560"/>
+    <line x1="740" y1="0" x2="740" y2="560"/>
+    <line x1="0" y1="120" x2="800" y2="120"/>
+    <line x1="0" y1="280" x2="800" y2="280"/>
+    <line x1="0" y1="440" x2="800" y2="440"/>
+  </g>
+
+  <!-- Dekoratif Işık Halkaları -->
+  <circle cx="200" cy="140" r="130" fill="#0071e3" fill-opacity="0.05"/>
+  <circle cx="620" cy="380" r="160" fill="#4f46e5" fill-opacity="0.05"/>
+  <circle cx="400" cy="270" r="220" fill="none" stroke="#0071e3" stroke-opacity="0.08" stroke-dasharray="8 8"/>
+
+  <!-- 2. ANA KURUMSAL DİJİTAL İŞLETME PLATFORMU (HiCariTakip & POS Showcase) -->
+  <g transform="translate(140, 60)" filter="url(#softCardShadow)">
+    <!-- Büyük Modern Tablet / Ekran Çerçevesi -->
+    <rect x="0" y="0" width="520" height="340" rx="22" fill="#ffffff" stroke="rgba(0, 113, 227, 0.22)" stroke-width="2"/>
+    
+    <!-- Ekran Üst Menü Çubuğu -->
+    <rect x="0" y="0" width="520" height="46" rx="22" fill="#ffffff"/>
+    <rect x="0" y="24" width="520" height="22" fill="#ffffff"/>
+    <line x1="0" y1="46" x2="520" y2="46" stroke="rgba(0, 0, 0, 0.06)" stroke-width="1"/>
+
+    <!-- macOS Pencere Düğmeleri -->
+    <circle cx="26" cy="23" r="5" fill="#ef4444"/>
+    <circle cx="42" cy="23" r="5" fill="#f59e0b"/>
+    <circle cx="58" cy="23" r="5" fill="#10b981"/>
+
+    <!-- Logo & Başlık -->
+    <text x="260" y="29" fill="#1d1d1f" font-size="13" font-weight="700" text-anchor="middle">
+      Hayat İşleri &#8226; HiCariTakip Bulut ERP &amp; Otomasyon
+    </text>
+
+    <!-- İç Panel Alanı -->
+    <rect x="14" y="58" width="492" height="268" rx="14" fill="#f8fafc"/>
+
+    <!-- Sol Menü / Sidebar (İnce, Modern) -->
+    <rect x="14" y="58" width="130" height="268" rx="14" fill="#ffffff" stroke="rgba(0, 0, 0, 0.04)" stroke-width="1"/>
+    
+    <!-- Sidebar Öğeleri -->
+    <rect x="24" y="74" width="110" height="28" rx="8" fill="rgba(0, 113, 227, 0.08)"/>
+    <circle cx="38" cy="88" r="4" fill="#0071e3"/>
+    <text x="50" y="92" fill="#0071e3" font-size="11" font-weight="700">Genel Bakış</text>
+
+    <rect x="24" y="110" width="110" height="26" rx="8" fill="transparent"/>
+    <circle cx="38" cy="123" r="4" fill="#94a3b8"/>
+    <text x="50" y="127" fill="#475569" font-size="11" font-weight="600">Cari Hesaplar</text>
+
+    <rect x="24" y="142" width="110" height="26" rx="8" fill="transparent"/>
+    <circle cx="38" cy="155" r="4" fill="#94a3b8"/>
+    <text x="50" y="159" fill="#475569" font-size="11" font-weight="600">Barkodlu Satış</text>
+
+    <rect x="24" y="174" width="110" height="26" rx="8" fill="transparent"/>
+    <circle cx="38" cy="187" r="4" fill="#94a3b8"/>
+    <text x="50" y="191" fill="#475569" font-size="11" font-weight="600">Stok &amp; Depo</text>
+
+    <rect x="24" y="206" width="110" height="26" rx="8" fill="transparent"/>
+    <circle cx="38" cy="219" r="4" fill="#94a3b8"/>
+    <text x="50" y="223" fill="#475569" font-size="11" font-weight="600">e-Fatura GİB</text>
+
+    <rect x="24" y="238" width="110" height="26" rx="8" fill="transparent"/>
+    <circle cx="38" cy="251" r="4" fill="#94a3b8"/>
+    <text x="50" y="255" fill="#475569" font-size="11" font-weight="600">Adisyon &amp; Kafe</text>
+
+    <rect x="24" y="280" width="110" height="32" rx="8" fill="rgba(16, 185, 129, 0.1)"/>
+    <text x="79" y="300" fill="#047857" font-size="10" font-weight="700" text-anchor="middle">Sistem Aktif &#8226; Çevrimiçi</text>
+
+    <!-- Sağ Ana Çalışma Alanı (İstatistik & Grafik) -->
+    <!-- Üst 2 Metrik Kartı -->
+    <g transform="translate(156, 70)">
+      <rect x="0" y="0" width="165" height="66" rx="10" fill="#ffffff" stroke="rgba(0, 0, 0, 0.06)" stroke-width="1"/>
+      <text x="14" y="22" fill="#475569" font-size="10.5" font-weight="700">GÜNLÜK CİRO / POS</text>
+      <text x="14" y="46" fill="#0f172a" font-size="17" font-weight="800">₺ 48.650,00</text>
+      <text x="14" y="60" fill="#059669" font-size="10" font-weight="700">&#8593; %18 Hızlı Satış</text>
+      <circle cx="145" cy="30" r="14" fill="rgba(0, 113, 227, 0.08)"/>
+      <text x="145" y="34.5" fill="#0071e3" font-size="11.5" font-weight="800" text-anchor="middle">POS</text>
+    </g>
+
+    <g transform="translate(331, 70)">
+      <rect x="0" y="0" width="165" height="66" rx="10" fill="#ffffff" stroke="rgba(0, 0, 0, 0.06)" stroke-width="1"/>
+      <text x="14" y="22" fill="#475569" font-size="10.5" font-weight="700">CARİ BAKİYE / ENTEGRE</text>
+      <text x="14" y="46" fill="#0f172a" font-size="17" font-weight="800">128 Cari Hesap</text>
+      <text x="14" y="60" fill="#0284c7" font-size="10" font-weight="700">GİB e-Fatura Onaylı</text>
+      <circle cx="145" cy="30" r="14" fill="rgba(16, 185, 129, 0.08)"/>
+      <text x="145" y="35" fill="#059669" font-size="13" font-weight="900" text-anchor="middle">&#10003;</text>
+    </g>
+
+    <!-- Trend Analitiği Grafiği -->
+    <g transform="translate(156, 148)">
+      <rect x="0" y="0" width="340" height="166" rx="12" fill="#ffffff" stroke="rgba(0, 0, 0, 0.06)" stroke-width="1"/>
+      <text x="16" y="24" fill="#0f172a" font-size="12.5" font-weight="700">Haftalık Satış &amp; Stok Grafiği</text>
+      <text x="250" y="24" fill="#0071e3" font-size="10.5" font-weight="700">Canlı Veri</text>
+      
+      <!-- Grafik Izgara Çizgileri -->
+      <line x1="16" y1="50" x2="324" y2="50" stroke="#f1f5f9" stroke-width="1"/>
+      <line x1="16" y1="85" x2="324" y2="85" stroke="#f1f5f9" stroke-width="1"/>
+      <line x1="16" y1="120" x2="324" y2="120" stroke="#f1f5f9" stroke-width="1"/>
+
+      <!-- Gradyan Alan Dolgusu -->
+      <path d="M26,125 Q70,95 110,105 T190,65 T260,80 T314,45 L314,140 L26,140 Z" fill="rgba(0, 113, 227, 0.08)"/>
+      <!-- Grafik Çizgisi -->
+      <path d="M26,125 Q70,95 110,105 T190,65 T260,80 T314,45" fill="none" stroke="#0071e3" stroke-width="2.5" stroke-linecap="round"/>
+
+      <!-- Veri Noktaları -->
+      <circle cx="26" cy="125" r="3.5" fill="#ffffff" stroke="#0071e3" stroke-width="2"/>
+      <circle cx="110" cy="105" r="3.5" fill="#ffffff" stroke="#0071e3" stroke-width="2"/>
+      <circle cx="190" cy="65" r="4.5" fill="#ffffff" stroke="#0071e3" stroke-width="2.5"/>
+      <circle cx="260" cy="80" r="3.5" fill="#ffffff" stroke="#0071e3" stroke-width="2"/>
+      <circle cx="314" cy="45" r="4.5" fill="#10b981" stroke="#ffffff" stroke-width="2"/>
+
+      <!-- Gün Etiketleri -->
+      <text x="26" y="154" fill="#64748b" font-size="10" font-weight="600" text-anchor="middle">Pzt</text>
+      <text x="80" y="154" fill="#64748b" font-size="10" font-weight="600" text-anchor="middle">Sal</text>
+      <text x="135" y="154" fill="#64748b" font-size="10" font-weight="600" text-anchor="middle">Çar</text>
+      <text x="190" y="154" fill="#64748b" font-size="10" font-weight="600" text-anchor="middle">Per</text>
+      <text x="245" y="154" fill="#64748b" font-size="10" font-weight="600" text-anchor="middle">Cum</text>
+      <text x="300" y="154" fill="#64748b" font-size="10" font-weight="600" text-anchor="middle">Cts</text>
+    </g>
+  </g>
+
+  <!-- 3. HAVADA SÜZÜLEN DONANIM & ÇÖZÜM KARTLARI (Floating Cards) -->
+
+  <!-- Sol Üst: Dokunmatik POS & Barkod Kartı -->
+  <g transform="translate(40, 110)" filter="url(#floatShadow)">
+    <rect x="0" y="0" width="190" height="84" rx="16" fill="url(#glassWhite)" stroke="rgba(0, 113, 227, 0.22)" stroke-width="1.5"/>
+    <rect x="14" y="14" width="36" height="36" rx="10" fill="rgba(0, 113, 227, 0.08)"/>
+    <!-- POS Terminal İkonu -->
+    <rect x="22" y="22" width="20" height="20" rx="3" fill="none" stroke="#0071e3" stroke-width="2"/>
+    <line x1="25" y1="27" x2="39" y2="27" stroke="#0071e3" stroke-width="1.5"/>
+    <circle cx="27" cy="36" r="1.5" fill="#0071e3"/>
+    <circle cx="32" cy="36" r="1.5" fill="#0071e3"/>
+    <circle cx="37" cy="36" r="1.5" fill="#0071e3"/>
+    
+    <text x="58" y="28" fill="#0071e3" font-size="10" font-weight="800" letter-spacing="1">DONANIM &amp; POS</text>
+    <text x="58" y="44" fill="#0f172a" font-size="13.5" font-weight="800">Dokunmatik Satış</text>
+    <text x="14" y="68" fill="#475569" font-size="11" font-weight="600">Lazer Barkod &amp; Fiş Yazıcı</text>
+  </g>
+
+  <!-- Sağ Üst: Adisyon & Restoran Otomasyonu -->
+  <g transform="translate(570, 95)" filter="url(#floatShadow)">
+    <rect x="0" y="0" width="190" height="84" rx="16" fill="url(#glassWhite)" stroke="rgba(16, 185, 129, 0.22)" stroke-width="1.5"/>
+    <rect x="14" y="14" width="36" height="36" rx="10" fill="rgba(16, 185, 129, 0.08)"/>
+    <!-- Adisyon Masa İkonu -->
+    <circle cx="32" cy="32" r="10" fill="none" stroke="#10b981" stroke-width="2"/>
+    <rect x="28" y="28" width="8" height="8" rx="2" fill="#10b981"/>
+
+    <text x="58" y="28" fill="#059669" font-size="10" font-weight="800" letter-spacing="1">KAFE &amp; RESTORAN</text>
+    <text x="58" y="44" fill="#0f172a" font-size="13.5" font-weight="800">Masa Adisyon</text>
+    <text x="14" y="68" fill="#475569" font-size="11" font-weight="600">Garson El Terminali &amp; QR</text>
+  </g>
+
+  <!-- Sağ Alt: Kurumsal Web & Özel Yazılım -->
+  <g transform="translate(560, 360)" filter="url(#floatShadow)">
+    <rect x="0" y="0" width="200" height="88" rx="16" fill="url(#glassWhite)" stroke="rgba(79, 70, 229, 0.22)" stroke-width="1.5"/>
+    <rect x="14" y="16" width="36" height="36" rx="10" fill="rgba(79, 70, 229, 0.08)"/>
+    <!-- Kod / Web İkonu -->
+    <polyline points="26,30 22,34 26,38" fill="none" stroke="#4f46e5" stroke-width="2" stroke-linecap="round"/>
+    <polyline points="38,30 42,34 38,38" fill="none" stroke="#4f46e5" stroke-width="2" stroke-linecap="round"/>
+    <line x1="33" y1="28" x2="31" y2="40" stroke="#4f46e5" stroke-width="2" stroke-linecap="round"/>
+
+    <text x="58" y="30" fill="#4f46e5" font-size="10" font-weight="800" letter-spacing="1">ÖZEL YAZILIM</text>
+    <text x="58" y="46" fill="#0f172a" font-size="13.5" font-weight="800">B2B E-Ticaret &amp; Web</text>
+    <text x="14" y="70" fill="#475569" font-size="11" font-weight="600">Tam ERP &amp; Cari Entegrasyon</text>
+  </g>
+
+  <!-- Sol Alt: Elazığ Güven Rozeti -->
+  <g transform="translate(50, 375)" filter="url(#floatShadow)">
+    <rect x="0" y="0" width="180" height="84" rx="16" fill="url(#glassWhite)" stroke="rgba(245, 158, 11, 0.22)" stroke-width="1.5"/>
+    <rect x="14" y="14" width="36" height="36" rx="10" fill="rgba(245, 158, 11, 0.08)"/>
+    <!-- Lokasyon / Onay İkonu -->
+    <path d="M32,20 C27,20 23,24 23,29 C23,36 32,44 32,44 C32,44 41,36 41,29 C41,24 37,20 32,20 Z" fill="none" stroke="#f59e0b" stroke-width="2"/>
+    <circle cx="32" cy="28" r="2.5" fill="#f59e0b"/>
+
+    <text x="58" y="28" fill="#d97706" font-size="10" font-weight="800" letter-spacing="1">ELAZIĞ MERKEZ</text>
+    <text x="58" y="44" fill="#0f172a" font-size="13.5" font-weight="800">Teknoloji Ortağı</text>
+    <text x="14" y="68" fill="#475569" font-size="11" font-weight="600">Yerinde Kurulum &amp; Destek</text>
+  </g>
+
+  <!-- Alt Ortada Onay Rozeti -->
+  <g transform="translate(300, 480)">
+    <rect x="0" y="0" width="200" height="34" rx="17" fill="#ffffff" stroke="rgba(0, 113, 227, 0.2)" stroke-width="1"/>
+    <circle cx="18" cy="17" r="5" fill="#10b981"/>
+    <text x="32" y="22" fill="#1d1d1f" font-size="11.5" font-weight="700">Hayat İşleri &#8226; Resmi Çözümler</text>
+  </g>
+</svg>

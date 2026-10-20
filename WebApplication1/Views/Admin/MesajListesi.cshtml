@@ -1,70 +1,112 @@
 @model IEnumerable<WebApplication1.Models.Siniflar.SiteMesaj>
+@using WebApplication1.Models.Siniflar
 @{
-    ViewData["Title"] = "Gelen Mesaj ve Başvurular";
+    ViewData["Title"] = "İletişim & Talep Mini-CRM";
     var seciliFiltre = ViewBag.Filtre as string ?? "Tümü";
+    var seciliDurum = ViewBag.DurumFiltre as string ?? "Tümü";
+    var liste = Model.ToList();
 }
 
-<div class="container-fluid py-4 px-lg-5">
-    <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-white border-opacity-10">
+<div class="container-fluid px-0">
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom" style="border-color: var(--adm-card-border) !important;">
         <div>
-            <h3 class="fw-bold text-white mb-1"><i class="bi bi-inbox-fill text-info me-2"></i>Gelen Mesaj ve Başvurular</h3>
-            <p class="text-light text-opacity-60 small mb-0">Web sitesi üzerinden iletilen tüm iletişim, iş başvurusu ve teklif mesajları</p>
+            <h3 class="fw-bold mb-1" style="color: var(--adm-text-main);"><i class="bi bi-inbox-fill text-primary me-2"></i>İletişim, Teklif &amp; Talep CRM Merkezi</h3>
+            <p class="small mb-0" style="color: var(--adm-text-sub);">Ziyaretçi ve bayilerden gelen iletişim, teklif, destek, iş ve bayilik başvurularını <strong>Yeni</strong>, <strong>İnceleniyor</strong>, <strong>Cevaplandı</strong> ve <strong>Kapatıldı</strong> statüleriyle takip edin.</p>
         </div>
         <a asp-action="Index" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
             <i class="bi bi-arrow-left me-1"></i> Panele Dön
         </a>
     </div>
 
-    <!-- Filtre Butonları -->
-    <div class="d-flex gap-2 mb-4 flex-wrap">
-        <a asp-action="MesajListesi" asp-route-filtre="Tümü" class="btn btn-sm rounded-pill @(seciliFiltre == "Tümü" ? "btn-info" : "btn-outline-info")">Tümü</a>
-        <a asp-action="MesajListesi" asp-route-filtre="İletişim" class="btn btn-sm rounded-pill @(seciliFiltre == "İletişim" ? "btn-info" : "btn-outline-info")">İletişim Mesajları</a>
-        <a asp-action="MesajListesi" asp-route-filtre="İş Başvurusu" class="btn btn-sm rounded-pill @(seciliFiltre == "İş Başvurusu" ? "btn-warning text-dark fw-bold" : "btn-outline-warning")">İş Başvuruları</a>
-        <a asp-action="MesajListesi" asp-route-filtre="Teklif Talebi" class="btn btn-sm rounded-pill @(seciliFiltre == "Teklif Talebi" ? "btn-success" : "btn-outline-success")">Teklif Talepleri</a>
+    @if (TempData["Mesaj"] is string bilgi)
+    {
+        <div class="alert alert-success rounded-3 small fw-semibold mb-3"><i class="bi bi-check-circle-fill me-1"></i>@bilgi</div>
+    }
+
+    <!-- CRM Özet Sayaçları -->
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-lg-3">
+            <div class="p-3 rounded-4 shadow-sm" style="background: var(--adm-card-bg); border: 1px solid var(--adm-card-border);">
+                <small class="text-secondary fw-semibold">Yeni Talepler</small>
+                <h3 class="fw-bold mb-0 text-danger">@liste.Count(m => m.Durum == CrmDurumlari.Yeni || string.IsNullOrEmpty(m.Durum))</h3>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="p-3 rounded-4 shadow-sm" style="background: var(--adm-card-bg); border: 1px solid var(--adm-card-border);">
+                <small class="text-secondary fw-semibold">İnceleniyor</small>
+                <h3 class="fw-bold mb-0 text-warning">@liste.Count(m => m.Durum == CrmDurumlari.Inceleniyor)</h3>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="p-3 rounded-4 shadow-sm" style="background: var(--adm-card-bg); border: 1px solid var(--adm-card-border);">
+                <small class="text-secondary fw-semibold">Cevaplandı</small>
+                <h3 class="fw-bold mb-0 text-success">@liste.Count(m => m.Durum == CrmDurumlari.Cevaplandi)</h3>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="p-3 rounded-4 shadow-sm" style="background: var(--adm-card-bg); border: 1px solid var(--adm-card-border);">
+                <small class="text-secondary fw-semibold">Toplam Kayıt</small>
+                <h3 class="fw-bold mb-0 text-primary">@liste.Count</h3>
+            </div>
+        </div>
     </div>
 
-    <div class="p-4 rounded-4 shadow-sm" style="background: rgba(18, 24, 38, 0.85); border: 1px solid rgba(255,255,255,0.08);">
+    <!-- Kanal & CRM Durum Filtreleri -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+        <div class="d-flex gap-2 flex-wrap">
+            <a asp-action="MesajListesi" asp-route-filtre="Tümü" asp-route-durum="@seciliDurum" class="btn btn-sm rounded-pill @(seciliFiltre == "Tümü" ? "btn-primary" : "btn-outline-primary")">Tümü</a>
+            <a asp-action="MesajListesi" asp-route-filtre="İletişim" asp-route-durum="@seciliDurum" class="btn btn-sm rounded-pill @(seciliFiltre == "İletişim" ? "btn-primary" : "btn-outline-primary")">İletişim</a>
+            <a asp-action="MesajListesi" asp-route-filtre="Teklif Talebi" asp-route-durum="@seciliDurum" class="btn btn-sm rounded-pill @(seciliFiltre == "Teklif Talebi" ? "btn-success" : "btn-outline-success")">Teklif Talepleri</a>
+            <a asp-action="MesajListesi" asp-route-filtre="Bayilik Başvurusu" asp-route-durum="@seciliDurum" class="btn btn-sm rounded-pill @(seciliFiltre == "Bayilik Başvurusu" ? "btn-info text-dark fw-bold" : "btn-outline-info")">Bayilik Başvuruları</a>
+            <a asp-action="MesajListesi" asp-route-filtre="İş Başvurusu" asp-route-durum="@seciliDurum" class="btn btn-sm rounded-pill @(seciliFiltre == "İş Başvurusu" ? "btn-warning text-dark fw-bold" : "btn-outline-warning")">İş Başvuruları</a>
+        </div>
+        <div class="d-flex gap-1.5 flex-wrap">
+            @foreach (var d in new[] { "Tümü", CrmDurumlari.Yeni, CrmDurumlari.Inceleniyor, CrmDurumlari.Cevaplandi, CrmDurumlari.Kapatildi })
+            {
+                <a asp-action="MesajListesi" asp-route-filtre="@seciliFiltre" asp-route-durum="@d"
+                   class="btn btn-sm rounded-pill @(seciliDurum == d ? "btn-dark" : "btn-outline-secondary")">
+                    CRM: @d
+                </a>
+            }
+        </div>
+    </div>
+
+    <div class="p-4 rounded-4 shadow-sm" style="background: var(--adm-card-bg); border: 1px solid var(--adm-card-border);">
         <div class="table-responsive">
-            <table class="table table-dark table-hover align-middle mb-0" style="background: transparent;">
+            <table class="table table-hover align-middle mb-0" style="background: transparent;">
                 <thead>
-                    <tr class="text-secondary small">
+                    <tr class="small" style="color: var(--adm-text-sub); border-bottom: 1.5px solid var(--adm-card-border);">
                         <th>#</th>
-                        <th>Gönderen</th>
-                        <th>E-Posta</th>
-                        <th>Tür</th>
-                        <th>Konu / Başvurulan Pozisyon</th>
+                        <th>Gönderen &bull; İletişim</th>
+                        <th>Form Türü</th>
+                        <th>Konu / Pozisyon</th>
+                        <th>CRM Statüsü</th>
+                        <th>Atanan Temsilci</th>
                         <th>Tarih</th>
                         <th class="text-end">İşlemler</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if (Model.Any())
+                    @if (liste.Any())
                     {
-                        @foreach (var item in Model)
+                        @foreach (var item in liste)
                         {
-                            <tr class="@(!item.Okundu ? "fw-bold" : "opacity-75")">
-                                <td>@item.Id</td>
-                                <td class="text-white">
-                                    @item.AdSoyad
-                                    @if (!item.Okundu)
-                                    {
-                                        <span class="badge bg-danger ms-1 small">Yeni</span>
-                                    }
-                                </td>
-                                <td class="text-info opacity-90">@item.Eposta</td>
+                            var crmDurum = string.IsNullOrEmpty(item.Durum) ? CrmDurumlari.Yeni : item.Durum;
+                            var rozetSinif = crmDurum switch
+                            {
+                                CrmDurumlari.Yeni => "bg-danger text-white",
+                                CrmDurumlari.Inceleniyor => "bg-warning text-dark",
+                                CrmDurumlari.Cevaplandi => "bg-success text-white",
+                                _ => "bg-secondary text-white"
+                            };
+                            <tr class="@(!item.Okundu ? "fw-bold" : "")">
+                                <td>#@item.Id</td>
                                 <td>
-                                    @if (item.FormTipi == "İş Başvurusu")
-                                    {
-                                        <span class="badge bg-warning text-dark fw-bold px-2.5 py-1">İş Başvurusu</span>
-                                    }
-                                    else if (item.FormTipi == "Teklif Talebi")
-                                    {
-                                        <span class="badge bg-success bg-opacity-20 text-success border border-success border-opacity-25 px-2.5">Teklif Talebi</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge bg-info bg-opacity-20 text-info border border-info border-opacity-25 px-2.5">İletişim</span>
-                                    }
+                                    <div style="color: var(--adm-text-main);">@item.AdSoyad</div>
+                                    <small class="text-secondary">@item.Eposta @(string.IsNullOrEmpty(item.Telefon) ? "" : " • " + item.Telefon)</small>
+                                </td>
+                                <td>
+                                    <span class="badge rounded-pill px-3 py-1 bg-primary bg-opacity-10 text-primary">@item.FormTipi</span>
                                 </td>
                                 <td>
                                     @if (!string.IsNullOrEmpty(item.Pozisyon))
@@ -73,23 +115,27 @@
                                     }
                                     else if (!string.IsNullOrEmpty(item.Konu))
                                     {
-                                        <span class="text-light">@item.Konu</span>
-                                    }
-                                    else if (item.FormTipi == "İş Başvurusu")
-                                    {
-                                        <span class="text-warning font-monospace small">Genel Başvuru</span>
+                                        <span style="color: var(--adm-text-main);">@item.Konu</span>
                                     }
                                     else
                                     {
-                                        <span class="text-muted">-</span>
+                                        <span class="text-muted">Genel Talep</span>
                                     }
                                 </td>
-                                <td class="text-light text-opacity-60 small">@item.GonderimTarihi.ToString("dd.MM.yyyy HH:mm")</td>
+                                <td>
+                                    <span class="badge rounded-pill px-3 py-1.5 fw-bold @rozetSinif">@crmDurum</span>
+                                </td>
+                                <td class="small text-secondary">
+                                    @(string.IsNullOrEmpty(item.AtananKisi) ? "Atanmadı" : item.AtananKisi)
+                                </td>
+                                <td class="small text-secondary">@item.GonderimTarihi.ToString("dd.MM.yyyy HH:mm")</td>
                                 <td class="text-end">
-                                    <a asp-action="MesajDetay" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info rounded-pill px-3 me-1">Oku</a>
-                                    <form asp-action="MesajSil" asp-route-id="@item.Id" method="post" class="d-inline" onsubmit="return confirm('Bu mesajı silmek istediğinize emin misiniz?');">
+                                    <a asp-action="MesajDetay" asp-route-id="@item.Id" class="btn btn-sm btn-primary rounded-pill px-3 me-1">
+                                        <i class="bi bi-sliders me-1"></i>CRM &amp; Yanıtla
+                                    </a>
+                                    <form asp-action="MesajSil" asp-route-id="@item.Id" method="post" class="d-inline" onsubmit="return confirm('Bu kaydı silmek istediğinize emin misiniz?');">
                                         @Html.AntiForgeryToken()
-                                        <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3">Sil</button>
+                                        <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-2.5"><i class="bi bi-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -98,7 +144,7 @@
                     else
                     {
                         <tr>
-                            <td colspan="7" class="text-center py-4 text-muted">Kayıtlı mesaj veya başvuru bulunamadı.</td>
+                            <td colspan="8" class="text-center py-4 text-muted">Seçilen filtreye uygun talep veya başvuru bulunamadı.</td>
                         </tr>
                     }
                 </tbody>

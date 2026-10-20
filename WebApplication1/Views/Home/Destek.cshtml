@@ -1,0 +1,236 @@
+@{
+    ViewData["Title"] = "Destek Merkezi";
+}
+
+<section class="g1-page-section py-5">
+    <div class="container py-lg-4">
+        <!-- Google One Centered Hero Header -->
+        <div class="text-center mx-auto mb-5" style="max-width: 820px;">
+            <div class="g1-pill-badge mb-3 d-inline-flex align-items-center gap-2">
+                <img src="~/images/hayat-isleri-logo.svg" alt="Hayat İşleri Logo" style="height: 22px; width: auto; object-fit: contain;" />
+                <span>7/24 KESİNTİSİZ UZMAN DESTEĞİ</span>
+            </div>
+            <h1 class="g1-display-title mb-3">
+                Size nasıl <span class="google-ai-gradient-text">yardımcı olabiliriz?</span>
+            </h1>
+            <p class="g1-lead-text mx-auto" style="max-width: 660px;">
+                Kurumsal ERP süreçleriniz, e-Dönüşüm entegrasyonlarınız ve sunucu altyapınız için uzman mühendis ekibimizle anında bağlantı kurun veya destek talebi oluşturun.
+            </p>
+        </div>
+
+        @if (TempData["DestekMesaj"] != null)
+        {
+            <div class="alert alert-success rounded-4 border-0 shadow-sm p-4 mb-5 d-flex align-items-center gap-3">
+                <i class="bi bi-check-circle-fill fs-3 text-success"></i>
+                <div class="fw-medium">@TempData["DestekMesaj"]</div>
+            </div>
+        }
+
+        <!-- Quick Support Channels (Google One 4-Color Feature Cards) -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-6 col-lg-3">
+                <div class="g1-surface-card h-100 p-4 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="g1-icon-circle mb-4" style="background: rgba(66, 133, 244, 0.12); color: #1a73e8;">
+                            <i class="bi bi-pc-display-horizontal fs-4"></i>
+                        </div>
+                        <span class="badge rounded-pill mb-2" style="background: rgba(66, 133, 244, 0.12); color: #1a73e8; font-weight: 600;">Anında Müdahale</span>
+                        <h3 class="h5 fw-bold mb-2">AnyDesk Uzak Masaüstü</h3>
+                        <p class="small g1-muted-text mb-4">
+                            Uzmanlarımızın ekranınıza güvenli şekilde bağlanarak anında teknik destek vermesi için AnyDesk aracını indirin.
+                        </p>
+                    </div>
+                    <a href="https://anydesk.com/tr/downloads" target="_blank" rel="noopener" class="g1-btn-tonal w-100 text-center text-decoration-none">
+                        <i class="bi bi-download me-2"></i>AnyDesk İndir
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="g1-surface-card h-100 p-4 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="g1-icon-circle mb-4" style="background: rgba(52, 168, 83, 0.12); color: #1e8e3e;">
+                            <i class="bi bi-shield-check fs-4"></i>
+                        </div>
+                        <span class="badge rounded-pill mb-2" style="background: rgba(52, 168, 83, 0.12); color: #1e8e3e; font-weight: 600;">Kurumsal Bağlantı</span>
+                        <h3 class="h5 fw-bold mb-2">TeamViewer QS</h3>
+                        <p class="small g1-muted-text mb-4">
+                            Şifreli kurumsal oturum anahtarıyla sunucu ve istemci yapılandırmalarınız için hızlı destek bağlantısı başlatın.
+                        </p>
+                    </div>
+                    <a href="https://www.teamviewer.com/tr/indir/" target="_blank" rel="noopener" class="g1-btn-tonal w-100 text-center text-decoration-none">
+                        <i class="bi bi-box-arrow-up-right me-2"></i>TeamViewer İndir
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="g1-surface-card h-100 p-4 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="g1-icon-circle mb-4" style="background: rgba(251, 188, 4, 0.16); color: #e37400;">
+                            <i class="bi bi-whatsapp fs-4"></i>
+                        </div>
+                        <span class="badge rounded-pill mb-2" style="background: rgba(251, 188, 4, 0.16); color: #e37400; font-weight: 600;">Canlı Destek Hattı</span>
+                        <h3 class="h5 fw-bold mb-2">WhatsApp Kurumsal</h3>
+                        <p class="small g1-muted-text mb-4">
+                            Acil operasyonel sorularınız, lisans yenileme ve hızlı durum bildirimleri için doğrudan destek hattımıza yazın.
+                        </p>
+                    </div>
+                    <a href="https://wa.me/905010146623" target="_blank" rel="noopener" class="g1-btn-tonal w-100 text-center text-decoration-none">
+                        <i class="bi bi-chat-dots me-2"></i>0501 014 6623
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="g1-surface-card h-100 p-4 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="g1-icon-circle mb-4" style="background: rgba(234, 67, 53, 0.12); color: #d93025;">
+                            <i class="bi bi-telephone-outbound fs-4"></i>
+                        </div>
+                        <span class="badge rounded-pill mb-2" style="background: rgba(234, 67, 53, 0.12); color: #d93025; font-weight: 600;">SLA Öncelikli Çağrı</span>
+                        <h3 class="h5 fw-bold mb-2">Müşteri Hizmetleri</h3>
+                        <p class="small g1-muted-text mb-4">
+                            Bakım anlaşmalı kurumsal müşterilerimiz için özel SLA kapsamında doğrudan nöbetçi sistem mühendisi desteği.
+                        </p>
+                    </div>
+                    <a href="tel:+905010146623" class="g1-btn-tonal w-100 text-center text-decoration-none">
+                        <i class="bi bi-telephone me-2"></i>0501 014 6623
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Support Ticket Form & System Status / FAQ -->
+        <div class="row g-4 align-items-stretch">
+            <div class="col-lg-7">
+                <div class="g1-surface-card p-4 p-lg-5 h-100">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4">
+                        <div>
+                            <span class="text-uppercase small fw-bold" style="color: #0b57d0; letter-spacing: 0.08em;">Yeni Kayıt</span>
+                            <h2 class="h3 fw-bold mb-1 mt-1">Teknik Destek Talebi Oluşturun</h2>
+                        </div>
+                        <span class="badge rounded-pill px-3 py-2" style="background: rgba(52, 168, 83, 0.14); color: #1e8e3e;">
+                            <i class="bi bi-circle-fill me-1" style="font-size: 0.5rem;"></i> Ortalama Yanıt: 15 dk
+                        </span>
+                    </div>
+
+                    <form asp-controller="Home" asp-action="Destek" method="post" class="row g-3">
+                        @Html.AntiForgeryToken()
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Adınız Soyadınız / Firma Adı *</label>
+                            <input type="text" name="adSoyad" class="form-control g1-input" placeholder="Örn: Ahmet Yılmaz - ABC Lojistik" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Kurumsal E-Posta Adresiniz *</label>
+                            <input type="email" name="eposta" class="form-control g1-input" placeholder="ornek@firmaniz.com" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Telefon Numaranız *</label>
+                            <input type="tel" name="telefon" class="form-control g1-input" placeholder="05XX XXX XX XX" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Destek Kategorisi & Öncelik *</label>
+                            <select name="konu" class="form-select g1-input" required>
+                                <option value="">Kategori Seçiniz...</option>
+                                <option value="AKINSOFT WOLVOX ERP Desteği">AKINSOFT WOLVOX ERP Desteği</option>
+                                <option value="e-Fatura / e-Arşiv / e-İrsaliye Entegrasyonu">e-Fatura / e-Arşiv / e-İrsaliye Entegrasyonu</option>
+                                <option value="Restoran (Rezzta) & Hızlı Satış Sistemleri">Restoran (Rezzta) & Hızlı Satış Sistemleri</option>
+                                <option value="Sunucu, SQL Veritabanı & Yedekleme">Sunucu, SQL Veritabanı & Yedekleme</option>
+                                <option value="Lisanslama & Modül Güncelleme">Lisanslama & Modül Güncelleme</option>
+                                <option value="Diğer Teknik Destek">Diğer Teknik Destek</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-semibold small">Sorun Detayı veya AnyDesk ID Bilgisi *</label>
+                            <textarea name="mesaj" rows="5" class="form-control g1-input" placeholder="Yaşadığınız teknik durumu, varsa hata kodunu veya uzaktan bağlantı için AnyDesk adresinizi buraya yazabilirsiniz..." required></textarea>
+                        </div>
+                        <div class="col-12 pt-2 d-flex flex-wrap align-items-center justify-content-between gap-3">
+                            <span class="small g1-muted-text">
+                                <i class="bi bi-lock-fill me-1 text-primary"></i> Verileriniz KVKK kapsamında 256-bit SSL ile korunmaktadır.
+                            </span>
+                            <button type="submit" class="g1-btn-primary px-4 py-3">
+                                <i class="bi bi-send-check me-2"></i>Destek Kaydını Gönder
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="g1-surface-card p-4 p-lg-5 h-100 d-flex flex-column justify-content-between">
+                    <div>
+                        <span class="text-uppercase small fw-bold" style="color: #0b57d0; letter-spacing: 0.08em;">Sıkça Sorulan Sorular</span>
+                        <h2 class="h3 fw-bold mb-4 mt-1">Hızlı Çözüm Rehberi</h2>
+
+                        <div class="accordion accordion-flush" id="destekFaqAccordion">
+                            <div class="accordion-item bg-transparent border-bottom py-2">
+                                <h3 class="accordion-header">
+                                    <button class="accordion-button collapsed bg-transparent fw-semibold px-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                        Uzaktan destek bağlantısı nasıl başlatılır?
+                                    </button>
+                                </h3>
+                                <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#destekFaqAccordion">
+                                    <div class="accordion-body px-0 pt-1 pb-3 small g1-muted-text">
+                                        Yukarıdaki <strong>AnyDesk İndir</strong> butonuna tıklayarak uygulamayı çalıştırın. Ekranda beliren 9 veya 10 haneli "Bu Çalışma Alanı" numarasını destek formuna yazarak veya telefonla uzmanımıza ileterek saniyeler içinde destek alabilirsiniz.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item bg-transparent border-bottom py-2">
+                                <h3 class="accordion-header">
+                                    <button class="accordion-button collapsed bg-transparent fw-semibold px-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                        SQL veritabanı yedekleme periyodunu nasıl kontrol edebilirim?
+                                    </button>
+                                </h3>
+                                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#destekFaqAccordion">
+                                    <div class="accordion-body px-0 pt-1 pb-3 small g1-muted-text">
+                                        AKINSOFT Wolvox Kontrol Paneli içerisindeki Otomatik Yedekleme servisinden günlük bulut ve yerel disk yedeklerinizi görebilir, dilerseniz teknik ekibimizden otomatik şifreli yedekleme kurulumu talep edebilirsiniz.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item bg-transparent border-bottom py-2">
+                                <h3 class="accordion-header">
+                                    <button class="accordion-button collapsed bg-transparent fw-semibold px-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                        e-Fatura ve e-İrsaliye kontör / imza yenileme süresi nedir?
+                                    </button>
+                                </h3>
+                                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#destekFaqAccordion">
+                                    <div class="accordion-body px-0 pt-1 pb-3 small g1-muted-text">
+                                        GİB entegrasyon süreçlerinizde kesinti yaşanmaması için mali mühür/e-imza süre bitiminden 15 gün önce sistemimiz otomatik bildirim sağlar. Kontör yüklemeleri ise aynı gün içinde aktif edilir.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item bg-transparent py-2">
+                                <h3 class="accordion-header">
+                                    <button class="accordion-button collapsed bg-transparent fw-semibold px-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                        Yıllık bakım ve SLA anlaşması neleri kapsar?
+                                    </button>
+                                </h3>
+                                <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#destekFaqAccordion">
+                                    <div class="accordion-body px-0 pt-1 pb-3 small g1-muted-text">
+                                        Yıllık bakım anlaşmalı müşterilerimiz öncelikli çağrı yanıt süresi, periyodik sunucu performans bakımı, mevzuat güncellemeleri ve yerinde/uzaktan sınırsız danışmanlık ayrıcalıklarından yararlanır.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="g1-info-callout p-4 rounded-4 mt-4">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="g1-icon-circle flex-shrink-0" style="background: rgba(66, 133, 244, 0.15); color: #1a73e8; width: 44px; height: 44px;">
+                                <i class="bi bi-shield-fill-check fs-5"></i>
+                            </div>
+                            <div>
+                                <div class="fw-bold small">Kurumsal SLA Güvencesi</div>
+                                <div class="small g1-muted-text">Kritik ERP ve sunucu operasyonlarınızda %99.9 çalışma süresi hedefiyle yanınızdayız.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

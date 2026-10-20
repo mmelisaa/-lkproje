@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" height="34">
+  <g transform="translate(6, 10)">
+    <rect width="40" height="38" rx="7" fill="#0284c7"/>
+    <path d="M10 12h4v16h-4zm7 0h2v16h-2zm5 0h5v16h-5zm8 0h2v16h-2z" fill="#ffffff"/>
+  </g>
+  <text x="56" y="38" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, Arial, sans-serif" font-weight="900" font-size="24" letter-spacing="1">BarTender<tspan fill="#38bdf8" font-size="16">®</tspan></text>
+  <text x="58" y="49" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, Arial, sans-serif" font-weight="600" font-size="8" letter-spacing="1">BY SEAGULL SCIENTIFIC</text>
+</svg>

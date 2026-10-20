@@ -3,200 +3,1694 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Hayat İşleri</title>
+    @{
+        var seoBaslik = ViewData["SeoBaslik"] as string;
+        var seoAciklama = ViewData["SeoAciklama"] as string ?? "Hayat İşleri; Elazığ merkezli özel yazılım, HiCariTakip ERP, barkod ve POS otomasyon çözümleri.";
+        var seoAnahtar = ViewData["SeoAnahtar"] as string;
+        var seoRobots = ViewData["SeoRobots"] as string ?? "index,follow";
+        var sayfaBasligi = !string.IsNullOrWhiteSpace(seoBaslik) ? seoBaslik : $"{ViewData["Title"]} - Hayat İşleri";
+    }
+    <title>@sayfaBasligi</title>
+    <meta name="description" content="@seoAciklama" />
+    @if (!string.IsNullOrWhiteSpace(seoAnahtar))
+    {
+        <meta name="keywords" content="@seoAnahtar" />
+    }
+    <meta name="robots" content="@seoRobots" />
+    <meta property="og:title" content="@sayfaBasligi" />
+    <meta property="og:description" content="@seoAciklama" />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="~/favicon.svg" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Text:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <script>
+        (function () {
+            try {
+                var savedTheme = localStorage.getItem('hayat_theme');
+                // Varsayılan: ON = Açık Mod ('light'), OFF = Koyu Mod ('dark')
+                var theme = (savedTheme === 'dark') ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <style>
+        /* Drawer Çok Kademeli Ürünler Akordeonu */
+        .lusion-drawer-item-wrap {
+            width: 100%;
+        }
+        .lusion-drawer-urunler-trigger {
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s ease;
+            border-radius: 8px;
+        }
+        .lusion-drawer-urunler-trigger:hover .lusion-drawer-link {
+            color: #0b57d0 !important;
+            transform: translateX(6px);
+        }
+        .lusion-drawer-arrow-btn {
+            background: transparent;
+            border: none;
+            color: #5f6368;
+            width: 28px;
+            height: 28px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: color 0.25s ease, transform 0.25s ease;
+            padding: 0;
+            flex-shrink: 0;
+        }
+        .lusion-drawer-urunler-trigger:hover .lusion-drawer-arrow-btn,
+        .lusion-drawer-arrow-btn:hover {
+            color: #0b57d0;
+        }
+        #drawerUrunlerChevron {
+            font-size: 0.88rem;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
+        }
+        #drawerMarkalarChevron, #drawerKategorilerChevron {
+            font-size: 0.78rem;
+            color: #5f6368;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
+        }
+        .lusion-drawer-sub-wrap {
+            margin: 0.5rem 0 0.9rem 1.6rem;
+            padding-left: 0.95rem;
+            border-left: 2px solid rgba(11, 87, 208, 0.25);
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+        .lusion-drawer-sub-group {
+            background: var(--g1-surface, #ffffff);
+            border: 1px solid var(--g1-border, rgba(31, 31, 31, 0.08));
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
+        }
+        .lusion-drawer-sub-group:hover {
+            border-color: rgba(11, 87, 208, 0.24);
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+        }
+        .lusion-drawer-sub-header {
+            width: 100%;
+            background: var(--g1-surface, #ffffff);
+            border: none;
+            border-bottom: 1px solid var(--g1-border, rgba(31, 31, 31, 0.06));
+            color: var(--g1-text, #1f1f1f);
+            font-family: 'Google Sans', 'Google Sans Text', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 0.92rem;
+            font-weight: 500;
+            letter-spacing: -0.1px;
+            padding: 0.75rem 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .lusion-drawer-sub-header:hover {
+            color: #0b57d0;
+            background: var(--g1-surface-container, #f0f4f9);
+        }
+        .lusion-sub-icon-box {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+            transition: transform 0.2s ease;
+        }
+        .lusion-drawer-sub-header:hover .lusion-sub-icon-box {
+            transform: scale(1.05);
+        }
+        .lusion-sub-icon-box.icon-markalar {
+            background: #0b57d0;
+            color: #ffffff;
+            border: 1px solid #0b57d0;
+        }
+        .lusion-sub-icon-box.icon-kategoriler {
+            background: #e8f0fe;
+            color: #0b57d0;
+            border: 1px solid #d2e3fc;
+        }
+        .lusion-sub-title-text {
+            font-family: 'Google Sans', sans-serif;
+            font-weight: 500;
+            font-size: 0.92rem;
+            letter-spacing: -0.1px;
+            color: var(--g1-text, #1f1f1f);
+        }
+        .lusion-drawer-sub-header .badge {
+            font-family: 'Google Sans Text', sans-serif;
+            font-weight: 500;
+            font-size: 0.68rem;
+            letter-spacing: 0.2px;
+            padding: 0.2rem 0.6rem;
+            background: var(--g1-surface-container, #f0f4f9);
+            color: var(--g1-muted, #444746);
+            border: 1px solid var(--g1-border, #e0e2ec);
+            border-radius: 99px;
+        }
+        .lusion-drawer-sub-list {
+            padding: 0.35rem 0.5rem 0.65rem 0.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            max-height: 340px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(11, 87, 208, 0.35) transparent;
+            background: var(--g1-surface, #ffffff);
+        }
+        .lusion-drawer-sub-list::-webkit-scrollbar {
+            width: 4px;
+        }
+        .lusion-drawer-sub-list::-webkit-scrollbar-thumb {
+            background: rgba(11, 87, 208, 0.25);
+            border-radius: 99px;
+        }
+        .lusion-drawer-sub-item {
+            font-family: 'Google Sans Text', 'Google Sans', sans-serif;
+            color: var(--g1-muted, #444746);
+            text-decoration: none;
+            font-size: 0.86rem;
+            font-weight: 500;
+            letter-spacing: -0.1px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.45rem 0.75rem;
+            border-radius: 99px;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .lusion-drawer-sub-item:hover {
+            color: #0b57d0;
+            background: rgba(11, 87, 208, 0.08);
+            transform: translateX(4px);
+            font-weight: 500;
+        }
+        .lusion-drawer-sub-all-link {
+            font-family: 'Google Sans', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-size: 0.84rem;
+            font-weight: 500;
+            color: #0b57d0;
+            text-decoration: none;
+            padding: 0.45rem 0.75rem;
+            border-radius: 99px;
+            transition: all 0.2s ease;
+        }
+        .lusion-drawer-sub-all-link:hover {
+            background: rgba(11, 87, 208, 0.08);
+            transform: translateX(4px);
+        }
+
+        /* ==================================================================== */
+        /* HEADER SEARCH & DUAL-LANGUAGE (TR/EN) TOGGLE (APPLE & GOOGLE ONE)    */
+        /* ==================================================================== */
+        .lusion-header-search-wrap {
+            position: relative;
+            width: 300px;
+            max-width: 30vw;
+            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .lusion-header-search-form {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 999px;
+            padding: 0.36rem 0.85rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            transition: all 0.25s ease;
+        }
+        .lusion-header-search-form:focus-within {
+            background: #ffffff;
+            border-color: #0b57d0;
+            box-shadow: 0 0 0 3px rgba(11, 87, 208, 0.15), 0 4px 16px rgba(11, 87, 208, 0.08);
+        }
+        .lusion-search-icon {
+            font-size: 0.85rem;
+            color: #5f6368;
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+            transition: color 0.2s ease;
+        }
+        .lusion-header-search-form:focus-within .lusion-search-icon {
+            color: #0b57d0;
+        }
+        .lusion-header-search-input {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-family: 'Google Sans Text', sans-serif;
+            font-size: 0.84rem;
+            color: #1f1f1f;
+            padding: 0;
+        }
+        .lusion-header-search-input::placeholder {
+            color: #747775;
+            font-size: 0.82rem;
+        }
+        .lusion-search-kbd {
+            font-size: 0.68rem;
+            font-weight: 600;
+            padding: 0.15rem 0.4rem;
+            background: rgba(0, 0, 0, 0.06);
+            border-radius: 6px;
+            color: #5f6368;
+            margin-left: 0.4rem;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            user-select: none;
+        }
+        .lusion-search-clear-btn {
+            background: none;
+            border: none;
+            color: #747775;
+            padding: 0;
+            font-size: 0.85rem;
+            cursor: pointer;
+            margin-left: 0.25rem;
+        }
+        .lusion-search-clear-btn:hover {
+            color: #0b57d0;
+        }
+
+        /* Hızlı Arama Dropdown */
+        .lusion-search-quick-drop {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 18px;
+            box-shadow: 0 12px 36px rgba(15, 23, 42, 0.12);
+            overflow: hidden;
+            z-index: 1080;
+            animation: lusionDropFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @@keyframes lusionDropFade {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .lusion-search-drop-header {
+            padding: 0.65rem 0.95rem;
+            background: #f8fafc;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            font-size: 0.72rem;
+        }
+        .lusion-search-drop-body {
+            padding: 0.4rem 0;
+            max-height: 280px;
+            overflow-y: auto;
+        }
+        .lusion-search-drop-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.55rem 0.95rem;
+            text-decoration: none;
+            color: #1f1f1f;
+            transition: all 0.15s ease;
+        }
+        .lusion-search-drop-item:hover {
+            background: #f0f4f9;
+            color: #0b57d0;
+        }
+        .lusion-search-drop-item i {
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .lusion-search-drop-item .fw-semibold {
+            font-size: 0.82rem;
+            line-height: 1.25;
+        }
+        .lusion-search-drop-item small {
+            font-size: 0.72rem;
+        }
+
+        /* DİL SEÇİCİ HAP BUTON (🇹🇷 TR / 🇬🇧 EN EMOJİLİ) */
+        .lusion-lang-pill-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.4rem 0.85rem;
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 999px;
+            font-family: 'Google Sans', sans-serif;
+            font-weight: 700;
+            font-size: 0.82rem;
+            color: #1f1f1f;
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+            user-select: none;
+        }
+        .lusion-lang-pill-btn:hover {
+            background: #ffffff;
+            border-color: #0b57d0;
+            color: #0b57d0;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(11, 87, 208, 0.12);
+        }
+        .lusion-lang-flag {
+            font-size: 1.05rem;
+            line-height: 1;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
+        }
+        .lusion-lang-code {
+            letter-spacing: 0.5px;
+            font-size: 0.8rem;
+        }
+        .lusion-lang-icon {
+            font-size: 0.78rem;
+            opacity: 0.65;
+            transition: transform 0.2s ease;
+        }
+        .lusion-lang-pill-btn:hover .lusion-lang-icon {
+            transform: rotate(15deg);
+            opacity: 1;
+        }
+
+        /* KOYU MOD */
+        html[data-theme="dark"] .lusion-header-search-form {
+            background: rgba(22, 27, 34, 0.88);
+            border-color: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+        }
+        html[data-theme="dark"] .lusion-header-search-form:focus-within {
+            background: #161b22;
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2), 0 4px 18px rgba(0, 0, 0, 0.4);
+        }
+        html[data-theme="dark"] .lusion-header-search-input {
+            color: #f8fafc;
+        }
+        html[data-theme="dark"] .lusion-header-search-input::placeholder {
+            color: #94a3b8;
+        }
+        html[data-theme="dark"] .lusion-search-icon {
+            color: #94a3b8;
+        }
+        html[data-theme="dark"] .lusion-header-search-form:focus-within .lusion-search-icon {
+            color: #38bdf8;
+        }
+        html[data-theme="dark"] .lusion-search-kbd {
+            background: rgba(255, 255, 255, 0.08);
+            color: #94a3b8;
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+        html[data-theme="dark"] .lusion-search-quick-drop {
+            background: #0e1118;
+            border-color: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+        }
+        html[data-theme="dark"] .lusion-search-drop-header {
+            background: #131722;
+            border-bottom-color: rgba(255, 255, 255, 0.08);
+            color: #94a3b8 !important;
+        }
+        html[data-theme="dark"] .lusion-search-drop-item {
+            color: #f1f5f9;
+        }
+        html[data-theme="dark"] .lusion-search-drop-item:hover {
+            background: rgba(56, 189, 248, 0.08);
+            color: #38bdf8;
+        }
+        html[data-theme="dark"] .lusion-lang-pill-btn {
+            background: rgba(22, 27, 34, 0.9);
+            border-color: rgba(255, 255, 255, 0.12);
+            color: #f8fafc;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+        }
+        html[data-theme="dark"] .lusion-lang-pill-btn:hover {
+            background: #1e293b;
+            border-color: #38bdf8;
+            color: #38bdf8;
+            box-shadow: 0 4px 16px rgba(56, 189, 248, 0.2);
+        }
+
+        @@media (max-width: 768px) {
+            .lusion-header-search-wrap {
+                width: 150px;
+                max-width: 32vw;
+            }
+            .lusion-header-search-input {
+                font-size: 0.76rem;
+            }
+            .lusion-lang-code {
+                display: none;
+            }
+            .lusion-lang-pill-btn {
+                padding: 0.4rem 0.55rem;
+            }
+        }
+        @@media (max-width: 480px) {
+            .lusion-header-search-wrap {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: rgba(11, 12, 16, 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255,255,255,0.06);">
-        <div class="container">
-            <!-- Sol Apple Tarzı Modern Logo -->
-            <a class="navbar-brand d-flex align-items-center gap-2 text-decoration-none" asp-controller="Home" asp-action="Index">
-                <div class="d-flex align-items-center justify-content-center rounded-3" style="width: 32px; height: 32px; background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%); color: #0b0c10; font-weight: 800; font-size: 0.95rem; letter-spacing: -0.5px;">
-                    H
+    <!-- SPLINE 3D LUMINOUS ORB PRELOADER -->
+    <div id="splinePreloader" class="spline-preloader" aria-live="polite">
+        <div class="spline-preloader-content">
+            <div class="spline-orb-stage">
+                <div class="spline-orb-ball">
+                    <div class="spline-orb-core"></div>
+                    <div class="spline-orb-glare"></div>
+                    <div class="spline-orb-rim"></div>
                 </div>
-                <span class="fw-semibold tracking-tight" style="color: #f5f5f7; font-size: 1.05rem; letter-spacing: -0.3px;">Hayat İşleri</span>
-            </a>
-
-            <!-- Mobil Menü Butonu -->
-            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#appleNavbarCollapse" aria-controls="appleNavbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <!-- Orta Kısım: Tam Ortalanmış Menü Linkleri -->
-            <div class="collapse navbar-collapse justify-content-center" id="appleNavbarCollapse">
-                <ul class="navbar-nav align-items-center gap-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-white-50 px-3 py-2 small fw-medium" asp-controller="Home" asp-action="Index">Anasayfa</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link text-white-50 px-3 py-2 small fw-medium dropdown-toggle" href="#" id="kurumsalDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Kurumsal
-                        </a>
-                        <ul class="dropdown-menu shadow-lg border-0 rounded-4 p-2 mt-2" aria-labelledby="kurumsalDropdown" style="background: rgba(18, 20, 28, 0.95); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.08) !important;">
-                            <li><a class="dropdown-item py-2 px-3 rounded-3 text-white-50 small" asp-controller="Home" asp-action="Hakkimizda">Hakkımızda</a></li>
-                            <li><a class="dropdown-item py-2 px-3 rounded-3 text-white-50 small" asp-controller="Home" asp-action="InsanKaynaklari">İnsan Kaynakları</a></li>
-                            <li><hr class="dropdown-divider my-1 border-secondary opacity-25"></li>
-                            <li><a class="dropdown-item py-2 px-3 rounded-3 text-white-50 small" asp-controller="Home" asp-action="HesapNumaralarimiz">Hesap Numaralarımız</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white-50 px-3 py-2 small fw-medium" asp-controller="Home" asp-action="Hizmetlerimiz">Hizmetlerimiz</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white-50 px-3 py-2 small fw-medium" asp-controller="Home" asp-action="Referanslarimiz">Referanslarımız</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white-50 px-3 py-2 small fw-medium" asp-controller="Home" asp-action="Blog">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white-50 px-3 py-2 small fw-medium" asp-controller="Home" asp-action="Contact">İletişim</a>
-                    </li>
-                </ul>
+                <div class="spline-orb-shadow"></div>
             </div>
-
-            <!-- Sağ Buton -->
-            <div class="d-none d-lg-flex align-items-center gap-2">
-                <partial name="_LoginPartial" />
-                <a asp-controller="Home" asp-action="TeklifAl" class="btn btn-light rounded-pill px-4 btn-sm fw-semibold" style="font-size: 0.85rem; background-color: #f5f5f7; color: #0b0c10; transition: all 0.2s;">TEKLİF ALIN</a>
+            <div class="spline-preloader-brand">
+                <img src="~/images/hayat-isleri-logo.svg" alt="Hayat İşleri Logo" class="hayat-preloader-logo mb-2" />
+                <span class="spline-preloader-title">HAYAT İŞLERİ</span>
+                <div class="spline-preloader-bar-wrap">
+                    <div class="spline-preloader-bar"></div>
+                </div>
+                <span class="spline-preloader-text">Yükleniyor<span class="spline-preloader-dots">...</span></span>
             </div>
         </div>
-    </nav>
+    </div>
+
+    <!-- Google One Style Clean Header -->
+    <header class="lusion-header">
+        <div class="container lusion-header-container">
+            <!-- Sol Logo: HAYAT İŞLERİ Resmi Logosu -->
+            <a class="lusion-logo" asp-controller="Home" asp-action="Index" aria-label="Hayat İşleri Anasayfa">
+                <img src="~/images/hayat-isleri-logo.svg" alt="Hayat İşleri Logo" class="hayat-header-logo" />
+                <span class="hayat-header-brand-text">Hayat İşleri</span>
+            </a>
+
+            <!-- Sağ Kontroller: ON/OFF Tema + Arama Çubuğu + TR/EN Dil Seçici + Menu Butonu -->
+            <div class="lusion-header-right">
+                <!-- SPLINE 3D ON/OFF TEMA ANAHTARI (ON = Açık Mod, OFF = Koyu Mod) -->
+                <button type="button"
+                        id="splineThemeToggle"
+                        class="spline-3d-toggle"
+                        role="switch"
+                        aria-checked="true"
+                        aria-label="Açık / Koyu Mod Anahtarı (ON: Açık Mod, OFF: Koyu Mod)"
+                        title="ON: Açık Mod | OFF: Koyu Mod">
+                    <span class="spline-3d-housing">
+                        <span class="spline-3d-well">
+                            <span class="spline-3d-label spline-3d-label-on">ON</span>
+                            <span class="spline-3d-label spline-3d-label-off">OFF</span>
+                            <span class="spline-3d-thumb">
+                                <span class="spline-3d-thumb-top">
+                                    <span class="spline-3d-thumb-led"></span>
+                                </span>
+                            </span>
+                        </span>
+                    </span>
+                </button>
+
+                <!-- ORTADA: KURUMSAL CANLI ARAMA ÇUBUĞU (SEARCH BAR) -->
+                <div class="lusion-header-search-wrap" id="globalHeaderSearchWrap">
+                    <form action="/Home/Urunler" method="get" class="lusion-header-search-form" id="globalHeaderSearchForm">
+                        <i class="bi bi-search lusion-search-icon"></i>
+                        <input type="text"
+                               name="q"
+                               id="globalHeaderSearchInput"
+                               class="lusion-header-search-input"
+                               placeholder="Ürün, barkod, POS veya yazılım ara..."
+                               autocomplete="off"
+                               aria-label="Arama" />
+                        <button type="button" class="lusion-search-clear-btn" id="globalHeaderSearchClear" aria-label="Temizle" style="display:none;">
+                            <i class="bi bi-x-circle-fill"></i>
+                        </button>
+                        <span class="lusion-search-kbd d-none d-md-inline-block">⌘K</span>
+                    </form>
+                    <!-- Hızlı Arama & Popüler Dropdown -->
+                    <div class="lusion-search-quick-drop" id="globalSearchQuickDrop" style="display: none;">
+                        <div class="lusion-search-drop-header">
+                            <span class="small fw-bold text-muted text-uppercase tracking-wider">Hızlı Erişim &amp; Popüler</span>
+                        </div>
+                        <div class="lusion-search-drop-body">
+                            <a href="/Home/Urunler?kategori=para-cekmecesi" class="lusion-search-drop-item">
+                                <i class="bi bi-inbox-fill text-primary"></i>
+                                <div>
+                                    <div class="fw-semibold">Para Çekmecesi Modelleri</div>
+                                    <small class="text-muted">POS Donanımı &amp; Kasa Çekmeceleri (7 Model)</small>
+                                </div>
+                            </a>
+                            <a href="/Home/Urunler?kategori=yazarkasa-pos" class="lusion-search-drop-item">
+                                <i class="bi bi-credit-card-2-front-fill text-success"></i>
+                                <div>
+                                    <div class="fw-semibold">Yazarkasa POS (ÖKC)</div>
+                                    <small class="text-muted">Mali Onaylı Mobil &amp; Sabit POS (9 Model)</small>
+                                </div>
+                            </a>
+                            <a href="/Home/Urunler?kategori=barkod-okuyucular" class="lusion-search-drop-item">
+                                <i class="bi bi-upc-scan text-info"></i>
+                                <div>
+                                    <div class="fw-semibold">Barkod Okuyucular</div>
+                                    <small class="text-muted">Kablolu, Kablosuz, 2D Karekod (47 Model)</small>
+                                </div>
+                            </a>
+                            <a href="/Home/Urunler?kategori=el-terminalleri" class="lusion-search-drop-item">
+                                <i class="bi bi-phone-fill text-warning"></i>
+                                <div>
+                                    <div class="fw-semibold">El Terminalleri (Android/Endüstriyel)</div>
+                                    <small class="text-muted">Depo, Saha &amp; Sevkiyat (49 Model)</small>
+                                </div>
+                            </a>
+                            <a href="/Home/Urunler?kategori=endustriyel-yazicilar" class="lusion-search-drop-item">
+                                <i class="bi bi-printer-fill text-danger"></i>
+                                <div>
+                                    <div class="fw-semibold">Endüstriyel Barkod Yazıcılar</div>
+                                    <small class="text-muted">Ağır Hizmet Termal Etiket (39 Model)</small>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ORTADA: TÜRKÇE & İNGİLİZCE DİL DESTEĞİ BUTONU (EMOJİ DESTEKLİ) -->
+                <button type="button"
+                        id="hytLangToggle"
+                        class="lusion-lang-pill-btn"
+                        role="button"
+                        aria-label="Switch Language / Dili Değiştir (TR / EN)"
+                        title="Dili Değiştir / Switch Language (Türkçe 🇹🇷 / English 🇬🇧)">
+                    <span class="lusion-lang-flag" id="hytLangFlag">🇹🇷</span>
+                    <span class="lusion-lang-code" id="hytLangCode">TR</span>
+                    <i class="bi bi-translate lusion-lang-icon"></i>
+                </button>
+
+                <!-- SAĞ KÖŞEDEN AÇILAN MENÜ BUTONU -->
+                <button type="button" class="lusion-btn-menu" id="lusionMenuOpenBtn" aria-label="Menüyü Aç">
+                    <span>Menu</span>
+                    <span class="lusion-menu-dots">
+                        <span class="lusion-menu-dot"></span>
+                        <span class="lusion-menu-dot"></span>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menü Arka Plan Perdesi (Backdrop) -->
+    <div class="lusion-menu-backdrop" id="lusionMenuBackdrop"></div>
+
+    <!-- Sağ Köşeden Açılan Çekmece Menü -->
+    <aside class="lusion-menu-drawer" id="lusionMenuDrawer" aria-hidden="true" data-lenis-prevent>
+        <div class="lusion-drawer-header">
+            <a asp-controller="Home" asp-action="Index" class="d-flex align-items-center gap-2 text-decoration-none">
+                <img src="~/images/hayat-isleri-logo.svg" alt="Hayat İşleri Logo" class="hayat-drawer-logo" />
+                <span class="fw-bold tracking-wider small text-uppercase" style="color: var(--g1-text, #1f1f1f);">Hayat İşleri</span>
+            </a>
+            <button type="button" class="lusion-drawer-close-btn" id="lusionMenuCloseBtn" aria-label="Menüyü Kapat">
+                <span>Kapat</span>
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+
+        <nav class="lusion-drawer-nav">
+            <a asp-controller="Home" asp-action="Index" class="lusion-drawer-link">
+                <span class="lusion-drawer-num">01</span>
+                <span>Anasayfa</span>
+            </a>
+            <a asp-controller="Home" asp-action="Hakkimizda" class="lusion-drawer-link">
+                <span class="lusion-drawer-num">02</span>
+                <span>Hakkımızda</span>
+            </a>
+            <!-- 03 Yazılım -->
+            <a href="/yazilimlar" class="lusion-drawer-link">
+                <span class="lusion-drawer-num">03</span>
+                <span>Yazılım</span>
+            </a>
+
+            <!-- 04 Donanım (Çok Kademeli Akordeon: Markalar & Donanım Grupları) -->
+            <div class="lusion-drawer-item-wrap">
+                <div class="d-flex align-items-center justify-content-between w-100 lusion-drawer-urunler-trigger" id="drawerUrunlerTrigger" role="button" aria-expanded="false" aria-controls="drawerUrunlerSub">
+                    <div class="lusion-drawer-link mb-0 py-1" style="cursor: pointer;">
+                        <span class="lusion-drawer-num">04</span>
+                        <span>Donanım</span>
+                    </div>
+                    <button type="button" class="lusion-drawer-arrow-btn" id="drawerUrunlerToggle" aria-label="Donanım Alt Menüsünü Aç">
+                        <i class="bi bi-chevron-down" id="drawerUrunlerChevron"></i>
+                    </button>
+                </div>
+
+                <!-- Kademe 1: Markalar & Ürün Grupları -->
+                <div class="lusion-drawer-sub-wrap" id="drawerUrunlerSub" style="display: none;">
+                    <!-- 1. Markalar Grubu -->
+                    <div class="lusion-drawer-sub-group">
+                        <button type="button" class="lusion-drawer-sub-header" id="drawerMarkalarToggle">
+                            <span class="d-flex align-items-center gap-2">
+                                <span class="lusion-sub-icon-box icon-markalar">
+                                    <i class="bi bi-building"></i>
+                                </span>
+                                <span class="lusion-sub-title-text">Markalar</span>
+                                <span class="badge ms-1">13 Marka</span>
+                            </span>
+                            <i class="bi bi-chevron-down small" id="drawerMarkalarChevron" style="transition: transform 0.25s ease; color: #747775;"></i>
+                        </button>
+                        <!-- Markalar Alt Sekmeleri (13 Marka) -->
+                        <div class="lusion-drawer-sub-list" id="drawerMarkalarList" style="display: none;">
+                            <a href="/Home/Urunler?marka=koddata" class="lusion-drawer-sub-item">
+                                <span class="fw-bold text-dark">Koddata</span>
+                                <span class="badge" style="background: #0f172a; color: #ffffff; font-size: 0.65rem; padding: 2px 7px; border-radius: 4px; font-weight: 600;">18 Ürün</span>
+                            </a>
+                            <a href="/Home/Urunler?marka=zebra" class="lusion-drawer-sub-item">
+                                <span>Zebra</span>
+                            </a>
+                            <a href="/Home/Urunler?marka=tsc" class="lusion-drawer-sub-item">
+                                <span>TSC</span>
+                            </a>
+                            <a href="/Home/Urunler?marka=newland" class="lusion-drawer-sub-item">
+                                <span>Newland</span>
+                            </a>
+                            <a href="/Home/Urunler?marka=citizen" class="lusion-drawer-sub-item">
+                                <span>Citizen</span>
+                            </a>
+                            <a href="/Home/Urunler?marka=ccl" class="lusion-drawer-sub-item">
+                                <span>CCL</span>
+                            </a>
+                            <a href="/Home/Urunler?marka=pepperl-fuchs-ecom" class="lusion-drawer-sub-item">
+                                <span>Pepperl+Fuchs / ecom</span>
+                            </a>
+                            <a href="/Home/Urunler?marka=elanda" class="lusion-drawer-sub-item">
+                                <span>Elanda</span>
+                            </a>
+                            <a href="/Home/Urunler?marka=italora" class="lusion-drawer-sub-item">
+                                <span>Italora</span>
+                            </a>
+                            <a href="/Home/Urunler?marka=bartender" class="lusion-drawer-sub-item">
+                                <span>Bartender</span>
+                            </a>
+                            <a href="/Home/Urunler?marka=soti" class="lusion-drawer-sub-item">
+                                <span>Soti</span>
+                            </a>
+                            <a href="/Home/Urunler?marka=bluebird" class="lusion-drawer-sub-item">
+                                <span>Bluebird</span>
+                            </a>
+                            <a href="/Home/Urunler?marka=movfast" class="lusion-drawer-sub-item">
+                                <span>Movfast</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- 2. Ürün Grupları (20 Kategori) -->
+                    <div class="lusion-drawer-sub-group">
+                        <button type="button" class="lusion-drawer-sub-header" id="drawerKategorilerToggle">
+                            <span class="d-flex align-items-center gap-2">
+                                <span class="lusion-sub-icon-box icon-kategoriler">
+                                    <i class="bi bi-cpu"></i>
+                                </span>
+                                <span class="lusion-sub-title-text">Ürün Grupları</span>
+                                <span class="badge ms-1">20 Grup</span>
+                            </span>
+                            <i class="bi bi-chevron-down small" id="drawerKategorilerChevron" style="transition: transform 0.25s ease; color: #747775;"></i>
+                        </button>
+                        <!-- Ürün Grupları Alt Sekmeleri (20 Kategori) -->
+                        <div class="lusion-drawer-sub-list" id="drawerKategorilerList" style="display: none;">
+                            <a href="/Home/Urunler?kategori=para-cekmecesi" class="lusion-drawer-sub-item">
+                                <span>Para Çekmeceleri</span>
+                            </a>
+                            <a href="/Home/Urunler?kategori=celik-kasa" class="lusion-drawer-sub-item">
+                                <span>Şifreli Çelik Kasalar</span>
+                            </a>
+                            <a href="/Home/Urunler?kategori=pos-standlari" class="lusion-drawer-sub-item">
+                                <span>POS Standları</span>
+                            </a>
+                            <a href="/Home/Urunler?kategori=yazarkasa-pos" class="lusion-drawer-sub-item">
+                                <span>Yazarkasa POS (ÖKC)</span>
+                            </a>
+                            <a href="/Home/Urunler?kategori=para-sayma" class="lusion-drawer-sub-item">
+                                <span>Para Sayma Makineleri</span>
+                            </a>
+                            <a href="/Home/Urunler?kategori=el-terminalleri" class="lusion-drawer-sub-item">
+                                <span>El Terminalleri</span>
+                            </a>
+                            <a href="/Home/Urunler?kategori=endustriyel-pc-tablet" class="lusion-drawer-sub-item">
+                                <span>Endüstriyel PC-Tablet</span>
+                            </a>
+                            <a href="/Home/Urunler?kategori=dokunmatik-pos-pc" class="lusion-drawer-sub-item">
+                                <span>Dokunmatik POS PC</span>
+                            </a>
+                            <a href="/Home/Urunler?kategori=barkod-okuyucular" class="lusion-drawer-sub-item">
+                                <span>Barkod Okuyucular</span>
+                            </a>
+                            <a href="/Home/Urunler?kategori=barkod-yazicilar" class="lusion-drawer-sub-item">
+                                <span>Barkod Yazıcılar</span>
+                            </a>
+                            <a href="/Home/Urunler?kategori=endustriyel-yazicilar" class="lusion-drawer-sub-item">
+                                <span>Endüstriyel Yazıcılar</span>
+                            </a>
+                            <a href="/Home/Urunler?kategori=masaustu-yazicilar" class="lusion-drawer-sub-item">
+                                <span>Masaüstü Yazıcılar</span>
+                            </a>
+                            <a href="/Home/Urunler?kategori=fis-adisyon-yazicilar" class="lusion-drawer-sub-item">
+                                <span>Fiş/Adisyon Yazıcılar</span>
+                            </a>
+                            <a href="/Home/Urunler?kategori=mobil-yazicilar" class="lusion-drawer-sub-item">
+                                <span>Mobil Yazıcılar</span>
+                            </a>
+                            <a href="/Home/Urunler?kategori=kart-yazicilar" class="lusion-drawer-sub-item">
+                                <span>Kart Yazıcılar</span>
+                            </a>
+                            <a href="/Home/Urunler?kategori=giyilebilir-cihazlar" class="lusion-drawer-sub-item">
+                                <span>Giyilebilir Cihazlar</span>
+                            </a>
+                            <a href="/Home/Urunler?kategori=kiosklar" class="lusion-drawer-sub-item">
+                                <span>Kiosklar</span>
+                            </a>
+                            <a href="/Home/Urunler?kategori=patlayici-ortamlar" class="lusion-drawer-sub-item">
+                                <span>Patlayıcı Ortamlar</span>
+                            </a>
+                            <a href="/Home/Urunler?kategori=mobil-cihaz-yonetimi" class="lusion-drawer-sub-item">
+                                <span>Mobil Cihaz Yönetimi</span>
+                            </a>
+                            <a href="/Home/Urunler?kategori=aksesuarlar" class="lusion-drawer-sub-item">
+                                <span>Aksesuarlar</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Tüm Ürünler Linki -->
+                    <div class="pt-1">
+                        <a href="/Home/Urunler" class="lusion-drawer-sub-all-link">
+                            <i class="bi bi-arrow-right-circle-fill text-primary"></i>
+                            <span>Tüm Donanım Kataloğunu Aç &rarr;</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <a asp-controller="Home" asp-action="Hizmetlerimiz" class="lusion-drawer-link">
+                <span class="lusion-drawer-num">05</span>
+                <span>Hizmetlerimiz</span>
+            </a>
+            <a asp-controller="Home" asp-action="Blog" class="lusion-drawer-link">
+                <span class="lusion-drawer-num">06</span>
+                <span>Blog &amp; Duyurular</span>
+            </a>
+            <a asp-controller="Home" asp-action="InsanKaynaklari" class="lusion-drawer-link">
+                <span class="lusion-drawer-num">07</span>
+                <span>İnsan Kaynakları &amp; Kariyer</span>
+            </a>
+            <a asp-controller="Home" asp-action="HesapNumaralarimiz" class="lusion-drawer-link">
+                <span class="lusion-drawer-num">08</span>
+                <span>Hesap Numaralarımız</span>
+            </a>
+            <a asp-controller="Home" asp-action="Contact" class="lusion-drawer-link">
+                <span class="lusion-drawer-num">09</span>
+                <span>İletişim</span>
+            </a>
+            <a asp-controller="Home" asp-action="Destek" class="lusion-drawer-link">
+                <span class="lusion-drawer-num">10</span>
+                <span>Destek Merkezi</span>
+            </a>
+            <a asp-controller="Home" asp-action="BayiGirisi" class="lusion-drawer-link">
+                <span class="lusion-drawer-num">11</span>
+                <span>Bayi Girişi</span>
+            </a>
+        </nav>
+
+        <div class="lusion-drawer-footer">
+            <div class="row g-3 mb-3">
+                <div class="col-6">
+                    <small class="text-muted text-uppercase font-monospace d-block" style="font-size: 0.72rem;">E-Posta</small>
+                    <a href="mailto:info@hayatisleri.com" class="g1-drawer-contact-link text-decoration-none small fw-semibold">info@hayatisleri.com</a>
+                </div>
+                <div class="col-6">
+                    <small class="text-muted text-uppercase font-monospace d-block" style="font-size: 0.72rem;">Telefon</small>
+                    <a href="tel:+905010146623" class="text-primary text-decoration-none small fw-semibold">0501 014 6623</a>
+                </div>
+            </div>
+            <div class="d-flex align-items-center justify-content-between pt-3 border-top g1-border-subtle">
+                <a href="https://www.instagram.com/hayatislerikurumsal?utm_source=ig_web_button_share_sheet&dlrf=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="g1-drawer-contact-link text-decoration-none small d-flex align-items-center gap-2">
+                    <span class="spline-insta-tab-wrap" style="width: 26px; height: 26px;">
+                        <img src="~/images/social/instagram-3d.svg" alt="Instagram 3D" class="spline-insta-tab-img" />
+                    </span>
+                    <span>@@hayatislerikurumsal</span>
+                </a>
+                <a asp-controller="Home" asp-action="TeklifAl" class="g1-btn-tonal btn-sm rounded-pill px-3 text-decoration-none">Teklif Alın &rarr;</a>
+            </div>
+        </div>
+    </aside>
+
+    @{
+        var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+        var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+        bool isHomeIndex = string.Equals(currentController, "Home", StringComparison.OrdinalIgnoreCase) && 
+                           string.Equals(currentAction, "Index", StringComparison.OrdinalIgnoreCase);
+    }
+
+    @if (!isHomeIndex)
+    {
+        <!-- LUSION TÜM ALT SAYFALAR İÇİN CANLI 3D ARKA PLANI -->
+        <canvas id="lusionSubpageCanvas" class="lusion-subpage-canvas"></canvas>
+    }
 
     <!-- Ana İçerik -->
-    <main role="main" style="padding-top: 60px;">
+    <main role="main" style="padding-top: 64px; position: relative; z-index: 2;">
         @RenderBody()
     </main>
 
-    <!-- Mega Footer ve Kartlı Sosyal Medya Alanı -->
-    <footer class="text-white pt-5 pb-4" style="background-color: #0b0c10; border-top: 1px solid rgba(255,255,255,0.08);">
-        <div class="container text-center text-md-start">
-
-            <!-- Sosyal Medya Kartları Alanı -->
-            <div class="mb-5 pb-4 border-bottom border-secondary border-opacity-25">
-                <h5 class="text-white fw-bold mb-1" style="letter-spacing: -0.2px;">Sosyal medya hesaplarımız</h5>
-                <p class="text-muted small mb-4">Projelerimizden, güncel yazılımlardan ve teknolojik gelişmelerden haberdar olmak için bizi takip edin.</p>
-
-                <div class="row g-3">
-                    <!-- Instagram Kartı -->
-                    <div class="col-md-4">
-                        <a href="https://www.instagram.com/hayatislerikurumsal?utm_source=ig_web_button_share_sheet&dlrf=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
-                            <div class="p-3 rounded-4 d-flex align-items-center gap-3 transition-hover" style="background-color: #12141c; border: 1px solid rgba(255,255,255,0.08);">
-                                <div class="fs-4 text-danger d-flex align-items-center justify-content-center rounded-circle" style="width: 44px; height: 44px; background: rgba(225, 48, 108, 0.15); border: 1px solid rgba(225, 48, 108, 0.3);">
-                                    <i class="bi bi-instagram" style="color: #e1306c;"></i>
+    <!-- Google One Clean Light Footer (Koyu modda otomatik koyulaşır) -->
+    <footer class="lusion-footer">
+        <div class="container">
+            <!-- Üst Kısım: Sosyal Medya ve İletişim Alanı -->
+            <div class="row g-5 mb-5 pb-5 border-bottom g1-footer-divider">
+                <!-- Sol Kolon: Kurumsal Dijital Çözüm Paketi Kartı & Sosyal Kanallar -->
+                <div class="col-lg-5">
+                    <div class="hayat-ai-plus-card h-100">
+                        <div class="hayat-ai-plus-top-bar"></div>
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+                            <a asp-controller="Home" asp-action="Index" class="d-inline-flex align-items-center gap-2.5 text-decoration-none">
+                                <img src="~/images/hayat-isleri-logo.svg" alt="Hayat İşleri Logo" class="hayat-footer-logo" style="width: 38px; height: 38px;" />
+                                <div class="d-flex flex-column">
+                                    <span class="text-uppercase tracking-wider small fw-bold hayat-ai-plus-brand">Hayat İşleri</span>
+                                    <span class="hayat-ai-plus-sublabel">Kurumsal Yazılım &amp; Otomasyon</span>
                                 </div>
-                                <div class="text-start">
-                                    <h6 class="text-white mb-0 fw-semibold small">Instagram</h6>
-                                    <span class="text-info" style="font-size: 0.75rem;">@@hayatislerikurumsal</span>
-                                </div>
+                            </a>
+                            <span class="hayat-ai-plus-tier-pill">
+                                <i class="bi bi-stars"></i> Kurumsal Plus
+                            </span>
+                        </div>
+
+                        <h3 class="hayat-ai-plus-title mb-2">İşletmenizi Dijital Dünyaya Taşıyalım.</h3>
+                        <div class="hayat-ai-plus-highlight-metric mb-3">
+                            360° Tam Entegre Dijital Dönüşüm &bull; 7/24 Kurumsal Destek
+                        </div>
+                        <p class="hayat-ai-plus-desc mb-3">
+                            Elazığ merkezli olarak işletmelere özel yazılım, ön muhasebe (<a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline; font-weight: 600;" title="Ön Muhasebe Programı ve B2B Cari Yönetimi | HiCariTakip">HiCariTakip</a>), barkod ve POS sistemleri, web tasarım ve kurumsal dijital çözümler üretiyoruz.
+                        </p>
+
+                        <div class="hayat-ai-plus-features mb-4">
+                            <div class="hayat-ai-plus-feature-item">
+                                <i class="bi bi-stars hayat-ai-plus-sparkle"></i>
+                                <span><a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline; font-weight: 600;" title="Ön Muhasebe Programı ve B2B Cari Yönetimi | HiCariTakip">HiCariTakip Ön Muhasebe &amp; B2B Cari Yönetimi</a> ile <strong>2x operasyonel hız</strong></span>
                             </div>
-                        </a>
+                            <div class="hayat-ai-plus-feature-item">
+                                <i class="bi bi-check2-circle hayat-ai-plus-check"></i>
+                                <span>Barkod, El Terminali, POS Donanımı ve Özel Web Yazılım Entegrasyonu</span>
+                            </div>
+                        </div>
+
+                        <!-- Instagram ve Sosyal Kanallar -->
+                        <div class="d-flex flex-column gap-2.5 mt-auto">
+                            <a href="https://www.instagram.com/hayatislerikurumsal?utm_source=ig_web_button_share_sheet&dlrf=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="lusion-insta-card">
+                                <div class="spline-insta-tab-wrap" style="width: 42px; height: 42px; flex-shrink: 0;">
+                                    <img src="~/images/social/instagram-3d.svg" alt="Instagram 3D" class="spline-insta-tab-img" />
+                                </div>
+                                <div>
+                                    <div class="g1-footer-heading fw-bold small">Instagram Resmi Hesabımız</div>
+                                    <div class="text-primary fw-medium small">@@hayatislerikurumsal</div>
+                                </div>
+                                <i class="bi bi-arrow-up-right ms-auto g1-footer-text"></i>
+                            </a>
+
+                            <div class="d-flex flex-wrap gap-2">
+                                <a href="tel:+905010146623" class="hayat-ai-plus-chip-btn rounded-pill px-3 py-2 text-decoration-none small d-flex align-items-center justify-content-center gap-2 flex-fill">
+                                    <i class="bi bi-telephone-fill text-success"></i>
+                                    <span>0501 014 6623</span>
+                                </a>
+                                <a href="mailto:info@hayatisleri.com" class="hayat-ai-plus-chip-btn rounded-pill px-3 py-2 text-decoration-none small d-flex align-items-center justify-content-center gap-2 flex-fill">
+                                    <i class="bi bi-envelope-fill text-primary"></i>
+                                    <span>info@hayatisleri.com</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
+                </div>
 
-                    <!-- LinkedIn Kartı -->
-                    <div class="col-md-4">
-                        <a href="#" class="text-decoration-none">
-                            <div class="p-3 rounded-4 d-flex align-items-center gap-3 transition-hover" style="background-color: #12141c; border: 1px solid rgba(255,255,255,0.08);">
-                                <div class="fs-4 text-primary d-flex align-items-center justify-content-center rounded-circle" style="width: 44px; height: 44px; background: rgba(255,255,255,0.03);">
-                                    <i class="bi bi-linkedin"></i>
+                <!-- Sağ Kolon: Hızlı İletişim Kısmı -->
+                <div class="col-lg-7">
+                    <div class="lusion-contact-panel h-100">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <div>
+                                <span class="g1-pill-badge px-3 py-1 rounded-pill small fw-bold text-uppercase mb-2 d-inline-block">
+                                    <i class="bi bi-chat-left-dots-fill me-1 text-primary"></i> Bize Ulaşın
+                                </span>
+                                <h4 class="fw-bold g1-footer-heading mb-1">Hızlı Mesaj &amp; İletişim</h4>
+                                <p class="g1-footer-text small mb-0">Fikirlerinizi dinlemekten ve projenizi planlamaktan heyecan duyuyoruz.</p>
+                            </div>
+                        </div>
+
+                        <form asp-controller="Home" asp-action="Contact" method="post" class="mt-3">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="FormTipi" value="İletişim" />
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <input type="text" name="AdSoyad" class="form-control g1-input rounded-3 py-2.5 small" placeholder="Adınız Soyadınız *" required />
                                 </div>
-                                <div class="text-start">
-                                    <h6 class="text-white mb-0 fw-semibold small">LinkedIn</h6>
-                                    <span class="text-muted" style="font-size: 0.75rem;">Hayat İşleri</span>
+                                <div class="col-md-6">
+                                    <input type="email" name="Eposta" class="form-control g1-input rounded-3 py-2.5 small" placeholder="E-Posta Adresiniz *" required />
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="tel" name="Telefon" class="form-control g1-input rounded-3 py-2.5 small" placeholder="Telefon Numaranız" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="Konu" class="form-control g1-input rounded-3 py-2.5 small" placeholder="Proje Konusu" />
+                                </div>
+                                <div class="col-12">
+                                    <textarea name="Mesaj" rows="3" class="form-control g1-input rounded-3 py-2.5 small" placeholder="Mesajınız veya Proje Talebiniz *" required></textarea>
+                                </div>
+                                <div class="col-12 text-end">
+                                    <button type="submit" class="g1-btn-primary rounded-pill px-4 py-2 fw-medium small d-inline-flex align-items-center gap-2">
+                                        <span>Mesajı Gönder</span>
+                                        <i class="bi bi-send-fill"></i>
+                                    </button>
                                 </div>
                             </div>
-                        </a>
-                    </div>
-
-                    <!-- Twitter / X Kartı -->
-                    <div class="col-md-4">
-                        <a href="#" class="text-decoration-none">
-                            <div class="p-3 rounded-4 d-flex align-items-center gap-3 transition-hover" style="background-color: #12141c; border: 1px solid rgba(255,255,255,0.08);">
-                                <div class="fs-4 text-info d-flex align-items-center justify-content-center rounded-circle" style="width: 44px; height: 44px; background: rgba(255,255,255,0.03);">
-                                    <i class="bi bi-twitter-x"></i>
-                                </div>
-                                <div class="text-start">
-                                    <h6 class="text-white mb-0 fw-semibold small">Twitter / X</h6>
-                                    <span class="text-muted" style="font-size: 0.75rem;">Hayat İşleri</span>
-                                </div>
-                            </div>
-                        </a>
+                        </form>
                     </div>
                 </div>
             </div>
 
-            <!-- Alt Hizmet ve Bilgi Sütunları -->
-            <div class="row mt-4 g-4">
-                <!-- 1. Sütun: Web Tasarım -->
+            <!-- Alt Sütunlar & Linkler -->
+            <div class="row g-4 mb-4">
                 <div class="col-md-3 col-6">
-                    <h6 class="text-uppercase fw-bold text-white mb-3" style="font-size: 0.85rem; letter-spacing: 0.5px;">Web Tasarım</h6>
-                    <ul class="list-unstyled small text-muted lh-lg">
-                        <li><a asp-controller="Home" asp-action="Hizmetlerimiz" class="text-decoration-none text-muted">Kurumsal Web Sitesi</a></li>
-                        <li><a asp-controller="Home" asp-action="Hizmetlerimiz" class="text-decoration-none text-muted">Mobil Uyumlu Tasarım</a></li>
-                        <li><a asp-controller="Home" asp-action="Hizmetlerimiz" class="text-decoration-none text-muted">UI-UX Tasarım</a></li>
-                        <li><a asp-controller="Home" asp-action="Hizmetlerimiz" class="text-decoration-none text-muted">Landing Page Tasarımı</a></li>
-                        <li><a asp-controller="Home" asp-action="Hizmetlerimiz" class="text-decoration-none text-muted">Web Sitesi Yenileme</a></li>
+                    <h6 class="text-uppercase fw-bold g1-footer-heading mb-3" style="font-size: 0.8rem; letter-spacing: 0.8px;">Yazılım &amp; Çözümler</h6>
+                    <ul class="list-unstyled small lh-lg mb-0">
+                        <li><a asp-controller="Home" asp-action="Urunler" class="g1-footer-link">Ürünlerimiz &amp; Çözümler</a></li>
+                        <li><a asp-controller="Home" asp-action="Hizmetlerimiz" class="g1-footer-link">Özel Yazılım Çözümleri</a></li>
+                        <li><a asp-controller="Home" asp-action="Hizmetlerimiz" class="g1-footer-link">Kurumsal Web Tasarım</a></li>
+                        <li><a asp-controller="Home" asp-action="Hizmetlerimiz" class="g1-footer-link">API &amp; Entegrasyon</a></li>
                     </ul>
                 </div>
 
-                <!-- 2. Sütun: Web Yazılım -->
                 <div class="col-md-3 col-6">
-                    <h6 class="text-uppercase fw-bold text-white mb-3" style="font-size: 0.85rem; letter-spacing: 0.5px;">Web Yazılım</h6>
-                    <ul class="list-unstyled small text-muted lh-lg">
-                        <li><a asp-controller="Home" asp-action="Hizmetlerimiz" class="text-decoration-none text-muted">Özel Yazılım Çözümleri</a></li>
-                        <li><a asp-controller="Home" asp-action="Hizmetlerimiz" class="text-decoration-none text-muted">API Entegrasyonu</a></li>
-                        <li><a asp-controller="Home" asp-action="Hizmetlerimiz" class="text-decoration-none text-muted">Ödeme Sistemi Entegrasyonu</a></li>
-                        <li><a asp-controller="Home" asp-action="Hizmetlerimiz" class="text-decoration-none text-muted">Yönetim Paneli Geliştirme</a></li>
-                        <li><a asp-controller="Home" asp-action="Hizmetlerimiz" class="text-decoration-none text-muted">Yazılım Bakım ve Destek</a></li>
+                    <h6 class="text-uppercase fw-bold g1-footer-heading mb-3" style="font-size: 0.8rem; letter-spacing: 0.8px;">Kurumsal</h6>
+                    <ul class="list-unstyled small lh-lg mb-0">
+                        <li><a asp-controller="Home" asp-action="Hakkimizda" class="g1-footer-link">Hakkımızda</a></li>
+                        <li><a asp-controller="Home" asp-action="Referanslarimiz" class="g1-footer-link">Referans Projeler</a></li>
+                        <li><a asp-controller="Home" asp-action="Blog" class="g1-footer-link">Blog &amp; Teknoloji</a></li>
+                        <li><a asp-controller="Home" asp-action="InsanKaynaklari" class="g1-footer-link">Kariyer / İK</a></li>
                     </ul>
                 </div>
 
-                <!-- 3. Sütun: Kurumsal -->
                 <div class="col-md-3 col-6">
-                    <h6 class="text-uppercase fw-bold text-white mb-3" style="font-size: 0.85rem; letter-spacing: 0.5px;">Kurumsal</h6>
-                    <ul class="list-unstyled small text-muted lh-lg">
-                        <li><a asp-controller="Home" asp-action="Hakkimizda" class="text-decoration-none text-muted">Hakkımızda</a></li>
-                        <li><a asp-controller="Home" asp-action="InsanKaynaklari" class="text-decoration-none text-muted">İnsan Kaynakları</a></li>
-                        <li><a asp-controller="Home" asp-action="HesapNumaralarimiz" class="text-decoration-none text-muted">Hesap Numaralarımız</a></li>
-                        <li><a asp-controller="Home" asp-action="Referanslarimiz" class="text-decoration-none text-muted">Referanslarımız</a></li>
-                        <li><a asp-controller="Home" asp-action="Blog" class="text-decoration-none text-muted">Blog & Duyurular</a></li>
+                    <h6 class="text-uppercase fw-bold g1-footer-heading mb-3" style="font-size: 0.8rem; letter-spacing: 0.8px;">Destek &amp; Kanal</h6>
+                    <ul class="list-unstyled small lh-lg mb-0">
+                        <li><a asp-controller="Home" asp-action="Destek" class="g1-footer-link">Destek Merkezi</a></li>
+                        <li><a asp-controller="Home" asp-action="BayiGirisi" class="g1-footer-link">Bayi Girişi &amp; Başvuru</a></li>
+                        <li><a asp-controller="Home" asp-action="HesapNumaralarimiz" class="g1-footer-link">Banka Hesaplarımız</a></li>
+                        <li><a asp-controller="Home" asp-action="TeklifAl" class="g1-footer-link">Teklif Formu</a></li>
                     </ul>
                 </div>
 
-                <!-- 4. Sütun: Yasal & Destek (Güncellendi) -->
                 <div class="col-md-3 col-6">
-                    <h6 class="text-uppercase fw-bold text-white mb-3" style="font-size: 0.85rem; letter-spacing: 0.5px;">Yasal & Destek</h6>
-                    <ul class="list-unstyled small text-muted lh-lg">
-                        <li><a asp-controller="Home" asp-action="Contact" class="text-decoration-none text-muted">İletişim Sayfası</a></li>
-                        <li><a asp-controller="Home" asp-action="Privacy" class="text-decoration-none text-muted">Gizlilik Politikası</a></li>
-                        <li><a href="#" class="text-decoration-none text-muted">KVKK Aydınlatma Metni</a></li>
-                        <li><a href="#" class="text-decoration-none text-muted">Çerez Politikası</a></li>
-                        <li><a href="#" class="text-decoration-none text-muted">Kullanım Koşulları</a></li>
-                        <li><a href="tel:+905010146623" class="text-decoration-none text-info fw-semibold"><i class="bi bi-telephone-fill me-1 text-success"></i> 0501 014 6623</a></li>
-                        <li><a href="mailto:info@hayatisleri.com" class="text-decoration-none text-muted"><i class="bi bi-envelope-fill me-1 text-warning"></i> info@hayatisleri.com</a></li>
-                        <li><span class="text-muted"><i class="bi bi-geo-alt-fill me-1 text-danger"></i> Elazığ / Merkez & İstanbul</span></li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- En Alt Telif Satırı -->
-            <hr class="my-4 border-secondary opacity-25">
-            <div class="row align-items-center">
-                <div class="col-md-12 text-center">
-                    <p class="text-muted small mb-0">
-                        <i class="bi bi-geo-alt-fill me-1 text-info"></i> Merkez / Elazığ & İstanbul &nbsp;|&nbsp; &copy; 2026 Hayat İşleri. Tüm Hakları Saklıdır.
+                    <h6 class="text-uppercase fw-bold g1-footer-heading mb-3" style="font-size: 0.8rem; letter-spacing: 0.8px;">Lokasyon</h6>
+                    <p class="small g1-footer-text mb-2">
+                        <i class="bi bi-geo-alt-fill text-danger me-1"></i> Çaydaçıra Mah. / Elazığ
+                    </p>
+                    <p class="small g1-footer-text mb-0">
+                        <i class="bi bi-shield-check text-success me-1"></i> T.C. Mevzuatlarına ve KVKK Standartlarına Tam Uyumlu
                     </p>
                 </div>
             </div>
 
+            <!-- En Alt Telif & Bilgi Satırı -->
+            <div class="pt-4 border-top g1-footer-divider d-flex flex-column flex-md-row align-items-center justify-content-between gap-2">
+                <p class="g1-footer-text small mb-0">
+                    &copy; 2026 Hayat İşleri. Tüm Hakları Saklıdır.
+                </p>
+                <div class="d-flex align-items-center gap-3 g1-footer-text small">
+                    <a asp-controller="Home" asp-action="Privacy" class="g1-footer-link">Gizlilik</a>
+                    <span>&bull;</span>
+                    <a asp-controller="Home" asp-action="Destek" class="g1-footer-link">Destek</a>
+                    <span>&bull;</span>
+                    <a asp-controller="Home" asp-action="BayiGirisi" class="g1-footer-link">Bayi Portalı</a>
+                </div>
+            </div>
         </div>
     </footer>
+
+    <!-- LOGO.COM.TR TARZI KALICI ALT SABİT DANIŞMAN & HIZLI ERİŞİM BARI (Hiçbir sayfada kaybolmaz) -->
+    <div id="hayatStickyBottomBar" class="hayat-sticky-bottom-bar" role="region" aria-label="Hızlı Erişim ve Dijital Danışman Çubuğu">
+        <div class="hayat-sticky-bar-inner">
+            <!-- 1. Dijital Danışman'a Sorun / Destek -->
+            <a asp-controller="Home" asp-action="Destek" class="hayat-sticky-item hayat-sticky-item-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" class="hayat-sticky-icon">
+                    <path d="M4 8C4 6.34315 5.34315 5 7 5L17 5C18.6569 5 20 6.34315 20 8V17C20 18.6569 18.6569 20 17 20H7C5.34315 20 4 18.6569 4 17L4 8Z" stroke="currentColor" stroke-width="2"></path>
+                    <path d="M1 10C1 9.44772 1.44772 9 2 9H4L4 15H2C1.44772 15 1 14.5523 1 14L1 10Z" stroke="currentColor" stroke-width="2"></path>
+                    <path d="M23 10C23 9.44772 22.5523 9 22 9H20V15H22C22.5523 15 23 14.5523 23 14V10Z" stroke="currentColor" stroke-width="2"></path>
+                    <path d="M12 5V2" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    <circle cx="8.5" cy="10.5" r="1" fill="currentColor" stroke="currentColor"></circle>
+                    <circle cx="15.5" cy="10.5" r="1" fill="currentColor" stroke="currentColor"></circle>
+                    <path d="M15.5355 14.5355C14.5979 15.4732 13.3261 16 12 16C10.6739 16 9.40215 15.4732 8.46447 14.5355" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                </svg>
+                <span class="hayat-sticky-text">
+                    <span class="hayat-sticky-top-line">Dijital Danışman &amp; Destek</span>
+                    <span class="hayat-sticky-bottom-line">Uzmanımıza sorun</span>
+                </span>
+            </a>
+
+            <div class="hayat-sticky-divider"></div>
+
+            <!-- 2. Size En Uygun Hayat İşleri Çözümünü Bulun (Teklif Alın) -->
+            <a asp-controller="Home" asp-action="TeklifAl" class="hayat-sticky-item">
+                <span class="hayat-sticky-spline-logo" aria-hidden="true">
+                    <img src="~/images/spline-light-shadow.webp" alt="Hayat İşleri Çözüm Merkezi" class="hayat-sticky-spline-img" />
+                </span>
+                <span class="hayat-sticky-text">
+                    <span class="hayat-sticky-top-line">Size en uygun</span>
+                    <span class="hayat-sticky-bottom-line">Hayat İşleri çözümünü bulun</span>
+                </span>
+            </a>
+
+            <div class="hayat-sticky-divider"></div>
+
+            <!-- 3. B2B Portal & Yetkili Bayi Girişi -->
+            <a asp-controller="Home" asp-action="BayiGirisi" class="hayat-sticky-item">
+                <span class="hayat-sticky-icon hayat-sticky-dealer-icon">
+                    <i class="bi bi-person-badge-fill"></i>
+                </span>
+                <span class="hayat-sticky-text">
+                    <span class="hayat-sticky-top-line">B2B Ortaklık Portalı</span>
+                    <span class="hayat-sticky-bottom-line">Yetkili Bayi Girişi</span>
+                </span>
+            </a>
+
+            <div class="hayat-sticky-divider"></div>
+
+            <!-- 4. Satış Uzmanımızla WhatsApp'ta Görüşün -->
+            <a href="https://wa.me/905010146623?text=Merhaba,%20Hayat%20%C4%B0%C5%9Fleri%20%C3%A7%C3%B6z%C3%BCmleri%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noopener noreferrer" class="hayat-sticky-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" class="hayat-sticky-icon">
+                    <path d="M0 24L1.687 17.837C0.646 16.033 0.099 13.988 0.1 11.891C0.103 5.335 5.438 0 11.993 0C15.174 0.001 18.16 1.24 20.406 3.488C22.651 5.736 23.887 8.724 23.886 11.902C23.883 18.459 18.548 23.794 11.993 23.794C10.003 23.793 8.042 23.294 6.305 22.346L0 24ZM6.597 20.193C8.273 21.188 9.873 21.784 11.989 21.785C17.437 21.785 21.875 17.351 21.878 11.9C21.88 6.438 17.463 2.01 11.997 2.008C6.545 2.008 2.11 6.442 2.108 11.892C2.107 14.117 2.759 15.783 3.854 17.526L2.855 21.174L6.597 20.193ZM17.984 14.729C17.91 14.605 17.712 14.531 17.414 14.382C17.117 14.233 15.656 13.514 15.383 13.415C15.111 13.316 14.913 13.266 14.714 13.564C14.516 13.861 13.946 14.531 13.773 14.729C13.6 14.927 13.426 14.952 13.129 14.803C12.832 14.654 11.874 14.341 10.739 13.328C9.856 12.54 9.259 11.567 9.086 11.269C8.913 10.972 9.068 10.811 9.216 10.663C9.35 10.53 9.513 10.316 9.662 10.142C9.813 9.97 9.862 9.846 9.962 9.647C10.061 9.449 10.012 9.275 9.937 9.126C9.862 8.978 9.268 7.515 9.021 6.92C8.779 6.341 8.534 6.419 8.352 6.41L7.782 6.4C7.584 6.4 7.262 6.474 6.99 6.772C6.718 7.07 5.95 7.788 5.95 9.251C5.95 10.714 7.015 12.127 7.163 12.325C7.312 12.523 9.258 15.525 12.239 16.812C12.948 17.118 13.502 17.301 13.933 17.438C14.645 17.664 15.293 17.632 15.805 17.556C16.376 17.471 17.563 16.837 17.811 16.143C18.059 15.448 18.059 14.853 17.984 14.729Z" fill="#25D366"></path>
+                </svg>
+                <span class="hayat-sticky-text">
+                    <span class="hayat-sticky-top-line">Satış uzmanımızla</span>
+                    <span class="hayat-sticky-bottom-line">WhatsApp'ta görüşün</span>
+                </span>
+            </a>
+        </div>
+    </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- GSAP & Lenis Smooth Scroll Motoru (60 FPS Akıcı Deneyim ve Senkronizasyon) -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script>
+        // 100% Donanımsal Hızlı ve Akıcı Native Scroll (Sıfır lag, sıfır takılma)
+        window.appLenis = null;
+    </script>
+
+    <!-- LUSION ATLAS MOTION AKIŞKAN İMLEÇ İZİ (Z-Index 99999 + mix-blend-mode multiply: Hero, kartlar ve footer dahil her yerde görünür; metinlerin arkasından akar) -->
+    <canvas id="cursorTrailCanvas" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:99999;mix-blend-mode:multiply;display:none;"></canvas>
+    <script>
+        (function() {
+            if (window.matchMedia && window.matchMedia('(hover: none)').matches) return;
+            const cv = document.getElementById('cursorTrailCanvas');
+            if (!cv) return;
+            const ctx = cv.getContext('2d');
+
+            let width = window.innerWidth;
+            let height = window.innerHeight;
+
+            function resize() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                cv.width = width;
+                cv.height = height;
+            }
+            resize();
+            window.addEventListener('resize', resize, { passive: true });
+
+            // İmleç ve Kuyruk Noktaları
+            const points = [];
+            const MAX_POINTS = 32;
+            const TRAIL_LIFETIME = 520; // ms
+
+            let mouseX = -100, mouseY = -100;
+            let prevX = -100, prevY = -100;
+            let isMoving = false;
+            let animId = null;
+            let lastMoveTime = 0;
+
+            function addPoint(x, y, now) {
+                points.unshift({ x: x, y: y, time: now, size: 10 });
+                if (points.length > MAX_POINTS) points.pop();
+            }
+
+            window.addEventListener('mousemove', (e) => {
+                const now = performance.now();
+                lastMoveTime = now;
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+
+                if (prevX < 0) {
+                    prevX = mouseX;
+                    prevY = mouseY;
+                    addPoint(mouseX, mouseY, now);
+                } else {
+                    // Hızlı hareketlerde noktalar arası boşluk kalmaması için interpolasyon
+                    const dx = mouseX - prevX;
+                    const dy = mouseY - prevY;
+                    const dist = Math.hypot(dx, dy);
+                    const steps = Math.min(6, Math.max(1, Math.floor(dist / 14)));
+
+                    for (let i = 1; i <= steps; i++) {
+                        const stepX = prevX + (dx * (i / steps));
+                        const stepY = prevY + (dy * (i / steps));
+                        addPoint(stepX, stepY, now);
+                    }
+                    prevX = mouseX;
+                    prevY = mouseY;
+                }
+
+                if (!isMoving) {
+                    cv.style.display = 'block';
+                    isMoving = true;
+                    if (!animId) animId = requestAnimationFrame(render);
+                }
+            }, { passive: true });
+
+            window.addEventListener('mouseleave', () => {
+                prevX = -100;
+                prevY = -100;
+            }, { passive: true });
+
+            function render(now) {
+                ctx.clearRect(0, 0, width, height);
+
+                // Eski noktaları temizle
+                while (points.length > 0 && (now - points[points.length - 1].time) > TRAIL_LIFETIME) {
+                    points.pop();
+                }
+
+                if (points.length >= 2) {
+                    // 1. Akışkan Tapered Şerit (Ribbon) Çizimi
+                    for (let i = 0; i < points.length - 1; i++) {
+                        const p0 = points[i];
+                        const p1 = points[i + 1];
+                        const progress = i / (points.length - 1); // 0 (baş) -> 1 (kuyruk sonu)
+                        const age = (now - p0.time) / TRAIL_LIFETIME;
+                        const alpha = Math.max(0, (1 - age) * (1 - progress * 0.75));
+
+                        if (alpha <= 0.01) continue;
+
+                        // Akışkan Buz Mavisi (Ice Blue) kalınlık
+                        const lineWidth = Math.max(1.2, (1 - progress) * 4.2);
+
+                        ctx.beginPath();
+                        ctx.moveTo(p0.x, p0.y);
+                        ctx.lineTo(p1.x, p1.y);
+                        ctx.lineCap = 'round';
+                        ctx.lineJoin = 'round';
+                        ctx.lineWidth = lineWidth;
+
+                        // Zarif ve net Buz Mavisi gradyanı (Multiply modu sayesinde siyah yazıları asla kapatmaz)
+                        if (progress < 0.45) {
+                            ctx.strokeStyle = `rgba(56, 189, 248, ${(alpha * 0.65).toFixed(3)})`;
+                        } else if (progress < 0.75) {
+                            ctx.strokeStyle = `rgba(14, 165, 233, ${(alpha * 0.50).toFixed(3)})`;
+                        } else {
+                            ctx.strokeStyle = `rgba(125, 211, 252, ${(alpha * 0.35).toFixed(3)})`;
+                        }
+                        ctx.stroke();
+                    }
+
+                    // 2. Şerit Boyunca İpeksi Buz Parıltısı Damlacıkları
+                    const dropletStep = Math.max(2, Math.floor(points.length / 4));
+                    for (let i = 0; i < points.length; i += dropletStep) {
+                        const p = points[i];
+                        const progress = i / points.length;
+                        const age = (now - p.time) / TRAIL_LIFETIME;
+                        const alpha = Math.max(0, (1 - age) * (1 - progress * 0.85));
+                        const radius = Math.max(1.5, (1 - progress) * 4.2);
+
+                        if (alpha > 0.04) {
+                            const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, radius * 1.8);
+                            grad.addColorStop(0, `rgba(56, 189, 248, ${(alpha * 0.38).toFixed(3)})`);
+                            grad.addColorStop(0.6, `rgba(125, 211, 252, ${(alpha * 0.18).toFixed(3)})`);
+                            grad.addColorStop(1, 'rgba(224, 242, 254, 0)');
+
+                            ctx.fillStyle = grad;
+                            ctx.beginPath();
+                            ctx.arc(p.x, p.y, radius * 1.8, 0, Math.PI * 2);
+                            ctx.fill();
+                        }
+                    }
+                }
+
+                // 3. İmleç Konumundaki Minimalist İçi Boş Buz Mavisi Halka (Yazıları kesinlikle örtmez)
+                if (mouseX > 0 && mouseY > 0 && (now - lastMoveTime) < 1200) {
+                    const focusAlpha = Math.max(0, 1 - (now - lastMoveTime) / 1200);
+
+                    // Zarif dış parlama
+                    const glowGrad = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 12);
+                    glowGrad.addColorStop(0, `rgba(56, 189, 248, ${(focusAlpha * 0.25).toFixed(3)})`);
+                    glowGrad.addColorStop(1, 'rgba(56, 189, 248, 0)');
+                    ctx.fillStyle = glowGrad;
+                    ctx.beginPath();
+                    ctx.arc(mouseX, mouseY, 12, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // İnce dış halka (İçi boş, harflerin üstünden akarken harf görünür kalır)
+                    ctx.beginPath();
+                    ctx.arc(mouseX, mouseY, 4.5, 0, Math.PI * 2);
+                    ctx.strokeStyle = `rgba(56, 189, 248, ${(focusAlpha * 0.55).toFixed(3)})`;
+                    ctx.lineWidth = 1.2;
+                    ctx.stroke();
+                }
+
+                // Hareketsiz kalındığında ve iz söndüğünde döngüyü durdur (Sıfır CPU tüketimi)
+                if (points.length === 0 && (now - lastMoveTime) >= 1400) {
+                    ctx.clearRect(0, 0, width, height);
+                    cv.style.display = 'none';
+                    isMoving = false;
+                    animId = null;
+                } else {
+                    animId = requestAnimationFrame(render);
+                }
+            }
+        })();
+    </script>
+
+    <!-- Lusion Menü Çekmecesi Açma/Kapatma Scripti -->
+    <script>
+        (function() {
+            const openBtn = document.getElementById('lusionMenuOpenBtn');
+            const closeBtn = document.getElementById('lusionMenuCloseBtn');
+            const drawer = document.getElementById('lusionMenuDrawer');
+            const backdrop = document.getElementById('lusionMenuBackdrop');
+            const stickyBottomBar = document.getElementById('hayatStickyBottomBar');
+
+            function openDrawer() {
+                if (drawer && backdrop) {
+                    drawer.classList.add('open');
+                    backdrop.classList.add('open');
+                    if (stickyBottomBar) stickyBottomBar.classList.add('drawer-hidden');
+                    document.body.style.overflow = 'hidden';
+                    if (window.appLenis) window.appLenis.stop();
+                }
+            }
+
+            function closeDrawer() {
+                if (drawer && backdrop) {
+                    drawer.classList.remove('open');
+                    backdrop.classList.remove('open');
+                    if (stickyBottomBar) stickyBottomBar.classList.remove('drawer-hidden');
+                    document.body.style.overflow = '';
+                    if (window.appLenis) window.appLenis.start();
+                }
+            }
+
+            if (openBtn) openBtn.addEventListener('click', openDrawer);
+            if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+            if (backdrop) backdrop.addEventListener('click', closeDrawer);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeDrawer();
+            });
+
+            // Ürünler Çok Kademeli Menü Açma/Kapatma
+            const urunlerTrigger = document.getElementById('drawerUrunlerTrigger');
+            const urunlerToggle = document.getElementById('drawerUrunlerToggle');
+            const urunlerSub = document.getElementById('drawerUrunlerSub');
+            const urunlerChevron = document.getElementById('drawerUrunlerChevron');
+
+            const markalarToggle = document.getElementById('drawerMarkalarToggle');
+            const markalarList = document.getElementById('drawerMarkalarList');
+            const markalarChevron = document.getElementById('drawerMarkalarChevron');
+
+            const kategorilerToggle = document.getElementById('drawerKategorilerToggle');
+            const kategorilerList = document.getElementById('drawerKategorilerList');
+            const kategorilerChevron = document.getElementById('drawerKategorilerChevron');
+
+            function toggleUrunlerSub(e) {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                if (!urunlerSub) return;
+                const isOpen = urunlerSub.style.display !== 'none';
+                urunlerSub.style.display = isOpen ? 'none' : 'flex';
+                if (urunlerChevron) urunlerChevron.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+                if (urunlerTrigger) urunlerTrigger.setAttribute('aria-expanded', !isOpen);
+            }
+
+            if (urunlerTrigger) urunlerTrigger.addEventListener('click', toggleUrunlerSub);
+            if (urunlerToggle) urunlerToggle.addEventListener('click', toggleUrunlerSub);
+
+            if (markalarToggle && markalarList) {
+                markalarToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const isOpen = markalarList.style.display !== 'none';
+                    markalarList.style.display = isOpen ? 'none' : 'flex';
+                    if (markalarChevron) markalarChevron.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+                });
+            }
+
+            if (kategorilerToggle && kategorilerList) {
+                kategorilerToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const isOpen = kategorilerList.style.display !== 'none';
+                    kategorilerList.style.display = isOpen ? 'none' : 'flex';
+                    if (kategorilerChevron) kategorilerChevron.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+                });
+            }
+        })();
+    </script>
+
+    <!-- SPLINE 3D ON/OFF TEMA ANAHTARI CONTROLLER (ON = Açık Mod, OFF = Koyu Mod) -->
+    <script>
+        (function () {
+            const toggleBtn = document.getElementById('splineThemeToggle');
+            const trailCanvas = document.getElementById('cursorTrailCanvas');
+
+            function applyThemeState(theme) {
+                const isLight = (theme !== 'dark'); // ON = Açık Mod ('light'), OFF = Koyu Mod ('dark')
+                document.documentElement.setAttribute('data-theme', isLight ? 'light' : 'dark');
+                if (toggleBtn) {
+                    toggleBtn.setAttribute('aria-checked', isLight ? 'true' : 'false');
+                    toggleBtn.setAttribute('data-state', isLight ? 'on' : 'off');
+                    toggleBtn.setAttribute('title', isLight ? 'ON: Açık Mod Aktif (Koyu Mod için tıklayın)' : 'OFF: Koyu Mod Aktif (Açık Mod için tıklayın)');
+                }
+                if (trailCanvas) {
+                    trailCanvas.style.mixBlendMode = isLight ? 'multiply' : 'screen';
+                }
+                window.dispatchEvent(new CustomEvent('hayat-theme-change', { detail: { theme: isLight ? 'light' : 'dark' } }));
+            }
+
+            // İlk yüklemede mevcut temayı senkronize et
+            const initialTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            applyThemeState(initialTheme);
+
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', function () {
+                    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+                    const nextTheme = (currentTheme === 'dark') ? 'light' : 'dark';
+                    try {
+                        localStorage.setItem('hayat_theme', nextTheme);
+                    } catch (e) { }
+                    toggleBtn.classList.add('is-pressing');
+                    setTimeout(function () { toggleBtn.classList.remove('is-pressing'); }, 260);
+                    applyThemeState(nextTheme);
+                });
+
+                // Spline 3D Mikro Perspektif Eğim Efekti
+                toggleBtn.addEventListener('mousemove', function (e) {
+                    const rect = toggleBtn.getBoundingClientRect();
+                    const x = (e.clientX - rect.left) / rect.width - 0.5;
+                    const y = (e.clientY - rect.top) / rect.height - 0.5;
+                    toggleBtn.style.setProperty('--rx', (-y * 14).toFixed(2) + 'deg');
+                    toggleBtn.style.setProperty('--ry', (x * 16).toFixed(2) + 'deg');
+                });
+
+                toggleBtn.addEventListener('mouseleave', function () {
+                    toggleBtn.style.setProperty('--rx', '0deg');
+                    toggleBtn.style.setProperty('--ry', '0deg');
+                });
+            }
+        })();
+    </script>
+
+    @if (!isHomeIndex)
+    {
+        <!-- Three.js Kütüphanesi ve Alt Sayfalar Canlı 3D Arka Plan Motoru -->
+        <script src="~/lib/three/three.min.js"></script>
+        <script>
+            (function() {
+                const canvas = document.getElementById('lusionSubpageCanvas');
+                if (!canvas || typeof THREE === 'undefined') return;
+
+                const isDarkInit = document.documentElement.getAttribute('data-theme') === 'dark';
+                const initBgHex = isDarkInit ? 0x0e1013 : 0xf8fafd;
+
+                const scene = new THREE.Scene();
+                scene.background = new THREE.Color(initBgHex);
+                scene.fog = new THREE.FogExp2(initBgHex, 0.015);
+
+                const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000);
+                camera.position.set(0, 0, 16);
+
+                const isMobile = window.innerWidth < 768;
+
+                const renderer = new THREE.WebGLRenderer({
+                    canvas: canvas,
+                    alpha: true,
+                    antialias: false,
+                    powerPreference: 'high-performance'
+                });
+                renderer.setClearColor(initBgHex, 1);
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.0));
+
+                const ambient = new THREE.AmbientLight(0xffffff, 2.4);
+                scene.add(ambient);
+
+                const bluePoint = new THREE.PointLight(0x0b57d0, 1.2, 40);
+                bluePoint.position.set(8, 8, 8);
+                scene.add(bluePoint);
+
+                const cyanPoint = new THREE.PointLight(0x4285f4, 1.0, 35);
+                cyanPoint.position.set(-8, -8, 6);
+                scene.add(cyanPoint);
+
+                const count = isMobile ? 120 : 250;
+                const geo = new THREE.BufferGeometry();
+                const pos = new Float32Array(count * 3);
+                for (let i = 0; i < count * 3; i += 3) {
+                    pos[i] = (Math.random() - 0.5) * 70;
+                    pos[i + 1] = (Math.random() - 0.5) * 70;
+                    pos[i + 2] = (Math.random() - 0.5) * 50;
+                }
+                geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+                const mat = new THREE.PointsMaterial({
+                    color: isDarkInit ? 0x64748b : 0x94a3b8,
+                    size: isMobile ? 0.16 : 0.12,
+                    transparent: true,
+                    opacity: 0.35
+                });
+                const points = new THREE.Points(geo, mat);
+                scene.add(points);
+
+                const crystalGroup = new THREE.Group();
+                scene.add(crystalGroup);
+                const crystalCount = isMobile ? 6 : 10;
+                const sharedCGeo = new THREE.OctahedronGeometry(0.35, 0);
+                const sharedCMat1 = new THREE.MeshLambertMaterial({
+                    color: 0x4285f4,
+                    wireframe: true,
+                    transparent: true,
+                    opacity: 0.35
+                });
+                const sharedCMat2 = new THREE.MeshLambertMaterial({
+                    color: 0x34a853,
+                    wireframe: true,
+                    transparent: true,
+                    opacity: 0.35
+                });
+
+                for (let i = 0; i < crystalCount; i++) {
+                    const cMesh = new THREE.Mesh(sharedCGeo, i % 2 === 0 ? sharedCMat1 : sharedCMat2);
+                    cMesh.position.set((Math.random() - 0.5) * 30, (Math.random() - 0.5) * 20, (Math.random() - 0.5) * 14);
+                    cMesh.scale.setScalar(0.7 + Math.random() * 0.6);
+                    crystalGroup.add(cMesh);
+                }
+
+                const subFlowPts = [];
+                const subFlowSegments = isMobile ? 50 : 90;
+                for (let i = 0; i < subFlowSegments; i++) {
+                    const t = i / (subFlowSegments - 1);
+                    subFlowPts.push(new THREE.Vector3(
+                        Math.sin(t * Math.PI * 3.0) * 12 + Math.cos(t * Math.PI * 1.0) * 5,
+                        (t - 0.5) * 50,
+                        Math.cos(t * Math.PI * 2.5) * 8 + Math.sin(t * Math.PI * 0.8) * 4
+                    ));
+                }
+                const subFlowCurve = new THREE.CatmullRomCurve3(subFlowPts);
+                const subFlowGeo = new THREE.TubeGeometry(subFlowCurve, isMobile ? 60 : 90, 0.035, 4, false);
+                const subFlowMat = new THREE.MeshBasicMaterial({
+                    color: 0x60a5fa,
+                    transparent: true,
+                    opacity: 0.45
+                });
+                const subFlowMesh = new THREE.Mesh(subFlowGeo, subFlowMat);
+                scene.add(subFlowMesh);
+
+                window.addEventListener('hayat-theme-change', function (e) {
+                    const isDark = e.detail && e.detail.theme === 'dark';
+                    const bgHex = isDark ? 0x0e1013 : 0xf8fafd;
+                    scene.background.setHex(bgHex);
+                    scene.fog.color.setHex(bgHex);
+                    renderer.setClearColor(bgHex, 1);
+                    mat.color.setHex(isDark ? 0x64748b : 0x94a3b8);
+                });
+
+                let mouseX = 0, mouseY = 0;
+                window.addEventListener('mousemove', (e) => {
+                    mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+                    mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+                }, { passive: true });
+
+                window.addEventListener('touchmove', (e) => {
+                    if (e.touches && e.touches[0]) {
+                        mouseX = (e.touches[0].clientX / window.innerWidth) * 2 - 1;
+                        mouseY = -(e.touches[0].clientY / window.innerHeight) * 2 + 1;
+                    }
+                }, { passive: true });
+
+                function onSubpageResize() {
+                    const mobile = window.innerWidth < 768;
+                    camera.fov = mobile ? 65 : 55;
+                    camera.position.z = mobile ? 22 : 16;
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.0));
+                    cachedSubMaxScroll = Math.max(1, (document.documentElement.scrollHeight || 1200) - window.innerHeight);
+                }
+
+                let cachedSubMaxScroll = 1200;
+                window.addEventListener('resize', onSubpageResize, { passive: true });
+                onSubpageResize();
+
+                const clock = new THREE.Clock();
+                function anim() {
+                    requestAnimationFrame(anim);
+                    if (document.hidden) return;
+                    
+                    const t = clock.getElapsedTime();
+                    camera.position.x += ((mouseX * 1.5) - camera.position.x) * 0.05;
+                    camera.position.y += ((-mouseY * 1.0) - camera.position.y) * 0.05;
+
+                    cyanPoint.position.x = Math.sin(t * 0.7) * 10 + mouseX * 3;
+                    cyanPoint.position.y = Math.cos(t * 0.5) * 8 - mouseY * 2;
+
+                    points.rotation.y = t * 0.015;
+                    crystalGroup.rotation.y = t * 0.02;
+                    crystalGroup.rotation.x = t * 0.01;
+
+                    const scrollY = window.appLenis ? window.appLenis.scroll : (window.scrollY || 0);
+                    const scrollRatio = scrollY / cachedSubMaxScroll;
+                    subFlowMesh.position.y = scrollRatio * 22 + Math.sin(t * 0.3) * 1.2;
+                    subFlowMesh.rotation.y = t * 0.05 + mouseX * 0.12;
+                    subFlowMesh.rotation.x = Math.sin(t * 0.2) * 0.06;
+
+                    renderer.render(scene, camera);
+                }
+                anim();
+            })();
+        </script>
+    }
+
     @await RenderSectionAsync("Scripts", required: false)
+
+    <!-- SPLINE 3D PRELOADER CONTROLLER -->
+    <script>
+        (function() {
+            const preloader = document.getElementById('splinePreloader');
+            if (!preloader) return;
+            const startTime = Date.now();
+            const minDisplayTime = 700;
+
+            function dismissLoader() {
+                const elapsed = Date.now() - startTime;
+                const remaining = Math.max(0, minDisplayTime - elapsed);
+                setTimeout(function() {
+                    preloader.classList.add('spline-preloader-hidden');
+                    setTimeout(function() {
+                        if (preloader.parentNode) {
+                            preloader.parentNode.removeChild(preloader);
+                        }
+                    }, 700);
+                }, remaining);
+            }
+
+            if (document.readyState === 'complete') {
+                dismissLoader();
+            } else {
+                window.addEventListener('load', dismissLoader);
+                setTimeout(dismissLoader, 1200);
+            }
+            // Her ihtimale karşı (ağ gecikmesi, harici CDN vb.) en geç 1.5 saniyede kesinlikle kaldır
+            setTimeout(dismissLoader, 1500);
+        })();
+    </script>
+
+    <!-- KURUMSAL CANLI ARAMA ÇUBUĞU (SEARCH CONTROLLER) -->
+    <script>
+        (function () {
+            const searchInput = document.getElementById('globalHeaderSearchInput');
+            const searchWrap = document.getElementById('globalHeaderSearchWrap');
+            const quickDrop = document.getElementById('globalSearchQuickDrop');
+            const clearBtn = document.getElementById('globalHeaderSearchClear');
+
+            if (searchInput && quickDrop) {
+                // Focus olunca aç
+                searchInput.addEventListener('focus', function () {
+                    quickDrop.style.display = 'block';
+                });
+
+                // Input değişimi
+                searchInput.addEventListener('input', function () {
+                    if (clearBtn) {
+                        clearBtn.style.display = this.value.trim().length > 0 ? 'inline-block' : 'none';
+                    }
+                    quickDrop.style.display = 'block';
+                });
+
+                // Temizleme butonu
+                if (clearBtn) {
+                    clearBtn.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        searchInput.value = '';
+                        clearBtn.style.display = 'none';
+                        searchInput.focus();
+                    });
+                }
+
+                // Dışarı tıklayınca kapat
+                document.addEventListener('click', function (e) {
+                    if (searchWrap && !searchWrap.contains(e.target)) {
+                        quickDrop.style.display = 'none';
+                    }
+                });
+
+                // Klavye Kısayolu (Cmd + K veya Ctrl + K)
+                document.addEventListener('keydown', function (e) {
+                    if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) {
+                        e.preventDefault();
+                        searchInput.focus();
+                        searchInput.select();
+                        quickDrop.style.display = 'block';
+                    }
+                    if (e.key === 'Escape' && document.activeElement === searchInput) {
+                        quickDrop.style.display = 'none';
+                        searchInput.blur();
+                    }
+                });
+            }
+        })();
+    </script>
+
+    <!-- HAYAT İŞLERİ GLOBAL ÇOKLU DİL (I18N) MOTORU -->
+    <script src="~/js/hayat-i18n.js" asp-append-version="true"></script>
 </body>
 </html>

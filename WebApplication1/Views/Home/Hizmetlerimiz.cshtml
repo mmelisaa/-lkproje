@@ -1,209 +1,1092 @@
 @{
-    ViewData["Title"] = "Hizmetlerimiz";
+    ViewData["Title"] = "Faaliyet Alanlarımız & Hizmetlerimiz";
 }
 
-<!-- Üst Başlık / Hero Alanı - Canlı Canvas Animasyonlu -->
-<section class="hero-banner-wrapper text-white py-5 position-relative overflow-hidden" id="hizmetHeroBanner" style="background: #050c1a; min-height: 400px; display: flex; align-items: center; margin-bottom: 5rem;">
-    <!-- Canvas Animasyonu -->
-    <canvas id="hizmetCanvas" class="position-absolute w-100 h-100" style="top:0;left:0;z-index:0;"></canvas>
+<!-- ========================================== -->
+<!-- 1. ÜST HERO & CANLI 3D TEKNOLOJİ ANITI    -->
+<!-- ========================================== -->
+<section class="py-5 position-relative overflow-hidden" style="background: transparent; min-height: 480px; display: flex; align-items: center;">
+    <div class="container position-relative py-4" style="z-index: 2;">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7 text-start">
+                <span class="badge px-4 py-2 rounded-pill fw-bold mb-3 shadow-sm text-uppercase tracking-wider d-inline-flex align-items-center gap-2" style="background: rgba(11, 87, 208, 0.08); color: #0b57d0; border: 1px solid rgba(11, 87, 208, 0.2);">
+                    <span class="ref-pulse-dot"></span>
+                    <i class="bi bi-cpu-fill"></i> Uçtan Uca Dijital Mühendislik
+                </span>
+                <h1 class="display-4 fw-bold mb-3" style="color: #1f1f1f; letter-spacing: -1.4px; line-height: 1.15;">
+                    Geleceğin Dijital Sistemlerini <span style="background: linear-gradient(135deg, #0b57d0 0%, #0284c7 50%, #4f46e5 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Bugünden İnşa Ediyoruz</span>
+                </h1>
+                <p class="lead fs-5 mb-4" style="color: #444746; max-width: 640px; line-height: 1.8;">
+                    Özel yazılımdan kurumsal web mimarilerine, e-ticaret altyapılarından yüksek güvenlikli sunucu sistemlerine kadar işletmenizin ihtiyaç duyduğu tüm dijital teknolojileri üretiyoruz.
+                </p>
+                <div class="d-flex flex-wrap gap-3 align-items-center">
+                    <a asp-controller="Home" asp-action="TeklifAl" class="btn btn-primary rounded-pill px-4 py-3 fw-bold d-inline-flex align-items-center gap-2 shadow-sm" style="background-color: #0b57d0; border: none;">
+                        <span>Projeniz İçin Teklif Alın</span>
+                        <i class="bi bi-arrow-up-right"></i>
+                    </a>
+                    <a href="tel:+905010146623" class="btn btn-outline-secondary rounded-pill px-4 py-3 fw-semibold d-inline-flex align-items-center gap-2" style="border-color: rgba(0,0,0,0.15); color: #1f1f1f; background: rgba(255,255,255,0.7);">
+                        <i class="bi bi-telephone-fill text-primary"></i>
+                        <span>0501 014 6623</span>
+                    </a>
+                </div>
+            </div>
 
-    <!-- Gradient Perde -->
-    <div class="position-absolute w-100 h-100" style="top:0;left:0;z-index:1;background:linear-gradient(135deg,rgba(5,12,26,0.70) 0%,rgba(10,22,55,0.60) 50%,rgba(5,12,26,0.70) 100%);"></div>
-
-    <div class="container position-relative text-center py-5" style="z-index: 2;">
-        <div class="col-lg-8 mx-auto">
-            <span class="badge bg-white bg-opacity-10 text-info border border-info border-opacity-25 px-4 py-2 rounded-pill fw-bold mb-3 shadow-sm">
-                <i class="bi bi-grid-1x2 me-2"></i> UÇTAN UCA TEKNOLOJİ
-            </span>
-            <h1 class="display-4 fw-bold text-white mb-3">Faaliyet Alanlarımız & Hizmetlerimiz</h1>
-            <p class="lead text-light text-opacity-75 fs-5">Donanımdan özel yazılıma, kurumsal web tasarımdan e-ticaret sistemlerine kadar işletmenizin ihtiyaç duyduğu tüm dijital ve fiziksel altyapıyı tek çatı altında sunuyoruz.</p>
+            <!-- Sağ Kolon: Canlı İnteraktif 3D Hizmet Küresi & Kristal Prizma -->
+            <div class="col-lg-5">
+                <div class="position-relative d-flex justify-content-center align-items-center" style="min-height: 380px;">
+                    <!-- 3D WebGL Canvas (Kutudan Çıkarılmış, Arka Planla Bütünleşik) -->
+                    <div class="position-relative w-100" style="height: 380px; background: transparent; border: none; box-shadow: none;">
+                        <canvas id="hizmetlerHeroCanvas" style="width: 100%; height: 100%; display: block; background: transparent;"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<div class="container my-5">
+<!-- ========================================== -->
+<!-- 2. KAPSAMLI HİZMET EKOSİSTEMİ (Google One Bento Showcase) -->
+<!-- ========================================== -->
+<div class="container my-5" style="position: relative; z-index: 2;">
     
-    <!-- 1. Kategori: Donanım ve Sunucu Çözümleri -->
-    <div class="row align-items-center mb-5 pb-5 border-bottom border-light">
-        <div class="col-lg-6 mb-4 mb-lg-0">
-            <div class="p-5 rounded-4 shadow-sm bg-white border border-light position-relative overflow-hidden">
-                <div class="position-absolute top-0 end-0 p-4 text-primary opacity-10 fs-1">
-                    <i class="bi bi-hdd-rack"></i>
+    <div class="text-center mb-5 pb-2">
+        <span class="badge px-3 py-1.5 rounded-pill fw-bold text-uppercase mb-2 shadow-sm d-inline-flex align-items-center gap-1.5" style="background: rgba(11, 87, 208, 0.08); color: #0b57d0; border: 1px solid rgba(11, 87, 208, 0.2); font-size: 0.74rem;">
+            <i class="bi bi-stars"></i> Kapsamlı Hizmet Ekosistemi
+        </span>
+        <h2 class="display-6 fw-bold" style="color: #1f1f1f; letter-spacing: -0.8px;">İşletmenizi Büyüten Uçtan Uca Çözümler</h2>
+        <p class="text-muted mx-auto mb-0" style="max-width: 680px; font-size: 0.96rem; line-height: 1.65;">
+            Yazılım çekirdeğinden arayüz tasarımına, güvenli e-ticaret altyapılarından 7/24 kesintisiz desteğe kadar işletmenizin tüm dijital ihtiyaçları tek çatı altında.
+        </p>
+        <div class="mx-auto mt-3" style="width: 60px; height: 3px; background: linear-gradient(90deg, #4285f4, #8ab4f8); border-radius: 99px;"></div>
+    </div>
+
+    <!-- 1. Kategori Çifti: Özel Yazılım & Modern Teknoloji Mimarisi (Google One Blue & Multi) -->
+    <div class="row align-items-stretch mb-4 g-3 g-lg-4">
+        <!-- 1. Kart: Özel Yazılım & Web Geliştirme (Google One Blue Bento) -->
+        <div class="col-lg-6">
+            <div class="lusion-work-card g1-bento-service-card h-100 p-4 position-relative overflow-hidden">
+                <div class="g1-bento-top-stripe stripe-blue"></div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="g1-bento-tag tag-blue">
+                        <i class="bi bi-code-slash me-1"></i> Core Software
+                    </span>
+                    <span class="g1-bento-metric-pill">%99.9 Uptime</span>
                 </div>
-                <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-bold mb-3">FİZİKSEL ALTYAPI</span>
-                <h3 class="fw-bold text-dark mb-3">Donanım & Sunucu Çözümleri</h3>
-                <p class="text-muted mb-4">
-                    İşletmenizin kesintisiz çalışması için gereken en dayanıklı ve yüksek performanslı donanım bileşenlerini tedarik ediyor, kurumsal sunucu ve ağ altyapılarınızı güvenle kuruyoruz.
+                <h4 class="fw-bold mb-1 g1-bento-title">Özel Yazılım &amp; Web Geliştirme</h4>
+                <div class="g1-bento-subtitle mb-2.5">ASP.NET Core &bull; Restful Web API &bull; SQL Server</div>
+                <p class="g1-bento-desc mb-3">
+                    Kalıp çözümlerle sınırlı kalmayın. İş süreçlerinizi dijitalleştiren, operasyonel verimliliği artıran ve tamamen firmanıza özel mimaride inşa edilen yüksek ölçekli web uygulamaları geliştiriyoruz.
                 </p>
-                <ul class="list-unstyled text-muted small g-2 d-flex flex-column gap-2">
-                    <li><i class="bi bi-check-circle-fill text-primary me-2"></i> Kurumsal Sunucu Kurulumu ve Yönetimi</li>
-                    <li><i class="bi bi-check-circle-fill text-primary me-2"></i> Güvenli Ağ (Network) ve Altyapı Tedariği</li>
-                    <li><i class="bi bi-check-circle-fill text-primary me-2"></i> Kesintisiz Teknik Destek ve Bakım</li>
-                </ul>
+                <div class="d-flex flex-column gap-2 mb-3 small g1-bento-list">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-check-circle-fill text-primary"></i>
+                        <span>Modern ASP.NET Core &amp; C# Kurumsal Mimarileri</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-check-circle-fill text-primary"></i>
+                        <span>Yüksek Güvenlikli Restful Web API Entegrasyonları</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-check-circle-fill text-primary"></i>
+                        <span>Mikroservis ve SQL Server Veri Tabanı Optimizasyonu</span>
+                    </div>
+                </div>
+                <div class="g1-bento-meter-wrap mt-auto pt-3 border-top border-light-subtle">
+                    <div class="d-flex justify-content-between small mb-1.5 g1-bento-meter-text">
+                        <span>Veri İşleme ve Yanıt Süresi</span>
+                        <span class="fw-bold">&lt; 120ms (Ultra Hızlı)</span>
+                    </div>
+                    <div class="g1-bento-meter-track">
+                        <div class="g1-bento-meter-bar fill-blue" style="width: 95%;"></div>
+                    </div>
+                    <div class="mt-3">
+                        <a asp-controller="Home" asp-action="TeklifAl" class="btn btn-outline-primary rounded-pill px-3.5 py-1.5 small fw-semibold g1-bento-action-btn">
+                            Bu Alanda Teklif Alın &rarr;
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <!-- 2. Kart: Modern Teknoloji Yığını (Google One Multi-Accent Bento) -->
         <div class="col-lg-6">
-            <div class="p-5 rounded-4 shadow-sm text-white" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);">
-                <h4 class="fw-bold mb-3">Neden Donanım Altyapısı?</h4>
-                <p class="text-light opacity-85 mb-4 small">
-                    Yazılımınız ne kadar iyi olursa olsun, üzerinde çalıştığı fiziksel altyapı o kadar güçlü olmalıdır. Hayat İşleri olarak sistemlerinizin darboğaza girmesini önleyen endüstriyel standartlarda donanım çözümleri üretiyoruz.
+            <div class="lusion-work-card g1-bento-service-card g1-bento-featured h-100 p-4 position-relative overflow-hidden">
+                <div class="g1-bento-top-stripe stripe-multi"></div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="g1-bento-tag tag-purple">
+                        <i class="bi bi-cpu-fill me-1"></i> Tech Stack
+                    </span>
+                    <span class="g1-bento-metric-pill badge-gold">Cloud Native</span>
+                </div>
+                <h4 class="fw-bold mb-1 g1-bento-title">Modern Teknoloji Yığını</h4>
+                <div class="g1-bento-subtitle mb-2.5">Docker Konteyner &bull; Bulut Mimarisi &bull; Kurumsal SLA</div>
+                <p class="g1-bento-desc mb-3">
+                    Sadece bugün değil, gelecekte de kusursuz çalışacak sürdürülebilir kod standartları, Docker konteynerizasyon ve test edilmiş kurumsal servis mimarileri sunuyoruz.
                 </p>
-                <div class="d-flex gap-4">
-                    <div>
-                        <h4 class="fw-bold text-white mb-1">%100</h4>
-                        <span class="text-muted small text-light opacity-75">Güvenilirlik</span>
+                <!-- 3'lü Bento Metrik Kutuları -->
+                <div class="row g-2 mb-3">
+                    <div class="col-4">
+                        <div class="g1-bento-stat-box text-center p-2.5 rounded-3">
+                            <div class="h5 fw-bold mb-0 text-primary">60 FPS</div>
+                            <small class="text-muted" style="font-size: 0.72rem;">Akıcı Arayüz</small>
+                        </div>
                     </div>
-                    <div class="border-start border-secondary ps-4">
-                        <h4 class="fw-bold text-white mb-1">Kesintisiz</h4>
-                        <span class="text-muted small text-light opacity-75">Çalışma Süresi</span>
+                    <div class="col-4">
+                        <div class="g1-bento-stat-box text-center p-2.5 rounded-3">
+                            <div class="h5 fw-bold mb-0 text-success">&infin; Ölçek</div>
+                            <small class="text-muted" style="font-size: 0.72rem;">Modüler Mimari</small>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="g1-bento-stat-box text-center p-2.5 rounded-3">
+                            <div class="h5 fw-bold mb-0 text-warning">7/24</div>
+                            <small class="text-muted" style="font-size: 0.72rem;">Canlı İzleme</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="g1-bento-meter-wrap mt-auto pt-3 border-top border-light-subtle">
+                    <div class="d-flex justify-content-between small mb-1.5 g1-bento-meter-text">
+                        <span>Sistem Kararlılığı &amp; Güvenlik</span>
+                        <span class="fw-bold">%100 Kurumsal Güvence</span>
+                    </div>
+                    <div class="g1-bento-meter-track">
+                        <div class="g1-bento-meter-bar fill-multi" style="width: 100%;"></div>
+                    </div>
+                    <div class="mt-3">
+                        <a asp-controller="Home" asp-action="TeklifAl" class="btn btn-outline-primary rounded-pill px-3.5 py-1.5 small fw-semibold g1-bento-action-btn">
+                            Altyapı Danışmanlığı İsteyin &rarr;
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 2. Kategori: Yazılım ve Web Geliştirme -->
-    <div class="row align-items-center mb-5 pb-5 border-bottom border-light flex-lg-row-reverse">
-        <div class="col-lg-6 mb-4 mb-lg-0">
-            <div class="p-5 rounded-4 shadow-sm bg-white border border-light position-relative overflow-hidden">
-                <div class="position-absolute top-0 end-0 p-4 text-primary opacity-10 fs-1">
-                    <i class="bi bi-code-slash"></i>
+    <!-- 2. Kategori Çifti: UI/UX Tasarım & Performans (Google One Purple & Emerald) -->
+    <div class="row align-items-stretch mb-4 g-3 g-lg-4">
+        <!-- 3. Kart: UI/UX Tasarım & Dijital Deneyim (Google One Creative Purple Bento) -->
+        <div class="col-lg-6">
+            <div class="lusion-work-card g1-bento-service-card h-100 p-4 position-relative overflow-hidden">
+                <div class="g1-bento-top-stripe stripe-purple"></div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="g1-bento-tag tag-purple">
+                        <i class="bi bi-palette-fill me-1"></i> Creative Design
+                    </span>
+                    <span class="g1-bento-metric-pill">Pixel Perfect</span>
                 </div>
-                <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-bold mb-3">DİJİTAL ÇÖZÜMLER</span>
-                <h3 class="fw-bold text-dark mb-3">Özel Yazılım & Web Geliştirme</h3>
-                <p class="text-muted mb-4">
-                    Hazır kalıp programlarla vakit kaybetmeyin. İş süreçlerinizi hızlandıran, tamamen sizin ihtiyaçlarınıza göre şekillenen ölçeklenebilir web ve masaüstü yazılımlar geliştiriyoruz.
+                <h4 class="fw-bold mb-1 g1-bento-title">UI/UX Tasarım &amp; Dijital Deneyim</h4>
+                <div class="g1-bento-subtitle mb-2.5" style="color: #7c3aed;">Responsive &bull; Frosted Glass &bull; Yüksek Dönüşüm</div>
+                <p class="g1-bento-desc mb-3">
+                    Kullanıcıların sitenizde geçirdiği her saniyeyi etkileyici kılan, modern tipografi, akıcı mikro etkileşimler ve ödül standartlarında estetik arayüzler tasarlıyoruz.
                 </p>
-                <ul class="list-unstyled text-muted small g-2 d-flex flex-column gap-2">
-                    <li><i class="bi bi-check-circle-fill text-primary me-2"></i> Tamamen İhtiyaca Özel Yazılım Mimarileri</li>
-                    <li><i class="bi bi-check-circle-fill text-primary me-2"></i> Modern, Hızlı ve Mobil Uyumlu Web Tasarımlar</li>
-                    <li><i class="bi bi-check-circle-fill text-primary me-2"></i> Güvenli API ve Entegrasyon Çözümleri</li>
-                </ul>
+                <div class="d-flex flex-column gap-2 mb-3 small g1-bento-list">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-check-circle-fill" style="color: #7c3aed;"></i>
+                        <span>Mobil ve Tüm Ekranlarla Kusursuz Responsive Uyum</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-check-circle-fill" style="color: #7c3aed;"></i>
+                        <span>Modern Lusion &amp; Google One Estetiğinde Temiz Arayüzler</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-check-circle-fill" style="color: #7c3aed;"></i>
+                        <span>Kullanıcı Davranışı Odaklı UX ve Yüksek Dönüşüm Mimarisi</span>
+                    </div>
+                </div>
+                <div class="g1-bento-meter-wrap mt-auto pt-3 border-top border-light-subtle">
+                    <div class="d-flex justify-content-between small mb-1.5 g1-bento-meter-text">
+                        <span>Kullanıcı Deneyimi &amp; Memnuniyet</span>
+                        <span class="fw-bold">%99.6 Olumlu Deneyim</span>
+                    </div>
+                    <div class="g1-bento-meter-track">
+                        <div class="g1-bento-meter-bar fill-purple" style="width: 98%;"></div>
+                    </div>
+                    <div class="mt-3">
+                        <a asp-controller="Home" asp-action="TeklifAl" class="btn rounded-pill px-3.5 py-1.5 small fw-semibold g1-bento-action-btn" style="border: 1px solid #7c3aed; color: #7c3aed; background: transparent;">
+                            Arayüz Teklifi Alın &rarr;
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <!-- 4. Kart: Estetik ve Performansın Uyumu (Google One Emerald Bento) -->
         <div class="col-lg-6">
-            <div class="p-5 rounded-4 shadow-sm text-white" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);">
-                <h4 class="fw-bold mb-3">Modern Teknoloji Yığını</h4>
-                <p class="text-light opacity-85 mb-4 small">
-                    En güncel yazılım dilleri ve çerçeveleri (ASP.NET Core MVC, modern web standartları) kullanarak sızdırmaz, performanslı ve geleceğe yatırım yapan projeler inşa ediyoruz.
+            <div class="lusion-work-card g1-bento-service-card h-100 p-4 position-relative overflow-hidden">
+                <div class="g1-bento-top-stripe stripe-emerald"></div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="g1-bento-tag tag-emerald">
+                        <i class="bi bi-speedometer2 me-1"></i> High Performance
+                    </span>
+                    <span class="g1-bento-metric-pill">100/100 Vitals</span>
+                </div>
+                <h4 class="fw-bold mb-1 g1-bento-title">Estetik ve Performansın Uyumu</h4>
+                <div class="g1-bento-subtitle mb-2.5" style="color: #059669;">Core Web Vitals &bull; 1s Altı Açılış &bull; SEO Uyum</div>
+                <p class="g1-bento-desc mb-3">
+                    Tasarım sadece nasıl göründüğü değil, nasıl çalıştığıdır. Sayfa açılış hızlarını 1 saniyenin altına indiren optimize edilmiş stil ve asset mimarisi kuruyoruz.
                 </p>
-                <div class="d-flex gap-4">
-                    <div>
-                        <h4 class="fw-bold text-white mb-1">Ölçeklenebilir</h4>
-                        <span class="text-muted small text-light opacity-75">Mimari Yapı</span>
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                        <div class="g1-bento-stat-box text-center p-2.5 rounded-3">
+                            <div class="h5 fw-bold mb-0 text-success">100/100</div>
+                            <small class="text-muted" style="font-size: 0.72rem;">Google Core Web Vitals</small>
+                        </div>
                     </div>
-                    <div class="border-start border-secondary ps-4">
-                        <h4 class="fw-bold text-white mb-1">Hızlı & Güvenli</h4>
-                        <span class="text-muted small text-light opacity-75">Kod Tabanı</span>
+                    <div class="col-6">
+                        <div class="g1-bento-stat-box text-center p-2.5 rounded-3">
+                            <div class="h5 fw-bold mb-0 text-primary">%100</div>
+                            <small class="text-muted" style="font-size: 0.72rem;">Mobil Uyumluluk Skoru</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="g1-bento-meter-wrap mt-auto pt-3 border-top border-light-subtle">
+                    <div class="d-flex justify-content-between small mb-1.5 g1-bento-meter-text">
+                        <span>Google Lighthouse Performans Puanı</span>
+                        <span class="fw-bold">99 / 100</span>
+                    </div>
+                    <div class="g1-bento-meter-track">
+                        <div class="g1-bento-meter-bar fill-emerald" style="width: 99%;"></div>
+                    </div>
+                    <div class="mt-3">
+                        <a asp-controller="Home" asp-action="TeklifAl" class="btn btn-outline-success rounded-pill px-3.5 py-1.5 small fw-semibold g1-bento-action-btn">
+                            Performans Raporu İsteyin &rarr;
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 3. Kategori: E-Ticaret ve Dijital Satış -->
-    <div class="row align-items-center">
-        <div class="col-lg-6 mb-4 mb-lg-0">
-            <div class="p-5 rounded-4 shadow-sm bg-white border border-light position-relative overflow-hidden">
-                <div class="position-absolute top-0 end-0 p-4 text-primary opacity-10 fs-1">
-                    <i class="bi bi-cart-check"></i>
+    <!-- 3. Kategori Çifti: E-Ticaret & Satış Güvenliği (Google One Green & Gold) -->
+    <div class="row align-items-stretch mb-4 g-3 g-lg-4">
+        <!-- 5. Kart: E-Ticaret & Sanal POS Sistemleri (Google One Green Bento) -->
+        <div class="col-lg-6">
+            <div class="lusion-work-card g1-bento-service-card h-100 p-4 position-relative overflow-hidden">
+                <div class="g1-bento-top-stripe stripe-green"></div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="g1-bento-tag tag-emerald">
+                        <i class="bi bi-cart-check-fill me-1"></i> E-Commerce Engine
+                    </span>
+                    <span class="g1-bento-metric-pill">3D Secure 2.0</span>
                 </div>
-                <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-bold mb-3">E-TİCARET</span>
-                <h3 class="fw-bold text-dark mb-3">E-Ticaret Sistemleri</h3>
-                <p class="text-muted mb-4">
-                    Ürünlerinizi dijital dünyada güvenle satın. Güçlü ödeme altyapıları, kullanıcı dostu yönetim panelleri ve satış odaklı arayüzlerle e-ticarette bir adım önde olun.
+                <h4 class="fw-bold mb-1 g1-bento-title">E-Ticaret &amp; Sanal POS Sistemleri</h4>
+                <div class="g1-bento-subtitle mb-2.5" style="color: #059669;">Banka Sanal POS &bull; B2B / B2C &bull; Otomatik Kargo</div>
+                <p class="g1-bento-desc mb-3">
+                    Ürünlerinizi dijital dünyada güvenle satın. Güçlü ödeme altyapıları, kullanıcı dostu ürün ve sipariş yönetim panelleri ve satış odaklı arayüzlerle e-ticarette rakiplerinizin önüne geçin.
                 </p>
-                <ul class="list-unstyled text-muted small g-2 d-flex flex-column gap-2">
-                    <li><i class="bi bi-check-circle-fill text-primary me-2"></i> Güvenli Sanal Pos Entegrasyonları</li>
-                    <li><i class="bi bi-check-circle-fill text-primary me-2"></i> Kolay Yönetilebilir Ürün ve Stok Paneli</li>
-                    <li><i class="bi bi-check-circle-fill text-primary me-2"></i> SEO Uyumlu ve Satış Odaklı Yapı</li>
-                </ul>
+                <div class="d-flex flex-column gap-2 mb-3 small g1-bento-list">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-check-circle-fill text-success"></i>
+                        <span>Banka Sanal POS ve 3D Secure Güvenli Ödeme Altyapısı</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-check-circle-fill text-success"></i>
+                        <span>Otomatik Kargo, e-Fatura ve <a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" class="text-success text-decoration-underline fw-semibold" title="Ön Muhasebe Programı ve B2B Cari Yönetimi | HiCariTakip">HiCariTakip</a> Stok Senkronizasyonu</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-check-circle-fill text-success"></i>
+                        <span>Çoklu Satıcı (Marketplace) ve B2B/B2C Modelleri</span>
+                    </div>
+                </div>
+                <div class="g1-bento-meter-wrap mt-auto pt-3 border-top border-light-subtle">
+                    <div class="d-flex justify-content-between small mb-1.5 g1-bento-meter-text">
+                        <span>Ödeme İşlem Başarı Oranı</span>
+                        <span class="fw-bold">%99.8 Kesintisiz Ciro</span>
+                    </div>
+                    <div class="g1-bento-meter-track">
+                        <div class="g1-bento-meter-bar fill-emerald" style="width: 98%;"></div>
+                    </div>
+                    <div class="mt-3">
+                        <a asp-controller="Home" asp-action="TeklifAl" class="btn btn-outline-success rounded-pill px-3.5 py-1.5 small fw-semibold g1-bento-action-btn">
+                            E-Ticaret Projenizi Başlatın &rarr;
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <!-- 6. Kart: Güvenli ve Kesintisiz Satış (Google One Gold Bento) -->
         <div class="col-lg-6">
-            <div class="p-5 rounded-4 shadow-sm text-white" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);">
-                <h4 class="fw-bold mb-3">Satış Odaklı Deneyim</h4>
-                <p class="text-light opacity-85 mb-4 small">
-                    Müşterilerinizin alışveriş sepetinden ödeme adımına kadar geçirdiği tüm süreçleri pürüzsüzleştirerek dönüşüm oranlarınızı maksimum seviyeye çıkarıyoruz.
+            <div class="lusion-work-card g1-bento-service-card h-100 p-4 position-relative overflow-hidden">
+                <div class="g1-bento-top-stripe stripe-gold"></div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="g1-bento-tag tag-gold">
+                        <i class="bi bi-shield-lock-fill me-1"></i> Conversion Rate
+                    </span>
+                    <span class="g1-bento-metric-pill badge-gold">Maksimum Ciro</span>
+                </div>
+                <h4 class="fw-bold mb-1 g1-bento-title">Güvenli ve Kesintisiz Satış</h4>
+                <div class="g1-bento-subtitle mb-2.5" style="color: #b45309;">Düşük Sepet Terki &bull; <a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" class="text-decoration-underline" style="color: inherit;" title="Ön Muhasebe Programı ve B2B Cari Yönetimi | HiCariTakip">HiCariTakip ERP Entegre</a> &bull; 7/24 Akış</div>
+                <p class="g1-bento-desc mb-3">
+                    Müşterilerinizin sepete ekleme adımından ödeme onayına kadar geçirdiği tüm akışı pürüzsüzleştirerek sepet terk oranlarını düşürüyor, dönüşüm oranlarınızı maksimize ediyoruz.
                 </p>
-                <div class="d-flex gap-4">
-                    <div>
-                        <h4 class="fw-bold text-white mb-1">7/24</h4>
-                        <span class="text-muted small text-light opacity-75">Aktif Satış Mağazası</span>
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                        <div class="g1-bento-stat-box text-center p-2.5 rounded-3">
+                            <div class="h5 fw-bold mb-0 text-success">%100</div>
+                            <small class="text-muted" style="font-size: 0.72rem;">Ödeme Güvenliği</small>
+                        </div>
                     </div>
-                    <div class="border-start border-secondary ps-4">
-                        <h4 class="fw-bold text-white mb-1">%100</h4>
-                        <span class="text-muted small text-light opacity-75">Ödeme Güvenliği</span>
+                    <div class="col-6">
+                        <div class="g1-bento-stat-box text-center p-2.5 rounded-3">
+                            <div class="h5 fw-bold mb-0 text-warning">7/24</div>
+                            <small class="text-muted" style="font-size: 0.72rem;">Kesintisiz Sipariş Akışı</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="g1-bento-meter-wrap mt-auto pt-3 border-top border-light-subtle">
+                    <div class="d-flex justify-content-between small mb-1.5 g1-bento-meter-text">
+                        <span>Sepet Dönüşüm Artışı</span>
+                        <span class="fw-bold">+42% Ortalama Büyüme</span>
+                    </div>
+                    <div class="g1-bento-meter-track">
+                        <div class="g1-bento-meter-bar fill-gold" style="width: 94%;"></div>
+                    </div>
+                    <div class="mt-3">
+                        <a asp-controller="Home" asp-action="TeklifAl" class="btn btn-outline-warning rounded-pill px-3.5 py-1.5 small fw-semibold g1-bento-action-btn" style="border-color: #d97706; color: #b45309;">
+                            Dönüşüm Danışmanlığı Alın &rarr;
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
-@section Scripts {
-<script>
-(function() {
-    const canvas = document.getElementById('hizmetCanvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const banner = document.getElementById('hizmetHeroBanner');
+<style>
+/* ========================================================
+   GOOGLE ONE BENTO SHOWCASE STYLES (one.google.com/about inspired)
+   ======================================================== */
+.g1-bento-service-card {
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.g1-bento-service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 44px rgba(11, 87, 208, 0.08);
+    border-color: rgba(11, 87, 208, 0.28);
+}
+.g1-bento-featured {
+    background: linear-gradient(160deg, #ffffff 0%, #f8faff 60%, #fef9ee 100%);
+    border-color: rgba(11, 87, 208, 0.22);
+}
+.g1-bento-top-stripe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+}
+.stripe-blue { background: linear-gradient(90deg, #4285f4, #8ab4f8); }
+.stripe-multi { background: linear-gradient(90deg, #4285f4 0%, #9b72cb 35%, #d96570 70%, #fbbc04 100%); }
+.stripe-purple { background: linear-gradient(90deg, #7c3aed, #c084fc); }
+.stripe-emerald, .stripe-green { background: linear-gradient(90deg, #34a853, #81c995); }
+.stripe-gold { background: linear-gradient(90deg, #fbbc04, #f59e0b); }
 
-    function resize() {
-        canvas.width = banner.offsetWidth;
-        canvas.height = banner.offsetHeight;
-    }
-    resize();
-    window.addEventListener('resize', resize);
+.g1-bento-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.32rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+.g1-bento-tag.tag-blue { background: #e8f0fe; color: #0b57d0; border: 1px solid rgba(11, 87, 208, 0.22); }
+.g1-bento-tag.tag-purple { background: #f3e8ff; color: #6d28d9; border: 1px solid rgba(124, 58, 237, 0.22); }
+.g1-bento-tag.tag-emerald { background: #e6f4ea; color: #137333; border: 1px solid rgba(19, 115, 51, 0.22); }
+.g1-bento-tag.tag-gold { background: #fef3c7; color: #92400e; border: 1px solid rgba(217, 119, 6, 0.25); }
 
-    const PARTICLE_COUNT = 70;
-    const CONNECTION_DIST = 130;
-    const colors = ['#38bdf8', '#818cf8', '#c084fc', '#67e8f9'];
+.g1-bento-metric-pill {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.24rem 0.7rem;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #334155;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+}
+.g1-bento-metric-pill.badge-gold {
+    background: #fef9ee;
+    color: #b45309;
+    border-color: rgba(217, 119, 6, 0.2);
+}
 
-    const particles = Array.from({ length: PARTICLE_COUNT }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: (Math.random() - 0.5) * 0.6,
-        r: Math.random() * 2.5 + 1,
-        color: colors[Math.floor(Math.random() * colors.length)]
-    }));
+.g1-bento-title {
+    font-family: 'Google Sans', sans-serif;
+    font-size: 1.28rem;
+    color: #1f1f1f;
+    letter-spacing: -0.3px;
+}
+.g1-bento-subtitle {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #0b57d0;
+}
+.g1-bento-desc {
+    font-size: 0.88rem;
+    line-height: 1.68;
+    color: #444746;
+}
+.g1-bento-list {
+    color: #1e293b;
+    font-size: 0.86rem;
+}
+.g1-bento-stat-box {
+    background: #f8fafc;
+    border: 1px solid rgba(15, 23, 42, 0.06);
+}
+.g1-bento-meter-text {
+    color: #444746;
+    font-size: 0.76rem;
+}
+.g1-bento-meter-track {
+    width: 100%;
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.08);
+    overflow: hidden;
+}
+.g1-bento-meter-bar {
+    height: 100%;
+    border-radius: 999px;
+}
+.g1-bento-meter-bar.fill-blue { background: linear-gradient(90deg, #4285f4, #8ab4f8); }
+.g1-bento-meter-bar.fill-multi { background: linear-gradient(90deg, #4285f4, #9b72cb, #fbbc04); }
+.g1-bento-meter-bar.fill-purple { background: linear-gradient(90deg, #7c3aed, #c084fc); }
+.g1-bento-meter-bar.fill-emerald { background: linear-gradient(90deg, #34a853, #81c995); }
+.g1-bento-meter-bar.fill-gold { background: linear-gradient(90deg, #fbbc04, #f59e0b); }
 
-    function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < CONNECTION_DIST) {
-                    const alpha = 1 - dist / CONNECTION_DIST;
-                    ctx.beginPath();
-                    ctx.strokeStyle = `rgba(56,189,248,${alpha * 0.35})`;
-                    ctx.lineWidth = 0.8;
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.stroke();
-                }
+.g1-bento-action-btn {
+    font-size: 0.82rem;
+    transition: all 0.22s ease;
+}
+
+/* Koyu Mod Uyumlu Google One Bento */
+html[data-theme="dark"] .g1-bento-service-card {
+    background: #101522 !important;
+    background-image: linear-gradient(165deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5) !important;
+}
+html[data-theme="dark"] .g1-bento-service-card:hover {
+    border-color: rgba(138, 180, 248, 0.45) !important;
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.7), 0 0 24px rgba(66, 133, 244, 0.15) !important;
+}
+html[data-theme="dark"] .g1-bento-title {
+    color: #ffffff !important;
+}
+html[data-theme="dark"] .g1-bento-subtitle {
+    color: #93c5fd !important;
+}
+html[data-theme="dark"] .g1-bento-desc,
+html[data-theme="dark"] .g1-bento-meter-text {
+    color: #cbd5e1 !important;
+}
+html[data-theme="dark"] .g1-bento-list {
+    color: #f1f5f9 !important;
+}
+html[data-theme="dark"] .g1-bento-stat-box {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+html[data-theme="dark"] .g1-bento-meter-track {
+    background: rgba(255, 255, 255, 0.12) !important;
+}
+html[data-theme="dark"] .g1-bento-metric-pill {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #f1f5f9 !important;
+    border-color: rgba(255, 255, 255, 0.14) !important;
+}
+html[data-theme="dark"] .g1-bento-tag.tag-blue { background: rgba(66, 133, 244, 0.22) !important; color: #93c5fd !important; border-color: rgba(147, 197, 253, 0.35) !important; }
+html[data-theme="dark"] .g1-bento-tag.tag-purple { background: rgba(124, 58, 237, 0.22) !important; color: #c084fc !important; border-color: rgba(192, 132, 252, 0.35) !important; }
+html[data-theme="dark"] .g1-bento-tag.tag-emerald { background: rgba(52, 168, 83, 0.22) !important; color: #86efac !important; border-color: rgba(134, 239, 172, 0.35) !important; }
+html[data-theme="dark"] .g1-bento-tag.tag-gold { background: rgba(251, 188, 4, 0.2) !important; color: #fde047 !important; border-color: rgba(253, 224, 71, 0.35) !important; }
+</style>
+
+<!-- ========================================== -->
+<!-- 3. 4 AŞAMALI 3D PROJE MİMARİ SÜRECİMİZ    -->
+<!-- ========================================== -->
+<section class="py-5 position-relative overflow-hidden" style="background: transparent; z-index: 2;">
+    <div class="container py-4">
+        <div class="text-center mb-5 pb-2">
+            <span class="badge px-3 py-1 rounded-pill fw-bold text-uppercase mb-2 shadow-sm" style="background: rgba(11, 87, 208, 0.08); color: #0b57d0; border: 1px solid rgba(11, 87, 208, 0.18); font-size: 0.75rem;">
+                Mühendislik Standartlarımız
+            </span>
+            <h2 class="display-6 fw-bold" style="color: #1f1f1f; letter-spacing: -0.8px;">4 Aşamalı Proje Geliştirme Sürecimiz</h2>
+            <p class="text-muted mx-auto" style="max-width: 580px; font-size: 0.95rem;">Fikrinizin analizinden canlıya alınışına kadar şeffaf, test edilmiş ve yüksek performanslı adımlar.</p>
+            <div class="mx-auto mt-2" style="width: 60px; height: 3px; background: linear-gradient(90deg, #0b57d0, #4f46e5); border-radius: 99px;"></div>
+        </div>
+
+        <div class="row g-4">
+            <!-- Adım 1 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="lusion-work-card h-100 position-relative d-flex flex-column text-center" style="padding: 2.2rem 1.6rem; background: rgba(255,255,255,0.92); border: 1px solid rgba(11, 87, 208, 0.18); box-shadow: 0 8px 24px rgba(11, 87, 208, 0.04); border-radius: 1.4rem;">
+                    <div class="d-flex align-items-center justify-content-between mb-3 px-1">
+                        <span class="fw-black fs-2" style="color: #0b57d0; font-weight: 900; opacity: 0.9;">01</span>
+                        <div class="rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 42px; height: 42px; background: rgba(11, 87, 208, 0.08); color: #0b57d0; border: 1px solid rgba(11, 87, 208, 0.15);">
+                            <i class="bi bi-search fs-5"></i>
+                        </div>
+                    </div>
+                    <h6 class="fw-bold mb-2 text-center" style="color: #0f172a; font-size: 1rem; letter-spacing: -0.2px;">Keşif &amp; Sistem Mimarisi</h6>
+                    <p class="small mb-3 text-center px-1" style="line-height: 1.65; font-size: 0.84rem; color: #444746;">
+                        İş gereksinimlerinizi, hedef kitlenizi ve veritabanı akışlarını analiz eder, ölçeklenebilir yazılım mimarisini kurgularız.
+                    </p>
+                    <div class="mt-auto pt-3 border-top border-light-subtle small fw-semibold text-center text-primary" style="font-size: 0.8rem;">
+                        <i class="bi bi-check2-circle me-1"></i> Veritabanı &amp; Akış Şeması
+                    </div>
+                </div>
+            </div>
+
+            <!-- Adım 2 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="lusion-work-card h-100 position-relative d-flex flex-column text-center" style="padding: 2.2rem 1.6rem; background: rgba(255,255,255,0.92); border: 1px solid rgba(124, 58, 237, 0.18); box-shadow: 0 8px 24px rgba(124, 58, 237, 0.04); border-radius: 1.4rem;">
+                    <div class="d-flex align-items-center justify-content-between mb-3 px-1">
+                        <span class="fw-black fs-2" style="color: #7c3aed; font-weight: 900; opacity: 0.9;">02</span>
+                        <div class="rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 42px; height: 42px; background: rgba(124, 58, 237, 0.08); color: #7c3aed; border: 1px solid rgba(124, 58, 237, 0.15);">
+                            <i class="bi bi-palette fs-5"></i>
+                        </div>
+                    </div>
+                    <h6 class="fw-bold mb-2 text-center" style="color: #0f172a; font-size: 1rem; letter-spacing: -0.2px;">3D Prototip &amp; UI/UX</h6>
+                    <p class="small mb-3 text-center px-1" style="line-height: 1.65; font-size: 0.84rem; color: #444746;">
+                        Apple standardında açık renk frosted glass estetiğinde, 60 FPS akıcı ve kullanıcıyı büyüleyen arayüzler tasarlarız.
+                    </p>
+                    <div class="mt-auto pt-3 border-top border-light-subtle small fw-semibold text-center" style="color: #7c3aed; font-size: 0.8rem;">
+                        <i class="bi bi-check2-circle me-1"></i> İnteraktif Deneyim Testi
+                    </div>
+                </div>
+            </div>
+
+            <!-- Adım 3 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="lusion-work-card h-100 position-relative d-flex flex-column text-center" style="padding: 2.2rem 1.6rem; background: rgba(255,255,255,0.92); border: 1px solid rgba(16, 185, 129, 0.18); box-shadow: 0 8px 24px rgba(16, 185, 129, 0.04); border-radius: 1.4rem;">
+                    <div class="d-flex align-items-center justify-content-between mb-3 px-1">
+                        <span class="fw-black fs-2" style="color: #059669; font-weight: 900; opacity: 0.9;">03</span>
+                        <div class="rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 42px; height: 42px; background: rgba(16, 185, 129, 0.08); color: #059669; border: 1px solid rgba(16, 185, 129, 0.15);">
+                            <i class="bi bi-shield-lock fs-5"></i>
+                        </div>
+                    </div>
+                    <h6 class="fw-bold mb-2 text-center" style="color: #0f172a; font-size: 1rem; letter-spacing: -0.2px;">Kurumsal Kodlama &amp; Güvenlik</h6>
+                    <p class="small mb-3 text-center px-1" style="line-height: 1.65; font-size: 0.84rem; color: #444746;">
+                        ASP.NET Core 9, mikroservisler ve SQL Server ile banka düzeyinde güvenlikli, yüksek hızlı temiz kod üretiriz.
+                    </p>
+                    <div class="mt-auto pt-3 border-top border-light-subtle small fw-semibold text-center text-success" style="font-size: 0.8rem;">
+                        <i class="bi bi-check2-circle me-1"></i> Temiz Mimari &amp; API
+                    </div>
+                </div>
+            </div>
+
+            <!-- Adım 4 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="lusion-work-card h-100 position-relative d-flex flex-column text-center" style="padding: 2.2rem 1.6rem; background: rgba(255,255,255,0.92); border: 1px solid rgba(245, 158, 11, 0.18); box-shadow: 0 8px 24px rgba(245, 158, 11, 0.04); border-radius: 1.4rem;">
+                    <div class="d-flex align-items-center justify-content-between mb-3 px-1">
+                        <span class="fw-black fs-2" style="color: #d97706; font-weight: 900; opacity: 0.9;">04</span>
+                        <div class="rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 42px; height: 42px; background: rgba(245, 158, 11, 0.08); color: #d97706; border: 1px solid rgba(245, 158, 11, 0.15);">
+                            <i class="bi bi-rocket-takeoff fs-5"></i>
+                        </div>
+                    </div>
+                    <h6 class="fw-bold mb-2 text-center" style="color: #0f172a; font-size: 1rem; letter-spacing: -0.2px;">60 FPS Optimizasyon &amp; Canlı</h6>
+                    <p class="small mb-3 text-center px-1" style="line-height: 1.65; font-size: 0.84rem; color: #444746;">
+                        Core Web Vitals testleri, CDN ve Redis entegrasyonuyla projenizi sıfır gecikmeyle yayına alır, 7/24 izleriz.
+                    </p>
+                    <div class="mt-auto pt-3 border-top border-light-subtle small fw-semibold text-center text-warning" style="font-size: 0.8rem;">
+                        <i class="bi bi-check2-circle me-1"></i> 7/24 Canlı İzleme &amp; Destek
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========================================== -->
+<!-- 4. TEKNOLOJİ EKOSİSTEMİMİZ (3D Pill Badges) -->
+<!-- ========================================== -->
+<section class="py-5 position-relative overflow-hidden" style="background: transparent; z-index: 2;">
+    <div class="container py-2">
+        <div class="text-center mb-4 pb-2">
+            <span class="badge px-3 py-1 rounded-pill fw-bold text-uppercase mb-2 shadow-sm" style="background: rgba(11, 87, 208, 0.08); color: #0b57d0; border: 1px solid rgba(11, 87, 208, 0.18); font-size: 0.75rem;">
+                Altyapı Standartlarımız
+            </span>
+            <h2 class="display-6 fw-bold" style="color: #1f1f1f; letter-spacing: -0.8px;">Gelişmiş Teknoloji Ekosistemimiz</h2>
+            <p class="text-muted mx-auto" style="max-width: 580px; font-size: 0.95rem;">Endüstri standardı modern kütüphaneler, bulut araçları ve yüksek performanslı dillerle çalışıyoruz.</p>
+            <div class="mx-auto mt-2" style="width: 60px; height: 3px; background: linear-gradient(90deg, #0b57d0, #38bdf8); border-radius: 99px;"></div>
+        </div>
+    </div>
+
+    <!-- HiCari Tarzı Kesintisiz Sonsuz Akan Teknoloji Sliderı (Canlı Renkli & Apple Light Tasarım) -->
+    <div class="tech-slider">
+        <div class="tech-slide-track">
+            @{
+                var techStack = new[] {
+                    new { Name = "C# & .NET 9", Desc = "Kurumsal Backend & Güvenlik", Icon = "bi-filetype-cs", Color = "#0b57d0", Bg = "rgba(11, 87, 208, 0.10)" },
+                    new { Name = "Three.js & WebGL", Desc = "60 FPS Donanım Hızlandırma", Icon = "bi-box", Color = "#0284c7", Bg = "rgba(2, 132, 199, 0.10)" },
+                    new { Name = "GSAP & Lenis", Desc = "Milimetrik Akıcı Scroll", Icon = "bi-activity", Color = "#10b981", Bg = "rgba(16, 185, 129, 0.10)" },
+                    new { Name = "SQL Server 2022", Desc = "Yüksek Hızlı İlişkisel DB", Icon = "bi-database-fill", Color = "#7c3aed", Bg = "rgba(124, 58, 237, 0.10)" },
+                    new { Name = "Redis Cache", Desc = "Mikrosaniye Seviyesinde Hız", Icon = "bi-lightning-fill", Color = "#ef4444", Bg = "rgba(239, 68, 68, 0.10)" },
+                    new { Name = "Docker & CI/CD", Desc = "Konteyner ve DevOps", Icon = "bi-boxes", Color = "#0284c7", Bg = "rgba(2, 132, 199, 0.10)" },
+                    new { Name = "RESTful Web APIs", Desc = "Güvenli Servis Mimarisi", Icon = "bi-diagram-3-fill", Color = "#0b57d0", Bg = "rgba(11, 87, 208, 0.10)" },
+                    new { Name = "Sanal POS & 3D Secure", Desc = "Banka Entegrasyonu", Icon = "bi-credit-card-2-front-fill", Color = "#059669", Bg = "rgba(5, 150, 105, 0.10)" },
+                    new { Name = "Tailwind & CSS 3D", Desc = "Apple Frosted Glass Tasarım", Icon = "bi-brush-fill", Color = "#8b5cf6", Bg = "rgba(139, 92, 246, 0.10)" },
+                    new { Name = "Azure & Cloud Host", Desc = "%99.98 Uptime Garantisi", Icon = "bi-cloud-check-fill", Color = "#0284c7", Bg = "rgba(2, 132, 199, 0.10)" },
+                    new { Name = "TypeScript", Desc = "Tip Güvenli Dinamik Arayüz", Icon = "bi-code-square", Color = "#2563eb", Bg = "rgba(37, 99, 235, 0.10)" },
+                    new { Name = "Core Web Vitals", Desc = "100/100 Google Puanı", Icon = "bi-speedometer2", Color = "#10b981", Bg = "rgba(16, 185, 129, 0.10)" }
+                };
             }
-        }
-        for (const p of particles) {
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            ctx.fillStyle = p.color;
-            ctx.shadowBlur = 8;
-            ctx.shadowColor = p.color;
-            ctx.fill();
-            ctx.shadowBlur = 0;
-            p.x += p.vx;
-            p.y += p.vy;
-            if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-        }
-        requestAnimationFrame(draw);
+
+            @* 1. Set (Ön Kısım) *@
+            @foreach (var t in techStack)
+            {
+                <div class="tech-slide">
+                    <div class="tech-card-item">
+                        <div class="tech-icon-box" style="background: @t.Bg; color: @t.Color; border: 1px solid @(t.Color)33;">
+                            <i class="bi @t.Icon"></i>
+                        </div>
+                        <div class="tech-info">
+                            <div class="tech-name">@t.Name</div>
+                            <div class="tech-desc">@t.Desc</div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @* 2. Set (Kesintisiz sonsuz akış için birebir kopya) *@
+            @foreach (var t in techStack)
+            {
+                <div class="tech-slide">
+                    <div class="tech-card-item">
+                        <div class="tech-icon-box" style="background: @t.Bg; color: @t.Color; border: 1px solid @(t.Color)33;">
+                            <i class="bi @t.Icon"></i>
+                        </div>
+                        <div class="tech-info">
+                            <div class="tech-name">@t.Name</div>
+                            <div class="tech-desc">@t.Desc</div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<style>
+    .tech-slider {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        padding: 14px 0 26px 0;
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+        mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
     }
-    draw();
-})();
-</script>
+
+    .tech-slide-track {
+        display: flex;
+        width: max-content;
+        animation: techScroll 38s linear infinite;
+        will-change: transform;
+    }
+
+    .tech-slider:hover .tech-slide-track {
+        animation-play-state: paused;
+    }
+
+    .tech-slide {
+        flex: 0 0 280px;
+        width: 280px;
+        padding: 0 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .tech-card-item {
+        width: 100%;
+        height: 82px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 18px;
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 1.15rem;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+        cursor: default;
+    }
+
+    .tech-card-item:hover {
+        transform: translateY(-4px);
+        background: #ffffff;
+        border-color: rgba(11, 87, 208, 0.35);
+        box-shadow: 0 12px 28px rgba(11, 87, 208, 0.12);
+    }
+
+    .tech-icon-box {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.35rem;
+        flex-shrink: 0;
+        transition: transform 0.3s ease;
+    }
+
+    .tech-card-item:hover .tech-icon-box {
+        transform: scale(1.1) rotate(4deg);
+    }
+
+    .tech-info {
+        overflow: hidden;
+        text-align: left;
+    }
+
+    .tech-name {
+        font-weight: 700;
+        font-size: 0.92rem;
+        color: #0f172a;
+        line-height: 1.25;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .tech-desc {
+        font-size: 0.74rem;
+        color: #64748b;
+        line-height: 1.25;
+        margin-top: 3px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    @@keyframes techScroll {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .tech-slide {
+            flex: 0 0 240px;
+            width: 240px;
+            padding: 0 7px;
+        }
+        .tech-card-item {
+            height: 74px;
+            padding: 12px 14px;
+            gap: 12px;
+        }
+        .tech-icon-box {
+            width: 40px;
+            height: 40px;
+            font-size: 1.15rem;
+        }
+        .tech-name {
+            font-size: 0.85rem;
+        }
+        .tech-desc {
+            font-size: 0.7rem;
+        }
+        .tech-slide-track {
+            animation-duration: 30s;
+        }
+    }
+</style>
+
+<!-- ========================================== -->
+<!-- 5. KURUMSAL SLA VE PERFORMANS TAAHHÜTLERİ -->
+<!-- ========================================== -->
+<section class="py-5 position-relative overflow-hidden" style="background: transparent; z-index: 2;">
+    <div class="container py-4">
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="lusion-work-card p-4 h-100 position-relative overflow-hidden" style="background: linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(240,247,255,0.95) 100%); border: 1px solid rgba(11, 87, 208, 0.2); box-shadow: 0 8px 24px rgba(11, 87, 208, 0.06); border-radius: 1.3rem;">
+                    <div class="lusion-card-sheen"></div>
+                    <div class="fs-2 text-primary mb-2.5"><i class="bi bi-speedometer2"></i></div>
+                    <h5 class="fw-bold mb-2" style="color: #0f172a;">60+ FPS Sıfır Takılma</h5>
+                    <p class="text-muted small mb-0" style="line-height: 1.7; font-size: 0.85rem;">
+                        Lenis yumuşak scroll, optimize draw call mimarisi ve donanım hızlandırmalı WebGL render sayesinde en mütevazı telefonda bile takılmadan yağ gibi akar.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="lusion-work-card p-4 h-100 position-relative overflow-hidden" style="background: linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(240,253,244,0.95) 100%); border: 1px solid rgba(16, 185, 129, 0.2); box-shadow: 0 8px 24px rgba(16, 185, 129, 0.06); border-radius: 1.3rem;">
+                    <div class="lusion-card-sheen"></div>
+                    <div class="fs-2 text-success mb-2.5"><i class="bi bi-shield-check"></i></div>
+                    <h5 class="fw-bold mb-2" style="color: #0f172a;">%99.98 Uptime SLA</h5>
+                    <p class="text-muted small mb-0" style="line-height: 1.7; font-size: 0.85rem;">
+                        Sunucu izleme sistemleri, otomatik yedekleme ve SSL güvenlik sertifikasyonları ile e-ticaret ve veri tabanınız daima erişilebilir kalır.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="lusion-work-card p-4 h-100 position-relative overflow-hidden" style="background: linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(248,245,255,0.95) 100%); border: 1px solid rgba(124, 58, 237, 0.2); box-shadow: 0 8px 24px rgba(124, 58, 237, 0.06); border-radius: 1.3rem;">
+                    <div class="lusion-card-sheen"></div>
+                    <div class="fs-2 mb-2.5" style="color: #7c3aed;"><i class="bi bi-headset"></i></div>
+                    <h5 class="fw-bold mb-2" style="color: #0f172a;">Doğrudan Mühendislik Desteği</h5>
+                    <p class="text-muted small mb-0" style="line-height: 1.7; font-size: 0.85rem;">
+                        Aracı ajanslar olmadan doğrudan projenizi geliştiren teknik ekiple görüşün. İhtiyaç anında hızlı yanıt ve sürekli teknik güncelleme sunuyoruz.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========================================== -->
+<!-- 6. HAREKETE GEÇİRİCİ CTA BANNER           -->
+<!-- ========================================== -->
+<section class="py-5 position-relative overflow-hidden" style="background: transparent; z-index: 2;">
+    <div class="container py-3">
+        <div class="hayat-ai-plus-card hayat-ai-plus-card-wide mx-auto position-relative overflow-hidden">
+            <div class="hayat-ai-plus-top-bar"></div>
+            <div class="row align-items-center g-4 position-relative" style="z-index: 2;">
+                <div class="col-lg-8 text-start">
+                    <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+                        <span class="hayat-ai-plus-tier-pill">
+                            <i class="bi bi-stars"></i> Kurumsal Proje &amp; Çözüm Paketi
+                        </span>
+                        <span class="hayat-ai-plus-subpill">Anahtar Teslim Mimari</span>
+                    </div>
+                    <h2 class="hayat-ai-plus-title display-6 fw-bold mb-2" style="letter-spacing: -0.8px;">
+                        Yeni Projenizi Hayata Geçirmeye Hazır mısınız?
+                    </h2>
+                    <div class="hayat-ai-plus-highlight-metric mb-3">
+                        Özel Yazılım + Barkod/POS Otomasyonu + 2x Hızlı Devreye Alma
+                    </div>
+                    <p class="hayat-ai-plus-desc mb-3" style="max-width: 660px; font-size: 1rem;">
+                        Fikirlerinizi dinlemekten ve işletmenize özel dijital çözümü planlamaktan heyecan duyuyoruz. Hemen teklif alın veya bizi doğrudan arayın.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3 pt-1">
+                        <div class="hayat-ai-plus-feature-item">
+                            <i class="bi bi-stars hayat-ai-plus-sparkle"></i>
+                            <span>Ücretsiz Keşif &amp; Sistem Analizi</span>
+                        </div>
+                        <div class="hayat-ai-plus-feature-item">
+                            <i class="bi bi-check2-circle hayat-ai-plus-check"></i>
+                            <span>Sektöre Özel Ölçeklenebilir Yazılım &amp; Donanım</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <div class="d-flex flex-column gap-2.5 align-items-stretch align-items-lg-end">
+                        <a asp-controller="Home" asp-action="TeklifAl" class="hayat-ai-plus-primary-btn rounded-pill px-4 py-3 fw-bold text-decoration-none d-inline-flex align-items-center justify-content-center gap-2">
+                            <i class="bi bi-stars"></i>
+                            <span>Hemen Teklif Alın</span>
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                        <a href="tel:+905010146623" class="hayat-ai-plus-chip-btn rounded-pill px-4 py-2.5 fw-semibold text-decoration-none d-inline-flex align-items-center justify-content-center gap-2">
+                            <i class="bi bi-telephone-fill text-success"></i>
+                            <span>0501 014 6623</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <!-- Three.js Kütüphanesi -->
+    <script src="~/lib/three/three.min.js"></script>
+
+    <!-- HİZMETLERİMİZ İNTERAKTİF 3D WEBGL HERO MONUMENT ENGINE -->
+    <script>
+        (function() {
+            const canvas = document.getElementById('hizmetlerHeroCanvas');
+            if (!canvas || typeof THREE === 'undefined') return;
+
+            const isMobile = window.innerWidth < 768;
+
+            // 1. Sahne & Kamera & Renderer
+            const scene = new THREE.Scene();
+            scene.background = null;
+
+            const camera = new THREE.PerspectiveCamera(50, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+            camera.position.set(0, 0, 8.5);
+
+            const renderer = new THREE.WebGLRenderer({
+                canvas: canvas,
+                alpha: true,
+                antialias: !isMobile,
+                powerPreference: 'high-performance'
+            });
+            renderer.setClearColor(0x000000, 0);
+            renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.25 : 2));
+
+            // 2. Işıklandırma (Apple Light Yansımaları)
+            const ambient = new THREE.AmbientLight(0xffffff, 2.2);
+            scene.add(ambient);
+
+            const pLight1 = new THREE.PointLight(0x0071e3, 3.0, 20);
+            pLight1.position.set(5, 5, 5);
+            scene.add(pLight1);
+
+            const pLight2 = new THREE.PointLight(0x0284c7, 2.5, 20);
+            pLight2.position.set(-5, -5, 4);
+            scene.add(pLight2);
+
+            // 3. 3D Geometrik Anıt Grubu (İnteraktif Faceted Kristal ve Halkalar)
+            const monument = new THREE.Group();
+            scene.add(monument);
+
+            // Dış saydam kristal (İcosahedron)
+            const icosaGeo = new THREE.IcosahedronGeometry(2.3, 0);
+            const icosaMat = new THREE.MeshStandardMaterial({
+                color: 0x0071e3,
+                roughness: 0.15,
+                metalness: 0.2,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.45
+            });
+            const icosaMesh = new THREE.Mesh(icosaGeo, icosaMat);
+            monument.add(icosaMesh);
+
+            // İç Çekirdek (Octahedron Prizma)
+            const coreGeo = new THREE.OctahedronGeometry(1.2, 0);
+            const coreMat = new THREE.MeshStandardMaterial({
+                color: 0x38bdf8,
+                emissive: 0x0071e3,
+                emissiveIntensity: 0.4,
+                roughness: 0.1,
+                metalness: 0.8
+            });
+            const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+            monument.add(coreMesh);
+
+            // Giroskopik Halkalar (Software, Design, E-Commerce)
+            const ringGroup = new THREE.Group();
+            monument.add(ringGroup);
+
+            const ring1Geo = new THREE.TorusGeometry(3.1, 0.03, 8, isMobile ? 32 : 64);
+            const ring1Mat = new THREE.MeshBasicMaterial({ color: 0x0071e3, transparent: true, opacity: 0.6 });
+            const ring1 = new THREE.Mesh(ring1Geo, ring1Mat);
+            ring1.rotation.x = Math.PI * 0.35;
+            ringGroup.add(ring1);
+
+            const ring2Geo = new THREE.TorusGeometry(3.4, 0.025, 8, isMobile ? 32 : 64);
+            const ring2Mat = new THREE.MeshBasicMaterial({ color: 0x7c3aed, transparent: true, opacity: 0.5 });
+            const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
+            ring2.rotation.y = Math.PI * 0.4;
+            ringGroup.add(ring2);
+
+            // Yörüngede Dönen 12 Uydusal Veri Noktası
+            const satCount = isMobile ? 6 : 12;
+            const satGeo = new THREE.SphereGeometry(0.12, 12, 12);
+            const satMat = new THREE.MeshBasicMaterial({ color: 0x0284c7 });
+            const sats = [];
+            for (let i = 0; i < satCount; i++) {
+                const s = new THREE.Mesh(satGeo, satMat);
+                monument.add(s);
+                sats.push({
+                    mesh: s,
+                    angle: (i / satCount) * Math.PI * 2,
+                    radius: 2.8 + (i % 2) * 0.6,
+                    speed: 0.6 + (i % 3) * 0.2
+                });
+            }
+
+            // Fare / Dokunmatik Etkileşimi
+            let mouseX = 0, mouseY = 0;
+            let targetRotX = 0, targetRotY = 0;
+
+            canvas.addEventListener('mousemove', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                mouseX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+                mouseY = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+            });
+
+            canvas.addEventListener('touchmove', (e) => {
+                if (e.touches && e.touches[0]) {
+                    const rect = canvas.getBoundingClientRect();
+                    mouseX = ((e.touches[0].clientX - rect.left) / rect.width) * 2 - 1;
+                    mouseY = -(((e.touches[0].clientY - rect.top) / rect.height) * 2 - 1);
+                }
+            }, { passive: true });
+
+            function onResize() {
+                if (!canvas.parentElement) return;
+                const w = canvas.parentElement.clientWidth;
+                const h = canvas.parentElement.clientHeight || 380;
+                camera.aspect = w / h;
+                camera.updateProjectionMatrix();
+                renderer.setSize(w, h);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.25 : 2));
+            }
+            window.addEventListener('resize', onResize, { passive: true });
+            onResize();
+
+            // 60 FPS Render Döngüsü (Tab arka plandaysa GPU tasarrufu yapar)
+            const clock = new THREE.Clock();
+            function render() {
+                requestAnimationFrame(render);
+                if (document.hidden) return;
+
+                const delta = Math.min(clock.getDelta(), 0.1);
+                const t = clock.getElapsedTime();
+
+                // İnteraktif Rotasyon
+                targetRotY += mouseX * 0.03;
+                targetRotX += -mouseY * 0.03;
+
+                monument.rotation.y += (targetRotY - monument.rotation.y) * 0.08 + delta * 0.25;
+                monument.rotation.x += (targetRotX - monument.rotation.x) * 0.08 + Math.sin(t * 0.5) * 0.002;
+
+                ring1.rotation.z += delta * 0.5;
+                ring2.rotation.z -= delta * 0.4;
+                coreMesh.rotation.x = -t * 0.5;
+                coreMesh.rotation.y = t * 0.7;
+
+                // Uyduları döndür
+                sats.forEach(s => {
+                    s.angle += s.speed * delta;
+                    s.mesh.position.x = Math.cos(s.angle) * s.radius;
+                    s.mesh.position.z = Math.sin(s.angle) * s.radius;
+                    s.mesh.position.y = Math.sin(s.angle * 2) * 0.5;
+                });
+
+                renderer.render(scene, camera);
+            }
+            render();
+        })();
+
+        // 3D KART MANYETİK EĞİLME & CAM PARILTISI (Hizmetlerimiz Sayfası)
+        (function() {
+            const cards = document.querySelectorAll('.lusion-work-card');
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const nx = (x / rect.width - 0.5) * 2;
+                    const ny = (y / rect.height - 0.5) * 2;
+
+                    card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
+                    card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
+
+                    const rotY = nx * 5;
+                    const rotX = -ny * 5;
+                    card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-4px)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+                });
+            });
+        })();
+    </script>
 }

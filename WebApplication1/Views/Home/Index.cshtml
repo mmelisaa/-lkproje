@@ -1,300 +1,366 @@
 @{
-    ViewData["Title"] = "Anasayfa";
+    ViewData["Title"] = "Hayat İşleri İşletme Çözümleri | Elazığ";
+    var referanslar = ViewBag.Referanslar as List<WebApplication1.Models.Siniflar.ReferansProje>;
 }
 
-<!-- 1. Modern Kurumsal Hero Banner - Canlı Etkileşimli Canvas Ağ Animasyonu -->
-<section class="hero-banner-wrapper text-white py-5 position-relative overflow-hidden" id="heroBanner" style="background: #050c1a;">
-    <!-- Canvas Animasyonu (İnteraktif Ağ/Parçacık Sistemi) -->
-    <canvas id="heroCanvas" class="position-absolute w-100 h-100" style="top:0;left:0;z-index:0;"></canvas>
+<!-- LUSION.CO SABİT 3D WEBGL EKRANI (Aşağı kaydırdıkça boşluğa düşüş, kamera dalışı, cam kırılma ve süzülen kristaller) -->
+<canvas id="lusionWebglCanvas" class="lusion-fixed-canvas"></canvas>
 
-    <!-- Gradient Perde & Arka Plan Işık Efektleri -->
-    <div class="position-absolute w-100 h-100" style="top:0;left:0;z-index:1;background:linear-gradient(135deg,rgba(5,12,26,0.72) 0%,rgba(10,22,55,0.60) 50%,rgba(5,12,26,0.75) 100%);"></div>
-
-    <div class="position-absolute ambient-orb-1" style="top:-120px;right:-100px;width:520px;height:520px;background:radial-gradient(circle,rgba(56,189,248,0.22) 0%,transparent 70%);filter:blur(65px);pointer-events:none;z-index:1;"></div>
-    <div class="position-absolute ambient-orb-2" style="bottom:-100px;left:-100px;width:480px;height:480px;background:radial-gradient(circle,rgba(99,102,241,0.20) 0%,transparent 70%);filter:blur(60px);pointer-events:none;z-index:1;"></div>
-
-    <div class="container position-relative py-lg-4" style="z-index: 2;">
+<!-- 1. BÖLÜM: HERO / SIFIR YERÇEKİMİ BOŞLUK (0% - 15% Scroll) -->
+<section class="lusion-scroll-stage min-vh-100" id="stageHero" style="padding-bottom: 96px;">
+    <div class="container position-relative py-5">
         <div class="row align-items-center g-5">
-            
-            <!-- Sol Kolon: Başlık, Açıklama, Butonlar ve İstatistikler -->
-            <div class="col-lg-7 text-start">
-                <!-- Üst Rozet (Badge) -->
-                <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill hero-badge mb-4 shadow-sm" style="border: 1px solid rgba(56, 189, 248, 0.3); background: rgba(15, 23, 42, 0.65);">
+            <div class="col-lg-8 text-start">
+                
+                <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill hero-badge hero-badge-wrap mb-4 shadow-sm" style="border: 1px solid rgba(11, 87, 208, 0.2); background: rgba(255, 255, 255, 0.95);">
                     <span class="hero-pulse-dot"></span>
-                    <span class="text-white small fw-bold text-uppercase tracking-wider">
-                        <i class="bi bi-cpu-fill text-info me-1"></i> Donanım &amp; Yazılım Entegrasyonu
+                    <span class="small fw-bold text-uppercase tracking-wider" style="color: #1f1f1f;">
+                        <i class="bi bi-cpu-fill text-primary me-1"></i> Hayat İşleri İşletme Çözümleri
                     </span>
-                    <span class="badge bg-primary bg-opacity-75 rounded-pill px-2 py-1 ms-1 small" style="font-size: 0.72rem;">Elazığ &amp; Türkiye</span>
+                    <span class="badge bg-primary bg-opacity-75 rounded-pill px-2.5 py-1 ms-1 small">Elazığ</span>
                 </div>
 
-                <!-- Ana Başlık -->
-                <h1 class="display-4 fw-bold mb-3 tracking-tight text-white" style="letter-spacing: -1.2px; line-height: 1.18;">
-                    Geleceğin Teknolojisini <br class="d-none d-sm-inline">
-                    <span class="hero-gradient-text">Bugünden İnşa Ediyoruz</span>
+                <h1 class="lusion-display-title stark-display-title mb-2.5" id="starkTypewriterHeading">
+                    <span class="stark-line stark-line-1" data-stark-text="DİJİTAL DÜNYAYI"></span>
+                    <span class="stark-line stark-line-2" data-stark-text="KODLUYORUZ."></span>
+                    <span class="stark-cursor" id="starkCursor" aria-hidden="true"></span>
                 </h1>
+                <noscript>
+                    <style>#starkTypewriterHeading .stark-line-1::after{content:'DİJİTAL DÜNYAYI';}#starkTypewriterHeading .stark-line-2::after{content:'KODLUYORUZ.';color:#0b57d0;}</style>
+                </noscript>
 
-                <!-- Açıklama Metni -->
-                <p class="lead text-light text-opacity-80 mb-4 fs-5" style="line-height: 1.75; max-width: 620px;">
-                    Elazığ merkezli gücümüzle; kurumsal sunucu altyapıları, yüksek performanslı donanım tedariği ve firmanıza özel güvenli yazılım projelerinde uçtan uca güvenilir çözüm ortağınız.
+                <p class="hero-intro-text mb-4">
+                    Hayat İşleri; kurumsal web yazılımları, ön muhasebe (HiCariTakip), barkod &amp; perakende otomasyonları, yeni nesil POS sistemleri ve e-ticaret altyapıları ile Elazığ ve bölgedeki işletmelerin güvenilir teknoloji çözüm ortağıdır.
                 </p>
 
-                <!-- Harekete Geçirici Butonlar (CTA) -->
-                <div class="d-flex flex-wrap align-items-center gap-3 mb-5">
-                    <a asp-controller="Home" asp-action="TeklifAl" class="btn btn-primary btn-lg rounded-pill px-4 py-3 fw-bold shadow-lg hero-btn-primary d-inline-flex align-items-center gap-2 text-decoration-none">
-                        <i class="bi bi-lightning-charge-fill text-warning"></i>
-                        <span>Hemen Teklif Alın</span>
+                <div class="d-flex flex-wrap align-items-center gap-3 hero-action-buttons mb-5">
+                    <a asp-controller="Home" asp-action="TeklifAl" class="hero-btn-quote text-decoration-none" title="Hızlı ve Ücretsiz Fiyat Teklifi Alın">
+                        <span class="hero-btn-icon-wrap">
+                            <i class="bi bi-lightning-charge-fill"></i>
+                        </span>
+                        <span class="fw-bold">Teklif Alın</span>
+                        <span class="hero-btn-arrow">
+                            <i class="bi bi-arrow-right-short"></i>
+                        </span>
+                    </a>
+                    <a asp-controller="Home" asp-action="Hakkimizda" class="hero-btn-about text-decoration-none" title="Hayat İşleri Hakkında Bilgi Edinin">
+                        <span class="hero-btn-icon-wrap">
+                            <i class="bi bi-building"></i>
+                        </span>
+                        <span class="fw-semibold">Hakkımızda</span>
+                        <span class="hero-btn-arrow">
+                            <i class="bi bi-chevron-right"></i>
+                        </span>
+                    </a>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Aşağı kaydırma işareti -->
+    <div id="scrollDownHint" aria-hidden="true" style="position:absolute;left:50%;bottom:96px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;pointer-events:none;transition:opacity .4s;z-index:10;">
+        <span style="font-size:.72rem;letter-spacing:2px;text-transform:uppercase;color:#444746;font-weight:600;">Kaydır</span>
+        <span class="scroll-hint-arrow" style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:#ffffff;border:1px solid rgba(11, 87, 208,.35);color:#0b57d0;font-size:1.4rem;line-height:1;box-shadow:0 6px 18px rgba(11, 87, 208,.18);">&#8628;</span>
+    </div>
+    <script>
+        (function() {
+            var h = document.getElementById('scrollDownHint');
+            if (!h) return;
+            var isHidden = false;
+            function chk() {
+                var shouldHide = (window.scrollY || window.pageYOffset || 0) > 60;
+                if (shouldHide !== isHidden) {
+                    isHidden = shouldHide;
+                    h.style.opacity = isHidden ? '0' : '1';
+                }
+            }
+            window.addEventListener('scroll', chk, { passive: true });
+            chk();
+        })();
+    </script>
+</section>
+
+<!-- 2. BÖLÜM: YENİ NESİL BULUT TEKNOLOJİSİ / BULUT SERVİSLERİMİZ (BENTO GRID SHOWCASE) -->
+<style>
+    .cloud-bento-section {
+        padding: 5.5rem 0 4.5rem;
+        position: relative;
+        z-index: 2;
+    }
+    .cloud-bento-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.45rem 1.15rem;
+        border-radius: 999px;
+        background: rgba(14, 165, 233, 0.12);
+        border: 1px solid rgba(14, 165, 233, 0.25);
+        color: #0284c7;
+        font-family: 'Google Sans', sans-serif;
+        font-size: 0.84rem;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+    }
+    .cloud-showcase-heading {
+        font-family: 'Google Sans', sans-serif;
+        font-weight: 800;
+        font-size: clamp(2rem, 3.2vw, 2.75rem);
+        line-height: 1.18;
+        letter-spacing: -0.03em;
+    }
+    .cloud-heading-dark {
+        color: #0f172a;
+    }
+    .cloud-heading-blue {
+        color: #0077ff;
+    }
+    .cloud-bento-lead {
+        font-family: 'Google Sans Text', sans-serif;
+        font-size: 1.05rem;
+        line-height: 1.7;
+        color: #475569;
+        max-width: 500px;
+    }
+    .cloud-btn-primary {
+        background: #0077ff;
+        border-color: #0077ff;
+        color: #ffffff;
+        font-family: 'Google Sans', sans-serif;
+        font-size: 0.94rem;
+        transition: all 0.22s ease;
+    }
+    .cloud-btn-primary:hover {
+        background: #0060d4;
+        border-color: #0060d4;
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(0, 119, 255, 0.3);
+    }
+    .cloud-btn-secondary {
+        border-color: #cbd5e1;
+        color: #0f172a;
+        font-family: 'Google Sans', sans-serif;
+        font-size: 0.94rem;
+        background: transparent;
+        transition: all 0.22s ease;
+    }
+    .cloud-btn-secondary:hover {
+        border-color: #0077ff;
+        color: #0077ff;
+        background: rgba(0, 119, 255, 0.05);
+        transform: translateY(-2px);
+    }
+    .cloud-bento-card {
+        background: #ffffff;
+        border: 1px solid rgba(226, 232, 240, 0.95);
+        border-radius: 22px;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+        padding: 1.65rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: all 0.25s ease;
+    }
+    .cloud-bento-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.07);
+    }
+    .cloud-bento-card-featured {
+        border: 1.5px solid #38bdf8;
+        box-shadow: 0 8px 26px rgba(56, 189, 248, 0.12);
+    }
+    .cloud-bento-icon-box {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.35rem;
+        flex-shrink: 0;
+    }
+    .cloud-card-title {
+        font-family: 'Google Sans', sans-serif;
+        font-weight: 700;
+        font-size: 1.15rem;
+        color: #0f172a;
+        line-height: 1.3;
+    }
+    .cloud-card-text {
+        font-family: 'Google Sans Text', sans-serif;
+        font-size: 0.88rem;
+        line-height: 1.58;
+        color: #64748b;
+    }
+    .cloud-card-footer {
+        border-top-color: rgba(226, 232, 240, 0.8) !important;
+        color: #64748b;
+    }
+
+    /* KOYU MOD */
+    html[data-theme="dark"] .cloud-heading-dark {
+        color: #f8fafc;
+    }
+    html[data-theme="dark"] .cloud-heading-blue {
+        color: #38bdf8;
+    }
+    html[data-theme="dark"] .cloud-bento-lead {
+        color: #94a3b8;
+    }
+    html[data-theme="dark"] .cloud-btn-secondary {
+        border-color: rgba(255, 255, 255, 0.16);
+        color: #f1f5f9;
+    }
+    html[data-theme="dark"] .cloud-btn-secondary:hover {
+        border-color: #38bdf8;
+        color: #38bdf8;
+        background: rgba(56, 189, 248, 0.08);
+    }
+    html[data-theme="dark"] .cloud-bento-card {
+        background: #0e1420;
+        border-color: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+    html[data-theme="dark"] .cloud-bento-card:hover {
+        border-color: rgba(56, 189, 248, 0.35);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    }
+    html[data-theme="dark"] .cloud-bento-card-featured {
+        border-color: #38bdf8;
+        box-shadow: 0 8px 30px rgba(56, 189, 248, 0.18);
+    }
+    html[data-theme="dark"] .cloud-card-title {
+        color: #f8fafc;
+    }
+    html[data-theme="dark"] .cloud-card-text {
+        color: #94a3b8;
+    }
+    html[data-theme="dark"] .cloud-card-footer {
+        border-top-color: rgba(255, 255, 255, 0.08) !important;
+        color: #cbd5e1;
+    }
+</style>
+
+<section class="cloud-bento-section" id="bulutServislerimiz">
+    <div class="container position-relative">
+        <div class="row align-items-center g-5">
+            <!-- Sol Kolon: Başlık, Açıklama ve Butonlar -->
+            <div class="col-lg-5">
+                <div class="cloud-bento-pill mb-3">
+                    <i class="bi bi-cloud-check-fill"></i>
+                    <span>Yeni Nesil Bulut Teknolojisi</span>
+                </div>
+                <h2 class="cloud-showcase-heading mb-3">
+                    <span class="d-block cloud-heading-dark">Bulut servislerimiz ile</span>
+                    <span class="d-block cloud-heading-blue">İşinizi dilediğiniz zaman,</span>
+                    <span class="d-block cloud-heading-blue">dilediğiniz yerden</span>
+                    <span class="d-block cloud-heading-blue">yönetin.</span>
+                </h2>
+                <p class="cloud-bento-lead mb-4">
+                    HiCari ve HiPosMenüm bulut mimarimiz sayesinde ofis sınırlarını ortadan kaldırın. İster cep telefonunuzdan stoklarınızı kontrol edin, ister sahadan sipariş alın, isterseniz şubelerinizin canlı ciro raporlarını anında inceleyin.
+                </p>
+                <div class="d-flex flex-wrap align-items-center gap-3">
+                    <a href="/yazilimlar" class="btn btn-primary rounded-pill px-4 py-2.5 fw-semibold d-inline-flex align-items-center gap-2 cloud-btn-primary shadow-sm">
+                        <span>Tüm Bulut Çözümleri</span>
                         <i class="bi bi-arrow-right"></i>
                     </a>
-                    <a asp-controller="Home" asp-action="Hizmetlerimiz" class="btn btn-outline-light btn-lg rounded-pill px-4 py-3 fw-semibold hero-btn-secondary d-inline-flex align-items-center gap-2 text-decoration-none">
-                        <i class="bi bi-grid-1x2-fill"></i>
-                        <span>Hizmetlerimiz</span>
-                    </a>
-                    <a asp-controller="Home" asp-action="Hakkimizda" class="btn btn-outline-info btn-lg rounded-pill px-4 py-3 fw-semibold d-inline-flex align-items-center gap-2 text-decoration-none shadow-sm" style="border: 1px solid rgba(56, 189, 248, 0.45); background: rgba(56, 189, 248, 0.12); color: #38bdf8; backdrop-filter: blur(8px); transition: all 0.3s ease;">
-                        <i class="bi bi-building"></i>
-                        <span>Hakkımızda</span>
+                    <a href="/yazilimlar#demoFormSection" class="btn btn-outline-dark rounded-pill px-4 py-2.5 fw-semibold d-inline-flex align-items-center gap-2 cloud-btn-secondary">
+                        <i class="bi bi-laptop"></i>
+                        <span>Demo Özelliklerini İncele</span>
                     </a>
                 </div>
-
-                <!-- Güven ve Kalite Rozetleri -->
-                <div class="row g-3 pt-2 border-top border-white border-opacity-10">
-                    <div class="col-6 col-sm-4">
-                        <div class="hero-stat-box tech-tilt-card p-3 rounded-3" style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(56, 189, 248, 0.2);">
-                            <div class="d-flex align-items-center gap-2 mb-1">
-                                <i class="bi bi-speedometer2 text-info fs-5"></i>
-                                <span class="h5 fw-bold text-white mb-0">%99.9</span>
-                            </div>
-                            <span class="small fw-semibold" style="color: #cbd5e1; font-size: 0.82rem;">Yüksek Uptime</span>
-                        </div>
-                    </div>
-                    <div class="col-6 col-sm-4">
-                        <div class="hero-stat-box tech-tilt-card p-3 rounded-3" style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(56, 189, 248, 0.2);">
-                            <div class="d-flex align-items-center gap-2 mb-1">
-                                <i class="bi bi-shield-check text-success fs-5"></i>
-                                <span class="h5 fw-bold text-white mb-0">256-Bit</span>
-                            </div>
-                            <span class="small fw-semibold" style="color: #cbd5e1; font-size: 0.82rem;">Kurumsal Güvenlik</span>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-4">
-                        <div class="hero-stat-box tech-tilt-card p-3 rounded-3" style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(56, 189, 248, 0.2);">
-                            <div class="d-flex align-items-center gap-2 mb-1">
-                                <i class="bi bi-headset text-warning fs-5"></i>
-                                <span class="h5 fw-bold text-white mb-0">7/24</span>
-                            </div>
-                            <span class="small fw-semibold" style="color: #cbd5e1; font-size: 0.82rem;">Kesintisiz Destek</span>
-                        </div>
-                    </div>
-                </div>
             </div>
 
-            <!-- Sağ Kolon: Yüksek Teknolojili Canlı Sistem & Konsol Kartı (Glassmorphic Terminal Card) -->
-            <div class="col-lg-5">
-                <div class="hero-glass-card rounded-4 p-4 text-start position-relative overflow-hidden tech-tilt-card" id="terminalCard">
-                    <!-- Tarama Çizgisi Animasyonu -->
-                    <div class="scanline-effect"></div>
-
-                    <!-- Üst Bar: MacOS Tarzı Butonlar & Başlık -->
-                    <div class="d-flex align-items-center justify-content-between pb-3 mb-3 border-bottom border-white border-opacity-10">
-                        <div class="d-flex align-items-center gap-2">
-                            <span class="rounded-circle" style="width: 12px; height: 12px; background-color: #ef4444; display: inline-block;"></span>
-                            <span class="rounded-circle" style="width: 12px; height: 12px; background-color: #f59e0b; display: inline-block;"></span>
-                            <span class="rounded-circle" style="width: 12px; height: 12px; background-color: #10b981; display: inline-block;"></span>
-                        </div>
-                        <span class="small font-monospace fw-bold" style="font-size: 0.85rem; color: #38bdf8;">
-                            <i class="bi bi-terminal-fill me-1 text-info"></i> hayat-isleri.sys
-                        </span>
-                        <span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-25 small d-inline-flex align-items-center gap-1">
-                            <span class="server-led" style="background-color: #10b981; width: 7px; height: 7px;"></span> Çevrimiçi
-                        </span>
-                    </div>
-
-                    <!-- Canlı Metrik ve Hizmet Listesi -->
-                    <div class="d-flex flex-column gap-3 mb-4">
-                        <div class="p-3 rounded-3 position-relative overflow-hidden" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(56, 189, 248, 0.2); transition: all 0.3s ease;">
-                            <div class="d-flex justify-content-between align-items-center mb-1.5">
-                                <span class="text-white small fw-bold">
-                                    <i class="bi bi-hdd-network text-info me-2"></i>Donanım &amp; Ağ Altyapısı
-                                </span>
-                                <span class="badge px-2.5 py-1.5 rounded-pill font-monospace d-inline-flex align-items-center gap-1.5" style="background: linear-gradient(135deg, #0284c7, #0369a1); color: #ffffff !important; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.4px; border: 1px solid #38bdf8; box-shadow: 0 0 10px rgba(56, 189, 248, 0.35);">
-                                    <span class="server-led" style="background-color: #ffffff; width: 6px; height: 6px;"></span> Aktif
-                                </span>
+            <!-- Sağ Kolon: 2x2 Bento Kartları -->
+            <div class="col-lg-7">
+                <div class="row g-3 g-md-4">
+                    <!-- Kart 1: Çoklu Cihaz & POS Uyumlu -->
+                    <div class="col-sm-6">
+                        <div class="cloud-bento-card">
+                            <div>
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <div class="cloud-bento-icon-box" style="background: #e0f2fe; color: #0284c7;">
+                                        <i class="bi bi-phone-flip"></i>
+                                    </div>
+                                    <span class="badge rounded-pill px-2.5 py-1 fw-semibold d-inline-flex align-items-center gap-1.5" style="background: #dcfce7; color: #15803d; font-size: 0.74rem;">
+                                        <span style="width: 6px; height: 6px; border-radius: 50%; background: #16a34a; display: inline-block;"></span> 7/24 Aktif
+                                    </span>
+                                </div>
+                                <h4 class="cloud-card-title mt-3 mb-2">Çoklu Cihaz &amp; POS Uyumlu</h4>
+                                <p class="cloud-card-text mb-4">
+                                    Masaüstü bilgisayar, tablet, akıllı telefon ve endüstriyel POS terminali ekranlarıyla %100 senkronize çalışır.
+                                </p>
                             </div>
-                            <small class="d-block fw-normal" style="color: #cbd5e1; font-size: 0.84rem; line-height: 1.5;">Kurumsal sunucular, network kurulumu ve kesintisiz yedekleme</small>
-                        </div>
-
-                        <div class="p-3 rounded-3 position-relative overflow-hidden" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(129, 140, 248, 0.2); transition: all 0.3s ease;">
-                            <div class="d-flex justify-content-between align-items-center mb-1.5">
-                                <span class="text-white small fw-bold">
-                                    <i class="bi bi-code-slash text-info me-2"></i>Özel Yazılım &amp; API Entegrasyonu
-                                </span>
-                                <span class="badge px-2.5 py-1.5 rounded-pill font-monospace d-inline-flex align-items-center gap-1.5" style="background: linear-gradient(135deg, #4f46e5, #4338ca); color: #ffffff !important; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.4px; border: 1px solid #818cf8; box-shadow: 0 0 10px rgba(129, 140, 248, 0.35);">
-                                    <span class="server-led" style="background-color: #ffffff; width: 6px; height: 6px;"></span> v2.4 Live
-                                </span>
+                            <div class="pt-3 border-top d-flex align-items-center justify-content-between cloud-card-footer">
+                                <span class="small fw-medium">Web, iOS &amp; Android</span>
+                                <i class="bi bi-check-lg text-success fw-bold fs-5"></i>
                             </div>
-                            <small class="d-block fw-normal" style="color: #cbd5e1; font-size: 0.84rem; line-height: 1.5;">İş süreçlerinizi hızlandıran esnek ve ölçeklenebilir kod mimarisi</small>
                         </div>
+                    </div>
 
-                        <div class="p-3 rounded-3 position-relative overflow-hidden" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(251, 191, 36, 0.2); transition: all 0.3s ease;">
-                            <div class="d-flex justify-content-between align-items-center mb-1.5">
-                                <span class="text-white small fw-bold">
-                                    <i class="bi bi-cart-check text-warning me-2"></i>E-Ticaret &amp; Web Sistemleri
-                                </span>
-                                <span class="badge px-2.5 py-1.5 rounded-pill font-monospace d-inline-flex align-items-center gap-1.5" style="background: linear-gradient(135deg, #d97706, #b45309); color: #ffffff !important; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.4px; border: 1px solid #fbbf24; box-shadow: 0 0 10px rgba(251, 191, 36, 0.35);">
-                                    <span class="server-led" style="background-color: #ffffff; width: 6px; height: 6px;"></span> Optimize
-                                </span>
+                    <!-- Kart 2: Banka Düzeyinde Güvenlik (Vurgulu Çerçeve) -->
+                    <div class="col-sm-6">
+                        <div class="cloud-bento-card cloud-bento-card-featured">
+                            <div>
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <div class="cloud-bento-icon-box" style="background: #dcfce7; color: #16a34a;">
+                                        <i class="bi bi-shield-fill-check"></i>
+                                    </div>
+                                </div>
+                                <h4 class="cloud-card-title mt-3 mb-2">Banka Düzeyinde Güvenlik</h4>
+                                <p class="cloud-card-text mb-4">
+                                    Tüm ticari verileriniz 256-bit SSL protokolüyle şifrelenir; sunucularımızda günlük otomatik yedeklenir.
+                                </p>
                             </div>
-                            <small class="d-block fw-normal" style="color: #cbd5e1; font-size: 0.84rem; line-height: 1.5;">Hızlı ödeme altyapıları, SEO dostu ve mobil uyumlu tasarımlar</small>
+                            <div class="pt-3 border-top d-flex align-items-center justify-content-between cloud-card-footer">
+                                <span class="small fw-medium">Otomatik Yedekleme</span>
+                                <i class="bi bi-lock-fill text-success fs-5"></i>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Alt Konsol Bildirimi -->
-                    <div class="p-2.5 px-3 rounded-3 font-monospace d-flex align-items-center justify-content-between" style="background: rgba(0, 0, 0, 0.65); border: 1px solid rgba(56, 189, 248, 0.2); font-size: 0.78rem;">
-                        <span style="color: #cbd5e1;">
-                            <span class="text-success fw-bold">$</span> ready --enterprise-mode <span class="cursor-blink text-info">_</span>
-                        </span>
-                        <span class="text-info font-monospace fw-bold" id="livePing">Ping: 12ms</span>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<!-- Veri Akışı ve Bölüm Bağlantı Çizgisi -->
-<div class="tech-divider-stream my-2 opacity-50"></div>
-
-<!-- 2. Faaliyet Alanlarımız (Donanım + Yazılım) - Yüksek Teknolojili Kartlar -->
-<section class="position-relative py-5 overflow-hidden w-100" style="background: radial-gradient(circle at 50% 0%, #0c162d 0%, #070d1a 100%);">
-    <!-- Siber Izgara Arka Planı -->
-    <div class="position-absolute w-100 h-100 tech-grid-bg" style="top:0;left:0;opacity:0.6;pointer-events:none;"></div>
-    
-    <!-- Arka Plan Işık Küreleri -->
-    <div class="position-absolute ambient-orb-1" style="top:20%;left:-60px;width:380px;height:380px;background:radial-gradient(circle,rgba(56,189,248,0.12) 0%,transparent 70%);filter:blur(50px);pointer-events:none;"></div>
-    <div class="position-absolute ambient-orb-2" style="bottom:10%;right:-60px;width:400px;height:400px;background:radial-gradient(circle,rgba(168,85,247,0.12) 0%,transparent 70%);filter:blur(50px);pointer-events:none;"></div>
-
-    <div class="container position-relative py-4" style="z-index: 2;">
-        <div class="row text-center mb-5">
-            <div class="col-lg-8 mx-auto">
-                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill hero-badge mb-3 shadow-sm" style="border: 1px solid rgba(56, 189, 248, 0.25);">
-                    <i class="bi bi-diagram-3-fill text-info small"></i>
-                    <span class="text-info small fw-bold text-uppercase tracking-wider" style="font-size: 0.75rem;">ENTEGRE ALTYAPI &amp; GELİŞTİRME</span>
-                </div>
-                <h2 class="fw-bold text-white mb-3 display-6" style="letter-spacing: -0.5px;">Faaliyet Alanlarımız</h2>
-                <p class="text-light text-opacity-75 fs-5" style="max-width: 680px; margin: 0 auto;">Güçlü donanım sistemleri ve ölçeklenebilir yazılım mimarilerini tek çatı altında buluşturuyoruz.</p>
-            </div>
-        </div>
-
-        <div class="row g-4 justify-content-center mb-4">
-            <!-- Hizmet 1: Donanım Altyapıları -->
-            <div class="col-md-6 col-lg-4">
-                <div class="tech-card h-100 p-0 position-relative tech-tilt-card overflow-hidden" style="border: 1px solid rgba(56, 189, 248, 0.25); background: rgba(10, 18, 36, 0.85); box-shadow: 0 15px 35px -10px rgba(0,0,0,0.5);">
-                    <div class="scanline-effect"></div>
-                    
-                    <!-- Kart Üstü Sinematik Görsel Banner -->
-                    <div class="position-relative overflow-hidden" style="height: 175px;">
-                        <img src="/images/donanim.jpg" alt="Donanım Çözümleri" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);" class="service-card-img">
-                        <!-- Gradient Karartma & Siber Efekt -->
-                        <div class="position-absolute w-100 h-100" style="top:0; left:0; background: linear-gradient(180deg, rgba(5, 12, 26, 0.25) 0%, rgba(10, 18, 36, 0.95) 100%);"></div>
-                        
-                        <!-- Sağ Üst Siber Rozet -->
-                        <div class="position-absolute" style="top: 14px; right: 14px; z-index: 2;">
-                            <span class="badge px-2.5 py-1.5 rounded-pill font-monospace d-inline-flex align-items-center gap-1.5" style="background: rgba(5, 12, 26, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(56, 189, 248, 0.45); color: #38bdf8; font-size: 0.72rem; letter-spacing: 0.5px;">
-                                <span class="server-led" style="background-color: #38bdf8; width: 6px; height: 6px;"></span> HARDWARE
-                            </span>
-                        </div>
-
-                        <!-- Sol Alt Yüzen Cam İkon -->
-                        <div class="position-absolute d-flex align-items-center justify-content-center rounded-3" style="bottom: 12px; left: 20px; width: 46px; height: 46px; background: rgba(5, 12, 26, 0.85); border: 1px solid rgba(56, 189, 248, 0.5); backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0,0,0,0.5); z-index: 2;">
-                            <i class="bi bi-hdd-rack fs-4 text-info"></i>
+                    <!-- Kart 3: Canlı Şube & Depo Takibi -->
+                    <div class="col-sm-6">
+                        <div class="cloud-bento-card">
+                            <div>
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <div class="cloud-bento-icon-box" style="background: #f3e8ff; color: #9333ea;">
+                                        <i class="bi bi-diagram-3-fill"></i>
+                                    </div>
+                                </div>
+                                <h4 class="cloud-card-title mt-3 mb-2">Canlı Şube &amp; Depo Takibi</h4>
+                                <p class="cloud-card-text mb-4">
+                                    Tüm satış noktalarınızın ciro, stok ve cari hareketlerini tek bir merkezden saniyesinde izleyin.
+                                </p>
+                            </div>
+                            <div class="pt-3 border-top d-flex align-items-center justify-content-between cloud-card-footer">
+                                <span class="small fw-medium">Çoklu Şube Desteği</span>
+                                <i class="bi bi-graph-up-arrow text-primary fs-5"></i>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Kart İçerik Gövdesi -->
-                    <div class="p-4 pt-3">
-                        <h4 class="fw-bold text-white mb-2" style="letter-spacing: -0.3px;">Donanım Çözümleri</h4>
-                        <p class="mb-0" style="color: #cbd5e1; line-height: 1.7; font-size: 0.95rem;">Sunucu sistemleri, kurumsal donanım tedariği ve kesintisiz teknolojik altyapı kurulumları.</p>
-                        
-                        <!-- Kart Altı Dekoratif Çizgi -->
-                        <div class="mt-4 pt-3 border-top border-white border-opacity-10 d-flex justify-content-between align-items-center">
-                            <span class="font-monospace fw-semibold" style="color: #cbd5e1; font-size: 0.82rem;">Enterprise Grade</span>
-                            <i class="bi bi-arrow-right text-info"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Hizmet 2: Özel Yazılım -->
-            <div class="col-md-6 col-lg-4">
-                <div class="tech-card h-100 p-0 position-relative tech-tilt-card overflow-hidden" style="border: 1px solid rgba(129, 140, 248, 0.25); background: rgba(10, 18, 36, 0.85); box-shadow: 0 15px 35px -10px rgba(0,0,0,0.5);">
-                    <div class="scanline-effect"></div>
-
-                    <!-- Kart Üstü Sinematik Görsel Banner -->
-                    <div class="position-relative overflow-hidden" style="height: 175px;">
-                        <img src="/images/yazilim.jpg" alt="Yazılım Geliştirme" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);" class="service-card-img">
-                        <!-- Gradient Karartma & Siber Efekt -->
-                        <div class="position-absolute w-100 h-100" style="top:0; left:0; background: linear-gradient(180deg, rgba(5, 12, 26, 0.25) 0%, rgba(10, 18, 36, 0.95) 100%);"></div>
-
-                        <!-- Sağ Üst Siber Rozet -->
-                        <div class="position-absolute" style="top: 14px; right: 14px; z-index: 2;">
-                            <span class="badge px-2.5 py-1.5 rounded-pill font-monospace d-inline-flex align-items-center gap-1.5" style="background: rgba(5, 12, 26, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(129, 140, 248, 0.45); color: #a5b4fc; font-size: 0.72rem; letter-spacing: 0.5px;">
-                                <span class="server-led delay-1" style="background-color: #818cf8; width: 6px; height: 6px;"></span> SOFTWARE
-                            </span>
-                        </div>
-
-                        <!-- Sol Alt Yüzen Cam İkon -->
-                        <div class="position-absolute d-flex align-items-center justify-content-center rounded-3" style="bottom: 12px; left: 20px; width: 46px; height: 46px; background: rgba(5, 12, 26, 0.85); border: 1px solid rgba(129, 140, 248, 0.5); backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0,0,0,0.5); z-index: 2;">
-                            <i class="bi bi-code-slash fs-4" style="color: #a5b4fc;"></i>
-                        </div>
-                    </div>
-
-                    <!-- Kart İçerik Gövdesi -->
-                    <div class="p-4 pt-3">
-                        <h4 class="fw-bold text-white mb-2" style="letter-spacing: -0.3px;">Yazılım Geliştirme</h4>
-                        <p class="mb-0" style="color: #cbd5e1; line-height: 1.7; font-size: 0.95rem;">İş süreçlerinizi hızlandıran, tamamen ihtiyaçlarınıza özel güvenli web ve masaüstü yazılımlar.</p>
-
-                        <!-- Kart Altı Dekoratif Çizgi -->
-                        <div class="mt-4 pt-3 border-top border-white border-opacity-10 d-flex justify-content-between align-items-center">
-                            <span class="font-monospace fw-semibold" style="color: #cbd5e1; font-size: 0.82rem;">Custom Architecture</span>
-                            <i class="bi bi-arrow-right text-primary" style="color: #818cf8 !important;"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Hizmet 3: Web & E-Ticaret -->
-            <div class="col-md-6 col-lg-4">
-                <div class="tech-card h-100 p-0 position-relative tech-tilt-card overflow-hidden" style="border: 1px solid rgba(16, 185, 129, 0.25); background: rgba(10, 18, 36, 0.85); box-shadow: 0 15px 35px -10px rgba(0,0,0,0.5);">
-                    <div class="scanline-effect"></div>
-
-                    <!-- Kart Üstü Sinematik Görsel Banner -->
-                    <div class="position-relative overflow-hidden" style="height: 175px;">
-                        <img src="/images/webtasarim.jpg" alt="Web & E-Ticaret" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);" class="service-card-img">
-                        <!-- Gradient Karartma & Siber Efekt -->
-                        <div class="position-absolute w-100 h-100" style="top:0; left:0; background: linear-gradient(180deg, rgba(5, 12, 26, 0.25) 0%, rgba(10, 18, 36, 0.95) 100%);"></div>
-
-                        <!-- Sağ Üst Siber Rozet -->
-                        <div class="position-absolute" style="top: 14px; right: 14px; z-index: 2;">
-                            <span class="badge px-2.5 py-1.5 rounded-pill font-monospace d-inline-flex align-items-center gap-1.5" style="background: rgba(5, 12, 26, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(16, 185, 129, 0.45); color: #10b981; font-size: 0.72rem; letter-spacing: 0.5px;">
-                                <span class="server-led delay-2" style="background-color: #10b981; width: 6px; height: 6px;"></span> PLATFORM
-                            </span>
-                        </div>
-
-                        <!-- Sol Alt Yüzen Cam İkon -->
-                        <div class="position-absolute d-flex align-items-center justify-content-center rounded-3" style="bottom: 12px; left: 20px; width: 46px; height: 46px; background: rgba(5, 12, 26, 0.85); border: 1px solid rgba(16, 185, 129, 0.5); backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0,0,0,0.5); z-index: 2;">
-                            <i class="bi bi-globe fs-4 text-success"></i>
-                        </div>
-                    </div>
-
-                    <!-- Kart İçerik Gövdesi -->
-                    <div class="p-4 pt-3">
-                        <h4 class="fw-bold text-white mb-2" style="letter-spacing: -0.3px;">Web & E-Ticaret</h4>
-                        <p class="mb-0" style="color: #cbd5e1; line-height: 1.7; font-size: 0.95rem;">Markanızı dijitalde zirveye taşıyan, modern arayüzlü kurumsal web siteleri ve e-ticaret sistemleri.</p>
-
-                        <!-- Kart Altı Dekoratif Çizgi -->
-                        <div class="mt-4 pt-3 border-top border-white border-opacity-10 d-flex justify-content-between align-items-center">
-                            <span class="font-monospace fw-semibold" style="color: #cbd5e1; font-size: 0.82rem;">High Conversion</span>
-                            <i class="bi bi-arrow-right text-success"></i>
+                    <!-- Kart 4: Kurulumsuz Anında Başlayın -->
+                    <div class="col-sm-6">
+                        <div class="cloud-bento-card">
+                            <div>
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <div class="cloud-bento-icon-box" style="background: #fef3c7; color: #d97706;">
+                                        <i class="bi bi-lightning-charge-fill"></i>
+                                    </div>
+                                </div>
+                                <h4 class="cloud-card-title mt-3 mb-2">Kurulumsuz Anında Başlayın</h4>
+                                <p class="cloud-card-text mb-4">
+                                    Uzun süren kurulum süreçleri ve lisans anahtarı bekleme derdi olmadan kullanıcı adınızla anında bağlanın.
+                                </p>
+                            </div>
+                            <div class="pt-3 border-top d-flex align-items-center justify-content-between cloud-card-footer">
+                                <span class="small fw-medium">Sıfır Sunucu Maliyeti</span>
+                                <i class="bi bi-send-fill text-warning fs-5"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -303,239 +369,2456 @@
     </div>
 </section>
 
-<!-- Veri Akışı Çizgisi -->
-<div class="tech-divider-stream my-2 opacity-50"></div>
-
-<!-- 3. Neden Hayat İşleri? (Çift Kanatlı Güç Vurgusu & Siber Komuta Paneli) -->
-<section class="position-relative py-5 overflow-hidden w-100" style="background: #050c1a;">
-    <div class="container position-relative py-4" style="z-index: 2;">
-        <div class="row align-items-center g-5">
+<!-- 3. BÖLÜM: REFERANSLARIMIZ & DİJİTAL ESERLER (Cam kırıldıktan hemen sonra 3D parçacık efektleriyle görünür) -->
+<section class="lusion-works-section" id="referanslarimiz" style="border-top: none !important;">
+    <div class="container position-relative" style="z-index: 2;">
+        
+        <!-- Üst Başlık & Kategori Filtre Butonları (Simetrik Google One Mimarisi) -->
+        <div class="text-center mb-5">
+            <span class="badge px-3.5 py-2 rounded-pill small fw-medium text-uppercase mb-3 d-inline-flex align-items-center gap-1.5" style="background: #e8f0fe; color: #0b57d0; border: 1px solid rgba(11, 87, 208, 0.25); font-family: 'Google Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.5px;">
+                <i class="bi bi-star-fill" style="color: #FBBC04;"></i> Referanslarımız &amp; Eserlerimiz
+            </span>
+            <h2 class="display-5 fw-bold mb-3" style="font-family: 'Google Sans', sans-serif; color: #1f1f1f; letter-spacing: -1.2px;">Öne Çıkan Referanslarımız</h2>
+            <p class="mx-auto mb-4" style="font-family: 'Google Sans Text', sans-serif; color: #444746; max-width: 680px; font-size: 1.05rem; line-height: 1.7;">
+                İşletmelerin dijital dönüşüm süreçlerine güç katan kurumsal yazılım, e-ticaret ve otomasyon projelerimiz.
+            </p>
             
-            <!-- Sol Panel: Siber Komuta ve Güç Merkezi -->
-            <div class="col-lg-6">
-                <div class="tech-card p-5 position-relative overflow-hidden tech-tilt-card" style="border: 1px solid rgba(56, 189, 248, 0.22); background: rgba(13, 22, 42, 0.85);">
-                    <!-- Arka Plan Radar Sonar Dalgaları -->
-                    <div style="position: absolute; right: -40px; top: -40px; width: 220px; height: 220px; display: flex; align-items: center; justify-content: center; pointer-events: none;">
-                        <div class="radar-ring" style="width: 140px; height: 140px;"></div>
-                        <div class="radar-ring ring-2" style="width: 190px; height: 190px;"></div>
-                        <div class="radar-ring ring-3" style="width: 240px; height: 240px;"></div>
-                        <i class="bi bi-broadcast text-info opacity-40 fs-3"></i>
-                    </div>
+            <!-- Dinamik Kategori Filtreleri (Tam Simetrik & Ortalanmış) -->
+            <div class="d-flex flex-wrap justify-content-center gap-2" id="refFilterButtons">
+                <button type="button" class="lusion-filter-btn active" data-filter="all">Tümü</button>
+                <button type="button" class="lusion-filter-btn" data-filter="yazilim">Özel Yazılım</button>
+                <button type="button" class="lusion-filter-btn" data-filter="tasarim">Web Tasarım</button>
+                <button type="button" class="lusion-filter-btn" data-filter="eticaret">E-Ticaret</button>
+            </div>
+        </div>
 
-                    <span class="badge bg-primary text-white px-3 py-2 rounded-pill fw-bold mb-3 shadow-sm d-inline-flex align-items-center gap-2" style="background: linear-gradient(135deg, #2563eb, #7c3aed) !important; font-size: 0.8rem; letter-spacing: 0.5px;">
-                        <span class="hero-pulse-dot" style="width: 7px; height: 7px;"></span> ELAZIĞ MERKEZLİ TEKNOLOJİ ÜSSÜ
-                    </span>
-                    <h3 class="fw-bold text-white mb-3 display-6" style="letter-spacing: -0.5px;">Donanım ve Yazılımın Mükemmel Uyumu</h3>
-                    <p class="mb-4 fs-6" style="color: #cbd5e1; line-height: 1.8;">
-                        Hayat İşleri olarak sadece kod yazmıyor; aynı zamanda güçlü donanım altyapılarını kurarak sistemlerinizin her katmanında kusursuz performans sağlıyoruz.
-                    </p>
+        <!-- Referans Kartları Izgarası (Simetrik 2x2 Google One Kartları) -->
+        <div class="row g-4" id="refCardsContainer">
+            @if (referanslar != null && referanslar.Any())
+            {
+                int refLoopIdx = 0;
+                string[] g1BadgeClasses = new string[] { "g1-badge-blue", "g1-badge-green", "g1-badge-yellow", "g1-badge-red" };
+                string[] realRefPhotos = new string[] { "/images/ref-real-1.jpg", "/images/ref-real-2.jpg", "/images/ref-real-3.jpg", "/images/ref-real-4.jpg" };
+                @foreach (var refItem in referanslar)
+                {
+                    string defaultImg = realRefPhotos[refLoopIdx % 4];
+                    string b = refItem.Baslik ?? "";
+                    string k = refItem.Kategori ?? "";
                     
-                    <!-- Metrik Sayaçları ve Canlı İlerleme Çubukları -->
-                    <div class="d-flex flex-wrap gap-4 pt-3 border-top border-white border-opacity-10">
-                        <div class="pe-4">
-                            <div class="d-flex align-items-baseline gap-2 mb-1">
-                                <h3 class="fw-bold text-info mb-0" style="letter-spacing: -1px;">%100</h3>
-                                <i class="bi bi-arrow-up-right text-success small"></i>
+                    if (b.Contains("Cari", StringComparison.OrdinalIgnoreCase) || b.Contains("Muhasebe", StringComparison.OrdinalIgnoreCase) || k.Contains("Muhasebe", StringComparison.OrdinalIgnoreCase) || b.Contains("Lojistik", StringComparison.OrdinalIgnoreCase))
+                    {
+                        defaultImg = "/images/ref-real-1.jpg";
+                    }
+                    else if (b.Contains("POS", StringComparison.OrdinalIgnoreCase) || b.Contains("Barkod", StringComparison.OrdinalIgnoreCase) || k.Contains("POS", StringComparison.OrdinalIgnoreCase) || k.Contains("Barkod", StringComparison.OrdinalIgnoreCase) || b.Contains("Mimar", StringComparison.OrdinalIgnoreCase))
+                    {
+                        defaultImg = "/images/ref-real-2.jpg";
+                    }
+                    else if (b.Contains("Adisyon", StringComparison.OrdinalIgnoreCase) || b.Contains("Restoran", StringComparison.OrdinalIgnoreCase) || b.Contains("Kafe", StringComparison.OrdinalIgnoreCase) || b.Contains("Tarım", StringComparison.OrdinalIgnoreCase))
+                    {
+                        defaultImg = "/images/ref-real-3.jpg";
+                    }
+                    else if (b.Contains("Web", StringComparison.OrdinalIgnoreCase) || b.Contains("Ticaret", StringComparison.OrdinalIgnoreCase) || b.Contains("Portal", StringComparison.OrdinalIgnoreCase) || b.Contains("Akademi", StringComparison.OrdinalIgnoreCase))
+                    {
+                        defaultImg = "/images/ref-real-4.jpg";
+                    }
+
+                    string gorselSrc = (string.IsNullOrEmpty(refItem.GorselUrl) || refItem.GorselUrl.Contains("unsplash") || refItem.GorselUrl.EndsWith(".svg", StringComparison.OrdinalIgnoreCase)) ? defaultImg : refItem.GorselUrl;
+
+                    string catFilter = "yazilim";
+                    if (k.Contains("Tasarım", StringComparison.OrdinalIgnoreCase) || k.Contains("Web", StringComparison.OrdinalIgnoreCase))
+                    {
+                        catFilter = "tasarim";
+                    }
+                    else if (k.Contains("Ticaret", StringComparison.OrdinalIgnoreCase) || k.Contains("Market", StringComparison.OrdinalIgnoreCase))
+                    {
+                        catFilter = "eticaret";
+                    }
+
+                    string badgeClass = g1BadgeClasses[refLoopIdx % 4];
+                    bool isFirstOrHiCari = (refLoopIdx == 0) || b.Contains("Cari", StringComparison.OrdinalIgnoreCase) || b.Contains("Muhasebe", StringComparison.OrdinalIgnoreCase);
+                    refLoopIdx++;
+
+                    <div class="col-md-6 d-flex align-items-stretch ref-item" data-category="@catFilter">
+                        <div class="g1-ref-card d-flex flex-column h-100 w-100">
+                            <div class="lusion-card-sheen"></div>
+                            <div class="g1-ref-img-wrap">
+                                <img src="@gorselSrc" alt="@(isFirstOrHiCari ? "HiCariTakip - Bulut Ön Muhasebe & ERP" : refItem.Baslik)" onerror="this.onerror=null; this.src='@defaultImg';" />
+                                <span class="badge position-absolute top-0 start-0 m-3 px-3 py-1.5 rounded-pill fw-medium @badgeClass" style="font-size: 0.76rem; font-family: 'Google Sans', sans-serif;">
+                                    @(isFirstOrHiCari ? "Özel Yazılım & Finans" : refItem.Kategori)
+                                </span>
                             </div>
-                            <span class="small fw-semibold" style="color: #e2e8f0;">Entegre Çözüm</span>
-                            <div class="mt-2" style="width: 100px; height: 3px; background: rgba(255,255,255,0.15); border-radius: 99px; overflow: hidden;">
-                                <div style="width: 100%; height: 100%; background: linear-gradient(90deg, #38bdf8, #818cf8);"></div>
+                            <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
+                                <div>
+                                    @if (isFirstOrHiCari)
+                                    {
+                                        <h4 class="g1-ref-title mb-2">
+                                            <a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" class="text-decoration-none" style="color: inherit;">
+                                                HiCariTakip - Bulut Ön Muhasebe &amp; ERP
+                                            </a>
+                                        </h4>
+                                        <p class="g1-ref-desc mb-2">GİB e-Fatura/e-Arşiv entegrasyonu, gerçek zamanlı stok, cari hesap takibi ve çok şubeli gelir-gider analitiği.</p>
+                                        <div class="mb-3">
+                                            <a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" class="g1-ref-web-link">
+                                                <i class="bi bi-globe2"></i>
+                                                <span>Ön Muhasebe Programı ve B2B Cari Yönetimi | HiCariTakip</span>
+                                                <i class="bi bi-box-arrow-up-right ms-auto"></i>
+                                            </a>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <h4 class="g1-ref-title mb-2">@refItem.Baslik</h4>
+                                        <p class="g1-ref-desc mb-3">@refItem.Aciklama</p>
+                                    }
+                                    <div class="d-flex flex-wrap gap-1.5 mb-3 g1-ref-tags">
+                                        @if (isFirstOrHiCari)
+                                        {
+                                            <span class="badge g1-ref-tag">e-Fatura GİB</span>
+                                            <span class="badge g1-ref-tag">Bulut ERP</span>
+                                            <span class="badge g1-ref-tag">Stok Yönetimi</span>
+                                        }
+                                        else if (!string.IsNullOrEmpty(refItem.Etiketler))
+                                        {
+                                            @foreach (var tag in refItem.Etiketler.Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries).Take(3))
+                                            {
+                                                <span class="badge g1-ref-tag">@tag.Trim()</span>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                                <div class="pt-3 d-flex justify-content-between align-items-center flex-wrap gap-2 g1-ref-footer">
+                                    <span class="small d-inline-flex align-items-center gap-1.5 g1-ref-status"><i class="bi bi-check-circle-fill" style="color: #34A853;"></i> @(isFirstOrHiCari ? "Aktif Kullanımda" : "Tamamlanan Proje")</span>
+                                    @if (isFirstOrHiCari)
+                                    {
+                                        <div class="d-flex align-items-center gap-2">
+                                            <a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" class="g1-btn-card">
+                                                <i class="bi bi-box-arrow-up-right" style="font-size: 0.78rem;"></i> <span>hicari.com.tr</span>
+                                            </a>
+                                            <a asp-controller="Home" asp-action="TeklifAl" class="g1-btn-card">
+                                                <span>Teklif Al</span> <i class="bi bi-arrow-right-short fs-6"></i>
+                                            </a>
+                                        </div>
+                                    }
+                                    else if (!string.IsNullOrEmpty(refItem.ProjeLinki) && refItem.ProjeLinki != "#")
+                                    {
+                                        <a href="@refItem.ProjeLinki" target="_blank" rel="noopener noreferrer" class="g1-btn-card">
+                                            <span>Canlı Gör</span> <i class="bi bi-arrow-right-short fs-6"></i>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-controller="Home" asp-action="TeklifAl" class="g1-btn-card">
+                                            <span>Teklif Al</span> <i class="bi bi-arrow-right-short fs-6"></i>
+                                        </a>
+                                    }
+                                </div>
                             </div>
                         </div>
-
-                        <div class="border-start border-white border-opacity-10 ps-4">
-                            <div class="d-flex align-items-baseline gap-2 mb-1">
-                                <h3 class="fw-bold text-primary-emphasis mb-0" style="color: #a5b4fc !important; letter-spacing: -1px;">7/24</h3>
-                                <span class="server-led" style="background-color: #10b981; width: 7px; height: 7px;"></span>
+                    </div>
+                }
+            }
+            else
+            {
+                <!-- Veritabanı Yedeği: 4 Simetrik Google One Temalı Hayat İşleri Eseri -->
+                <!-- Kart 1: Google Mavi (Özel Yazılım & ERP) -->
+                <div class="col-md-6 d-flex align-items-stretch ref-item" data-category="yazilim">
+                    <div class="g1-ref-card d-flex flex-column h-100 w-100">
+                        <div class="lusion-card-sheen"></div>
+                        <div class="g1-ref-img-wrap">
+                            <img src="/images/ref-real-1.jpg" alt="HiCariTakip - Bulut Ön Muhasebe & ERP" />
+                            <span class="badge position-absolute top-0 start-0 m-3 px-3 py-1.5 rounded-pill fw-medium g1-badge-blue" style="font-size: 0.76rem; font-family: 'Google Sans', sans-serif;">
+                                Özel Yazılım &amp; Finans
+                            </span>
+                        </div>
+                        <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
+                            <div>
+                                <h4 class="g1-ref-title mb-2">
+                                    <a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" class="text-decoration-none" style="color: inherit;">
+                                        HiCariTakip - Bulut Ön Muhasebe &amp; ERP
+                                    </a>
+                                </h4>
+                                <p class="g1-ref-desc mb-2">GİB e-Fatura/e-Arşiv entegrasyonu, gerçek zamanlı stok, cari hesap takibi ve çok şubeli gelir-gider analitiği.</p>
+                                <div class="mb-3">
+                                    <a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" class="g1-ref-web-link">
+                                        <i class="bi bi-globe2"></i>
+                                        <span>Ön Muhasebe Programı ve B2B Cari Yönetimi | HiCariTakip</span>
+                                        <i class="bi bi-box-arrow-up-right ms-auto"></i>
+                                    </a>
+                                </div>
+                                <div class="d-flex flex-wrap gap-1.5 mb-3 g1-ref-tags">
+                                    <span class="badge g1-ref-tag">e-Fatura GİB</span>
+                                    <span class="badge g1-ref-tag">Bulut ERP</span>
+                                    <span class="badge g1-ref-tag">Stok Yönetimi</span>
+                                </div>
                             </div>
-                            <span class="small fw-semibold" style="color: #e2e8f0;">Teknik Destek</span>
-                            <div class="mt-2" style="width: 100px; height: 3px; background: rgba(255,255,255,0.15); border-radius: 99px; overflow: hidden;">
-                                <div style="width: 100%; height: 100%; background: linear-gradient(90deg, #818cf8, #10b981);"></div>
+                            <div class="pt-3 d-flex justify-content-between align-items-center flex-wrap gap-2 g1-ref-footer">
+                                <span class="small d-inline-flex align-items-center gap-1.5 g1-ref-status"><i class="bi bi-check-circle-fill" style="color: #34A853;"></i> Aktif Kullanımda</span>
+                                <div class="d-flex align-items-center gap-2">
+                                    <a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" class="g1-btn-card">
+                                        <i class="bi bi-box-arrow-up-right" style="font-size: 0.78rem;"></i> <span>hicari.com.tr</span>
+                                    </a>
+                                    <a asp-controller="Home" asp-action="TeklifAl" class="g1-btn-card">
+                                        <span>Teklif Al</span> <i class="bi bi-arrow-right-short fs-6"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kart 2: Google Yeşil (POS & Barkod) -->
+                <div class="col-md-6 d-flex align-items-stretch ref-item" data-category="yazilim">
+                    <div class="g1-ref-card d-flex flex-column h-100 w-100">
+                        <div class="lusion-card-sheen"></div>
+                        <div class="g1-ref-img-wrap">
+                            <img src="/images/ref-real-2.jpg" alt="Market & Perakende Barkodlu Satış & POS" />
+                            <span class="badge position-absolute top-0 start-0 m-3 px-3 py-1.5 rounded-pill fw-medium g1-badge-green" style="font-size: 0.76rem; font-family: 'Google Sans', sans-serif;">
+                                POS &amp; Barkod Otomasyonu
+                            </span>
+                        </div>
+                        <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
+                            <div>
+                                <h4 class="g1-ref-title mb-2">Market &amp; Perakende Barkodlu Satış &amp; POS</h4>
+                                <p class="g1-ref-desc mb-3">Dokunmatik POS terminalleri, hızlı lazer barkod okuyucular, terazi ve fiş yazıcıları tam donanım entegrasyonu.</p>
+                                <div class="d-flex flex-wrap gap-1.5 mb-3 g1-ref-tags">
+                                    <span class="badge g1-ref-tag">Hızlı Satış</span>
+                                    <span class="badge g1-ref-tag">Barkod &amp; Terazi</span>
+                                    <span class="badge g1-ref-tag">Kasa Yönetimi</span>
+                                </div>
+                            </div>
+                            <div class="pt-3 d-flex justify-content-between align-items-center g1-ref-footer">
+                                <span class="small d-inline-flex align-items-center gap-1.5 g1-ref-status"><i class="bi bi-check-circle-fill" style="color: #34A853;"></i> Aktif Kullanımda</span>
+                                <a asp-controller="Home" asp-action="TeklifAl" class="g1-btn-card">
+                                    <span>Teklif Al</span> <i class="bi bi-arrow-right-short fs-6"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kart 3: Google Sarı (Kafe & Restoran) -->
+                <div class="col-md-6 d-flex align-items-stretch ref-item" data-category="yazilim">
+                    <div class="g1-ref-card d-flex flex-column h-100 w-100">
+                        <div class="lusion-card-sheen"></div>
+                        <div class="g1-ref-img-wrap">
+                            <img src="/images/ref-real-3.jpg" alt="Kafe & Restoran Dokunmatik Adisyon Sistemi" />
+                            <span class="badge position-absolute top-0 start-0 m-3 px-3 py-1.5 rounded-pill fw-medium g1-badge-yellow" style="font-size: 0.76rem; font-family: 'Google Sans', sans-serif;">
+                                Restoran &amp; Kafe Otomasyonu
+                            </span>
+                        </div>
+                        <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
+                            <div>
+                                <h4 class="g1-ref-title mb-2">Kafe &amp; Restoran Dokunmatik Adisyon Sistemi</h4>
+                                <p class="g1-ref-desc mb-3">Masa yerleşim planı, garson el terminalleri, mutfak yazıcı yönlendirmesi ve QR dijital menü altyapısı.</p>
+                                <div class="d-flex flex-wrap gap-1.5 mb-3 g1-ref-tags">
+                                    <span class="badge g1-ref-tag">Masa Planı</span>
+                                    <span class="badge g1-ref-tag">El Terminali</span>
+                                    <span class="badge g1-ref-tag">Mutfak Ekranı</span>
+                                </div>
+                            </div>
+                            <div class="pt-3 d-flex justify-content-between align-items-center g1-ref-footer">
+                                <span class="small d-inline-flex align-items-center gap-1.5 g1-ref-status"><i class="bi bi-check-circle-fill" style="color: #34A853;"></i> Aktif Kullanımda</span>
+                                <a asp-controller="Home" asp-action="TeklifAl" class="g1-btn-card">
+                                    <span>Teklif Al</span> <i class="bi bi-arrow-right-short fs-6"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kart 4: Google Kırmızı/Mercan (Kurumsal Web & E-Ticaret) -->
+                <div class="col-md-6 d-flex align-items-stretch ref-item" data-category="eticaret">
+                    <div class="g1-ref-card d-flex flex-column h-100 w-100">
+                        <div class="lusion-card-sheen"></div>
+                        <div class="g1-ref-img-wrap">
+                            <img src="/images/ref-real-4.jpg" alt="B2B Bayi Portalı & Kurumsal Web Altyapısı" />
+                            <span class="badge position-absolute top-0 start-0 m-3 px-3 py-1.5 rounded-pill fw-medium g1-badge-red" style="font-size: 0.76rem; font-family: 'Google Sans', sans-serif;">
+                                Kurumsal Web &amp; B2B E-Ticaret
+                            </span>
+                        </div>
+                        <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
+                            <div>
+                                <h4 class="g1-ref-title mb-2">B2B Bayi Portalı &amp; Kurumsal Web Altyapısı</h4>
+                                <p class="g1-ref-desc mb-3">Bayi bazlı iskonto/fiyatlandırma, online tahsilat (Sanal POS), ERP cari senkronizasyonu ve mobil uyumlu vitrin.</p>
+                                <div class="d-flex flex-wrap gap-1.5 mb-3 g1-ref-tags">
+                                    <span class="badge g1-ref-tag">B2B Portal</span>
+                                    <span class="badge g1-ref-tag">Sanal POS</span>
+                                    <span class="badge g1-ref-tag">ERP Entegre</span>
+                                </div>
+                            </div>
+                            <div class="pt-3 d-flex justify-content-between align-items-center g1-ref-footer">
+                                <span class="small d-inline-flex align-items-center gap-1.5 g1-ref-status"><i class="bi bi-check-circle-fill" style="color: #34A853;"></i> Aktif Kullanımda</span>
+                                <a asp-controller="Home" asp-action="TeklifAl" class="g1-btn-card">
+                                    <span>Teklif Al</span> <i class="bi bi-arrow-right-short fs-6"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- 3.B BÖLÜM: DİKKAT ÇEKİCİ BAYİ BAŞVURU & İŞBİRLİĞİ KUTUCUĞU -->
+<section class="py-4 my-2 position-relative" id="bayiBasvuruCtaSection" style="z-index: 3;">
+    <div class="container">
+        <div class="g1-dealer-cta-box position-relative overflow-hidden">
+            <!-- Animated Rainbow Top Accent Bar -->
+            <div class="g1-dealer-rainbow-bar"></div>
+            <!-- Ambient Decorative Glow Orbs -->
+            <div class="g1-dealer-orb g1-dealer-orb-blue"></div>
+            <div class="g1-dealer-orb g1-dealer-orb-green"></div>
+            <div class="g1-dealer-orb g1-dealer-orb-gold"></div>
+
+            <div class="row align-items-center g-4 p-4 p-md-5 position-relative" style="z-index: 2;">
+                <!-- Sol Kolon: Başlık, Avantajlar ve Aksiyon Butonları -->
+                <div class="col-lg-7">
+                    <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill mb-3 g1-dealer-pill-badge">
+                        <span class="g1-dealer-live-dot"></span>
+                        <span class="g1-four-dots me-1">
+                            <i style="background:#4285F4"></i>
+                            <i style="background:#EA4335"></i>
+                            <i style="background:#FBBC05"></i>
+                            <i style="background:#34A853"></i>
+                        </span>
+                        <span class="fw-bold text-uppercase" style="font-size: 0.74rem; letter-spacing: 0.08em;">B2B BAYİ ORTAKLIĞI &amp; SİPARİŞ PORTALI</span>
+                    </div>
+
+                    <h2 class="fw-bold mb-3 g1-dealer-cta-title">
+                        Hayat İşleri <span class="google-ai-gradient-text">Bayilik ve İş Ortaklığı</span> Programı
+                    </h2>
+
+                    <p class="mb-4 g1-dealer-cta-desc">
+                        Ticari yazılım programlarımız ve kurumsal donanım çözümlerimizde yetkili bayilik avantajlarından yararlanın. B2B bayi portalımız üzerinden size özel indirimli fiyatlarla hızlıca sipariş verin, tüm lisans ve donanım tedarik süreçlerinizi tek merkezden yönetin.
+                    </p>
+
+                    <!-- Avantaj Rozetleri -->
+                    <div class="d-flex flex-wrap gap-2 mb-4">
+                        <div class="g1-dealer-perk-chip">
+                            <i class="bi bi-cart-check-fill" style="color: #137333;"></i>
+                            <span>B2B Portaldan İndirimli Sipariş</span>
+                        </div>
+                        <div class="g1-dealer-perk-chip">
+                            <i class="bi bi-pc-display-horizontal" style="color: #0b57d0;"></i>
+                            <span>Ticari Program &amp; Kurumsal Donanım</span>
+                        </div>
+                        <div class="g1-dealer-perk-chip">
+                            <i class="bi bi-percent" style="color: #b06000;"></i>
+                            <span>Özel Bayi İskontosu &amp; Öncelikli Destek</span>
+                        </div>
+                    </div>
+
+                    <!-- Eylem Butonları -->
+                    <div class="d-flex flex-wrap align-items-center gap-3 pt-1">
+                        <a asp-controller="Home" asp-action="BayiGirisi" asp-fragment="bayiBasvuruFormu" class="g1-dealer-btn-primary">
+                            <i class="bi bi-rocket-takeoff-fill"></i>
+                            <span>Hemen Bayilik Başvurusu Yap</span>
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                        <a asp-controller="Home" asp-action="BayiGirisi" class="g1-dealer-btn-secondary">
+                            <i class="bi bi-box-arrow-in-right"></i>
+                            <span>Yetkili Bayi Girişi</span>
+                        </a>
+                        <a href="tel:+905010146623" class="g1-dealer-phone-link">
+                            <span class="g1-dealer-phone-icon"><i class="bi bi-telephone-outbound-fill"></i></span>
+                            <span>
+                                <small class="d-block" style="font-size: 0.68rem; opacity: 0.8;">Bayi İletişim Hattı</small>
+                                <strong style="font-size: 0.92rem;">0501 014 6623</strong>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Sağ Kolon: 3D Etkileşimli İşbirliği & Bayi Vitrin Kartı -->
+                <div class="col-lg-5">
+                    <div class="g1-dealer-visual-stage">
+                        <div class="g1-dealer-showcase-card">
+                            <div class="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom g1-dealer-card-divider">
+                                <div class="d-flex align-items-center gap-2.5">
+                                    <div class="g1-dealer-logo-box">
+                                        <img src="~/images/hayat-isleri-logo.svg" alt="Hayat İşleri" />
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold g1-dealer-card-heading" style="font-size: 0.98rem; line-height: 1.2;">Hayat İşleri B2B Partner</div>
+                                        <div class="small g1-dealer-card-sub" style="font-size: 0.75rem;">Yetkili Çözüm Ortaklığı Programı</div>
+                                    </div>
+                                </div>
+                                <span class="badge rounded-pill px-2.5 py-1 fw-bold" style="background: #e6f4ea; color: #137333; border: 1px solid rgba(19, 115, 51, 0.25); font-size: 0.7rem;">
+                                    <i class="bi bi-patch-check-fill me-1"></i>81 İlde Aktif
+                                </span>
+                            </div>
+
+                            <!-- 3D Mini İstatistik & Avantaj Satırları -->
+                            <div class="d-flex flex-column gap-2.5">
+                                <div class="g1-dealer-stat-row">
+                                    <div class="g1-dealer-stat-icon" style="background: #e8f0fe; color: #0b57d0;">
+                                        <i class="bi bi-percent fs-5"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-bold g1-dealer-stat-title">Özel Bayi Fiyatlandırması</div>
+                                        <div class="g1-dealer-stat-sub">Yazılım lisansları ve POS donanımlarında yüksek marj</div>
+                                    </div>
+                                    <span class="badge rounded-pill fw-bold" style="background: rgba(11, 87, 208, 0.1); color: #0b57d0; font-size: 0.72rem;">VIP Bayi</span>
+                                </div>
+
+                                <div class="g1-dealer-stat-row">
+                                    <div class="g1-dealer-stat-icon" style="background: #e6f4ea; color: #137333;">
+                                        <i class="bi bi-boxes fs-5"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-bold g1-dealer-stat-title">Anında Stok &amp; Lisans Paneli</div>
+                                        <div class="g1-dealer-stat-sub">Tek tıkla müşteri tanımlama ve anlık ürün tedariği</div>
+                                    </div>
+                                    <span class="badge rounded-pill fw-bold" style="background: rgba(19, 115, 51, 0.12); color: #137333; font-size: 0.72rem;">7/24 Portal</span>
+                                </div>
+
+                                <div class="g1-dealer-stat-row">
+                                    <div class="g1-dealer-stat-icon" style="background: #fef7e0; color: #b06000;">
+                                        <i class="bi bi-award-fill fs-5"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-bold g1-dealer-stat-title">15+ Global Marka Gücü</div>
+                                        <div class="g1-dealer-stat-sub">Zebra, KodPOS, TSC, BarTender ve <a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" class="fw-semibold text-decoration-none" style="color: #b06000;" title="Ön Muhasebe Programı ve B2B Cari Yönetimi | HiCariTakip">HiCariTakip</a> yetkisi</div>
+                                    </div>
+                                    <span class="badge rounded-pill fw-bold" style="background: rgba(176, 96, 0, 0.12); color: #b06000; font-size: 0.72rem;">Tam Yetki</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 4. BÖLÜM: HİZMETLERİMİZ & STÜDYO ÇÖZÜMLERİ -->
+<section class="py-5" id="hizmetlerimiz" style="background: transparent; position: relative; z-index: 2;">
+    <div class="container py-4">
+        <!-- Üst Başlık & Eylem Butonu (Simetrik Google One Mimarisi) -->
+        <div class="text-center mb-5">
+            <span class="badge px-3.5 py-2 rounded-pill small fw-medium text-uppercase mb-3 d-inline-flex align-items-center gap-1.5" style="background: #e8f0fe; color: #0b57d0; border: 1px solid rgba(11, 87, 208, 0.25); font-family: 'Google Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.5px;">
+                <i class="bi bi-grid-fill me-1"></i> Faaliyet Alanlarımız
+            </span>
+            <h2 class="display-5 fw-bold mb-3" style="font-family: 'Google Sans', sans-serif; color: #1f1f1f; letter-spacing: -1px;">Hizmetlerimiz &amp; Çözümlerimiz</h2>
+            <p class="mx-auto mb-4" style="font-family: 'Google Sans Text', sans-serif; color: #444746; max-width: 620px; font-size: 1.05rem; line-height: 1.6;">
+                Kurumsal yapınızı geleceğe taşıyan, yüksek performanslı ve tamamen ölçeklenebilir teknoloji çözümleri.
+            </p>
+            <div class="d-flex justify-content-center">
+                <a asp-controller="Home" asp-action="Hizmetlerimiz" class="btn btn-outline-primary rounded-pill px-4 py-2 small fw-semibold d-inline-flex align-items-center gap-2" style="border-color: #0b57d0; color: #0b57d0; font-family: 'Google Sans', sans-serif;">
+                    <span>Tüm Hizmet Detayları</span>
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- 6 Kartlı Zengin ve Kademeli Girişli Hizmet Izgarası (Hayat İşleri Gerçek Faaliyet Alanları) -->
+        <div class="row g-3.5 g-lg-4" id="servicesCardsContainer">
+            <!-- 1: Özel Yazılım & Kurumsal Web Geliştirme -->
+            <div class="col-md-6 col-lg-4 service-item">
+                <div class="service-card-modern p-3.5 h-100" style="background: linear-gradient(145deg, rgba(240, 247, 255, 0.94) 0%, rgba(255, 255, 255, 0.98) 100%); border: 1px solid rgba(11, 87, 208, 0.18); box-shadow: 0 8px 24px rgba(11, 87, 208, 0.05); border-radius: 1.3rem;">
+                    <div class="lusion-card-sheen"></div>
+                    <div class="d-flex justify-content-between align-items-center mb-2.5">
+                        <div class="service-icon-box mb-0" style="background: rgba(11, 87, 208, 0.1); color: #0b57d0; border: 1px solid rgba(11, 87, 208, 0.2);">
+                            <i class="bi bi-code-slash"></i>
+                        </div>
+                        <span class="badge px-2.5 py-1 rounded-pill small font-monospace" style="background: rgba(11, 87, 208, 0.08); color: #0b57d0; border: 1px solid rgba(11, 87, 208, 0.2); font-size: 0.72rem;">Web &amp; Yazılım</span>
+                    </div>
+                    <h5 class="fw-bold mb-2" style="color: #0f172a; font-size: 1.05rem;">Özel Yazılım &amp; Web Tasarım</h5>
+                    <p class="small mb-2.5" style="color: #475569; line-height: 1.55; font-size: 0.84rem;">İşletmenizin ihtiyaçlarına tam olarak uyan özel web tabanlı yazılımlar, iş takip panelleri ve modern, mobil uyumlu kurumsal web siteleri.</p>
+                    <div class="d-flex flex-wrap gap-1 mb-2.5">
+                        <span class="badge bg-light text-dark border px-2 py-0.5 small fw-normal" style="font-size: 0.7rem;">Özel Panel</span>
+                        <span class="badge bg-light text-dark border px-2 py-0.5 small fw-normal" style="font-size: 0.7rem;">Web Tasarım</span>
+                        <span class="badge bg-light text-dark border px-2 py-0.5 small fw-normal" style="font-size: 0.7rem;">ASP.NET Core</span>
+                    </div>
+                    <div class="pt-2.5 mt-auto border-top border-black border-opacity-10 d-flex justify-content-between align-items-center">
+                        <a asp-controller="Home" asp-action="TeklifAl" class="text-decoration-none small fw-semibold" style="color: #0b57d0; font-size: 0.82rem;">Detaylı Bilgi &rarr;</a>
+                        <small class="text-muted" style="font-size: 0.75rem;"><i class="bi bi-shield-check text-success me-1"></i>Kurumsal</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2: Ön Muhasebe & Ticari Takip (HiCariTakip) -->
+            <div class="col-md-6 col-lg-4 service-item">
+                <div class="service-card-modern p-3.5 h-100" style="background: linear-gradient(145deg, rgba(240, 253, 244, 0.94) 0%, rgba(255, 255, 255, 0.98) 100%); border: 1px solid rgba(16, 185, 129, 0.2); box-shadow: 0 8px 24px rgba(16, 185, 129, 0.05); border-radius: 1.3rem;">
+                    <div class="lusion-card-sheen"></div>
+                    <div class="d-flex justify-content-between align-items-center mb-2.5">
+                        <div class="service-icon-box mb-0" style="background: rgba(16, 185, 129, 0.1); color: #059669; border: 1px solid rgba(16, 185, 129, 0.2);">
+                            <i class="bi bi-calculator-fill"></i>
+                        </div>
+                        <a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" class="badge px-2.5 py-1 rounded-pill small font-monospace text-decoration-none" style="background: rgba(16, 185, 129, 0.08); color: #047857; border: 1px solid rgba(16, 185, 129, 0.2); font-size: 0.72rem;" title="Ön Muhasebe Programı ve B2B Cari Yönetimi | HiCariTakip">
+                            HiCariTakip <i class="bi bi-box-arrow-up-right ms-1"></i>
+                        </a>
+                    </div>
+                    <h5 class="fw-bold mb-2" style="color: #0f172a; font-size: 1.05rem;">
+                        <a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" class="text-decoration-none" style="color: inherit;" title="Ön Muhasebe Programı ve B2B Cari Yönetimi | HiCariTakip">
+                            Ön Muhasebe &amp; Cari Takip
+                        </a>
+                    </h5>
+                    <p class="small mb-2.5" style="color: #475569; line-height: 1.55; font-size: 0.84rem;">
+                        <a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" class="fw-semibold text-decoration-none" style="color: #047857;" title="Ön Muhasebe Programı ve B2B Cari Yönetimi | HiCariTakip">HiCariTakip</a> ile cari hesap, stok ve depo yönetimi, alış/satış faturaları, e-Fatura, kasa ve çek-senet süreçlerini tek platformdan yönetin.
+                    </p>
+                    <div class="d-flex flex-wrap gap-1 mb-2.5">
+                        <span class="badge bg-light text-dark border px-2 py-0.5 small fw-normal" style="font-size: 0.7rem;">Cari Hesap</span>
+                        <span class="badge bg-light text-dark border px-2 py-0.5 small fw-normal" style="font-size: 0.7rem;">Stok &amp; Depo</span>
+                        <span class="badge bg-light text-dark border px-2 py-0.5 small fw-normal" style="font-size: 0.7rem;">e-Fatura / e-Arşiv</span>
+                    </div>
+                    <div class="pt-2.5 mt-auto border-top border-black border-opacity-10 d-flex justify-content-between align-items-center">
+                        <a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-success rounded-pill px-3 py-1 fw-bold d-inline-flex align-items-center gap-1.5" style="font-size: 0.78rem;" title="Ön Muhasebe Programı ve B2B Cari Yönetimi | HiCariTakip">
+                            <span>hicari.com.tr</span> <i class="bi bi-box-arrow-up-right" style="font-size: 0.72rem;"></i>
+                        </a>
+                        <a asp-controller="Home" asp-action="TeklifAl" class="text-decoration-none small fw-semibold" style="color: #059669; font-size: 0.82rem;">Detaylı Bilgi &rarr;</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3: Barkod & Perakende Satış Sistemleri -->
+            <div class="col-md-6 col-lg-4 service-item">
+                <div class="service-card-modern p-3.5 h-100" style="background: linear-gradient(145deg, rgba(255, 247, 237, 0.94) 0%, rgba(255, 255, 255, 0.98) 100%); border: 1px solid rgba(234, 88, 12, 0.18); box-shadow: 0 8px 24px rgba(234, 88, 12, 0.05); border-radius: 1.3rem;">
+                    <div class="lusion-card-sheen"></div>
+                    <div class="d-flex justify-content-between align-items-center mb-2.5">
+                        <div class="service-icon-box mb-0" style="background: rgba(234, 88, 12, 0.1); color: #ea580c; border: 1px solid rgba(234, 88, 12, 0.2);">
+                            <i class="bi bi-upc-scan"></i>
+                        </div>
+                        <span class="badge px-2.5 py-1 rounded-pill small font-monospace" style="background: rgba(234, 88, 12, 0.08); color: #c2410c; border: 1px solid rgba(234, 88, 12, 0.2); font-size: 0.72rem;">Barkod Otomasyonu</span>
+                    </div>
+                    <h5 class="fw-bold mb-2" style="color: #0f172a; font-size: 1.05rem;">Barkod &amp; Hızlı Satış Sistemleri</h5>
+                    <p class="small mb-2.5" style="color: #475569; line-height: 1.55; font-size: 0.84rem;">Market, mağaza ve perakende işletmeleri için barkod okuyucular, termal etiket/fiş yazıcıları, el terminalleri ve hızlı satış donanımları.</p>
+                    <div class="d-flex flex-wrap gap-1 mb-2.5">
+                        <span class="badge bg-light text-dark border px-2 py-0.5 small fw-normal" style="font-size: 0.7rem;">Barkod Okuyucu</span>
+                        <span class="badge bg-light text-dark border px-2 py-0.5 small fw-normal" style="font-size: 0.7rem;">El Terminali</span>
+                        <span class="badge bg-light text-dark border px-2 py-0.5 small fw-normal" style="font-size: 0.7rem;">Fiş Yazıcı</span>
+                    </div>
+                    <div class="pt-2.5 mt-auto border-top border-black border-opacity-10 d-flex justify-content-between align-items-center">
+                        <a asp-controller="Home" asp-action="TeklifAl" class="text-decoration-none small fw-semibold" style="color: #ea580c; font-size: 0.82rem;">Detaylı Bilgi &rarr;</a>
+                        <small class="text-muted" style="font-size: 0.75rem;"><i class="bi bi-lightning text-warning me-1"></i>Hızlı Satış</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4: Yeni Nesil POS & Ödeme Sistemleri -->
+            <div class="col-md-6 col-lg-4 service-item">
+                <div class="service-card-modern p-3.5 h-100" style="background: linear-gradient(145deg, rgba(240, 249, 255, 0.94) 0%, rgba(255, 255, 255, 0.98) 100%); border: 1px solid rgba(2, 132, 199, 0.18); box-shadow: 0 8px 24px rgba(2, 132, 199, 0.05); border-radius: 1.3rem;">
+                    <div class="lusion-card-sheen"></div>
+                    <div class="d-flex justify-content-between align-items-center mb-2.5">
+                        <div class="service-icon-box mb-0" style="background: rgba(2, 132, 199, 0.1); color: #0284c7; border: 1px solid rgba(2, 132, 199, 0.2);">
+                            <i class="bi bi-credit-card-2-front-fill"></i>
+                        </div>
+                        <span class="badge px-2.5 py-1 rounded-pill small font-monospace" style="background: rgba(2, 132, 199, 0.08); color: #0369a1; border: 1px solid rgba(2, 132, 199, 0.2); font-size: 0.72rem;">Ödeme Sistemleri</span>
+                    </div>
+                    <h5 class="fw-bold mb-2" style="color: #0f172a; font-size: 1.05rem;">Yeni Nesil POS &amp; Ödeme</h5>
+                    <p class="small mb-2.5" style="color: #475569; line-height: 1.55; font-size: 0.84rem;">Yeni nesil yazar kasa POS cihazları, banka tahsilat entegrasyonları, temassız ödeme terminalleri ve güvenli finansal çözümler.</p>
+                    <div class="d-flex flex-wrap gap-1 mb-2.5">
+                        <span class="badge bg-light text-dark border px-2 py-0.5 small fw-normal" style="font-size: 0.7rem;">Yazar Kasa POS</span>
+                        <span class="badge bg-light text-dark border px-2 py-0.5 small fw-normal" style="font-size: 0.7rem;">Temassız Ödeme</span>
+                        <span class="badge bg-light text-dark border px-2 py-0.5 small fw-normal" style="font-size: 0.7rem;">Banka Entegrasyonu</span>
+                    </div>
+                    <div class="pt-2.5 mt-auto border-top border-black border-opacity-10 d-flex justify-content-between align-items-center">
+                        <a asp-controller="Home" asp-action="TeklifAl" class="text-decoration-none small fw-semibold" style="color: #0284c7; font-size: 0.82rem;">Detaylı Bilgi &rarr;</a>
+                        <small class="text-muted" style="font-size: 0.75rem;"><i class="bi bi-shield-lock-fill text-primary me-1"></i>Güvenli Tahsilat</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5: Geçiş Kontrol & Personel Takip (PDKS) -->
+            <div class="col-md-6 col-lg-4 service-item">
+                <div class="service-card-modern p-3.5 h-100" style="background: linear-gradient(145deg, rgba(248, 245, 255, 0.94) 0%, rgba(255, 255, 255, 0.98) 100%); border: 1px solid rgba(124, 58, 237, 0.18); box-shadow: 0 8px 24px rgba(124, 58, 237, 0.05); border-radius: 1.3rem;">
+                    <div class="lusion-card-sheen"></div>
+                    <div class="d-flex justify-content-between align-items-center mb-2.5">
+                        <div class="service-icon-box mb-0" style="background: rgba(124, 58, 237, 0.1); color: #7c3aed; border: 1px solid rgba(124, 58, 237, 0.2);">
+                            <i class="bi bi-person-badge-fill"></i>
+                        </div>
+                        <span class="badge px-2.5 py-1 rounded-pill small font-monospace" style="background: rgba(124, 58, 237, 0.08); color: #6d28d9; border: 1px solid rgba(124, 58, 237, 0.2); font-size: 0.72rem;">PDKS &amp; Güvenlik</span>
+                    </div>
+                    <h5 class="fw-bold mb-2" style="color: #0f172a; font-size: 1.05rem;">Geçiş Kontrol &amp; PDKS</h5>
+                    <p class="small mb-2.5" style="color: #475569; line-height: 1.55; font-size: 0.84rem;">Personel devam kontrol sistemleri (PDKS), kartlı ve parmak izli geçiş terminalleri, turnike ve erişim yetkilendirme otomasyonları.</p>
+                    <div class="d-flex flex-wrap gap-1 mb-2.5">
+                        <span class="badge bg-light text-dark border px-2 py-0.5 small fw-normal" style="font-size: 0.7rem;">Parmak İzi / Kart</span>
+                        <span class="badge bg-light text-dark border px-2 py-0.5 small fw-normal" style="font-size: 0.7rem;">Turnike Sistemleri</span>
+                        <span class="badge bg-light text-dark border px-2 py-0.5 small fw-normal" style="font-size: 0.7rem;">PDKS Yazılımı</span>
+                    </div>
+                    <div class="pt-2.5 mt-auto border-top border-black border-opacity-10 d-flex justify-content-between align-items-center">
+                        <a asp-controller="Home" asp-action="TeklifAl" class="text-decoration-none small fw-semibold" style="color: #6d28d9; font-size: 0.82rem;">Detaylı Bilgi &rarr;</a>
+                        <small class="text-muted" style="font-size: 0.75rem;"><i class="bi bi-fingerprint text-info me-1"></i>Biyometrik</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6: E-Ticaret & Sanal POS Entegrasyonu -->
+            <div class="col-md-6 col-lg-4 service-item">
+                <div class="service-card-modern p-3.5 h-100" style="background: linear-gradient(145deg, rgba(236, 253, 245, 0.94) 0%, rgba(255, 255, 255, 0.98) 100%); border: 1px solid rgba(16, 185, 129, 0.18); box-shadow: 0 8px 24px rgba(16, 185, 129, 0.05); border-radius: 1.3rem;">
+                    <div class="lusion-card-sheen"></div>
+                    <div class="d-flex justify-content-between align-items-center mb-2.5">
+                        <div class="service-icon-box mb-0" style="background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2);">
+                            <i class="bi bi-cart-check-fill"></i>
+                        </div>
+                        <span class="badge px-2.5 py-1 rounded-pill small font-monospace" style="background: rgba(16, 185, 129, 0.08); color: #047857; border: 1px solid rgba(16, 185, 129, 0.2); font-size: 0.72rem;">E-Ticaret &amp; Satış</span>
+                    </div>
+                    <h5 class="fw-bold mb-2" style="color: #0f172a; font-size: 1.05rem;">E-Ticaret &amp; Sanal POS</h5>
+                    <p class="small mb-2.5" style="color: #475569; line-height: 1.55; font-size: 0.84rem;">Ürünlerinizi internet üzerinden 7/24 satışa sunun: Sanal POS banka bağlantıları, <a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" class="fw-semibold text-decoration-none" style="color: #047857;" title="Ön Muhasebe Programı ve B2B Cari Yönetimi | HiCariTakip">HiCariTakip</a> ve stok yönetimi ile tam senkronize e-ticaret siteleri.</p>
+                    <div class="d-flex flex-wrap gap-1 mb-2.5">
+                        <span class="badge bg-light text-dark border px-2 py-0.5 small fw-normal" style="font-size: 0.7rem;">Sanal POS</span>
+                        <span class="badge bg-light text-dark border px-2 py-0.5 small fw-normal" style="font-size: 0.7rem;">Stok Entegrasyonu</span>
+                        <span class="badge bg-light text-dark border px-2 py-0.5 small fw-normal" style="font-size: 0.7rem;">B2B / B2C</span>
+                    </div>
+                    <div class="pt-2.5 mt-auto border-top border-black border-opacity-10 d-flex justify-content-between align-items-center">
+                        <a asp-controller="Home" asp-action="TeklifAl" class="text-decoration-none small fw-semibold" style="color: #10b981; font-size: 0.82rem;">Detaylı Bilgi &rarr;</a>
+                        <small class="text-muted" style="font-size: 0.75rem;"><i class="bi bi-arrow-repeat text-success me-1"></i>Tam Entegre</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 4.B BÖLÜM: GOOGLE ONE DARK IMMERSION - RESMİ ÇÖZÜM ORTAKLARIMIZ & TEKNOLOJİ EKOSİSTEMİ -->
+<div class="g1-dark-scroll-stage position-relative" id="g1DarkScrollStage">
+    <section class="g1-dark-immersion-section spline-partners-section position-relative overflow-hidden" id="isbirliklerimiz">
+        <div class="container py-4">
+            <!-- Hayat İşleri Kurumsal Teknoloji & Otomasyon Üst Başlığı -->
+            <div class="text-center mx-auto mb-4 pb-lg-2" style="max-width: 860px;">
+                <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill mb-3 g1-ecosystem-pill">
+                    <i class="bi bi-cpu-fill g1-ecosystem-pill-icon"></i>
+                    <span class="small fw-bold text-uppercase g1-ecosystem-pill-text">HAYAT İŞLERİ &bull; KURUMSAL YAZILIM &amp; OTOMASYON EKOSİSTEMİ</span>
+                </div>
+                <h2 class="display-5 fw-bold mb-3 g1-gradient-ai-text" style="letter-spacing: -1px; line-height: 1.15;">
+                    İşletmenizi geleceğe taşıyacak güç ve hız için tasarlandı
+                </h2>
+                <p class="mx-auto mb-0 g1-ecosystem-lead" style="font-size: 1.08rem; line-height: 1.72; max-width: 760px;">
+                    Barkod ve yeni nesil POS sistemlerinden el terminallerine, <a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" class="fw-semibold text-decoration-none" style="color: #0b57d0;" title="Ön Muhasebe Programı ve B2B Cari Yönetimi | HiCariTakip">HiCariTakip</a> ön muhasebe yazılımından e-Dönüşüm ve kurumsal ERP entegrasyonlarına kadar tüm operasyonlarınızı tek çatı altında hızlandırın.
+                </p>
+            </div>
+
+            <!-- YENİ: Google One Bento Showcase Tarzı 3'lü Kurumsal Mimari & Kapasite Kartları (Kutucuk İçi Zenginleştirme) -->
+            <div class="row g-3 g-lg-4 mb-5">
+                <!-- 1. Kart: HiCariTakip & Bulut ERP Katmanı -->
+                <div class="col-lg-4">
+                    <div class="g1-ecosystem-bento-card h-100">
+                        <div class="g1-ecosystem-bento-topbar bar-blue"></div>
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <span class="g1-ecosystem-tier-tag tag-blue">
+                                <i class="bi bi-stars me-1"></i> Yazılım Çekirdeği
+                            </span>
+                            <span class="g1-ecosystem-metric-badge">%99.9 Uptime</span>
+                        </div>
+                        <h4 class="g1-ecosystem-bento-title mb-1">
+                            <a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" class="text-decoration-none d-inline-flex align-items-center gap-1.5" style="color: inherit;" title="Ön Muhasebe Programı ve B2B Cari Yönetimi | HiCariTakip">
+                                <span>HiCariTakip &amp; ERP</span>
+                                <i class="bi bi-box-arrow-up-right" style="font-size: 0.82rem; color: #0b57d0;"></i>
+                            </a>
+                        </h4>
+                        <div class="g1-ecosystem-bento-capacity mb-2">Sınırsız Cari &bull; E-Fatura &bull; B2B Portal</div>
+                        <p class="g1-ecosystem-bento-desc mb-3">
+                            Stok, cari hesap, fatura, çek-senet ve şube yönetimini gerçek zamanlı bulut ve yerel sunucu mimarisiyle tek ekrandan yönetin.
+                        </p>
+                        <div class="mb-3">
+                            <a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" class="g1-ref-web-link py-1.5 px-3" title="Ön Muhasebe Programı ve B2B Cari Yönetimi | HiCariTakip">
+                                <i class="bi bi-globe2"></i>
+                                <span class="small">Ön Muhasebe Programı ve B2B Cari Yönetimi | HiCariTakip</span>
+                                <i class="bi bi-box-arrow-up-right ms-auto"></i>
+                            </a>
+                        </div>
+                        <div class="g1-ecosystem-meter-wrap mt-auto">
+                            <div class="d-flex justify-content-between small mb-1 g1-ecosystem-meter-label">
+                                <span>Veri İşleme &amp; Raporlama Hızı</span>
+                                <span class="fw-bold">2.4x Daha Hızlı</span>
+                            </div>
+                            <div class="g1-ecosystem-meter-bar">
+                                <div class="g1-ecosystem-meter-fill fill-blue" style="width: 92%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Kart: Barkod, POS & Saha Donanım Ekosistemi -->
+                <div class="col-lg-4">
+                    <div class="g1-ecosystem-bento-card g1-ecosystem-bento-featured h-100">
+                        <div class="g1-ecosystem-bento-topbar bar-multi"></div>
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <span class="g1-ecosystem-tier-tag tag-gold">
+                                <i class="bi bi-cpu-fill me-1"></i> Tam Otomasyon Paketi
+                            </span>
+                            <span class="g1-ecosystem-metric-badge badge-gold">15+ Global Marka</span>
+                        </div>
+                        <h4 class="g1-ecosystem-bento-title mb-1">POS &amp; Barkod Gücü</h4>
+                        <div class="g1-ecosystem-bento-capacity mb-2">Endüstriyel Terminal &bull; Dokunmatik POS &bull; Yazıcı</div>
+                        <p class="g1-ecosystem-bento-desc mb-3">
+                            Perakende, depo ve üretim sahasında sıfır hata ile çalışan barkod okuyucular, el terminalleri ve terazi entegrasyonları.
+                        </p>
+                        <div class="g1-ecosystem-meter-wrap mt-auto">
+                            <div class="d-flex justify-content-between small mb-1 g1-ecosystem-meter-label">
+                                <span>Donanım &amp; Yazılım Uyumluluğu</span>
+                                <span class="fw-bold">%100 Tam Uyum</span>
+                            </div>
+                            <div class="g1-ecosystem-meter-bar">
+                                <div class="g1-ecosystem-meter-fill fill-multi" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Kart: Kurumsal Güvenlik, Yedekleme & 7/24 SLA Destek -->
+                <div class="col-lg-4">
+                    <div class="g1-ecosystem-bento-card h-100">
+                        <div class="g1-ecosystem-bento-topbar bar-emerald"></div>
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <span class="g1-ecosystem-tier-tag tag-emerald">
+                                <i class="bi bi-shield-check me-1"></i> Kurumsal Güvence
+                            </span>
+                            <span class="g1-ecosystem-metric-badge">7/24 SLA</span>
+                        </div>
+                        <h4 class="g1-ecosystem-bento-title mb-1">Kesintisiz Saha Desteği</h4>
+                        <div class="g1-ecosystem-bento-capacity mb-2">Otomatik Yedekleme &bull; Yerinde Kurulum</div>
+                        <p class="g1-ecosystem-bento-desc mb-3">
+                            Elazığ ve bölge genelinde yerinde kurulum, personel eğitimi, uzaktan anlık müdahale ve veri güvenliği kalkanı.
+                        </p>
+                        <div class="g1-ecosystem-meter-wrap mt-auto">
+                            <div class="d-flex justify-content-between small mb-1 g1-ecosystem-meter-label">
+                                <span>Müşteri Memnuniyeti &amp; SLA Çözüm</span>
+                                <span class="fw-bold">%99.4 Başarı</span>
+                            </div>
+                            <div class="g1-ecosystem-meter-bar">
+                                <div class="g1-ecosystem-meter-fill fill-emerald" style="width: 96%;"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Sağ Panel: Güç ve Güvenlik Altyapı Kartları -->
+            <div class="row align-items-center g-5">
+                <!-- Sol Bilgi Alanı -->
+                <div class="col-lg-6">
+                    <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill mb-3 shadow-sm g1-ecosystem-subpill">
+                        <i class="bi bi-award-fill text-warning small"></i>
+                        <span class="small fw-bold text-uppercase g1-ecosystem-subpill-text" style="letter-spacing: 1.5px; font-size: 0.78rem;">RESMİ TEKNOLOJİ İŞ ORTAKLARI</span>
+                    </div>
+                    
+                    <h3 class="h2 fw-bold mb-3 g1-ecosystem-subtitle" style="letter-spacing: -0.6px;">
+                        Sektörün Öncü Markalarıyla Güç Birliği
+                    </h3>
+                    
+                    <p class="fs-6 mb-4 g1-ecosystem-lead" style="line-height: 1.8; font-weight: 400;">
+                        Hayat İşleri olarak; barkod yazıcıları, el terminalleri, yeni nesil POS sistemleri, etiketleme ve veri toplama teknolojilerinde dünyanın ve Türkiye'nin en güvenilir donanım ve yazılım üreticileriyle resmi iş birliği yürütüyoruz.
+                    </p>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-sm-6">
+                            <div class="g1-dark-tile d-flex align-items-center gap-2.5">
+                                <div class="rounded-3 p-2 d-flex align-items-center justify-content-center" style="background: rgba(66, 133, 244, 0.16); color: #8ab4f8; width: 38px; height: 38px;">
+                                    <i class="bi bi-patch-check-fill fs-5"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-bold small g1-ecosystem-tile-title">15+ Resmi Ortaklık</div>
+                                    <div class="g1-ecosystem-tile-sub" style="font-size: 0.75rem;">Global &amp; Yerli Üreticiler</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="g1-dark-tile d-flex align-items-center gap-2.5">
+                                <div class="rounded-3 p-2 d-flex align-items-center justify-content-center" style="background: rgba(52, 168, 83, 0.16); color: #81c995; width: 38px; height: 38px;">
+                                    <i class="bi bi-shield-lock-fill fs-5"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-bold small g1-ecosystem-tile-title">Orijinal Donanım</div>
+                                    <div class="g1-ecosystem-tile-sub" style="font-size: 0.75rem;">Garantili Cihaz &amp; Sarf</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="g1-dark-tile d-flex align-items-center gap-2.5">
+                                <div class="rounded-3 p-2 d-flex align-items-center justify-content-center" style="background: rgba(155, 114, 203, 0.18); color: #c58af9; width: 38px; height: 38px;">
+                                    <i class="bi bi-cpu-fill fs-5"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-bold small g1-ecosystem-tile-title">Yerinde Entegrasyon</div>
+                                    <div class="g1-ecosystem-tile-sub" style="font-size: 0.75rem;">
+                                        <a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;" title="Ön Muhasebe Programı ve B2B Cari Yönetimi | HiCariTakip">
+                                            HiCariTakip &amp; ERP Uyumlu <i class="bi bi-box-arrow-up-right ms-0.5" style="font-size: 0.7rem;"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="g1-dark-tile d-flex align-items-center gap-2.5">
+                                <div class="rounded-3 p-2 d-flex align-items-center justify-content-center" style="background: rgba(251, 188, 4, 0.16); color: #fdd663; width: 38px; height: 38px;">
+                                    <i class="bi bi-headset fs-5"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-bold small g1-ecosystem-tile-title">Yetkili Servis &amp; Destek</div>
+                                    <div class="g1-ecosystem-tile-sub" style="font-size: 0.75rem;">Elazığ &amp; Bölge Desteği</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-wrap align-items-center gap-3">
+                        <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill small g1-ecosystem-hint-pill">
+                            <i class="bi bi-hand-index-thumb"></i>
+                            <span>Tüm işbirlikçilerimizi incelemek için sağdaki 3D panelden listeyi açabilirsiniz.</span>
+                        </div>
+                        <a asp-controller="Home" asp-action="TeklifAl" class="btn rounded-pill px-4 py-2 fw-bold small g1-ecosystem-cta-btn d-inline-flex align-items-center gap-2">
+                            <span>Kurumsal Çözüm Paketi Alın</span>
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+            <!-- Sağ Kolon: 3D SPLINE DROPDOWN KONSEPTİ -->
             <div class="col-lg-6">
-                <div class="row g-4">
-                    <!-- Donanım Vurgusu Kartı -->
-                    <div class="col-12">
-                        <div class="tech-card p-4 d-flex align-items-center position-relative tech-tilt-card" style="border: 1px solid rgba(56, 189, 248, 0.2); background: rgba(10, 18, 36, 0.85);">
-                            <div class="scanline-effect"></div>
-                            <div class="me-4 rounded-3 overflow-hidden flex-shrink-0 position-relative shadow" style="width: 64px; height: 64px; border: 2px solid rgba(56, 189, 248, 0.45); box-shadow: 0 0 16px rgba(56, 189, 248, 0.3);">
-                                <img src="/images/hardware_chip.jpg" alt="Güçlü Donanım Altyapısı" style="width: 100%; height: 100%; object-fit: cover; filter: brightness(1.1);">
-                            </div>
-                            <div>
-                                <div class="d-flex align-items-center gap-2 mb-1">
-                                    <h5 class="fw-bold text-white mb-0">Güçlü Donanım Altyapısı</h5>
-                                    <span class="server-led delay-1 bg-info"></span>
+                <div class="spline-3d-stage" id="spline3dStage">
+                    <!-- 3D Backplate (Frosted Acrylic Sheet) -->
+                    <div class="spline-3d-backplate"></div>
+
+                    <!-- 3D Main Extruded Card Body -->
+                    <div class="spline-3d-card" id="spline3dCard">
+                        <div class="spline-card-sheen"></div>
+
+                        <!-- Top 3D Window Traffic Light Dots (Red, Yellow, Green) -->
+                        <div class="spline-window-dots">
+                            <span class="spline-dot dot-red" title="Kapat"></span>
+                            <span class="spline-dot dot-yellow" title="Simge Durumuna Küçült"></span>
+                            <span class="spline-dot dot-green" title="Büyüt"></span>
+                        </div>
+
+                        <!-- Main Dropdown Trigger Capsule (Photoshop yerine 'İşbirlikçilerimiz') -->
+                        <div class="spline-select-bar" id="splineSelectBar" role="button" tabindex="0" aria-expanded="false" aria-controls="splinePartnerList">
+                            <div class="spline-select-label-wrap">
+                                <span class="spline-select-icon">
+                                    <i class="bi bi-diagram-3-fill"></i>
+                                </span>
+                                <div class="d-flex flex-column text-start">
+                                    <span class="spline-select-title">İşbirlikçilerimiz</span>
+                                    <span class="spline-select-subtitle">15 Resmi Çözüm Ortağı</span>
                                 </div>
-                                <p class="small mb-0" style="color: #cbd5e1; line-height: 1.6; font-size: 0.92rem;">İşletmenizin ihtiyaç duyduğu en dayanıklı ve ölçeklenebilir donanım bileşenleri.</p>
+                            </div>
+                            
+                            <!-- 3D Elevated Chevron Action Button -->
+                            <div class="spline-action-btn" id="splineActionBtn" title="Listeyi Aç / Kapat">
+                                <i class="bi bi-chevron-down spline-chevron-icon" id="splineChevron"></i>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Güvenlik Vurgusu Kartı -->
-                    <div class="col-12">
-                        <div class="tech-card p-4 d-flex align-items-center position-relative tech-tilt-card" style="border: 1px solid rgba(16, 185, 129, 0.2); background: rgba(10, 18, 36, 0.85);">
-                            <div class="scanline-effect"></div>
-                            <div class="me-4 rounded-3 overflow-hidden flex-shrink-0 position-relative shadow" style="width: 64px; height: 64px; border: 2px solid rgba(16, 185, 129, 0.45); box-shadow: 0 0 16px rgba(16, 185, 129, 0.3);">
-                                <img src="/images/security_shield.jpg" alt="Uçtan Uca Güvenlik" style="width: 100%; height: 100%; object-fit: cover; filter: brightness(1.1);">
-                            </div>
-                            <div>
-                                <div class="d-flex align-items-center gap-2 mb-1">
-                                    <h5 class="fw-bold text-white mb-0">Uçtan Uca Güvenlik</h5>
-                                    <span class="server-led delay-2 bg-success"></span>
+                        <!-- Unfolded 3D DropDown List Container (Tike tıklandığında açılan sıra sıra şirketler) -->
+                        <div class="spline-dropdown-menu" id="splinePartnerList">
+                            <div class="spline-list-inner">
+                                <!-- 1. KodData (Kullanıcının ilettiği resmi logo) -->
+                                <div class="spline-partner-row" title="KodData - Barkod &amp; Veri Otomasyonu">
+                                    <div class="spline-brand-left">
+                                        <img src="/images/partners/koddata.svg" alt="KodData" class="spline-brand-img" />
+                                    </div>
+                                    <span class="spline-brand-pill pill-cyan">Barkod &amp; Veri</span>
                                 </div>
-                                <p class="small mb-0" style="color: #cbd5e1; line-height: 1.6; font-size: 0.92rem;">Donanımdan yazılıma kadar sızdırmaz ve koruma altında olan kurumsal mimariler.</p>
+
+                                <!-- 2. KodPOS -->
+                                <div class="spline-partner-row" title="KodPOS - Yeni Nesil POS &amp; Yazar Kasa">
+                                    <div class="spline-brand-left">
+                                        <img src="/images/partners/kodpos.svg" alt="KodPOS" class="spline-brand-img" />
+                                    </div>
+                                    <span class="spline-brand-pill pill-emerald">POS Donanım</span>
+                                </div>
+
+                                <!-- 3. Zebra -->
+                                <div class="spline-partner-row" title="Zebra Technologies - Barkod Yazıcı &amp; El Terminali">
+                                    <div class="spline-brand-left">
+                                        <img src="/images/partners/zebra.svg" alt="Zebra" class="spline-brand-img" />
+                                    </div>
+                                    <span class="spline-brand-pill pill-blue">Global Lider</span>
+                                </div>
+
+                                <!-- 4. TSC -->
+                                <div class="spline-partner-row" title="TSC Auto ID - Endüstriyel Barkod Yazıcıları">
+                                    <div class="spline-brand-left">
+                                        <img src="/images/partners/tsc.svg" alt="TSC" class="spline-brand-img" />
+                                    </div>
+                                    <span class="spline-brand-pill pill-indigo">Termal Yazıcı</span>
+                                </div>
+
+                                <!-- 5. Citizen -->
+                                <div class="spline-partner-row" title="Citizen Systems - Fiş &amp; Masaüstü Etiket Yazıcıları">
+                                    <div class="spline-brand-left">
+                                        <img src="/images/partners/citizen.svg" alt="Citizen" class="spline-brand-img" />
+                                    </div>
+                                    <span class="spline-brand-pill pill-sky">Japon Sistemleri</span>
+                                </div>
+
+                                <!-- 6. BarTender -->
+                                <div class="spline-partner-row" title="BarTender by Seagull Scientific - Etiket Tasarım Yazılımı">
+                                    <div class="spline-brand-left">
+                                        <img src="/images/partners/bartender.svg" alt="BarTender" class="spline-brand-img" />
+                                    </div>
+                                    <span class="spline-brand-pill pill-teal">Etiket Yazılımı</span>
+                                </div>
+
+                                <!-- 7. Bluebird -->
+                                <div class="spline-partner-row" title="Bluebird Corp - Endüstriyel El Terminalleri">
+                                    <div class="spline-brand-left">
+                                        <img src="/images/partners/bluebird.svg" alt="Bluebird" class="spline-brand-img" />
+                                    </div>
+                                    <span class="spline-brand-pill pill-blue">El Terminali</span>
+                                </div>
+
+                                <!-- 8. CCL -->
+                                <div class="spline-partner-row" title="CCL Industries - Özel Etiketleme &amp; Ambalaj">
+                                    <div class="spline-brand-left">
+                                        <img src="/images/partners/ccl.svg" alt="CCL" class="spline-brand-img" />
+                                    </div>
+                                    <span class="spline-brand-pill pill-amber">Etiket &amp; Sarf</span>
+                                </div>
+
+                                <!-- 9. Movfast -->
+                                <div class="spline-partner-row" title="Movfast - Akıllı Veri &amp; Sayım Terminalleri">
+                                    <div class="spline-brand-left">
+                                        <img src="/images/partners/movfast.svg" alt="Movfast" class="spline-brand-img" />
+                                    </div>
+                                    <span class="spline-brand-pill pill-orange">Hızlı Sayım</span>
+                                </div>
+
+                                <!-- 10. Elanda -->
+                                <div class="spline-partner-row" title="Elanda POS - Dokunmatik POS &amp; Kiosk Sistemleri">
+                                    <div class="spline-brand-left">
+                                        <img src="/images/partners/elanda.svg" alt="Elanda" class="spline-brand-img" />
+                                    </div>
+                                    <span class="spline-brand-pill pill-purple">Dokunmatik POS</span>
+                                </div>
+
+                                <!-- 11. Italora -->
+                                <div class="spline-partner-row" title="Italora - Endüstriyel Baskı Sistemleri">
+                                    <div class="spline-brand-left">
+                                        <img src="/images/partners/italora.svg" alt="Italora" class="spline-brand-img" />
+                                    </div>
+                                    <span class="spline-brand-pill pill-emerald">Baskı Çözümleri</span>
+                                </div>
+
+                                <!-- 12. ecom -->
+                                <div class="spline-partner-row" title="ecom instruments / Pepperl+Fuchs - Ex-Proof Cihazlar">
+                                    <div class="spline-brand-left">
+                                        <img src="/images/partners/ecom.svg" alt="ecom" class="spline-brand-img" />
+                                    </div>
+                                    <span class="spline-brand-pill pill-yellow">Ex-Proof Cihaz</span>
+                                </div>
+
+                                <!-- 13. SOTI -->
+                                <div class="spline-partner-row" title="SOTI MobiControl - Kurumsal Mobil Cihaz Yönetimi">
+                                    <div class="spline-brand-left">
+                                        <img src="/images/partners/soti.svg" alt="SOTI" class="spline-brand-img" />
+                                    </div>
+                                    <span class="spline-brand-pill pill-red">MDM Yönetimi</span>
+                                </div>
+
+                                <!-- 14. KodPrint -->
+                                <div class="spline-partner-row" title="KodPrint - Termal Rulo, Etiket &amp; Ribon">
+                                    <div class="spline-brand-left">
+                                        <img src="/images/partners/kodprint.svg" alt="KodPrint" class="spline-brand-img" />
+                                    </div>
+                                    <span class="spline-brand-pill pill-cyan">Sarf Malzemeleri</span>
+                                </div>
+
+                                <!-- 15. Koscan -->
+                                <div class="spline-partner-row" title="Koscan - Kablolu &amp; Kablosuz Barkod Okuyucu">
+                                    <div class="spline-brand-left">
+                                        <img src="/images/partners/koscan.svg" alt="Koscan" class="spline-brand-img" />
+                                    </div>
+                                    <span class="spline-brand-pill pill-rose">Barkod Okuyucu</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        </div>
+    </section>
+</div>
 
+<style>
+/* 3D SPLINE DROPDOWN STYLES */
+.spline-partners-section {
+    position: relative;
+    z-index: 2;
+}
+
+.spline-3d-stage {
+    perspective: 1200px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 380px;
+    padding: 15px 10px;
+}
+
+.spline-3d-backplate {
+    position: absolute;
+    width: 95%;
+    height: 94%;
+    top: 3%;
+    left: 2%;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 30px;
+    transform: rotateX(12deg) rotateY(-18deg) rotateZ(2.5deg) translateZ(-35px);
+    box-shadow: 0 30px 70px rgba(11, 87, 208, 0.12), 0 12px 28px rgba(15, 23, 42, 0.08);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+}
+
+.spline-3d-card {
+    position: relative;
+    width: 100%;
+    max-width: 410px;
+    background: linear-gradient(135deg, #74b9ff 0%, #a29bfe 36%, #d6a2e8 68%, #fab1a0 100%);
+    border-radius: 24px;
+    padding: 18px 16px 20px 16px;
+    transform: rotateX(12deg) rotateY(-18deg) rotateZ(2.5deg);
+    transform-style: preserve-3d;
+    box-shadow: 
+        0 0 0 1px rgba(255, 255, 255, 0.8),
+        8px 12px 0px rgba(130, 150, 225, 0.35),
+        14px 20px 35px rgba(15, 23, 42, 0.16);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s;
+    user-select: none;
+}
+
+.spline-card-sheen {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 45%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 100%);
+    border-radius: 24px 24px 80px 80px;
+    pointer-events: none;
+}
+
+.spline-window-dots {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 14px;
+    position: relative;
+    z-index: 2;
+}
+
+.spline-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.spline-dot.dot-red {
+    background: radial-gradient(circle at 35% 35%, #ff8579 0%, #ff4b4b 60%, #b91c1c 100%);
+    box-shadow: 0 2px 5px rgba(239, 68, 68, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+.spline-dot.dot-yellow {
+    background: radial-gradient(circle at 35% 35%, #ffe979 0%, #ffb830 60%, #b45309 100%);
+    box-shadow: 0 2px 5px rgba(245, 158, 11, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+.spline-dot.dot-green {
+    background: radial-gradient(circle at 35% 35%, #86efac 0%, #22c55e 60%, #15803d 100%);
+    box-shadow: 0 2px 5px rgba(34, 197, 94, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+.spline-3d-badge-sub {
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: rgba(255, 255, 255, 0.9);
+    margin-left: auto;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+.spline-select-bar {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(180deg, #1b2434 0%, #0d1522 100%);
+    border-radius: 15px;
+    padding: 10px 12px 10px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.25), 0 8px 20px rgba(10, 18, 30, 0.38);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.spline-select-bar:hover {
+    background: linear-gradient(180deg, #243046 0%, #121c2d 100%);
+    border-color: rgba(96, 165, 250, 0.4);
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.35), 0 10px 24px rgba(11, 87, 208, 0.28);
+}
+
+.spline-select-label-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.spline-select-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, rgba(11, 87, 208, 0.35) 0%, rgba(99, 102, 241, 0.35) 100%);
+    border: 1px solid rgba(96, 165, 250, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #60a5fa;
+    font-size: 1.05rem;
+}
+
+.spline-select-title {
+    color: #ffffff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    line-height: 1.2;
+}
+
+.spline-select-subtitle {
+    color: #94a3b8;
+    font-size: 0.72rem;
+    font-weight: 500;
+}
+
+.spline-action-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    background: linear-gradient(135deg, #c084fc 0%, #e879f9 50%, #f472b6 100%);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.7), 0 3px 0 #9333ea, 0 6px 14px rgba(217, 70, 239, 0.38);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
+}
+
+.spline-select-bar:hover .spline-action-btn {
+    transform: translateY(-2px);
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.8), 0 5px 0 #9333ea, 0 10px 20px rgba(217, 70, 239, 0.5);
+}
+
+.spline-chevron-icon {
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* OPEN STATE */
+.spline-3d-card.is-open .spline-chevron-icon {
+    transform: rotate(180deg);
+}
+
+.spline-3d-card.is-open .spline-action-btn {
+    background: linear-gradient(135deg, #818cf8 0%, #6366f1 100%);
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.7), 0 3px 0 #4338ca, 0 6px 14px rgba(79, 70, 229, 0.4);
+}
+
+.spline-dropdown-menu {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin-top: 0;
+    transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, margin-top 0.3s ease;
+    border-radius: 16px;
+    background: rgba(13, 20, 35, 0.94);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+.spline-3d-card.is-open .spline-dropdown-menu {
+    max-height: 380px;
+    opacity: 1;
+    margin-top: 12px;
+    overflow-y: auto;
+}
+
+/* CUSTOM SCROLLBAR FOR PARTNERS LIST */
+.spline-dropdown-menu::-webkit-scrollbar {
+    width: 5px;
+}
+.spline-dropdown-menu::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+}
+.spline-dropdown-menu::-webkit-scrollbar-thumb {
+    background: rgba(96, 165, 250, 0.45);
+    border-radius: 10px;
+}
+.spline-dropdown-menu::-webkit-scrollbar-thumb:hover {
+    background: #0b57d0;
+}
+
+.spline-list-inner {
+    padding: 10px;
+}
+
+.spline-partner-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    margin-bottom: 7px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 12px;
+    min-height: 52px;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+}
+
+.spline-partner-row:last-child {
+    margin-bottom: 0;
+}
+
+.spline-partner-row:hover {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(96, 165, 250, 0.55);
+    transform: translateX(4px) scale(1.01);
+    box-shadow: 0 6px 18px rgba(11, 87, 208, 0.3);
+}
+
+.spline-brand-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.spline-brand-img {
+    height: 36px;
+    max-width: 180px;
+    object-fit: contain;
+    display: block;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+.spline-partner-row:first-child .spline-brand-img {
+    height: 38px;
+}
+
+.spline-brand-pill {
+    padding: 4px 10px;
+    border-radius: 99px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+}
+
+.pill-cyan { background: rgba(6, 182, 212, 0.18); color: #67e8f9; border: 1px solid rgba(6, 182, 212, 0.3); }
+.pill-emerald { background: rgba(16, 185, 129, 0.18); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.3); }
+.pill-blue { background: rgba(59, 130, 246, 0.18); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.3); }
+.pill-indigo { background: rgba(99, 102, 241, 0.18); color: #c7d2fe; border: 1px solid rgba(99, 102, 241, 0.3); }
+.pill-sky { background: rgba(14, 165, 233, 0.18); color: #7dd3fc; border: 1px solid rgba(14, 165, 233, 0.3); }
+.pill-teal { background: rgba(20, 184, 166, 0.18); color: #5eead4; border: 1px solid rgba(20, 184, 166, 0.3); }
+.pill-amber { background: rgba(245, 158, 11, 0.18); color: #fde68a; border: 1px solid rgba(245, 158, 11, 0.3); }
+.pill-orange { background: rgba(249, 115, 22, 0.18); color: #fdba74; border: 1px solid rgba(249, 115, 22, 0.3); }
+.pill-purple { background: rgba(168, 85, 247, 0.18); color: #e9d5ff; border: 1px solid rgba(168, 85, 247, 0.3); }
+.pill-yellow { background: rgba(234, 179, 8, 0.18); color: #fef08a; border: 1px solid rgba(234, 179, 8, 0.3); }
+.pill-red { background: rgba(239, 68, 68, 0.18); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.3); }
+.pill-rose { background: rgba(244, 63, 94, 0.18); color: #fecdd3; border: 1px solid rgba(244, 63, 94, 0.3); }
+
+/* Responsive adjustments */
+@@media (max-width: 991px) {
+    .spline-3d-card {
+        transform: rotateX(8deg) rotateY(-8deg) rotateZ(1deg);
+        max-width: 380px;
+    }
+    .spline-3d-backplate {
+        transform: rotateX(8deg) rotateY(-8deg) rotateZ(1deg) translateZ(-25px);
+    }
+}
+@@media (max-width: 576px) {
+    .spline-3d-card {
+        transform: none;
+        padding: 16px 12px 18px 12px;
+        max-width: 100%;
+    }
+    .spline-3d-backplate {
+        display: none;
+    }
+}
+</style>
+
+<!-- 5. BÖLÜM: KARİYER & İŞ BAŞVURUSU ALANI (AI Plus Plan Card Görünümü) -->
+<section class="py-5" style="background: transparent; position: relative; z-index: 2;">
+    <div class="container py-4">
+        <div class="hayat-ai-plus-card hayat-ai-plus-card-wide text-start">
+            <div class="hayat-ai-plus-top-bar"></div>
+            <div class="row align-items-center g-4 position-relative" style="z-index: 2;">
+                <div class="col-lg-8">
+                    <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+                        <span class="hayat-ai-plus-tier-pill">
+                            <i class="bi bi-stars"></i> Yetenek Avı &bull; Kariyer Plus
+                        </span>
+                        <span class="hayat-ai-plus-subpill">Açık Pozisyonlar &amp; Staj</span>
+                    </div>
+                    <h3 class="hayat-ai-plus-title mb-2" style="font-size: 1.75rem;">
+                        Aramıza Katılın. <span style="color: #0b57d0;">Geleceği Birlikte Geliştirelim.</span>
+                    </h3>
+                    <div class="hayat-ai-plus-highlight-metric mb-2">
+                        Kurumsal Yazılım &bull; Saha Entegrasyonu &bull; Yeni Nesil Teknoloji Ekibi
+                    </div>
+                    <p class="hayat-ai-plus-desc mb-3" style="max-width: 650px;">
+                        Yazılım geliştirme, saha entegrasyonu ve dijital teknoloji alanlarında tutkulu musunuz? Hayat İşleri ekibinde yer alarak yenilikçi projelere imza atmak için iş başvurunuzu hemen iletin.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <div class="hayat-ai-plus-feature-item">
+                            <i class="bi bi-stars hayat-ai-plus-sparkle"></i>
+                            <span>Gerçek saha ve kurumsal ERP projelerinde <strong>2x hızlı deneyim</strong></span>
+                        </div>
+                        <div class="hayat-ai-plus-feature-item">
+                            <i class="bi bi-check2-circle hayat-ai-plus-check"></i>
+                            <span>Sürekli gelişim ve Ar-Ge odaklı çalışma kültürü</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <a asp-controller="Home" asp-action="InsanKaynaklari" class="hayat-ai-plus-primary-btn rounded-pill px-4 py-3 fw-bold text-decoration-none d-inline-flex align-items-center justify-content-center gap-2 shadow-sm">
+                        <i class="bi bi-stars"></i>
+                        <span>İş Başvurusu Yapın</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
 @section Scripts {
-<script>
-(function() {
-    // 1. Etkileşimli ve Bağlantılı Siber Ağ Canvas Animasyonu
-    const canvas = document.getElementById('heroCanvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const banner = document.getElementById('heroBanner');
+    <!-- Three.js 3D WebGL Kütüphanesi -->
+    <script src="~/lib/three/three.min.js"></script>
 
-    function resize() {
-        canvas.width = banner.offsetWidth;
-        canvas.height = banner.offsetHeight;
-    }
-    resize();
-    window.addEventListener('resize', resize);
+    
+    <!-- APPLE LIGHT 3D SLALOM ENGINE: Kod kartları scroll ile slalom çizerek bağımsız aşağı iner -->
+    <script>
+        (function() {
+            const canvas = document.getElementById('lusionWebglCanvas');
+            if (!canvas || typeof THREE === 'undefined') return;
 
-    // Mouse Etkileşim Takibi
-    const mouse = { x: null, y: null, radius: 160 };
-    banner.addEventListener('mousemove', function(e) {
-        const rect = banner.getBoundingClientRect();
-        mouse.x = e.clientX - rect.left;
-        mouse.y = e.clientY - rect.top;
-    });
-    banner.addEventListener('mouseleave', function() {
-        mouse.x = null;
-        mouse.y = null;
-    });
+            // SAHNE & RENDERER (Google One Dynamic Theme - Ultra Optimize 60 FPS)
+            const scene = new THREE.Scene();
+            scene.background = null;
 
-    const PARTICLE_COUNT = 90;
-    const CONNECTION_DIST = 145;
-    const colors = ['#38bdf8', '#818cf8', '#c084fc', '#67e8f9', '#10b981'];
+            const isMobileDevice = window.innerWidth < 768;
 
-    const particles = Array.from({ length: PARTICLE_COUNT }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.65,
-        vy: (Math.random() - 0.5) * 0.65,
-        r: Math.random() * 2.2 + 1,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        pulse: Math.random() * Math.PI
-    }));
+            const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 0, 22);
 
-    function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const renderer = new THREE.WebGLRenderer({
+                canvas: canvas,
+                antialias: true,
+                alpha: true,
+                powerPreference: 'high-performance',
+                precision: 'highp'
+            });
+            renderer.setClearColor(0x000000, 0);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2.0));
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 1.05;
 
-        // Bağlantı Çizgileri ve Siber Veri Akışı
-        for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
+            // IŞIKLANDIRMA (Google One Ambiyans & Zengin 3D Işıklandırma)
+            scene.add(new THREE.AmbientLight(0xffffff, 0.95));
+            const keyLight = new THREE.DirectionalLight(0xffffff, 1.45);
+            keyLight.position.set(14, 22, 18);
+            scene.add(keyLight);
 
-                if (dist < CONNECTION_DIST) {
-                    const alpha = (1 - dist / CONNECTION_DIST) * 0.4;
-                    ctx.beginPath();
-                    ctx.strokeStyle = `rgba(56, 189, 248, ${alpha})`;
-                    ctx.lineWidth = 0.8;
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.stroke();
+            const fillLight = new THREE.DirectionalLight(0x4285F4, 1.10);
+            fillLight.position.set(-16, -12, 15);
+            scene.add(fillLight);
+
+            const backLight = new THREE.DirectionalLight(0x9B72CB, 0.85);
+            backLight.position.set(4, 18, -16);
+            scene.add(backLight);
+
+            // AMBIENT PARÇACIKLAR (Zarif ve hafif uzay tozu)
+            const dustCount = isMobileDevice ? 60 : 100;
+            const dustGeo = new THREE.BufferGeometry();
+            const dustPos = new Float32Array(dustCount * 3);
+            for (let i = 0; i < dustCount * 3; i += 3) {
+                dustPos[i] = (Math.random() - 0.5) * 80;
+                dustPos[i+1] = (Math.random() - 0.5) * 160;
+                dustPos[i+2] = (Math.random() - 0.5) * 50;
+            }
+            dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
+            const dustMat = new THREE.PointsMaterial({
+                color: 0x60a5fa,
+                size: isMobileDevice ? 0.2 : 0.14,
+                transparent: true,
+                opacity: 0.45
+            });
+            const dustPts = new THREE.Points(dustGeo, dustMat);
+            scene.add(dustPts);
+
+            // ÇİFT SARMAL AKIŞ OTOYOLLARI (Dual Intertwined Fiber Splines)
+            const flowPts1 = [], flowPts2 = [];
+            const flowCount = 42;
+            for (let i = 0; i < flowCount; i++) {
+                const t = i / (flowCount - 1);
+                const y = (t - 0.5) * 115;
+                // Spline 1: Apple Blue Ana Hat
+                flowPts1.push(new THREE.Vector3(
+                    Math.sin(t * Math.PI * 3.6) * 13 + Math.cos(t * Math.PI * 1.2) * 4,
+                    y,
+                    Math.cos(t * Math.PI * 2.4) * 8 + Math.sin(t * Math.PI * 0.6) * 3
+                ));
+                // Spline 2: Buz Mavisi Karşı Hat
+                flowPts2.push(new THREE.Vector3(
+                    Math.sin(t * Math.PI * 3.6 + Math.PI) * 11 + Math.cos(t * Math.PI * 0.9) * 3,
+                    y,
+                    Math.cos(t * Math.PI * 2.4 + Math.PI) * 7 - Math.sin(t * Math.PI * 0.5) * 2
+                ));
+            }
+            const flowCurve1 = new THREE.CatmullRomCurve3(flowPts1);
+            const flowCurve2 = new THREE.CatmullRomCurve3(flowPts2);
+            const flowGeo1 = new THREE.TubeGeometry(flowCurve1, 100, 0.042, 10, false);
+            const flowGeo2 = new THREE.TubeGeometry(flowCurve2, 100, 0.028, 8, false);
+            const flowMat1 = new THREE.MeshBasicMaterial({ color: 0x0071e3, transparent: true, opacity: 0.55 });
+            const flowMat2 = new THREE.MeshBasicMaterial({ color: 0x7dd3fc, transparent: true, opacity: 0.38 });
+            const flowMesh1 = new THREE.Mesh(flowGeo1, flowMat1);
+            const flowMesh2 = new THREE.Mesh(flowGeo2, flowMat2);
+            scene.add(flowMesh1);
+            scene.add(flowMesh2);
+
+            // ========================================================
+            // 🌟 LUSION ARCHITECTURAL SCI-FI MONOLITH & ASTROLABE
+            // (Çok katmanlı kristal geodezik kafes, elmas matrisi, kuantum çekirdek)
+            // ========================================================
+            const monumentGroup = new THREE.Group();
+            monumentGroup.position.set(3.6, 0.2, -1);
+            scene.add(monumentGroup);
+
+            // 1. Dış Geodezik Kristal Kafes (Faceted Kristal Üçgen Yüzeyler - Akıcı & Detaylı)
+            const outerIcosaGeo = new THREE.IcosahedronGeometry(4.5, 2);
+            const glassMat = new THREE.MeshStandardMaterial({
+                color: 0xbfdbfe,
+                roughness: 0.10,
+                metalness: 0.28,
+                transparent: true,
+                opacity: 0.52,
+                flatShading: true
+            });
+            const outerCrystal = new THREE.Mesh(outerIcosaGeo, glassMat);
+            monumentGroup.add(outerCrystal);
+
+            // Dış İnce Geodezik Tel Kafes (Neon Apple Blue)
+            const wireGeo = new THREE.WireframeGeometry(outerIcosaGeo);
+            const wireMat = new THREE.LineBasicMaterial({
+                color: 0x0071e3,
+                transparent: true,
+                opacity: 0.85,
+                linewidth: 1.5
+            });
+            const wireLines = new THREE.LineSegments(wireGeo, wireMat);
+            outerCrystal.add(wireLines);
+
+            // 1.B. İç Ters Dönen Prizmatik Elmas Çekirdek (Dual Faceted Diamond Matrix)
+            const diamondGeo = new THREE.OctahedronGeometry(3.2, 2);
+            const diamondMat = new THREE.MeshStandardMaterial({
+                color: 0x93c5fd,
+                roughness: 0.08,
+                metalness: 0.35,
+                transparent: true,
+                opacity: 0.55,
+                flatShading: true
+            });
+            const diamondMesh = new THREE.Mesh(diamondGeo, diamondMat);
+            monumentGroup.add(diamondMesh);
+
+            const diamondWire = new THREE.LineSegments(
+                new THREE.WireframeGeometry(diamondGeo),
+                new THREE.LineBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.70 })
+            );
+            diamondMesh.add(diamondWire);
+
+            // Köşe Veri Matrisi Düğümleri (Luminous Cyan Nodes)
+            const nodeGeo = new THREE.SphereGeometry(0.08, 12, 12);
+            const nodeMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
+            const posAttr = outerIcosaGeo.getAttribute('position');
+            const seenVerts = new Set();
+            for (let i = 0; i < posAttr.count; i++) {
+                const key = `${posAttr.getX(i).toFixed(1)},${posAttr.getY(i).toFixed(1)},${posAttr.getZ(i).toFixed(1)}`;
+                if (!seenVerts.has(key)) {
+                    seenVerts.add(key);
+                    const nodeMesh = new THREE.Mesh(nodeGeo, nodeMat);
+                    nodeMesh.position.set(posAttr.getX(i), posAttr.getY(i), posAttr.getZ(i));
+                    outerCrystal.add(nodeMesh);
                 }
             }
 
-            // Mouse Etkileşimi (İmlece Doğru Esnek Çekim ve Bağlantı Çizgisi)
-            if (mouse.x !== null && mouse.y !== null) {
-                const mdx = particles[i].x - mouse.x;
-                const mdy = particles[i].y - mouse.y;
-                const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
-                if (mdist < mouse.radius) {
-                    const mAlpha = (1 - mdist / mouse.radius) * 0.5;
-                    ctx.beginPath();
-                    ctx.strokeStyle = `rgba(129, 140, 248, ${mAlpha})`;
-                    ctx.lineWidth = 1.2;
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(mouse.x, mouse.y);
-                    ctx.stroke();
+            // 2. Orta Katman: Dönen Dodekahedron Matrisi (Ters Dönüş)
+            const midDodecaGeo = new THREE.DodecahedronGeometry(3.1, 0);
+            const midDodecaMat = new THREE.LineBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.70 });
+            const midDodecaMesh = new THREE.LineSegments(new THREE.WireframeGeometry(midDodecaGeo), midDodecaMat);
+            monumentGroup.add(midDodecaMesh);
 
-                    // Hafif manyetik itme/çekme
-                    particles[i].x += (mdx / mdist) * 0.5;
-                    particles[i].y += (mdy / mdist) * 0.5;
+            // 3. İç Kuantum Hiper-Çekirdek (Dual Octahedron + Pulsing Sphere + Dinamik Işık)
+            const coreGroup = new THREE.Group();
+            monumentGroup.add(coreGroup);
+
+            const coreOcta1 = new THREE.Mesh(
+                new THREE.OctahedronGeometry(1.8, 1),
+                new THREE.MeshBasicMaterial({ color: 0x0071e3, wireframe: true, transparent: true, opacity: 0.85 })
+            );
+            const coreOcta2 = new THREE.Mesh(
+                new THREE.OctahedronGeometry(1.1, 0),
+                new THREE.MeshBasicMaterial({ color: 0x818cf8, wireframe: true, transparent: true, opacity: 0.80 })
+            );
+            const corePulseSphere = new THREE.Mesh(
+                new THREE.SphereGeometry(0.55, 32, 32),
+                new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.75 })
+            );
+            const monumentCoreLight = new THREE.PointLight(0x38bdf8, 2.2, 25);
+            coreGroup.add(coreOcta1);
+            coreGroup.add(coreOcta2);
+            coreGroup.add(corePulseSphere);
+            coreGroup.add(monumentCoreLight);
+
+            // 4. Dörtlü Detaylı Giroskopik Yörünge Halkaları (Astrolabe Gimbal - Pürüzsüz & Yüksek Poligon)
+            const rings = [];
+            const ringConfigs = [
+                { radius: 5.7, tube: 0.040, rotX: 0.75, rotY: 0.35, speed: 0.34, color: 0x4285F4, opacity: 0.88 },
+                { radius: 7.3, tube: 0.035, rotX: -0.68, rotY: 0.92, speed: -0.26, color: 0xEA4335, opacity: 0.82 },
+                { radius: 8.8, tube: 0.030, rotX: 0.52, rotY: -0.78, speed: 0.18, color: 0xFBBC04, opacity: 0.85 },
+                { radius: 10.4, tube: 0.018, rotX: -0.35, rotY: 0.55, speed: -0.12, color: 0x34A853, opacity: 0.80 }
+            ];
+
+            ringConfigs.forEach((cfg) => {
+                const ringGroup = new THREE.Group();
+                ringGroup.rotation.set(cfg.rotX, cfg.rotY, 0);
+
+                const ringGeo = new THREE.TorusGeometry(cfg.radius, cfg.tube, 16, 128);
+                const ringMat = new THREE.MeshBasicMaterial({ color: cfg.color, transparent: true, opacity: cfg.opacity });
+                const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+                ringGroup.add(ringMesh);
+
+                // Bileşik Siber Uydular (Gövde + Kanatlar + Parlayan Fener)
+                const satellites = [];
+                for (let s = 0; s < 2; s++) {
+                    const satGroup = new THREE.Group();
+                    const body = new THREE.Mesh(
+                        new THREE.BoxGeometry(0.24, 0.24, 0.24),
+                        new THREE.MeshBasicMaterial({ color: 0x0f172a })
+                    );
+                    const wings = new THREE.Mesh(
+                        new THREE.BoxGeometry(0.60, 0.03, 0.15),
+                        new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.85 })
+                    );
+                    const beacon = new THREE.Mesh(
+                        new THREE.SphereGeometry(0.08, 8, 8),
+                        new THREE.MeshBasicMaterial({ color: 0x60a5fa })
+                    );
+                    beacon.position.y = 0.18;
+                    satGroup.add(body);
+                    satGroup.add(wings);
+                    satGroup.add(beacon);
+
+                    ringGroup.add(satGroup);
+                    satellites.push({ group: satGroup, angle: s * Math.PI, radius: cfg.radius });
+                }
+
+                monumentGroup.add(ringGroup);
+                rings.push({ group: ringGroup, speed: cfg.speed, satellites: satellites });
+            });
+
+            // 5. Yörüngede Dönen 12 Kristal Parçacığı
+            const shards = [];
+            for (let i = 0; i < 12; i++) {
+                const sGeo = new THREE.OctahedronGeometry(0.24 + Math.random() * 0.16, 0);
+                const sMat = new THREE.MeshBasicMaterial({
+                    color: i % 3 === 0 ? 0x93c5fd : (i % 3 === 1 ? 0x38bdf8 : 0x0071e3),
+                    transparent: true,
+                    opacity: 0.70
+                });
+                const sMesh = new THREE.Mesh(sGeo, sMat);
+                const orbitRadius = 6.2 + Math.random() * 5.2;
+                const theta = (i / 12) * Math.PI * 2;
+                const phi = (Math.random() - 0.5) * 0.9;
+                sMesh.position.set(
+                    orbitRadius * Math.cos(theta) * Math.cos(phi),
+                    orbitRadius * Math.sin(phi),
+                    orbitRadius * Math.sin(theta) * Math.cos(phi)
+                );
+                monumentGroup.add(sMesh);
+                shards.push({
+                    mesh: sMesh,
+                    speed: (Math.random() - 0.5) * 0.35,
+                    radius: orbitRadius,
+                    theta: theta,
+                    phi: phi,
+                    rotSpeedX: (Math.random() - 0.5) * 1.5,
+                    rotSpeedY: (Math.random() - 0.5) * 1.5
+                });
+            }
+
+            // 6. Siber Takımyıldızı Veri Noktaları (Constellation Network)
+            const constCount = 14;
+            const constNodes = [];
+            const constGroup = new THREE.Group();
+            monumentGroup.add(constGroup);
+
+            for (let i = 0; i < constCount; i++) {
+                const nMesh = new THREE.Mesh(
+                    new THREE.SphereGeometry(0.10, 8, 8),
+                    new THREE.MeshBasicMaterial({ color: 0x38bdf8 })
+                );
+                const r = 5.0 + Math.random() * 4.5;
+                const u = Math.random();
+                const v = Math.random();
+                const th = u * 2.0 * Math.PI;
+                const ph = Math.acos(2.0 * v - 1.0);
+                nMesh.position.set(
+                    r * Math.sin(ph) * Math.cos(th),
+                    r * Math.sin(ph) * Math.sin(th),
+                    r * Math.cos(ph)
+                );
+                constGroup.add(nMesh);
+                constNodes.push({ mesh: nMesh, basePos: nMesh.position.clone(), seed: Math.random() * 10 });
+            }
+
+            // ========================================================
+            // 💻 DETAYLI HUD SİBER KOD PENCERESİ MOTORU
+            // ========================================================
+            function createCodeTex(title, tag, sub1, sub2, isDarkTheme) {
+                const c = document.createElement('canvas');
+                c.width = 960; c.height = 336;
+                const ctx = c.getContext('2d');
+                ctx.scale(2, 2);
+
+                // Kart gövdesi (Açık modda #ffffff, Koyu modda #181a1f)
+                ctx.fillStyle = isDarkTheme ? '#181a1f' : '#ffffff';
+                ctx.beginPath();
+                if (ctx.roundRect) ctx.roundRect(4, 4, 472, 160, 16);
+                else ctx.rect(4, 4, 472, 160);
+                ctx.fill();
+
+                // Google One İnce Zarif Kart Sınırı
+                ctx.lineWidth = 2.5;
+                ctx.strokeStyle = isDarkTheme ? 'rgba(138, 180, 248, 0.45)' : 'rgba(66, 133, 244, 0.45)';
+                ctx.stroke();
+
+                // Google Pencere Butonları (Kırmızı, Sarı, Yeşil)
+                ctx.fillStyle = '#EA4335'; ctx.beginPath(); ctx.arc(28, 26, 5.5, 0, Math.PI*2); ctx.fill();
+                ctx.fillStyle = '#FBBC04'; ctx.beginPath(); ctx.arc(46, 26, 5.5, 0, Math.PI*2); ctx.fill();
+                ctx.fillStyle = '#34A853'; ctx.beginPath(); ctx.arc(64, 26, 5.5, 0, Math.PI*2); ctx.fill();
+
+                // Sağ üst durum etiketi
+                if (tag) {
+                    ctx.font = 'bold 13px "Google Sans", "SF Mono", Consolas, monospace';
+                    ctx.fillStyle = isDarkTheme ? '#8ab4f8' : '#0b57d0';
+                    ctx.textAlign = 'right';
+                    ctx.fillText('● ' + tag, 452, 28);
+                }
+
+                // HUD köşe parantezleri ┌ ┐ └ ┘
+                ctx.strokeStyle = isDarkTheme ? 'rgba(138, 180, 248, 0.28)' : 'rgba(66, 133, 244, 0.25)';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(14, 52); ctx.lineTo(14, 44); ctx.lineTo(24, 44);
+                ctx.moveTo(466, 52); ctx.lineTo(466, 44); ctx.lineTo(456, 44);
+                ctx.moveTo(14, 136); ctx.lineTo(14, 144); ctx.lineTo(24, 144);
+                ctx.moveTo(466, 136); ctx.lineTo(466, 144); ctx.lineTo(456, 144);
+                ctx.stroke();
+
+                // Satır 1: Ana kod başlığı
+                ctx.font = 'bold 22px "Google Sans", -apple-system, sans-serif';
+                ctx.fillStyle = isDarkTheme ? '#f1f3f4' : '#1f1f1f';
+                ctx.textAlign = 'left';
+                ctx.fillText(title, 28, 76);
+
+                // Satır 2: Alt kod / Fonksiyon imzası
+                ctx.font = '500 15px "Google Sans Text", "SF Mono", Consolas, monospace';
+                ctx.fillStyle = isDarkTheme ? '#8ab4f8' : '#0b57d0';
+                ctx.fillText(sub1 || 'class StudioEngine : IWebGL', 28, 108);
+
+                // Satır 3: Sistem telemetrisi
+                ctx.font = '12px "Google Sans Text", "SF Mono", Consolas, monospace';
+                ctx.fillStyle = isDarkTheme ? '#9aa0a6' : '#747775';
+                ctx.fillText(sub2 || 'latency: 4ms • status: 200 OK • 60 FPS', 28, 138);
+
+                const tex = new THREE.CanvasTexture(c);
+                tex.minFilter = THREE.LinearFilter;
+                tex.magFilter = THREE.LinearFilter;
+                return tex;
+            }
+
+            const codeBoxGeo = new THREE.BoxGeometry(2.9, 1.05, 0.06);
+            const initDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+            // A. HERO KOD PENCERELERİ (Açılışta 3D derinlikte süzülür)
+            const heroCardDefs = [
+                { title: 'Hayat İşleri Çözümleri', tag: 'ELAZIĞ', sub1: 'HiCariTakip.Core()', sub2: 'İşletme Çözümleri • Elazığ Merkez', x: 2.2, y: 3.6, z: 2.2 },
+                { title: 'Ön Muhasebe & ERP', tag: 'HİCARİ', sub1: 'CariTakip.Entegrasyon()', sub2: 'Cari • Stok • Fatura • e-Dönüşüm', x: 7.2, y: 1.8, z: 1.2 },
+                { title: 'Barkod & Hızlı Satış', tag: 'POS', sub1: 'PosDevice.Connect()', sub2: 'Market • Mağaza • Perakende POS', x: 1.0, y: -2.8, z: 2.6 },
+                { title: 'Özel Yazılım & Web', tag: '.NET 9', sub1: 'HayatIsleri.Yazilim()', sub2: 'ASP.NET Core • Kurumsal Çözümler', x: 6.4, y: -3.4, z: 1.5 }
+            ];
+
+            const heroCards = [];
+            heroCardDefs.forEach((d) => {
+                const tex = createCodeTex(d.title, d.tag, d.sub1, d.sub2, initDark);
+                const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0.96 });
+                const mesh = new THREE.Mesh(codeBoxGeo, mat);
+                mesh.position.set(d.x, d.y, d.z);
+                scene.add(mesh);
+                heroCards.push({
+                    mesh: mesh,
+                    def: d,
+                    baseX: d.x,
+                    baseY: d.y,
+                    baseZ: d.z
+                });
+            });
+
+            // B. SCROLL SLALOM KOD KARTLARI
+            const slalomDefs = [
+                { title: 'PDKS & Turnike Takip', tag: 'GEÇİŞ', sub1: 'PdksHardware.Sync()', sub2: 'Parmak İzi • Yüz Tanıma • Kartlı' },
+                { title: 'e-Fatura & e-Arşiv', tag: 'GİB', sub1: 'GibEntegrator.SendInvoice()', sub2: 'e-İrsaliye • e-Müstahsil Entegre' },
+                { title: 'E-Ticaret & Sanal POS', tag: 'ONLINE', sub1: 'SanalPos.B2B_Order()', sub2: 'B2B & B2C • Pazaryeri Entegrasyon' },
+                { title: 'Elazığ Yerel Destek', tag: '7/24', sub1: 'HayatIsleri.YerindeServis()', sub2: 'Kurulum • Eğitim • Teknik Servis' }
+            ];
+
+            const slalomBlocks = [];
+            const totalBlocks = isMobileDevice ? 2 : slalomDefs.length;
+
+            for (let i = 0; i < totalBlocks; i++) {
+                const tex = createCodeTex(slalomDefs[i].title, slalomDefs[i].tag, slalomDefs[i].sub1, slalomDefs[i].sub2, initDark);
+                const cardMat = new THREE.MeshBasicMaterial({
+                    map: tex,
+                    transparent: true,
+                    opacity: 0.92
+                });
+                const mesh = new THREE.Mesh(codeBoxGeo, cardMat);
+
+                const lane = (i % 4) - 1.5;
+                const startY = 12 + i * 5.0;
+                const depthZ = -1.5 + (i % 3) * 1.5;
+
+                mesh.position.set(lane * 4.2, startY, depthZ);
+                scene.add(mesh);
+
+                slalomBlocks.push({
+                    mesh: mesh,
+                    def: slalomDefs[i],
+                    startY: startY,
+                    lane: lane,
+                    depthZ: depthZ,
+                    slalomAmp: 5 + Math.random() * 4,
+                    slalomFreq: 0.75 + Math.random() * 0.5,
+                    slalomPhase: (i / totalBlocks) * Math.PI * 2,
+                    rotSpeed: (Math.random() - 0.5) * 0.28
+                });
+            }
+
+            window.addEventListener('hayat-theme-change', function (e) {
+                const darkNow = e.detail && e.detail.theme === 'dark';
+                heroCards.forEach((hc) => {
+                    if (hc.mesh.material.map) hc.mesh.material.map.dispose();
+                    hc.mesh.material.map = createCodeTex(hc.def.title, hc.def.tag, hc.def.sub1, hc.def.sub2, darkNow);
+                    hc.mesh.material.needsUpdate = true;
+                });
+                slalomBlocks.forEach((sb) => {
+                    if (sb.mesh.material.map) sb.mesh.material.map.dispose();
+                    sb.mesh.material.map = createCodeTex(sb.def.title, sb.def.tag, sb.def.sub1, sb.def.sub2, darkNow);
+                    sb.mesh.material.needsUpdate = true;
+                });
+            });
+
+            // ========================================================
+            // 💥 KOD PARÇALANMA SİSTEMİ (Tek Seferlik, Zarif Dağılım)
+            // ========================================================
+            const codeShatterGroup = new THREE.Group();
+            scene.add(codeShatterGroup);
+
+            const codeShards = [];
+            const codeTexts = [
+                '</>', '{ code }', 'async', 'C# 9', 'return;',
+                '=> {}', '0 1 1 0', 'API', 'WebGL', 'SQL',
+                'class', 'await', 'git push', 'LINQ', 'JSON', '<div>'
+            ];
+
+            const shardGeos = [
+                new THREE.BoxGeometry(0.65, 0.36, 0.04),
+                new THREE.BoxGeometry(0.52, 0.28, 0.03),
+                new THREE.TetrahedronGeometry(0.24),
+                new THREE.OctahedronGeometry(0.22)
+            ];
+
+            const subtleColors = [0xffffff, 0xbae6fd, 0xe2e8f0, 0x93c5fd, 0xf1f5f9];
+
+            for (let i = 0; i < codeTexts.length; i++) {
+                const sGeo = shardGeos[i % shardGeos.length];
+                const sMat = new THREE.MeshBasicMaterial({
+                    color: subtleColors[i % subtleColors.length],
+                    transparent: true,
+                    opacity: 0.85
+                });
+
+                const sMesh = new THREE.Mesh(sGeo, sMat);
+                sMesh.visible = false;
+                codeShatterGroup.add(sMesh);
+
+                codeShards.push({
+                    mesh: sMesh,
+                    mat: sMat,
+                    vx: 0, vy: 0, vz: 0,
+                    rx: 0, ry: 0, rz: 0
+                });
+            }
+
+            // KESİNLİKLE VE SADECE BİR KERE ÇALIŞIR
+            let hasShatteredOnce = false;
+            let isShatterRunning = false;
+            let shatterDuration = 0;
+
+            function triggerCodeShatter() {
+                if (hasShatteredOnce) return;
+                hasShatteredOnce = true;
+                isShatterRunning = true;
+                shatterDuration = 0;
+
+                codeShatterGroup.position.set(camera.position.x, camera.position.y - 0.5, camera.position.z - 11);
+
+                codeShards.forEach((sh, idx) => {
+                    sh.mesh.visible = true;
+                    sh.mesh.position.set(
+                        (Math.random() - 0.5) * 0.8,
+                        (Math.random() - 0.5) * 0.6,
+                        (Math.random() - 0.5) * 0.5
+                    );
+                    sh.mat.opacity = 0.90;
+
+                    const theta = (idx / codeShards.length) * Math.PI * 2 + (Math.random() - 0.5) * 0.4;
+                    const phi = (Math.random() - 0.5) * Math.PI * 0.6;
+                    const spd = 3.5 + Math.random() * 4.0;
+
+                    sh.vx = spd * Math.cos(theta) * Math.cos(phi);
+                    sh.vy = spd * Math.sin(phi) + 0.5;
+                    sh.vz = spd * Math.sin(theta) * Math.cos(phi) - 1.0;
+
+                    sh.rx = (Math.random() - 0.5) * 4;
+                    sh.ry = (Math.random() - 0.5) * 4;
+                    sh.rz = (Math.random() - 0.5) * 4;
+                });
+            }
+
+            // RESPONSIVE BOYUTLANDIRMA & CACHED SCROLL
+            let scrollProgress = 0;
+            let mouseX = 0, mouseY = 0;
+            let baseMonumentX = 3.6;
+            let baseMonumentY = 0.2;
+            let baseScale = 1.0;
+            let slalomAmpMultiplier = 1.0;
+            let maxScroll = 1200;
+
+            function updateResponsiveLayout() {
+                const w = window.innerWidth;
+                const isMobile = w < 768;
+                const isTablet = w >= 768 && w < 1024;
+
+                if (isMobile) {
+                    camera.fov = 58;
+                    camera.position.z = 21;
+                    baseMonumentX = 0;
+                    baseMonumentY = 1.0;
+                    baseScale = 0.92;
+                    slalomAmpMultiplier = 0.6;
+                } else if (isTablet) {
+                    camera.fov = 58;
+                    camera.position.z = 23;
+                    baseMonumentX = 2.4;
+                    baseMonumentY = 0.6;
+                    baseScale = 0.95;
+                    slalomAmpMultiplier = 0.75;
+                } else {
+                    camera.fov = 55;
+                    camera.position.z = 22;
+                    baseMonumentX = 3.6;
+                    baseMonumentY = 0.2;
+                    baseScale = 1.0;
+                    slalomAmpMultiplier = 1.0;
+                }
+
+                monumentGroup.scale.setScalar(baseScale);
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.6));
+
+                maxScroll = Math.max(1, (document.documentElement.scrollHeight || 1200) - window.innerHeight);
+                updateRefSectionMetrics();
+            }
+
+            const refSec = document.getElementById('referanslarimiz');
+            let refSecTop = 0;
+            let refSecHeight = 0;
+            function updateRefSectionMetrics() {
+                if (refSec) {
+                    const r = refSec.getBoundingClientRect();
+                    refSecTop = r.top + (window.scrollY || window.pageYOffset || 0);
+                    refSecHeight = r.height;
                 }
             }
-        }
 
-        // Parçacıkların Çizimi ve Hareketi
-        for (const p of particles) {
-            p.pulse += 0.04;
-            const currentR = p.r + Math.sin(p.pulse) * 0.5;
+            window.addEventListener('resize', updateResponsiveLayout, { passive: true });
+            updateResponsiveLayout();
+            setTimeout(updateResponsiveLayout, 400);
 
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, Math.max(0.5, currentR), 0, Math.PI * 2);
-            ctx.fillStyle = p.color;
-            ctx.shadowBlur = 10;
-            ctx.shadowColor = p.color;
-            ctx.fill();
-            ctx.shadowBlur = 0;
+            // SIFIR REFLOW SCROLL DİNLEYİCİSİ
+            let lastFilterVal = '';
+            function onScroll() {
+                const scrollY = window.scrollY || window.pageYOffset || 0;
+                scrollProgress = scrollY / maxScroll;
 
-            p.x += p.vx;
-            p.y += p.vy;
+                if (!hasShatteredOnce && scrollY > 160) {
+                    triggerCodeShatter();
+                }
 
-            if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-        }
+                // MOBİLDE: EN BAŞTA NET VE CANLI, AŞAĞI KAYDIRDIKÇA YUMUŞAKÇA BLURLANMA
+                if (window.innerWidth < 992) {
+                    let nextFilter = 'none';
+                    if (scrollY > 50) {
+                        const blurVal = Math.min(8.5, (scrollY - 50) / 40);
+                        nextFilter = `blur(${blurVal.toFixed(1)}px)`;
+                    }
+                    if (lastFilterVal !== nextFilter) {
+                        lastFilterVal = nextFilter;
+                        canvas.style.filter = nextFilter;
+                    }
+                } else if (lastFilterVal !== 'none') {
+                    lastFilterVal = 'none';
+                    canvas.style.filter = 'none';
+                }
+            }
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
 
-        requestAnimationFrame(draw);
-    }
-    draw();
+            window.addEventListener('mousemove', (e) => {
+                mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+                mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+            }, { passive: true });
 
-    // 2. Canlı Ping Osilasyon Animasyonu (Terminal)
-    const pingEl = document.getElementById('livePing');
-    if (pingEl) {
-        setInterval(() => {
-            const randomPing = Math.floor(Math.random() * 5) + 11; // 11ms - 15ms arası
-            pingEl.textContent = `Ping: ${randomPing}ms`;
-        }, 3200);
-    }
+            window.addEventListener('touchmove', (e) => {
+                if (e.touches && e.touches[0]) {
+                    mouseX = (e.touches[0].clientX / window.innerWidth) * 2 - 1;
+                    mouseY = -(e.touches[0].clientY / window.innerHeight) * 2 + 1;
+                }
+            }, { passive: true });
 
-    // 3. Kartlarda Manyetik 3D Eğim (Tilt) Etkisi
-    const tiltCards = document.querySelectorAll('.tech-tilt-card');
-    tiltCards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            card.style.transition = 'none';
-        });
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = (e.clientX - rect.left) / rect.width - 0.5;
-            const y = (e.clientY - rect.top) / rect.height - 0.5;
-            const tiltX = -y * 8;
-            const tiltY = x * 8;
-            card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-6px)`;
-        });
-        card.addEventListener('mouseleave', () => {
-            card.style.transition = 'transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease';
-            card.style.transform = '';
-        });
-    });
-})();
-</script>
+            // TEK MERKEZİ RENDER DÖNGÜSÜ (Ultra Akıcı 60 FPS)
+            const clock = new THREE.Clock();
+            let smoothScroll = 0;
+
+            function renderMainScene(delta, time) {
+                const totalDescent = 110;
+                const scrollDist = smoothScroll * totalDescent;
+
+                // 🌟 ÖNE ÇIKAN REFERANSLARIMIZ BÖLÜMÜNE GELDİĞİNDE 3D ARKA PLANI SAYDAMLAT / OPAKLAŞTIR (Sıfır Reflow)
+                if (refSec && refSecHeight > 0) {
+                    const scrollY = window.scrollY || window.pageYOffset || 0;
+                    const rectTop = refSecTop - scrollY;
+                    const rectBottom = rectTop + refSecHeight;
+                    const winH = window.innerHeight;
+                    let targetOp = '1';
+                    if (rectTop < winH * 0.95 && rectBottom > 0) {
+                        const enterProgress = Math.max(0, Math.min(1, (winH * 0.95 - rectTop) / (winH * 0.55)));
+                        targetOp = (1.0 - (enterProgress * 0.85)).toFixed(2);
+                    } else if (rectTop <= 0 && rectBottom > 0) {
+                        targetOp = '0.15';
+                    }
+                    if (canvas.style.opacity !== targetOp) {
+                        canvas.style.opacity = targetOp;
+                    }
+                }
+
+                // 🌟 Monument Kinetik Hareketi (Çok Katmanlı Dönüş)
+                outerCrystal.rotation.x = time * 0.12;
+                outerCrystal.rotation.y = time * 0.15;
+                if (typeof diamondMesh !== 'undefined' && diamondMesh) {
+                    diamondMesh.rotation.x = -time * 0.16;
+                    diamondMesh.rotation.y = time * 0.20;
+                }
+                midDodecaMesh.rotation.x = -time * 0.18;
+                midDodecaMesh.rotation.y = -time * 0.22;
+                coreOcta1.rotation.x = time * 0.25;
+                coreOcta1.rotation.y = time * 0.30;
+                coreOcta2.rotation.x = -time * 0.35;
+                coreOcta2.rotation.y = time * 0.28;
+                corePulseSphere.scale.setScalar(1.0 + Math.sin(time * 3.0) * 0.12);
+                if (typeof monumentCoreLight !== 'undefined' && monumentCoreLight) {
+                    monumentCoreLight.intensity = 2.2 + Math.sin(time * 3.5) * 0.7;
+                }
+
+                // Giroskopik 4'lü Halkalar & Bileşik Uydular
+                rings.forEach((r) => {
+                    r.group.rotation.z += r.speed * delta;
+                    r.satellites.forEach(sat => {
+                        sat.angle += r.speed * delta * 1.6;
+                        sat.group.position.x = Math.cos(sat.angle) * sat.radius;
+                        sat.group.position.y = Math.sin(sat.angle) * sat.radius;
+                        sat.group.rotation.z = sat.angle + Math.PI / 2;
+                    });
+                });
+
+                // Yörüngede Dönen 12 Kristal
+                shards.forEach(sh => {
+                    sh.theta += sh.speed * delta;
+                    sh.mesh.position.x = sh.radius * Math.cos(sh.theta) * Math.cos(sh.phi);
+                    sh.mesh.position.z = sh.radius * Math.sin(sh.theta) * Math.cos(sh.phi);
+                    sh.mesh.rotation.x += sh.rotSpeedX * delta;
+                    sh.mesh.rotation.y += sh.rotSpeedY * delta;
+                });
+
+                // Takımyıldızı Düğümleri Salınımı
+                constNodes.forEach(cn => {
+                    cn.mesh.position.y = cn.basePos.y + Math.sin(time * 1.2 + cn.seed) * 0.25;
+                    cn.mesh.position.x = cn.basePos.x + Math.cos(time * 0.9 + cn.seed) * 0.20;
+                });
+
+                // Monument Scroll ve Fare Tepkisi
+                const scrollOffsetFactor = window.innerWidth < 768 ? 2 : 6;
+                monumentGroup.position.y = baseMonumentY + (smoothScroll * 35) + Math.sin(time * 0.4) * 0.5;
+                monumentGroup.position.x = baseMonumentX - (smoothScroll * scrollOffsetFactor) + (mouseX * 1.2);
+                monumentGroup.rotation.y = (smoothScroll * Math.PI * 1.2) + (mouseX * 0.25);
+
+                // HERO KOD PENCERELERİ (Zarif Yüzme & Scroll Kayması)
+                heroCards.forEach((c, idx) => {
+                    const y = c.baseY + Math.sin(time * 0.85 + idx * 1.6) * 0.28 - (smoothScroll * 38);
+                    c.mesh.position.y = y;
+                    c.mesh.position.x = c.baseX + (mouseX * 0.4) + Math.cos(time * 0.65 + idx) * 0.15;
+                    c.mesh.position.z = c.baseZ + Math.sin(time * 0.5 + idx) * 0.2;
+                    c.mesh.rotation.z = Math.sin(time * 0.6 + idx) * 0.06;
+                    c.mesh.rotation.x = -mouseY * 0.08;
+                    c.mesh.rotation.y = mouseX * 0.08;
+
+                    c.mesh.visible = Math.abs(y) <= 24;
+                });
+
+                // KOD KARTLARI SLALOM (Scroll ile süzülüş)
+                for (let i = 0; i < slalomBlocks.length; i++) {
+                    const b = slalomBlocks[i];
+                    const y = b.startY - scrollDist;
+                    const distFromView = Math.abs(y);
+
+                    if (distFromView > 25) {
+                        b.mesh.visible = false;
+                        continue;
+                    }
+                    b.mesh.visible = true;
+
+                    const slalomT = smoothScroll * b.slalomFreq * Math.PI * 3.5 + b.slalomPhase;
+                    const x = Math.sin(slalomT) * (b.slalomAmp * slalomAmpMultiplier);
+                    const z = b.depthZ + Math.cos(slalomT * 0.7) * 1.8;
+
+                    b.mesh.position.set(x, y, z);
+                    b.mesh.rotation.z = Math.cos(slalomT) * 0.12;
+                    b.mesh.rotation.y += b.rotSpeed * delta;
+                }
+
+                // Kamera Fareye Yumuşakça Eğilir
+                camera.position.x += ((mouseX * 1.8) - camera.position.x) * 0.04;
+                camera.position.y += ((-mouseY * 1.2) - camera.position.y) * 0.04;
+
+                // Çift Sarmal Akış Otoyolları
+                flowMesh1.position.y = smoothScroll * 50 + Math.sin(time * 0.2) * 1.2;
+                flowMesh1.rotation.y = time * 0.03 + mouseX * 0.08;
+                flowMesh2.position.y = smoothScroll * 50 + Math.cos(time * 0.2) * 1.4;
+                flowMesh2.rotation.y = -time * 0.025 - mouseX * 0.06;
+                dustPts.rotation.y = time * 0.008;
+
+                // KOD PARÇALANMA ANİMASYONU
+                if (isShatterRunning) {
+                    shatterDuration += delta;
+                    let remainingShards = 0;
+
+                    codeShards.forEach(sh => {
+                        sh.vx *= 0.95;
+                        sh.vy *= 0.95;
+                        sh.vz *= 0.95;
+
+                        sh.mesh.position.x += sh.vx * delta;
+                        sh.mesh.position.y += sh.vy * delta;
+                        sh.mesh.position.z += sh.vz * delta;
+
+                        sh.mesh.rotation.x += sh.rx * delta;
+                        sh.mesh.rotation.y += sh.ry * delta;
+                        sh.mesh.rotation.z += sh.rz * delta;
+
+                        sh.mat.opacity = Math.max(0, sh.mat.opacity - delta * 0.42);
+                        if (sh.mat.opacity > 0.02) {
+                            remainingShards++;
+                        } else {
+                            sh.mesh.visible = false;
+                        }
+                    });
+
+                    if (shatterDuration > 2.4 || remainingShards === 0) {
+                        isShatterRunning = false;
+                        codeShards.forEach(sh => { sh.mesh.visible = false; });
+                    }
+                }
+
+                renderer.render(scene, camera);
+            }
+
+            function tick() {
+                requestAnimationFrame(tick);
+                if (document.hidden) return;
+
+                const delta = Math.min(clock.getDelta(), 0.1);
+                const time = clock.getElapsedTime();
+
+                smoothScroll += (scrollProgress - smoothScroll) * 0.25;
+
+                renderMainScene(delta, time);
+            }
+
+            tick();
+        })();
+
+        // REFERANSLAR KATEGORİ FİLTRELEME
+        (function() {
+            const filterBtns = document.querySelectorAll('#refFilterButtons .lusion-filter-btn');
+            const refItems = document.querySelectorAll('#refCardsContainer .ref-item');
+            if (!filterBtns.length || !refItems.length) return;
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    const filter = this.getAttribute('data-filter');
+                    refItems.forEach(item => {
+                        const cat = item.getAttribute('data-category');
+                        if (filter === 'all' || cat === filter) {
+                            item.style.display = '';
+                            item.classList.add('lusion-card-in-view');
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        })();
+
+        // ========================================================
+        // 🌟 LUSION SCROLL-DRIVEN STAGGERED REVEAL (Ultra Hafif GPU)
+        // (Aşağı kaydırdıkça öne çıkan eserlerin kenarlardan süzülerek gelişi)
+        // ========================================================
+        (function() {
+            const refItems = document.querySelectorAll('#refCardsContainer .ref-item');
+            if (!refItems.length) return;
+
+            refItems.forEach((item, index) => {
+                if (!item.classList.contains('ref-from-left') && !item.classList.contains('ref-from-right')) {
+                    if (index % 2 === 0) item.classList.add('ref-from-left');
+                    else item.classList.add('ref-from-right');
+                }
+                const colDelay = (index % 2 === 0) ? 0.08 : 0.28;
+                item.style.transitionDelay = colDelay + 's';
+            });
+
+            // IntersectionObserver: Kart bir kez ekrana girdiğinde yerine oturur ve observer durdurulur
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('lusion-card-in-view');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.12,
+                rootMargin: '0px 0px -40px 0px'
+            });
+
+            refItems.forEach(item => revealObserver.observe(item));
+        })();
+
+        // ========================================================
+        // 🌟 HİZMETLER & ÇÖZÜMLER KADEMELİ GİRİŞ DİNAMİĞİ (Smooth Entrance)
+        // ========================================================
+        (function() {
+            const serviceItems = document.querySelectorAll('#servicesCardsContainer .service-item');
+            if (!serviceItems.length) return;
+
+            serviceItems.forEach((card, idx) => {
+                const delay = (idx * 0.12);
+                card.style.transitionDelay = delay + 's';
+            });
+
+            const serviceObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('service-in-view');
+                        serviceObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.10,
+                rootMargin: '0px 0px -30px 0px'
+            });
+
+            serviceItems.forEach(item => serviceObserver.observe(item));
+        })();
+
+
+        // ADIM 3: Draco & Meshoptimizer ile 3D Model Optimizasyon Yükleyici Şablonu
+        // (Harici .glb / .gltf modeller yüklendiğinde GPU ve CPU yükünü %80 azaltır)
+        window.getDracoGLTFLoader = function() {
+            if (typeof THREE.GLTFLoader === 'undefined') return null;
+            const loader = new THREE.GLTFLoader();
+            if (typeof THREE.DRACOLoader !== 'undefined') {
+                const draco = new THREE.DRACOLoader();
+                draco.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');
+                draco.setDecoderConfig({ type: 'js' });
+                loader.setDRACOLoader(draco);
+            }
+            return loader;
+        };
+        // ========================================================
+        // ⚡ STARK DEFENCE TYPEWRITER ENGINE
+        // (Soldan sağa daktilo tarzı harf harf ortaya çıkış)
+        // ========================================================
+        (function() {
+            const heading = document.getElementById('starkTypewriterHeading');
+            if (!heading) return;
+
+            const lines = heading.querySelectorAll('.stark-line');
+            const cursor = document.getElementById('starkCursor');
+            const charSpans = [];
+
+            // 1. Her satırı tek tek harf span'lerine ayrıştır
+            lines.forEach((lineEl, lineIndex) => {
+                const isAccent = lineIndex === 1 || lineEl.classList.contains('stark-line-2');
+                const rawText = lineEl.getAttribute('data-stark-text') || lineEl.textContent.trim();
+                lineEl.innerHTML = '';
+
+                for (let i = 0; i < rawText.length; i++) {
+                    const ch = rawText[i];
+                    const span = document.createElement('span');
+                    span.className = 'stark-char' + (isAccent ? ' stark-accent' : '');
+                    if (ch === ' ') {
+                        span.innerHTML = '&nbsp;';
+                    } else {
+                        span.textContent = ch;
+                    }
+                    lineEl.appendChild(span);
+                    charSpans.push({ span: span, line: lineEl, isSpace: ch === ' ' });
+                }
+            });
+
+            // İlk satırın sonuna imleci koy
+            if (cursor && lines.length > 0) {
+                lines[0].appendChild(cursor);
+            }
+
+            let currentIndex = 0;
+            let isTyping = false;
+
+            function typeNext() {
+                if (currentIndex >= charSpans.length) {
+                    if (cursor && lines.length > 1) {
+                        lines[lines.length - 1].appendChild(cursor);
+                    }
+                    return;
+                }
+
+                const item = charSpans[currentIndex];
+                item.span.classList.add('revealed');
+
+                // İmleci yazılan harften hemen sonraya yerleştir
+                if (cursor) {
+                    item.span.insertAdjacentElement('afterend', cursor);
+                }
+
+                currentIndex++;
+                // Daktilo hızı (STARK Defence ritminde: akıcı 50ms harfler, 90ms boşluklar)
+                const delay = item.isSpace ? 90 : 50;
+                setTimeout(typeNext, delay);
+            }
+
+            // Sayfa yüklendiğinde hemen başlasın
+            setTimeout(() => {
+                if (!isTyping) {
+                    isTyping = true;
+                    typeNext();
+                }
+            }, 100);
+
+            function onTypewriterScroll() {
+                if (!isTyping && (window.scrollY || window.pageYOffset || 0) < 200) {
+                    isTyping = true;
+                    typeNext();
+                    window.removeEventListener('scroll', onTypewriterScroll);
+                }
+            }
+            window.addEventListener('scroll', onTypewriterScroll, { passive: true });
+        })();
+    </script>
+
+    <!-- SPLINE 3D DROPDOWN WIDGET INTERACTION SCRIPT -->
+    <script>
+        (function() {
+            const stage = document.getElementById('spline3dStage');
+            const card = document.getElementById('spline3dCard');
+            const selectBar = document.getElementById('splineSelectBar');
+            const actionBtn = document.getElementById('splineActionBtn');
+            if (!stage || !card || !selectBar) return;
+
+            let isOpen = false;
+
+            function toggleDropdown(e) {
+                if (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                }
+                isOpen = !isOpen;
+                card.classList.toggle('is-open', isOpen);
+                selectBar.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            }
+
+            selectBar.addEventListener('click', toggleDropdown);
+            if (actionBtn) {
+                actionBtn.addEventListener('click', toggleDropdown);
+            }
+
+            // 3D Mousemove Parallax Tilt
+            let isHovering = false;
+            let targetRotX = 12;
+            let targetRotY = -18;
+            let currentRotX = 12;
+            let currentRotY = -18;
+            let rafId = null;
+
+            function updateTilt() {
+                currentRotX += (targetRotX - currentRotX) * 0.12;
+                currentRotY += (targetRotY - currentRotY) * 0.12;
+
+                if (window.innerWidth >= 992) {
+                    card.style.transform = `rotateX(${currentRotX.toFixed(2)}deg) rotateY(${currentRotY.toFixed(2)}deg) rotateZ(2.5deg)`;
+                }
+
+                if (isHovering || Math.abs(currentRotX - 12) > 0.05 || Math.abs(currentRotY - (-18)) > 0.05) {
+                    rafId = requestAnimationFrame(updateTilt);
+                } else {
+                    rafId = null;
+                }
+            }
+
+            stage.addEventListener('mousemove', function(e) {
+                if (window.innerWidth < 992) return;
+                isHovering = true;
+                const rect = stage.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+
+                const maxTilt = 12;
+                targetRotX = 12 - (y / (rect.height / 2)) * maxTilt;
+                targetRotY = -18 + (x / (rect.width / 2)) * maxTilt;
+
+                if (!rafId) {
+                    rafId = requestAnimationFrame(updateTilt);
+                }
+            });
+
+            stage.addEventListener('mouseleave', function() {
+                isHovering = false;
+                targetRotX = 12;
+                targetRotY = -18;
+                if (!rafId) {
+                    rafId = requestAnimationFrame(updateTilt);
+                }
+            });
+
+            // Partner satırına tıklandığında hafif parıltı & seçim efekti
+            const rows = card.querySelectorAll('.spline-partner-row');
+            rows.forEach(r => {
+                r.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    rows.forEach(item => item.style.borderColor = '');
+                    this.style.borderColor = '#38bdf8';
+                    this.style.boxShadow = '0 0 15px rgba(56, 189, 248, 0.4)';
+                    setTimeout(() => {
+                        this.style.boxShadow = '';
+                    }, 600);
+                });
+            });
+        })();
+
+        // GOOGLE ONE SCROLL-DRIVEN DARK IMMERSION TRANSITION (Sıfır Reflow)
+        (function() {
+            const darkStage = document.getElementById('g1DarkScrollStage');
+            const darkSection = document.getElementById('isbirliklerimiz');
+            if (!darkStage || !darkSection) return;
+
+            let ticking = false;
+            let stageTop = 0;
+            let stageHeight = 0;
+
+            function updateStageMetrics() {
+                const r = darkStage.getBoundingClientRect();
+                stageTop = r.top + (window.scrollY || window.pageYOffset || 0);
+                stageHeight = r.height;
+            }
+
+            function updateDarkImmersionScroll() {
+                const scrollY = window.scrollY || window.pageYOffset || 0;
+                const rectTop = stageTop - scrollY;
+                const vh = window.innerHeight || document.documentElement.clientHeight;
+
+                // Calculate how centered/immersed the section is in the viewport (0 to 1)
+                const enterStart = vh * 0.92;
+                const fullEnter = vh * 0.28;
+                const exitStart = -stageHeight * 0.25;
+                const fullExit = -stageHeight * 0.78;
+
+                let progress = 0;
+                if (rectTop <= enterStart && rectTop >= fullEnter) {
+                    progress = (enterStart - rectTop) / (enterStart - fullEnter);
+                } else if (rectTop < fullEnter && rectTop >= exitStart) {
+                    progress = 1;
+                } else if (rectTop < exitStart && rectTop >= fullExit) {
+                    progress = 1 - ((exitStart - rectTop) / (exitStart - fullExit));
+                }
+                progress = Math.max(0, Math.min(1, progress));
+
+                const scale = 0.92 + (progress * 0.08);
+                const radius = Math.round(48 - (progress * 20));
+                darkSection.style.setProperty('--g1-dark-scale', scale.toFixed(4));
+                darkSection.style.setProperty('--g1-dark-radius', radius + 'px');
+                darkStage.style.setProperty('--g1-stage-progress', progress.toFixed(3));
+
+                if (progress > 0.38) {
+                    if (!document.body.classList.contains('g1-dark-scroll-active')) {
+                        document.body.classList.add('g1-dark-scroll-active');
+                    }
+                } else {
+                    if (document.body.classList.contains('g1-dark-scroll-active')) {
+                        document.body.classList.remove('g1-dark-scroll-active');
+                    }
+                }
+                ticking = false;
+            }
+
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(updateDarkImmersionScroll);
+                    ticking = true;
+                }
+            }, { passive: true });
+
+            window.addEventListener('resize', function() {
+                updateStageMetrics();
+                updateDarkImmersionScroll();
+            }, { passive: true });
+
+            updateStageMetrics();
+            updateDarkImmersionScroll();
+        })();
+    </script>
 }

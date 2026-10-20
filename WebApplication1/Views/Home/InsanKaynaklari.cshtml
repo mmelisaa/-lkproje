@@ -3,22 +3,17 @@
     ViewData["Title"] = Model.AnaBaslik;
 }
 
-<!-- ========== HERO BANNER - Canvas Animasyonlu ========== -->
-<section class="position-relative overflow-hidden text-white w-100" id="ikHeroBanner" style="background:#050c1a; min-height:360px; display:flex; align-items:center;">
-    <canvas id="ikCanvas" class="position-absolute w-100 h-100" style="top:0;left:0;z-index:0;"></canvas>
-    <div class="position-absolute w-100 h-100" style="top:0;left:0;z-index:1;background:linear-gradient(135deg,rgba(5,12,26,0.75) 0%,rgba(10,22,55,0.65) 60%,rgba(5,12,26,0.75) 100%);"></div>
-    <div class="position-absolute ambient-orb-1" style="top:-80px;right:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(56,189,248,0.2) 0%,transparent 70%);filter:blur(60px);z-index:1;pointer-events:none;"></div>
-    <div class="position-absolute ambient-orb-2" style="bottom:-80px;left:-80px;width:380px;height:380px;background:radial-gradient(circle,rgba(99,102,241,0.2) 0%,transparent 70%);filter:blur(55px);z-index:1;pointer-events:none;"></div>
-
+<!-- ========== HERO BANNER ========== -->
+<section class="position-relative overflow-hidden w-100" id="ikHeroBanner" style="background: transparent; min-height:320px; display:flex; align-items:center;">
     <div class="container position-relative text-center py-5" style="z-index:2;">
-        <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill mb-4 shadow-sm" style="background:rgba(255,255,255,0.06);border:1px solid rgba(56,189,248,0.3);backdrop-filter:blur(12px);">
-            <span class="ref-pulse-dot"></span>
-            <span class="text-white small fw-bold text-uppercase" style="letter-spacing:2px;">
-                <i class="bi bi-people-fill text-info me-1"></i> @Model.UstBaslik
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill mb-4 shadow-sm" style="background:rgba(255,255,255,0.88);border:1px solid rgba(11, 87, 208,0.2);">
+            <span class="ref-pulse-dot" style="background-color: #0b57d0;"></span>
+            <span class="small fw-bold text-uppercase" style="letter-spacing:2px; color:#1f1f1f;">
+                <i class="bi bi-people-fill me-1" style="color:#0b57d0;"></i> @Model.UstBaslik
             </span>
         </div>
-        <h1 class="display-4 fw-bold text-white mb-3" style="letter-spacing:-1.2px;">@Model.AnaBaslik</h1>
-        <p class="lead text-light text-opacity-75 mx-auto" style="max-width:650px; line-height: 1.75;">
+        <h1 class="display-4 fw-bold mb-3" style="letter-spacing:-1.2px; color:#1f1f1f;">@Model.AnaBaslik</h1>
+        <p class="lead mx-auto" style="max-width:650px; line-height: 1.75; color:#444746;">
             @Model.Aciklama
         </p>
     </div>
@@ -28,33 +23,55 @@
 <div class="tech-divider-stream opacity-40"></div>
 
 <!-- ========== BAŞVURU FORMU ALANI ========== -->
-<div class="position-relative w-100 py-5 overflow-hidden" style="background: radial-gradient(circle at 50% 0%, #0a1329 0%, #050b17 100%);">
-    <div class="position-absolute w-100 h-100 tech-grid-bg" style="top:0;left:0;opacity:0.5;pointer-events:none;"></div>
-    <div class="position-absolute ambient-orb-1" style="top:20%;right:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(56,189,248,0.12) 0%,transparent 70%);filter:blur(60px);pointer-events:none;"></div>
-    <div class="position-absolute ambient-orb-2" style="bottom:10%;left:-80px;width:420px;height:420px;background:radial-gradient(circle,rgba(168,85,247,0.12) 0%,transparent 70%);filter:blur(60px);pointer-events:none;"></div>
+<div class="position-relative w-100 py-5 overflow-hidden" style="background: transparent; position: relative; z-index: 2;">
+    <div class="position-absolute ambient-orb-1" style="top:20%;right:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(11, 87, 208,0.06) 0%,transparent 70%);pointer-events:none;"></div>
+    <div class="position-absolute ambient-orb-2" style="bottom:10%;left:-80px;width:420px;height:420px;background:radial-gradient(circle,rgba(79,70,229,0.06) 0%,transparent 70%);pointer-events:none;"></div>
 
     <div class="container position-relative py-4" style="max-width: 920px; z-index:2;">
         
-        <!-- Büyük Siber Cam Başvuru Kartı -->
-        <div class="tech-card p-4 p-lg-5 position-relative overflow-hidden shadow-lg tech-tilt-card" style="border: 1px solid rgba(56,189,248,0.22); background: rgba(14, 23, 42, 0.88);">
-            <div class="scanline-effect"></div>
-            
-            <div class="mb-4 pb-3 border-bottom border-white border-opacity-10 d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <!-- Kurumsal Kariyer & Yetenek Başvuru Kartı (AI Plus Plan Card Estetiği) -->
+        <div class="hayat-ai-plus-card hayat-ai-plus-card-wide p-4 p-lg-5 position-relative overflow-hidden">
+            <div class="hayat-ai-plus-top-bar"></div>
+
+            <div class="mb-4 pb-3 border-bottom hayat-ai-plus-divider d-flex justify-content-between align-items-start flex-wrap gap-3">
                 <div>
-                    <span class="text-uppercase fw-bold font-monospace text-info small" style="letter-spacing: 1.5px;">İş Başvuru Formu</span>
-                    <h3 class="fw-bold text-white mt-1 fs-4" style="letter-spacing: -0.3px;">@Model.FormBaslik</h3>
-                    <p class="text-light text-opacity-70 small mb-0">@Model.FormAltBaslik</p>
+                    <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+                        <span class="hayat-ai-plus-tier-pill">
+                            <i class="bi bi-stars"></i> Kariyer &amp; Yetenek Programı
+                        </span>
+                        <span class="hayat-ai-plus-subpill">İş Başvuru Formu</span>
+                    </div>
+                    <h3 class="hayat-ai-plus-title mt-1 fs-3 fw-bold" style="letter-spacing: -0.4px;">@Model.FormBaslik</h3>
+                    <div class="hayat-ai-plus-highlight-metric mb-2">
+                        Yazılım Geliştirme &bull; Saha Otomasyon &bull; UI/UX &amp; Kurumsal Destek
+                    </div>
+                    <p class="hayat-ai-plus-desc small mb-0">@Model.FormAltBaslik</p>
                 </div>
-                <span class="badge bg-success bg-opacity-20 text-success border border-success border-opacity-25 px-3 py-2 rounded-pill small d-inline-flex align-items-center gap-1.5">
+                <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-20 px-3 py-2 rounded-pill small d-inline-flex align-items-center gap-1.5">
                     <span class="server-led" style="background-color: #10b981; width: 6px; height: 6px;"></span> Başvurular Açık
                 </span>
             </div>
 
+            <div class="row g-2 mb-4">
+                <div class="col-md-6">
+                    <div class="hayat-ai-plus-feature-item">
+                        <i class="bi bi-stars hayat-ai-plus-sparkle"></i>
+                        <span>Gerçek zamanlı kurumsal ERP, POS ve WebGL projelerinde <strong>2x hızlı kariyer gelişimi</strong></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="hayat-ai-plus-feature-item">
+                        <i class="bi bi-check2-circle hayat-ai-plus-check"></i>
+                        <span>Modern teknoloji yığını, mentorluk ve Elazığ Ar-Ge/Operasyon merkezimizde çalışma imkanı</span>
+                    </div>
+                </div>
+            </div>
+
             @if (TempData["FormMesaj"] != null)
             {
-                <div class="alert alert-success alert-dismissible fade show mb-4 rounded-4 border-0 shadow-lg" role="alert" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3) !important; color: #34d399;">
-                    <i class="bi bi-check-circle-fill me-2"></i> @TempData["FormMesaj"]
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+                <div class="alert alert-success alert-dismissible fade show mb-4 rounded-4 border-0 shadow-sm" role="alert" style="background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3) !important; color: #065f46;">
+                    <i class="bi bi-check-circle-fill me-2 text-success"></i> @TempData["FormMesaj"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             }
 
@@ -64,48 +81,49 @@
                 <div class="row g-3 mb-3">
                     <!-- Ad Soyad -->
                     <div class="col-md-6">
-                        <div class="p-3 rounded-3" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.09);">
-                            <label class="form-label fw-semibold text-white small mb-1">
-                                <i class="bi bi-person-fill text-info me-1"></i> Adınız Soyadınız *
+                        <div class="hayat-ai-plus-input-box p-3 rounded-4">
+                            <label class="form-label fw-semibold small mb-1 hayat-ai-plus-label">
+                                <i class="bi bi-person-fill me-1 text-primary"></i> Adınız Soyadınız *
                             </label>
-                            <input type="text" name="adSoyad" class="form-control bg-transparent border-0 text-white shadow-none py-1 px-0" style="font-size: 0.95rem;" placeholder="Örn: Melisa Can" required>
+                            <input type="text" name="adSoyad" class="form-control bg-transparent border-0 shadow-none py-1 px-0 hayat-ai-plus-input" placeholder="Örn: Melisa Can" required>
                         </div>
                     </div>
                     <!-- E-Posta -->
                     <div class="col-md-6">
-                        <div class="p-3 rounded-3" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.09);">
-                            <label class="form-label fw-semibold text-white small mb-1">
-                                <i class="bi bi-envelope-fill text-info me-1"></i> E-Posta Adresiniz *
+                        <div class="hayat-ai-plus-input-box p-3 rounded-4">
+                            <label class="form-label fw-semibold small mb-1 hayat-ai-plus-label">
+                                <i class="bi bi-envelope-fill me-1 text-primary"></i> E-Posta Adresiniz *
                             </label>
-                            <input type="email" name="eposta" class="form-control bg-transparent border-0 text-white shadow-none py-1 px-0" style="font-size: 0.95rem;" placeholder="ornek@mail.com" required>
+                            <input type="email" name="eposta" class="form-control bg-transparent border-0 shadow-none py-1 px-0 hayat-ai-plus-input" placeholder="ornek@mail.com" required>
                         </div>
                     </div>
                 </div>
 
                 <!-- Pozisyon -->
                 <div class="mb-3">
-                    <div class="p-3 rounded-3" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.09);">
-                        <label class="form-label fw-semibold text-white small mb-1">
-                            <i class="bi bi-briefcase-fill text-info me-1"></i> Başvurmak İstediğiniz Pozisyon / Alan
+                    <div class="hayat-ai-plus-input-box p-3 rounded-4">
+                        <label class="form-label fw-semibold small mb-1 hayat-ai-plus-label">
+                            <i class="bi bi-briefcase-fill me-1 text-primary"></i> Başvurmak İstediğiniz Pozisyon / Alan
                         </label>
-                        <input type="text" name="pozisyon" class="form-control bg-transparent border-0 text-white shadow-none py-1 px-0" style="font-size: 0.95rem;" placeholder="Örn: Web Geliştirici, UI/UX Tasarımcı...">
+                        <input type="text" name="pozisyon" class="form-control bg-transparent border-0 shadow-none py-1 px-0 hayat-ai-plus-input" placeholder="Örn: Web Geliştirici, UI/UX Tasarımcı, Saha Otomasyon Uzmanı...">
                     </div>
                 </div>
 
                 <!-- Ön Yazı -->
                 <div class="mb-4">
-                    <div class="p-3 rounded-3" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.09);">
-                        <label class="form-label fw-semibold text-white small mb-1">
-                            <i class="bi bi-chat-text-fill text-info me-1"></i> Ön Yazınız / Kendinizden Bahsedin
+                    <div class="hayat-ai-plus-input-box p-3 rounded-4">
+                        <label class="form-label fw-semibold small mb-1 hayat-ai-plus-label">
+                            <i class="bi bi-chat-text-fill me-1 text-primary"></i> Ön Yazınız / Kendinizden Bahsedin
                         </label>
-                        <textarea name="onYazi" class="form-control bg-transparent border-0 text-white shadow-none px-0" rows="3" style="font-size: 0.95rem;" placeholder="Yeteneklerinizi ve kariyer hedeflerinizi kısaca bahsedin..."></textarea>
+                        <textarea name="onYazi" class="form-control bg-transparent border-0 shadow-none px-0 hayat-ai-plus-input" rows="3" placeholder="Yeteneklerinizi ve kariyer hedeflerinizi kısaca bahsedin..."></textarea>
                     </div>
                 </div>
 
                 <div class="d-grid pt-2">
-                    <button type="submit" class="btn btn-primary py-3 fw-bold rounded-pill shadow-lg hero-btn-primary d-inline-flex align-items-center justify-content-center gap-2" style="font-size: 1rem;">
-                        <i class="bi bi-send-fill text-warning"></i>
+                    <button type="submit" class="hayat-ai-plus-primary-btn py-3 fw-bold rounded-pill shadow-sm d-inline-flex align-items-center justify-content-center gap-2 border-0">
+                        <i class="bi bi-stars"></i>
                         <span>Başvuruyu Gönder</span>
+                        <i class="bi bi-send-fill ms-1"></i>
                     </button>
                 </div>
             </form>
@@ -205,4 +223,4 @@
     });
 })();
 </script>
-}
+}

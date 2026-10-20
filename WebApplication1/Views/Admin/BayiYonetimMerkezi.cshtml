@@ -1,0 +1,1805 @@
+@model WebApplication1.Models.BayiYonetimMerkeziViewModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Bayi Yönetim & İletişim Merkezi";
+    var aktifTab = Model.AktifTab ?? "hepsi";
+    var bayiler = Model.Bayiler ?? new();
+}
+
+<div class="container-fluid px-0">
+    <!-- ÜST BİLDİRİM ALERTLERİ (Google One Soft Pill Alerter) -->
+    @if (TempData["AdminBasari"] != null)
+    {
+        <div class="alert alert-dismissible fade show rounded-pill border-0 shadow-sm d-flex align-items-center gap-3 px-4 py-3 mb-4" role="alert" style="background: #e6f4ea; color: #137333;">
+            <div class="fs-5"><i class="bi bi-check-circle-fill"></i></div>
+            <div class="flex-grow-1">
+                <span class="fw-bold">İşlem Başarılı:</span> @TempData["AdminBasari"]
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Kapat"></button>
+        </div>
+    }
+    @if (TempData["AdminHata"] != null)
+    {
+        <div class="alert alert-dismissible fade show rounded-pill border-0 shadow-sm d-flex align-items-center gap-3 px-4 py-3 mb-4" role="alert" style="background: #fce8e6; color: #c5221f;">
+            <div class="fs-5"><i class="bi bi-exclamation-triangle-fill"></i></div>
+            <div class="flex-grow-1">
+                <span class="fw-bold">Hata Oluştu:</span> @TempData["AdminHata"]
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Kapat"></button>
+        </div>
+    }
+
+    <!-- 1. BÖLÜM: GOOGLE ONE TEN RENGİ HERO KUTUCUĞU (FERAH BOŞLUKLAR & ÇİFT AKSİYON) -->
+    <div class="g1-card-tan mb-4 position-relative overflow-hidden">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-4 position-relative" style="z-index: 2;">
+            <div style="max-width: 820px;">
+                <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill mb-3" style="background: #ffffff; color: var(--g1-tan-accent); font-weight: 700; font-size: 0.82rem; box-shadow: 0 1px 4px rgba(234,134,0,0.12);">
+                    <i class="bi bi-buildings-fill"></i>
+                    <span>Hayat İşleri &bull; B2B Partner &amp; İletişim Konsolu</span>
+                </div>
+                <h1 class="fw-bold mb-3" style="font-family: 'Google Sans', sans-serif; font-size: 2.25rem; color: #1f1f1f; letter-spacing: -0.02em; line-height: 1.25;">
+                    Bayi Yönetim &amp; İletişim Merkezi
+                </h1>
+                <p class="mb-0" style="color: #5f6368; font-size: 1.02rem; line-height: 1.65;">
+                    Seçili veya tüm bayilere anlık duyuru yayınlayın; servisteki araç ve cihazların konumunu, aşamasını ve maliyetini bayilere iletin; gelen talepleri, ödemeleri, B2B satışları, swap süreçlerini ve eski müşteri arşivini tek merkezden modern ve ferah bir deneyimle yönetin.
+                </p>
+            </div>
+
+            <div class="d-flex align-items-center gap-3 flex-wrap">
+                <button type="button" class="g1-btn-blue shadow-sm" data-bs-toggle="modal" data-bs-target="#modalYeniDuyuru">
+                    <i class="bi bi-megaphone-fill"></i>
+                    <span>Yeni Duyuru &amp; Bildirim Gönder</span>
+                </button>
+                <button type="button" class="g1-btn-tan shadow-sm" data-bs-toggle="modal" data-bs-target="#modalServisDurumu">
+                    <i class="bi bi-tools"></i>
+                    <span>Servis Durumu Ekle &amp; İlet</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. BÖLÜM: GOOGLE BEYAZ FİLTRE VE ARAMA KUTUCUĞU -->
+    <div class="g1-card-white mb-4" style="padding: 22px 32px !important;">
+        <form method="get" asp-action="BayiYonetimMerkezi" class="row g-3 align-items-center">
+            <input type="hidden" name="tab" value="@aktifTab" />
+
+            <div class="col-md-5 col-lg-4">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="text-primary fs-5"><i class="bi bi-buildings"></i></span>
+                    <select name="bayiId" class="form-select border-0 shadow-none" style="background: #f8fafd !important; border-radius: 9999px; height: 46px; font-weight: 500;" onchange="this.form.submit()">
+                        <option value="">-- Tüm Bayiler (Konsolide Genel Bakış) --</option>
+                        @foreach (var b in bayiler)
+                        {
+                            var bAd = b.FirmaAdi ?? b.AdSoyad ?? b.UserName;
+                            if (Model.SeciliBayiId == b.Id)
+                            {
+                                <option value="@b.Id" selected>@bAd (@b.CariKodu)</option>
+                            }
+                            else
+                            {
+                                <option value="@b.Id">@bAd (@b.CariKodu)</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-5 col-lg-5">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="text-secondary fs-5"><i class="bi bi-search"></i></span>
+                    <input type="text" name="q" value="@Model.AramaKelimesi" class="form-control border-0 shadow-none" style="background: #f8fafd !important; border-radius: 9999px; height: 46px;" placeholder="Plaka, seri no, talep no, fatura no, ürün adı veya bayi ara..." />
+                </div>
+            </div>
+
+            <div class="col-md-2 col-lg-3 d-flex gap-2 justify-content-end">
+                <button type="submit" class="g1-btn-blue py-2 px-4" style="font-size: 0.88rem;">
+                    <i class="bi bi-funnel"></i>
+                    <span>Filtrele</span>
+                </button>
+                @if (!string.IsNullOrEmpty(Model.SeciliBayiId) || !string.IsNullOrEmpty(Model.AramaKelimesi))
+                {
+                    <a asp-action="BayiYonetimMerkezi" asp-route-tab="@aktifTab" class="g1-btn-tan py-2 px-3" title="Filtreyi Temizle">
+                        <i class="bi bi-x-circle"></i>
+                    </a>
+                }
+            </div>
+        </form>
+    </div>
+
+    <!-- 3. BÖLÜM: GOOGLE ONE ALT MENÜ / SEKME BARI (TÜM ALT MENÜLER AYRI AYRI + HEPSİ KISMI DA AYRI) -->
+    <div class="g1-tab-bar mb-5">
+        <a class="g1-tab-item @(aktifTab == "hepsi" ? "active" : "")" 
+           asp-action="BayiYonetimMerkezi" asp-route-tab="hepsi" asp-route-bayiId="@Model.SeciliBayiId" asp-route-q="@Model.AramaKelimesi">
+            <i class="bi bi-grid-1x2-fill"></i>
+            <span>Hepsi (360° Genel Bakış)</span>
+            <span class="g1-tab-badge">360°</span>
+        </a>
+        <a class="g1-tab-item @(aktifTab == "bildirim" ? "active" : "")" 
+           asp-action="BayiYonetimMerkezi" asp-route-tab="bildirim" asp-route-bayiId="@Model.SeciliBayiId" asp-route-q="@Model.AramaKelimesi">
+            <i class="bi bi-megaphone-fill"></i>
+            <span>Duyuru &amp; Bildirim Gönder</span>
+            <span class="g1-tab-badge">@Model.Duyurular.Count</span>
+        </a>
+        <a class="g1-tab-item @(aktifTab == "servis" ? "active" : "")" 
+           asp-action="BayiYonetimMerkezi" asp-route-tab="servis" asp-route-bayiId="@Model.SeciliBayiId" asp-route-q="@Model.AramaKelimesi">
+            <i class="bi bi-tools"></i>
+            <span>Servis &amp; Saha Araç/Cihaz</span>
+            <span class="g1-tab-badge">@Model.ServisKayitlari.Count</span>
+        </a>
+        <a class="g1-tab-item @(aktifTab == "talepler" ? "active" : "")" 
+           asp-action="BayiYonetimMerkezi" asp-route-tab="talepler" asp-route-bayiId="@Model.SeciliBayiId" asp-route-q="@Model.AramaKelimesi">
+            <i class="bi bi-chat-left-dots-fill"></i>
+            <span>Gelen Talep &amp; Şikayetler</span>
+            <span class="g1-tab-badge">@Model.Talepler.Count</span>
+        </a>
+        <a class="g1-tab-item @(aktifTab == "odemeler" ? "active" : "")" 
+           asp-action="BayiYonetimMerkezi" asp-route-tab="odemeler" asp-route-bayiId="@Model.SeciliBayiId" asp-route-q="@Model.AramaKelimesi">
+            <i class="bi bi-credit-card-2-front-fill"></i>
+            <span>Bayi Ödemeleri &amp; Cari</span>
+            <span class="g1-tab-badge">₺@Model.ToplamTahsilatTL.ToString("N0")</span>
+        </a>
+        <a class="g1-tab-item @(aktifTab == "satislar" ? "active" : "")" 
+           asp-action="BayiYonetimMerkezi" asp-route-tab="satislar" asp-route-bayiId="@Model.SeciliBayiId" asp-route-q="@Model.AramaKelimesi">
+            <i class="bi bi-cart-check-fill"></i>
+            <span>Bayi Satış &amp; Sevkiyat</span>
+            <span class="g1-tab-badge">₺@Model.ToplamSatisCiroyuTL.ToString("N0")</span>
+        </a>
+        <a class="g1-tab-item @(aktifTab == "degisim" ? "active" : "")" 
+           asp-action="BayiYonetimMerkezi" asp-route-tab="degisim" asp-route-bayiId="@Model.SeciliBayiId" asp-route-q="@Model.AramaKelimesi">
+            <i class="bi bi-arrow-repeat"></i>
+            <span>Değişim &amp; Bozuk Cihaz (Swap)</span>
+            <span class="g1-tab-badge">@Model.SwapKayitlari.Count</span>
+        </a>
+        <a class="g1-tab-item @(aktifTab == "eskimusteriler" ? "active" : "")" 
+           asp-action="BayiYonetimMerkezi" asp-route-tab="eskimusteriler" asp-route-bayiId="@Model.SeciliBayiId" asp-route-q="@Model.AramaKelimesi">
+            <i class="bi bi-clock-history"></i>
+            <span>Eski Müşteriler &amp; Pasif Bayiler</span>
+            <span class="g1-tab-badge">@Model.EskiMusteriler.Count</span>
+        </a>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- 1. SEKME: HEPSİ (360° KONSOLİDE GENEL BAKIŞ)                      -->
+    <!-- ================================================================= -->
+    @if (aktifTab == "hepsi")
+    {
+        <!-- 6 ADET GOOGLE ONE TEN RENGİ & MAVİ KPI KUTUCUKLARI (FERAH 3x2 IZGARA) -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-6 col-lg-4">
+                <div class="g1-card-blue h-100 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <span class="text-uppercase fw-bold small" style="letter-spacing: 0.5px; color: var(--g1-blue-sub);">Duyurular</span>
+                            <div class="g1-icon-circle-blue"><i class="bi bi-megaphone-fill"></i></div>
+                        </div>
+                        <div class="fs-1 fw-bold mb-1" style="font-family: 'Google Sans', sans-serif; color: #1f1f1f;">@Model.ToplamDuyuruSayisi</div>
+                        <div style="color: #444746; font-size: 0.95rem;">Bayilere gönderilen bildirim ve duyuru</div>
+                    </div>
+                    <div class="pt-3 mt-3 border-top" style="border-color: rgba(11,87,208,0.12) !important;">
+                        <a asp-action="BayiYonetimMerkezi" asp-route-tab="bildirim" class="text-primary text-decoration-none fw-bold small">Duyuruları İncele &rarr;</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="g1-card-tan h-100 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <span class="text-uppercase fw-bold small" style="letter-spacing: 0.5px; color: var(--g1-tan-sub);">Servis &amp; Saha</span>
+                            <div class="g1-icon-circle-tan"><i class="bi bi-tools"></i></div>
+                        </div>
+                        <div class="fs-1 fw-bold mb-1" style="font-family: 'Google Sans', sans-serif; color: #1f1f1f;">@Model.ServistekiAracCihazSayisi</div>
+                        <div style="color: #444746; font-size: 0.95rem;">İnceleme ve onarımdaki cihaz/araç</div>
+                    </div>
+                    <div class="pt-3 mt-3 border-top" style="border-color: rgba(234,134,0,0.14) !important;">
+                        <a asp-action="BayiYonetimMerkezi" asp-route-tab="servis" class="text-decoration-none fw-bold small" style="color: var(--g1-tan-accent);">Servis Takibini Aç &rarr;</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="g1-card-blue h-100 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <span class="text-uppercase fw-bold small" style="letter-spacing: 0.5px; color: var(--g1-blue-sub);">Gelen Talepler</span>
+                            <div class="g1-icon-circle-blue"><i class="bi bi-chat-left-dots-fill"></i></div>
+                        </div>
+                        <div class="fs-1 fw-bold mb-1" style="font-family: 'Google Sans', sans-serif; color: #1f1f1f;">@Model.BekleyenTalepSayisi</div>
+                        <div style="color: #444746; font-size: 0.95rem;">Yanıt bekleyen talep ve şikayet</div>
+                    </div>
+                    <div class="pt-3 mt-3 border-top" style="border-color: rgba(11,87,208,0.12) !important;">
+                        <a asp-action="BayiYonetimMerkezi" asp-route-tab="talepler" class="text-primary text-decoration-none fw-bold small">Talepleri Yanıtla &rarr;</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="g1-card-tan h-100 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <span class="text-uppercase fw-bold small" style="letter-spacing: 0.5px; color: var(--g1-tan-sub);">Toplam Tahsilat</span>
+                            <div class="g1-icon-circle-tan"><i class="bi bi-credit-card-2-front-fill"></i></div>
+                        </div>
+                        <div class="fs-1 fw-bold mb-1" style="font-family: 'Google Sans', sans-serif; color: #1f1f1f;">₺@Model.ToplamTahsilatTL.ToString("N0")</div>
+                        <div style="color: #444746; font-size: 0.95rem;">Sanal POS ve Havale ödemeleri</div>
+                    </div>
+                    <div class="pt-3 mt-3 border-top" style="border-color: rgba(234,134,0,0.14) !important;">
+                        <a asp-action="BayiYonetimMerkezi" asp-route-tab="odemeler" class="text-decoration-none fw-bold small" style="color: var(--g1-tan-accent);">Cari Hareketleri Gör &rarr;</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="g1-card-blue h-100 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <span class="text-uppercase fw-bold small" style="letter-spacing: 0.5px; color: var(--g1-blue-sub);">B2B Satış Cirosu</span>
+                            <div class="g1-icon-circle-blue"><i class="bi bi-cart-check-fill"></i></div>
+                        </div>
+                        <div class="fs-1 fw-bold mb-1" style="font-family: 'Google Sans', sans-serif; color: #1f1f1f;">₺@Model.ToplamSatisCiroyuTL.ToString("N0")</div>
+                        <div style="color: #444746; font-size: 0.95rem;">Bayilere kesilen toplam fatura</div>
+                    </div>
+                    <div class="pt-3 mt-3 border-top" style="border-color: rgba(11,87,208,0.12) !important;">
+                        <a asp-action="BayiYonetimMerkezi" asp-route-tab="satislar" class="text-primary text-decoration-none fw-bold small">Satışları Listele &rarr;</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="g1-card-tan h-100 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <span class="text-uppercase fw-bold small" style="letter-spacing: 0.5px; color: var(--g1-tan-sub);">Bozuk Cihaz (Swap)</span>
+                            <div class="g1-icon-circle-tan"><i class="bi bi-arrow-repeat"></i></div>
+                        </div>
+                        <div class="fs-1 fw-bold mb-1" style="font-family: 'Google Sans', sans-serif; color: #1f1f1f;">@Model.AktifBozukCihazSwapSayisi</div>
+                        <div style="color: #444746; font-size: 0.95rem;">Birebir swap ve DOA değişimi</div>
+                    </div>
+                    <div class="pt-3 mt-3 border-top" style="border-color: rgba(234,134,0,0.14) !important;">
+                        <a asp-action="BayiYonetimMerkezi" asp-route-tab="degisim" class="text-decoration-none fw-bold small" style="color: var(--g1-tan-accent);">Swap Taleplerini Aç &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 360° CANLI MODÜL ÖZET KARTLARI (BÜYÜK TEN RENGİ VE MAVİ ALANLAR) -->
+        <div class="row g-4 mb-5">
+            <!-- Sol: Servisteki Araçlar & Cihazlar (Ten Rengi Kutucuk) -->
+            <div class="col-lg-6">
+                <div class="g1-card-tan h-100 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="d-flex align-items-center justify-content-between mb-4 pb-3 border-bottom" style="border-color: rgba(234,134,0,0.15) !important;">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="g1-icon-circle-tan"><i class="bi bi-tools"></i></div>
+                                <div>
+                                    <h4 class="fw-bold mb-0" style="color: #2d1b00; font-family: 'Google Sans', sans-serif;">Servisteki Araçlar &amp; Cihazlar</h4>
+                                    <small style="color: #7a5830;">Konum, aşama ve masraf takibi</small>
+                                </div>
+                            </div>
+                            <a asp-action="BayiYonetimMerkezi" asp-route-tab="servis" class="g1-btn-tan py-1.5 px-3" style="font-size: 0.82rem;">Tümünü Yönet &rarr;</a>
+                        </div>
+
+                        <div class="d-flex flex-column gap-3">
+                            @foreach (var s in Model.ServisKayitlari.Take(3))
+                            {
+                                <div class="p-3.5 rounded-4 shadow-sm" style="background: #ffffff; border: 1px solid rgba(234,134,0,0.14);">
+                                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="badge rounded-pill px-2.5 py-1 fw-bold" style="background: #fef7ee; color: #b06000; font-family: monospace;">@s.ServisTakipNo</span>
+                                            <strong style="color: #1f1f1f; font-size: 0.98rem;">@s.ModelTanim</strong>
+                                        </div>
+                                        <span class="badge rounded-pill px-3 py-1 fw-semibold" style="background: #edf2fc; color: #0b57d0;">@s.BayiAdi</span>
+                                    </div>
+                                    <div class="small mb-2" style="color: #5f6368;">
+                                        <span class="me-3"><i class="bi bi-geo-alt-fill text-danger me-1"></i><strong>Nerede:</strong> @s.NeredeKonum</span>
+                                        <span><i class="bi bi-activity text-primary me-1"></i><strong>Durum:</strong> @s.DurumAsamasi</span>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-between pt-2 border-top" style="border-color: #f1f3f4 !important; font-size: 0.85rem;">
+                                        <div>
+                                            <span class="text-secondary">Tutar:</span>
+                                            <strong class="text-success ms-1">₺@s.ToplamTutarTL.ToString("N2")</strong>
+                                            <span class="badge rounded-pill bg-light text-secondary ms-1">@s.GarantiDurumu</span>
+                                        </div>
+                                        <span class="badge rounded-pill px-2.5 py-1 @(s.BayiyeIletildiMi ? "text-success bg-success bg-opacity-10" : "text-warning bg-warning bg-opacity-15")">
+                                            <i class="bi @(s.BayiyeIletildiMi ? "bi-check2-all" : "bi-clock") me-1"></i>@(s.BayiyeIletildiMi ? "Bayiye İletildi" : "İletim Bekliyor")
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sağ: Gelen Talep & Şikayetler (Mavi Kutucuk) -->
+            <div class="col-lg-6">
+                <div class="g1-card-blue h-100 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="d-flex align-items-center justify-content-between mb-4 pb-3 border-bottom" style="border-color: rgba(11,87,208,0.15) !important;">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="g1-icon-circle-blue"><i class="bi bi-chat-left-dots-fill"></i></div>
+                                <div>
+                                    <h4 class="fw-bold mb-0" style="color: #041e49; font-family: 'Google Sans', sans-serif;">Gelen Talep &amp; Şikayetler</h4>
+                                    <small style="color: #3b5a9a;">Bayilerden anlık yardım çağrıları</small>
+                                </div>
+                            </div>
+                            <a asp-action="BayiYonetimMerkezi" asp-route-tab="talepler" class="g1-btn-blue py-1.5 px-3" style="font-size: 0.82rem;">Tümünü Yönet &rarr;</a>
+                        </div>
+
+                        <div class="d-flex flex-column gap-3">
+                            @foreach (var t in Model.Talepler.Take(3))
+                            {
+                                <div class="p-3.5 rounded-4 shadow-sm" style="background: #ffffff; border: 1px solid rgba(11,87,208,0.12);">
+                                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="badge rounded-pill px-2.5 py-1 fw-bold" style="background: #fce8e6; color: #c5221f; font-family: monospace;">@t.TalepNo</span>
+                                            <strong style="color: #1f1f1f; font-size: 0.98rem;">@t.Baslik</strong>
+                                        </div>
+                                        <span class="badge rounded-pill px-2.5 py-1 @(t.Durum == "Çözüldü & Kapatıldı" ? "bg-success text-white" : "bg-warning text-dark")">@t.Durum</span>
+                                    </div>
+                                    <div class="small mb-2" style="color: #5f6368;">
+                                        <i class="bi bi-building me-1"></i><strong>@t.BayiAdi</strong> &bull; <i class="bi bi-tag me-1"></i>@t.Kategori &bull; <i class="bi bi-clock me-1"></i>@t.OlusturmaTarihi.ToString("dd.MM.yyyy HH:mm")
+                                    </div>
+                                    <div class="p-2.5 rounded-3 border-0 small" style="background: #f8fafd; color: #3c4043; line-height: 1.5;">
+                                        <i class="bi bi-chat-quote me-1 text-primary"></i>@t.Mesaj
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alt: Satışlar ve Swap Tabloları (Google Beyaz Kutucuklar) -->
+        <div class="row g-4 mb-5">
+            <div class="col-lg-6">
+                <div class="g1-table-card h-100">
+                    <div class="p-4 border-bottom d-flex align-items-center justify-content-between" style="background: #ffffff;">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="g1-icon-circle-blue"><i class="bi bi-cart-check-fill"></i></div>
+                            <div>
+                                <h5 class="fw-bold mb-0" style="color: #1f1f1f; font-family: 'Google Sans', sans-serif;">Ne Satmışız? (Son Bayi Satışları)</h5>
+                                <small class="text-secondary">Faturası kesilen son siparişler</small>
+                            </div>
+                        </div>
+                        <a asp-action="BayiYonetimMerkezi" asp-route-tab="satislar" class="g1-btn-blue py-1.5 px-3" style="font-size: 0.82rem;">Geçmiş &rarr;</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="g1-table">
+                            <thead>
+                                <tr>
+                                    <th>Bayi</th>
+                                    <th>Satılan Ürünler</th>
+                                    <th>Tarih</th>
+                                    <th class="text-end">Tutar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var sa in Model.Satislar.Take(4))
+                                {
+                                    <tr>
+                                        <td><strong>@sa.BayiAdi</strong></td>
+                                        <td><span class="text-truncate d-inline-block" style="max-width: 200px;" title="@sa.SatilanUrunlerOzet">@sa.SatilanUrunlerOzet</span></td>
+                                        <td class="text-secondary small">@sa.SatisTarihi.ToString("dd.MM.yyyy")</td>
+                                        <td class="text-end fw-bold text-success fs-6">₺@sa.ToplamTutarTL.ToString("N2")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="g1-table-card h-100">
+                    <div class="p-4 border-bottom d-flex align-items-center justify-content-between" style="background: #ffffff;">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="g1-icon-circle-tan"><i class="bi bi-arrow-repeat"></i></div>
+                            <div>
+                                <h5 class="fw-bold mb-0" style="color: #1f1f1f; font-family: 'Google Sans', sans-serif;">Bozuk Cihaz &amp; Değişim (Swap)</h5>
+                                <small class="text-secondary">Arızalı veya kutudan bozuk cihazlar</small>
+                            </div>
+                        </div>
+                        <a asp-action="BayiYonetimMerkezi" asp-route-tab="degisim" class="g1-btn-tan py-1.5 px-3" style="font-size: 0.82rem;">Swap Yönetimi &rarr;</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="g1-table">
+                            <thead>
+                                <tr>
+                                    <th>Bayi</th>
+                                    <th>Arızalı Model</th>
+                                    <th>Yeni Cihaz SN</th>
+                                    <th class="text-end">Durum</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var sw in Model.SwapKayitlari.Take(4))
+                                {
+                                    <tr>
+                                        <td><strong>@sw.BayiAdi</strong></td>
+                                        <td><span>@sw.BozukCihazModeli</span><br/><small class="text-danger font-monospace">@sw.BozukCihazSeriNo</small></td>
+                                        <td><span class="text-success fw-bold font-monospace">@sw.VerilenYeniCihazSeriNo</span></td>
+                                        <td class="text-end"><span class="badge rounded-pill px-2.5 py-1 text-success bg-success bg-opacity-10">@sw.Durum</span></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 360° Eski Müşteri & Pasif Bayi Arşivi Özeti (Ten Rengi Kutucuk) -->
+        <div class="g1-card-tan mb-4">
+            <div class="d-flex align-items-center justify-content-between mb-4 pb-3 border-bottom flex-wrap gap-3" style="border-color: rgba(234,134,0,0.15) !important;">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="g1-icon-circle-tan"><i class="bi bi-clock-history"></i></div>
+                    <div>
+                        <h4 class="fw-bold mb-0" style="color: #2d1b00; font-family: 'Google Sans', sans-serif;">Eski Müşteriler &amp; Pasif Bayiler Arşiv Özeti</h4>
+                        <small style="color: #7a5830;">Geçmişte yazılım veya donanım alıp artık müşterimiz olmayanlar (@Model.EskiMusteriler.Count Kayıt)</small>
+                    </div>
+                </div>
+                <a asp-action="BayiYonetimMerkezi" asp-route-tab="eskimusteriler" class="g1-btn-tan py-2 px-4">Tüm Arşivi Aç &rarr;</a>
+            </div>
+
+            <div class="table-responsive bg-white rounded-4 shadow-sm border overflow-hidden">
+                <table class="g1-table">
+                    <thead>
+                        <tr>
+                            <th>Eski Bayi / Kişi</th>
+                            <th>Kategori</th>
+                            <th>Neler Aldı?</th>
+                            <th>Ne Zaman Aldı?</th>
+                            <th>Ne Zaman Bitti?</th>
+                            <th>Ödenen Tutar</th>
+                            <th>Ayrılış / Bitiş Nedeni</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var em in Model.EskiMusteriler.Take(3))
+                        {
+                            <tr>
+                                <td><strong>@em.FirmaVeyaKisiAdi</strong><br/><small class="text-secondary">@em.YetkiliAdSoyad &bull; @em.CariKodu</small></td>
+                                <td><span class="badge rounded-pill px-2.5 py-1 bg-light text-dark border">@em.Kategori</span></td>
+                                <td><span class="text-truncate d-inline-block" style="max-width: 250px;" title="@em.NelerAldiDetay">@em.NelerAldiDetay</span></td>
+                                <td class="text-secondary small">@em.AlisTarihi.ToString("dd.MM.yyyy")</td>
+                                <td class="text-danger small fw-semibold">@em.BitisTarihi.ToString("dd.MM.yyyy")</td>
+                                <td class="fw-bold text-success fs-6">₺@em.OdenenToplamTutarTL.ToString("N2")</td>
+                                <td><span class="small text-muted text-truncate d-inline-block" style="max-width: 200px;" title="@em.BitisNedeni">@em.BitisNedeni</span></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+
+    <!-- ================================================================= -->
+    <!-- 2. SEKME: DUYURU & BİLDİRİM GÖNDERME                              -->
+    <!-- ================================================================= -->
+    @if (aktifTab == "bildirim")
+    {
+        <div class="row g-4">
+            <!-- Sol: Google Mavi Kutucuk içinde Duyuru Formu -->
+            <div class="col-lg-5">
+                <div class="g1-card-blue h-100">
+                    <div class="d-flex align-items-center gap-3 mb-4 pb-3 border-bottom" style="border-color: rgba(11,87,208,0.15) !important;">
+                        <div class="g1-icon-circle-blue"><i class="bi bi-send-fill"></i></div>
+                        <div>
+                            <h4 class="fw-bold mb-0" style="color: #041e49; font-family: 'Google Sans', sans-serif;">Duyuru &amp; Bildirim Yayınla</h4>
+                            <small style="color: #3b5a9a;">Seçili veya tüm bayilere anlık bildirim iletin</small>
+                        </div>
+                    </div>
+
+                    <form method="post" asp-action="DuyuruBildirimGonder">
+                        @Html.AntiForgeryToken()
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold small text-dark">Hedef Kitle <span class="text-danger">*</span></label>
+                            <div class="d-flex gap-3 p-3 rounded-4 bg-white border">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="hedefTipi" id="rdHedefTum" value="TumBayiler" checked onchange="toggleHedefBayiSecimi(false)" />
+                                    <label class="form-check-label fw-bold small text-primary" for="rdHedefTum">Tüm Bayilere Gönder</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="hedefTipi" id="rdHedefSecili" value="SeciliBayiler" onchange="toggleHedefBayiSecimi(true)" />
+                                    <label class="form-check-label fw-bold small text-dark" for="rdHedefSecili">Seçili Bayilere Gönder</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="seciliBayilerAlani" class="mb-4 d-none">
+                            <label class="form-label fw-bold small text-secondary">İşaretlenecek Bayiler</label>
+                            <div class="p-3 rounded-4 bg-white border overflow-auto" style="max-height: 180px;">
+                                @foreach (var b in bayiler)
+                                {
+                                    var bAd = b.FirmaAdi ?? b.AdSoyad ?? b.UserName;
+                                    <div class="form-check py-1 border-bottom">
+                                        <input class="form-check-input secili-bayi-chk" type="checkbox" name="seciliBayiIdleri" value="@b.Id" id="chk_bayi_@b.Id" />
+                                        <label class="form-check-label small" for="chk_bayi_@b.Id">
+                                            <strong>@bAd</strong> <span class="text-secondary">(@b.CariKodu)</span>
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+                            <div class="d-flex justify-content-between mt-2" style="font-size: 0.8rem;">
+                                <a href="javascript:void(0)" onclick="hepsiniIsaretle(true)" class="text-primary text-decoration-none fw-bold">Tümünü İşaretle</a>
+                                <a href="javascript:void(0)" onclick="hepsiniIsaretle(false)" class="text-secondary text-decoration-none">Temizle</a>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold small text-dark">Duyuru Başlığı <span class="text-danger">*</span></label>
+                            <input type="text" name="baslik" class="form-control" placeholder="Örn: Yeni KodPOS T500 Modellerimiz Depo Stoklarımıza Girmiştir" required />
+                        </div>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-6">
+                                <label class="form-label fw-bold small text-dark">Kategori</label>
+                                <select name="kategori" class="form-select">
+                                    <option value="Genel Duyuru">Genel Duyuru</option>
+                                    <option value="Yeni Ürün Lansmanı">Yeni Ürün Lansmanı</option>
+                                    <option value="Lojistik & Kargo">Lojistik &amp; Kargo</option>
+                                    <option value="Sistem Bakımı">Sistem Bakımı</option>
+                                    <option value="Fiyat & İskonto">Fiyat &amp; İskonto</option>
+                                    <option value="Acil & Kritik">Acil &amp; Kritik</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label fw-bold small text-dark">Öncelik Derecesi</label>
+                                <select name="oncelik" class="form-select">
+                                    <option value="Normal">Normal</option>
+                                    <option value="Önemli">Önemli</option>
+                                    <option value="Acil & Kritik">Acil &amp; Kritik</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold small text-dark">Bildirim İçeriği <span class="text-danger">*</span></label>
+                            <textarea name="icerik" rows="4" class="form-control" placeholder="Bayi portalında görüntülenecek detaylı açıklama..." required></textarea>
+                        </div>
+
+                        <div class="mb-4 p-3 rounded-4 bg-white border">
+                            <label class="form-label fw-bold small d-block mb-2 text-dark">Gönderim Kanalları</label>
+                            <div class="d-flex gap-4 flex-wrap small">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="portalBildirimi" value="true" id="chkPortal" checked />
+                                    <label class="form-check-label" for="chkPortal"><i class="bi bi-window-fullscreen text-primary me-1"></i>Portal</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="epostaGonder" value="true" id="chkMail" checked />
+                                    <label class="form-check-label" for="chkMail"><i class="bi bi-envelope text-info me-1"></i>E-Posta</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="smsGonder" value="true" id="chkSms" />
+                                    <label class="form-check-label" for="chkSms"><i class="bi bi-chat-text text-success me-1"></i>SMS</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="g1-btn-blue w-100 justify-content-center py-3">
+                            <i class="bi bi-send me-1.5"></i> Duyuruyu Yayınla &amp; Bildirimi Gönder
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Sağ: Önceden Gönderilmiş Duyuru Listesi (Google Beyaz Tablo) -->
+            <div class="col-lg-7">
+                <div class="g1-table-card">
+                    <div class="p-4 border-bottom d-flex align-items-center justify-content-between" style="background: #ffffff;">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="g1-icon-circle-blue"><i class="bi bi-clock-history"></i></div>
+                            <div>
+                                <h4 class="fw-bold mb-0" style="color: #1f1f1f; font-family: 'Google Sans', sans-serif;">Gönderilen Duyurular</h4>
+                                <small class="text-secondary">Tüm gönderimlerin dağıtım izi (@Model.Duyurular.Count Kayıt)</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="g1-table">
+                            <thead>
+                                <tr>
+                                    <th>Duyuru / Başlık</th>
+                                    <th>Hedef Kitle</th>
+                                    <th>Öncelik</th>
+                                    <th>Kanallar</th>
+                                    <th>Tarih</th>
+                                    <th class="text-end">Durum</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var d in Model.Duyurular)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="fw-bold text-dark fs-6 mb-1">@d.Baslik</div>
+                                            <span class="badge rounded-pill bg-light text-secondary border">@d.Kategori</span>
+                                            <div class="small text-secondary text-truncate mt-1" style="max-width: 260px;" title="@d.Icerik">@d.Icerik</div>
+                                        </td>
+                                        <td>
+                                            @if (d.HedefTipi == "TumBayiler")
+                                            {
+                                                <span class="badge rounded-pill px-2.5 py-1 text-primary bg-primary bg-opacity-10 fw-bold">Tüm Bayiler</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge rounded-pill px-2.5 py-1 text-info bg-info bg-opacity-10 fw-bold">Seçili Bayiler</span>
+                                                <div class="small text-secondary mt-1" style="font-size: 0.75rem;">@d.HedefBayilerOzeti</div>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (d.Oncelik == "Acil & Kritik")
+                                            {
+                                                <span class="badge rounded-pill px-2.5 py-1 bg-danger text-white">Acil</span>
+                                            }
+                                            else if (d.Oncelik == "Önemli")
+                                            {
+                                                <span class="badge rounded-pill px-2.5 py-1 bg-warning text-dark">Önemli</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge rounded-pill px-2.5 py-1 bg-light text-secondary border">Normal</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            <div class="d-flex gap-1">
+                                                @if (d.PortalBildirimi) { <span class="badge rounded-pill bg-light text-primary border" title="Portal"><i class="bi bi-window"></i></span> }
+                                                @if (d.EpostaGonderildi) { <span class="badge rounded-pill bg-light text-info border" title="E-Posta"><i class="bi bi-envelope"></i></span> }
+                                                @if (d.SmsGonderildi) { <span class="badge rounded-pill bg-light text-success border" title="SMS"><i class="bi bi-chat-text"></i></span> }
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="fw-semibold">@d.GonderimTarihi.ToString("dd.MM.yyyy")</div>
+                                            <small class="text-secondary">@d.GonderimTarihi.ToString("HH:mm")</small>
+                                        </td>
+                                        <td class="text-end">
+                                            <span class="badge rounded-pill px-2.5 py-1 text-success bg-success bg-opacity-10">@d.Durum</span>
+                                            <div class="small text-secondary mt-1" style="font-size: 0.75rem;">@d.OkunmaSayisi Okundu</div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- ================================================================= -->
+    <!-- 3. SEKME: SERVİS & SAHA ARAÇ / CİHAZ TAKİBİ                      -->
+    <!-- ================================================================= -->
+    @if (aktifTab == "servis")
+    {
+        <!-- Bilgilendirme Kutucuğu (Ten Rengi) -->
+        <div class="g1-card-tan mb-4">
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-4">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="g1-icon-circle-tan"><i class="bi bi-tools"></i></div>
+                    <div>
+                        <h4 class="fw-bold mb-1" style="color: #2d1b00; font-family: 'Google Sans', sans-serif;">Servis &amp; Saha Araç Takip Konsolu</h4>
+                        <p class="mb-0" style="color: #7a5830; max-width: 820px;">
+                            Servise gönderilen araç ve donanımların <strong>nerede olduğunu</strong>, <strong>ne durumda olduğunu</strong> ve <strong>ne kadar tutacağını (Parça + İşçilik)</strong> buradan yönetin. "Bayiye Anında İlet" işlemiyle durum doğrudan seçilen bayinin ekranına aktarılır.
+                        </p>
+                    </div>
+                </div>
+                <button type="button" class="g1-btn-tan shadow-sm" data-bs-toggle="modal" data-bs-target="#modalServisDurumu">
+                    <i class="bi bi-plus-circle me-1"></i> Yeni Servis Durumu Tanımla
+                </button>
+            </div>
+        </div>
+
+        <!-- Servis Tablosu (Google Beyaz Tablo - İÇ İÇE KUTUCUKSUZ, FERAH VE NET) -->
+        <div class="g1-table-card">
+            <div class="p-4 border-bottom d-flex align-items-center justify-content-between" style="background: #ffffff;">
+                <h4 class="fw-bold mb-0" style="color: #1f1f1f; font-family: 'Google Sans', sans-serif;">Servisteki Araçlar ve Donanım Takip Listesi (@Model.ServisKayitlari.Count)</h4>
+                <span class="badge rounded-pill px-3 py-1 text-primary bg-primary bg-opacity-10">Anlık Bayi Senkronizasyonu</span>
+            </div>
+
+            <div class="table-responsive">
+                <table class="g1-table">
+                    <thead>
+                        <tr>
+                            <th>Cihaz &amp; Araç</th>
+                            <th>İlgili Bayi</th>
+                            <th>Nerede Olduğu (Konum)</th>
+                            <th>Ne Durumda (Aşama)</th>
+                            <th>Maliyet / Fiyat</th>
+                            <th>Arıza &amp; Yapılan İşlem</th>
+                            <th class="text-end">İşlem &amp; İletim</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var s in Model.ServisKayitlari)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2 mb-1">
+                                        <span class="badge rounded-pill px-2.5 py-1 fw-bold" style="background: #fef7ee; color: #b06000; font-family: monospace;">@s.ServisTakipNo</span>
+                                        <span class="badge rounded-pill bg-light text-secondary border">@s.AracCihazTipi</span>
+                                    </div>
+                                    <div class="fw-bold fs-6 text-dark">@s.ModelTanim</div>
+                                    <div class="small font-monospace text-primary">@s.PlakaVeyaSeriNo</div>
+                                </td>
+                                <td>
+                                    <div class="fw-bold">@s.BayiAdi</div>
+                                    <div class="small text-secondary font-monospace">@s.CariKodu</div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-1.5">
+                                        <i class="bi bi-geo-alt-fill text-danger fs-6"></i>
+                                        <strong style="color: #1f1f1f;">@s.NeredeKonum</strong>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge rounded-pill px-3 py-1.5 fw-bold" style="background: #fef7ee; color: #b06000; border: 1px solid #f9dfb9;">
+                                        <i class="bi bi-gear-wide-connected me-1"></i>@s.DurumAsamasi
+                                    </span>
+                                    <div class="small text-secondary mt-1"><i class="bi bi-person me-1"></i>@s.AtananTeknisyen</div>
+                                </td>
+                                <td>
+                                    <div class="fs-6 fw-bold text-success mb-0.5">₺@s.ToplamTutarTL.ToString("N2")</div>
+                                    <div class="small text-secondary">Parça: ₺@s.ParcaTutarTL.ToString("N0") &bull; İşçilik: ₺@s.IscilikTutarTL.ToString("N0")</div>
+                                    <div class="small text-muted mt-0.5" style="font-size: 0.75rem;">@s.GarantiDurumu</div>
+                                </td>
+                                <td>
+                                    <div class="small text-secondary" style="max-width: 240px; line-height: 1.5;" title="@s.ArizaVeYapilanIslemler">
+                                        @s.ArizaVeYapilanIslemler
+                                    </div>
+                                    <div class="small text-muted mt-1" style="font-size: 0.76rem;">
+                                        Kabul: @s.KabulTarihi.ToString("dd.MM.yyyy")
+                                        @if (s.TahminiTeslimTarihi.HasValue)
+                                        {
+                                            <span> &bull; Teslim: @s.TahminiTeslimTarihi.Value.ToString("dd.MM.yyyy")</span>
+                                        }
+                                    </div>
+                                </td>
+                                <td class="text-end">
+                                    <div class="mb-2">
+                                        @if (s.BayiyeIletildiMi)
+                                        {
+                                            <span class="badge rounded-pill px-2.5 py-1 text-success bg-success bg-opacity-10">
+                                                <i class="bi bi-check-all me-1"></i>Bayiye İletildi
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge rounded-pill px-2.5 py-1 text-warning bg-warning bg-opacity-15">
+                                                <i class="bi bi-clock me-1"></i>İletilmedi
+                                            </span>
+                                        }
+                                    </div>
+                                    <button type="button" class="g1-btn-tan py-1.5 px-3" style="font-size: 0.82rem;"
+                                            onclick="openServisDuzenleModal('@s.ServisTakipNo', '@s.BayiId', '@s.AracCihazTipi', '@s.PlakaVeyaSeriNo', '@s.ModelTanim', '@s.NeredeKonum', '@s.DurumAsamasi', @s.TahminiTutarTL, @s.ParcaTutarTL, @s.IscilikTutarTL, '@s.GarantiDurumu', '@s.ArizaVeYapilanIslemler', '@s.AtananTeknisyen')">
+                                        <i class="bi bi-arrow-repeat me-1"></i>Güncelle &amp; İlet
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+    <!-- ================================================================= -->
+    <!-- 4. SEKME: GELEN TALEP VE ŞİKAYETLER                              -->
+    <!-- ================================================================= -->
+    @if (aktifTab == "talepler")
+    {
+        <div class="g1-table-card">
+            <div class="p-4 border-bottom d-flex align-items-center justify-content-between" style="background: #ffffff;">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="g1-icon-circle-blue"><i class="bi bi-chat-left-dots-fill"></i></div>
+                    <div>
+                        <h4 class="fw-bold mb-0" style="color: #1f1f1f; font-family: 'Google Sans', sans-serif;">Gelen Talep &amp; Şikayetler</h4>
+                        <small class="text-secondary">Bayiliklerden gelen tüm destek ve şikayet bildirimleri (@Model.Talepler.Count Kayıt)</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="g1-table">
+                    <thead>
+                        <tr>
+                            <th>Talep No &amp; Bayi</th>
+                            <th>Talep / Şikayet Başlığı</th>
+                            <th>Kategori &amp; Öncelik</th>
+                            <th>Tarih</th>
+                            <th>Son Durum &amp; Yanıt</th>
+                            <th class="text-end">İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var t in Model.Talepler)
+                        {
+                            <tr>
+                                <td>
+                                    <span class="badge rounded-pill px-2.5 py-1 fw-bold" style="background: #fce8e6; color: #c5221f; font-family: monospace;">@t.TalepNo</span>
+                                    <div class="fw-bold mt-1 text-dark">@t.BayiAdi</div>
+                                    <div class="small text-secondary font-monospace">@t.CariKodu</div>
+                                </td>
+                                <td>
+                                    <div class="fw-bold text-dark fs-6 mb-1">@t.Baslik</div>
+                                    <div class="p-2.5 rounded-3 bg-light small text-secondary" style="max-width: 320px; line-height: 1.5;">
+                                        @t.Mesaj
+                                    </div>
+                                    @if (!string.IsNullOrEmpty(t.DosyaEki))
+                                    {
+                                        <div class="mt-1">
+                                            <span class="badge rounded-pill bg-light text-secondary border"><i class="bi bi-paperclip me-1"></i>@t.DosyaEki</span>
+                                        </div>
+                                    }
+                                </td>
+                                <td>
+                                    <span class="badge rounded-pill px-2.5 py-1 text-primary bg-primary bg-opacity-10">@t.Kategori</span>
+                                    <div class="mt-1">
+                                        @if (t.Oncelik == "Yüksek" || t.Oncelik == "Acil")
+                                        {
+                                            <span class="badge rounded-pill px-2.5 py-1 bg-danger text-white">@t.Oncelik</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge rounded-pill px-2.5 py-1 bg-light text-secondary border">@t.Oncelik</span>
+                                        }
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="fw-semibold">@t.OlusturmaTarihi.ToString("dd.MM.yyyy")</div>
+                                    <small class="text-secondary">@t.OlusturmaTarihi.ToString("HH:mm")</small>
+                                </td>
+                                <td>
+                                    <span class="badge rounded-pill px-2.5 py-1 @(t.Durum == "Çözüldü & Kapatıldı" ? "bg-success text-white" : "bg-warning text-dark")">@t.Durum</span>
+                                    @if (!string.IsNullOrEmpty(t.AdminCevap))
+                                    {
+                                        <div class="small text-secondary mt-1 text-truncate" style="max-width: 220px;" title="@t.AdminCevap">
+                                            <i class="bi bi-reply-fill text-success me-1"></i>@t.AdminCevap
+                                        </div>
+                                    }
+                                </td>
+                                <td class="text-end">
+                                    <button type="button" class="g1-btn-blue py-1.5 px-3" style="font-size: 0.82rem;" onclick="openTalepModal('@t.TalepNo', '@t.BayiAdi', '@t.Baslik', '@t.Mesaj', '@t.Durum', '@t.AdminCevap')">
+                                        <i class="bi bi-reply-all me-1"></i>Yanıtla &amp; Çöz
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+    <!-- ================================================================= -->
+    <!-- 5. SEKME: BAYİ ÖDEMELERİ & CARİ HAREKETLER                        -->
+    <!-- ================================================================= -->
+    @if (aktifTab == "odemeler")
+    {
+        <div class="row g-4 mb-4">
+            <div class="col-md-6">
+                <div class="g1-card-blue">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <span class="text-uppercase fw-bold small" style="color: var(--g1-blue-sub);">Toplam Tahsilat</span>
+                        <div class="g1-icon-circle-blue"><i class="bi bi-cash-stack"></i></div>
+                    </div>
+                    <div class="fs-1 fw-bold text-dark mb-1" style="font-family: 'Google Sans', sans-serif;">₺@Model.ToplamTahsilatTL.ToString("N2")</div>
+                    <div style="color: #444746; font-size: 0.95rem;">Sanal POS ve banka havalesi ile gerçekleşen cari tahsilatlar</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="g1-card-tan">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <span class="text-uppercase fw-bold small" style="color: var(--g1-tan-sub);">İşlem Güvenliği</span>
+                        <div class="g1-icon-circle-tan"><i class="bi bi-shield-check"></i></div>
+                    </div>
+                    <div class="fs-1 fw-bold text-dark mb-1" style="font-family: 'Google Sans', sans-serif;">3D Secure &amp; EFT</div>
+                    <div style="color: #444746; font-size: 0.95rem;">Banka entegrasyonuyla otomatik eşleşen dekontlar</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="g1-table-card">
+            <div class="p-4 border-bottom d-flex align-items-center justify-content-between" style="background: #ffffff;">
+                <h4 class="fw-bold mb-0" style="color: #1f1f1f; font-family: 'Google Sans', sans-serif;">Bayi Ödeme &amp; Tahsilat Hareketleri (@Model.Odemeler.Count)</h4>
+                <span class="badge rounded-pill px-3 py-1.5 text-success bg-success bg-opacity-10 fw-bold fs-6">Toplam: ₺@Model.ToplamTahsilatTL.ToString("N2")</span>
+            </div>
+
+            <div class="table-responsive">
+                <table class="g1-table">
+                    <thead>
+                        <tr>
+                            <th>İşlem / Dekont No</th>
+                            <th>Bayi Adı &amp; Cari</th>
+                            <th>Ödeme Türü</th>
+                            <th>Banka &amp; Referans</th>
+                            <th>İşlem Tarihi</th>
+                            <th>Tahsil Edilen Tutar</th>
+                            <th>Kalan Bakiye</th>
+                            <th class="text-end">Durum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var o in Model.Odemeler)
+                        {
+                            <tr>
+                                <td>
+                                    <span class="badge rounded-pill px-2.5 py-1 text-success bg-success bg-opacity-10 font-monospace fw-bold">@o.IslemNo</span>
+                                    <div class="small text-secondary font-monospace mt-1">@o.DekontBankaReferans</div>
+                                </td>
+                                <td>
+                                    <div class="fw-bold">@o.BayiAdi</div>
+                                    <div class="small text-secondary font-monospace">@o.CariKodu</div>
+                                </td>
+                                <td>
+                                    <span class="badge rounded-pill px-2.5 py-1 text-primary bg-primary bg-opacity-10">@o.OdemeTuru</span>
+                                    <div class="small text-secondary mt-1">@o.Aciklama</div>
+                                </td>
+                                <td>
+                                    <i class="bi bi-bank me-1 text-secondary"></i><strong>@o.BankaAdi</strong>
+                                </td>
+                                <td>
+                                    <div class="fw-semibold">@o.OdemeTarihi.ToString("dd.MM.yyyy")</div>
+                                    <small class="text-secondary">@o.OdemeTarihi.ToString("HH:mm")</small>
+                                </td>
+                                <td>
+                                    <span class="fs-6 fw-bold text-success">₺@o.TutarTL.ToString("N2")</span>
+                                </td>
+                                <td>
+                                    <span class="fw-semibold text-secondary">₺@o.KalanCariBakiyeTL.ToString("N2")</span>
+                                </td>
+                                <td class="text-end">
+                                    <span class="badge rounded-pill px-2.5 py-1 text-success bg-success bg-opacity-10 fw-bold">
+                                        <i class="bi bi-check-circle me-1"></i>@o.Durum
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+    <!-- ================================================================= -->
+    <!-- 6. SEKME: BAYİ SATIŞ GEÇMİŞİ (NE SATTIK, NE ZAMAN SATTIK)         -->
+    <!-- ================================================================= -->
+    @if (aktifTab == "satislar")
+    {
+        <div class="g1-table-card">
+            <div class="p-4 border-bottom d-flex align-items-center justify-content-between flex-wrap gap-3" style="background: #ffffff;">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="g1-icon-circle-blue"><i class="bi bi-cart-check-fill"></i></div>
+                    <div>
+                        <h4 class="fw-bold mb-0" style="color: #1f1f1f; font-family: 'Google Sans', sans-serif;">Bayilere Ne Satmışız, Ne Zaman Satmışız?</h4>
+                        <small class="text-secondary">Bayi bazlı faturalandırılan tüm ürün kalemleri ve sevkiyat izi (@Model.Satislar.Count Kayıt)</small>
+                    </div>
+                </div>
+                <span class="badge rounded-pill px-3 py-1.5 text-primary bg-primary bg-opacity-10 fw-bold fs-6">Toplam Ciro: ₺@Model.ToplamSatisCiroyuTL.ToString("N2")</span>
+            </div>
+
+            <div class="table-responsive">
+                <table class="g1-table">
+                    <thead>
+                        <tr>
+                            <th>Satış No / Fatura</th>
+                            <th>Bayi Adı &amp; Cari</th>
+                            <th>Satılan Ürünler &amp; Kalemler</th>
+                            <th>Ne Zaman Satıldı</th>
+                            <th>Adet &amp; İskonto</th>
+                            <th>Toplam Tutar</th>
+                            <th>Sevkiyat Durumu</th>
+                            <th class="text-end">E-Fatura</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var s in Model.Satislar)
+                        {
+                            <tr>
+                                <td>
+                                    <span class="badge rounded-pill px-2.5 py-1 text-primary bg-primary bg-opacity-10 font-monospace fw-bold">@s.SatisNo</span>
+                                    <div class="small text-secondary font-monospace mt-1">@s.FaturaNo</div>
+                                </td>
+                                <td>
+                                    <div class="fw-bold">@s.BayiAdi</div>
+                                    <div class="small text-secondary font-monospace">@s.CariKodu</div>
+                                </td>
+                                <td>
+                                    <div class="fw-bold text-dark mb-1">@s.SatilanUrunlerOzet</div>
+                                    <span class="badge rounded-pill bg-light text-secondary border">@s.Kategori</span>
+                                </td>
+                                <td>
+                                    <div class="fw-bold">@s.SatisTarihi.ToString("dd.MM.yyyy")</div>
+                                    <small class="text-secondary">@s.SatisTarihi.ToString("dddd")</small>
+                                </td>
+                                <td>
+                                    <div><strong>@s.ToplamAdet</strong> Kalem</div>
+                                    <small class="text-secondary">İskonto: %<strong>@s.IskontoOrani</strong></small>
+                                </td>
+                                <td>
+                                    <span class="fs-6 fw-bold text-success">₺@s.ToplamTutarTL.ToString("N2")</span>
+                                </td>
+                                <td>
+                                    <span class="badge rounded-pill px-2.5 py-1 text-success bg-success bg-opacity-10">
+                                        <i class="bi bi-box-seam me-1"></i>@s.SevkiyatDurumu
+                                    </span>
+                                    <div class="small text-secondary font-monospace mt-1">@s.KargoTakipNo</div>
+                                </td>
+                                <td class="text-end">
+                                    <span class="badge rounded-pill px-2.5 py-1 bg-light text-secondary border">
+                                        <i class="bi bi-file-earmark-pdf me-1 text-danger"></i>@s.FaturaDurumu
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+    <!-- ================================================================= -->
+    <!-- 7. SEKME: DEĞİŞİM & BOZUK CİHAZLAR (SWAP / DOA)                   -->
+    <!-- ================================================================= -->
+    @if (aktifTab == "degisim")
+    {
+        <div class="g1-table-card">
+            <div class="p-4 border-bottom d-flex align-items-center justify-content-between flex-wrap gap-3" style="background: #ffffff;">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="g1-icon-circle-tan"><i class="bi bi-arrow-repeat"></i></div>
+                    <div>
+                        <h4 class="fw-bold mb-0" style="color: #1f1f1f; font-family: 'Google Sans', sans-serif;">Bozuk Cihazlar &amp; Birebir Swap (DOA)</h4>
+                        <small class="text-secondary">Kutudan arızalı çıkan ve değişim bekleyen cihaz süreçleri</small>
+                    </div>
+                </div>
+                <span class="badge rounded-pill px-3 py-1.5 text-secondary bg-light border fw-bold fs-6">@Model.SwapKayitlari.Count Aktif Talep</span>
+            </div>
+
+            <div class="table-responsive">
+                <table class="g1-table">
+                    <thead>
+                        <tr>
+                            <th>Swap No &amp; Bayi</th>
+                            <th>Bozuk Cihaz &amp; Seri No</th>
+                            <th>Arıza Nedeni</th>
+                            <th>Değişim Türü</th>
+                            <th>Verilen Yeni Cihaz Seri No</th>
+                            <th>Tarihler</th>
+                            <th class="text-end">Durum &amp; İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var sw in Model.SwapKayitlari)
+                        {
+                            <tr>
+                                <td>
+                                    <span class="badge rounded-pill px-2.5 py-1 fw-bold" style="background: #fef7ee; color: #b06000; font-family: monospace;">@sw.SwapNo</span>
+                                    <div class="fw-bold mt-1 text-dark">@sw.BayiAdi</div>
+                                    <div class="small text-secondary font-monospace">@sw.CariKodu</div>
+                                </td>
+                                <td>
+                                    <div class="fw-bold text-dark fs-6">@sw.BozukCihazModeli</div>
+                                    <div class="small font-monospace text-danger"><i class="bi bi-x-circle me-1"></i>@sw.BozukCihazSeriNo</div>
+                                </td>
+                                <td>
+                                    <div class="small text-secondary" style="max-width: 220px;" title="@sw.ArizaNedeni">@sw.ArizaNedeni</div>
+                                </td>
+                                <td>
+                                    <span class="badge rounded-pill bg-light text-secondary border">@sw.DegisimTuru</span>
+                                </td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(sw.VerilenYeniCihazSeriNo))
+                                    {
+                                        <div class="fw-bold text-success font-monospace"><i class="bi bi-check-circle me-1"></i>@sw.VerilenYeniCihazSeriNo</div>
+                                        @if (!string.IsNullOrEmpty(sw.KargoTakipNo))
+                                        {
+                                            <div class="small text-secondary font-monospace">Kargo: @sw.KargoTakipNo</div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="badge rounded-pill px-2.5 py-1 text-warning bg-warning bg-opacity-15">Henüz Atanmadı</span>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="small text-secondary">Talep: @sw.TalepTarihi.ToString("dd.MM.yyyy")</div>
+                                    @if (sw.DegisimTarihi.HasValue)
+                                    {
+                                        <div class="small text-success">Değişim: @sw.DegisimTarihi.Value.ToString("dd.MM.yyyy")</div>
+                                    }
+                                </td>
+                                <td class="text-end">
+                                    <div class="mb-2">
+                                        <span class="badge rounded-pill px-2.5 py-1 text-success bg-success bg-opacity-10">@sw.Durum</span>
+                                    </div>
+                                    <button type="button" class="g1-btn-blue py-1.5 px-3" style="font-size: 0.82rem;" onclick="openSwapModal('@sw.SwapNo', '@sw.BayiAdi', '@sw.BozukCihazModeli', '@sw.BozukCihazSeriNo', '@sw.VerilenYeniCihazSeriNo', '@sw.Durum', '@sw.KargoTakipNo')">
+                                        <i class="bi bi-pencil-square me-1"></i>Swap Onayla / Ata
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+    <!-- ================================================================= -->
+    <!-- 8. SEKME: ESKİ MÜŞTERİLER & PASİF BAYİLER (ARŞİV & GERİ KAZANIM)  -->
+    <!-- ================================================================= -->
+    @if (aktifTab == "eskimusteriler")
+    {
+        var seciliEskiKat = ViewBag.EskiKategori as string ?? "tum";
+
+        <!-- Üst Bilgilendirme Kutucuğu (Ten Rengi) -->
+        <div class="g1-card-tan mb-4">
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-4">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="g1-icon-circle-tan"><i class="bi bi-clock-history"></i></div>
+                    <div>
+                        <h4 class="fw-bold mb-1" style="color: #2d1b00; font-family: 'Google Sans', sans-serif;">Eski Müşteriler &amp; Pasif Bayiler Veritabanı</h4>
+                        <p class="mb-0" style="color: #7a5830; max-width: 820px;">
+                            Artık müşterimiz olmayan veya aboneliği bitmiş eski bayi ve kişilerin geçmişte <strong>yazılım</strong>, <strong>donanım</strong> veya <strong>her ikisini (ikisi)</strong> neler aldığını, ne kadar ödediğini, başlangıç/bitiş tarihlerini ve ayrılış nedenlerini buradan inceleyebilirsiniz.
+                        </p>
+                    </div>
+                </div>
+                <span class="badge rounded-pill px-3.5 py-2 fw-bold fs-6" style="background: #ffffff; color: var(--g1-tan-accent); box-shadow: 0 1px 4px rgba(234,134,0,0.12);">
+                    Eski Müşterilerden Toplam Ciro: ₺@Model.EskiMusterilerdenToplamOdenenTL.ToString("N0")
+                </span>
+            </div>
+        </div>
+
+        <!-- 4 Adet Google One KPI Kartı (2 Mavi, 2 Ten Rengi) -->
+        <div class="row g-4 mb-4">
+            <div class="col-sm-6 col-lg-3">
+                <div class="g1-card-blue h-100">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <span class="text-uppercase fw-bold small" style="color: var(--g1-blue-sub);">Toplam Eski Kayıt</span>
+                        <div class="g1-icon-circle-blue"><i class="bi bi-people-fill"></i></div>
+                    </div>
+                    <div class="fs-1 fw-bold text-dark mb-1" style="font-family: 'Google Sans', sans-serif;">@Model.ToplamEskiMusteriSayisi</div>
+                    <small class="text-secondary">Eski bayi ve kurumsal kişi/şirket</small>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="g1-card-tan h-100">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <span class="text-uppercase fw-bold small" style="color: var(--g1-tan-sub);">Yazılım Alanlar</span>
+                        <div class="g1-icon-circle-tan"><i class="bi bi-code-slash"></i></div>
+                    </div>
+                    <div class="fs-1 fw-bold text-dark mb-1" style="font-family: 'Google Sans', sans-serif;">@Model.EskiMusteriYazilimSayisi</div>
+                    <small class="text-secondary">HiCariTakip ERP aboneleri</small>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="g1-card-blue h-100">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <span class="text-uppercase fw-bold small" style="color: var(--g1-blue-sub);">Donanım Alanlar</span>
+                        <div class="g1-icon-circle-blue"><i class="bi bi-cpu"></i></div>
+                    </div>
+                    <div class="fs-1 fw-bold text-dark mb-1" style="font-family: 'Google Sans', sans-serif;">@Model.EskiMusteriDonanimSayisi</div>
+                    <small class="text-secondary">POS, yazıcı, barkod okuyucu</small>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="g1-card-tan h-100">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <span class="text-uppercase fw-bold small" style="color: var(--g1-tan-sub);">İkisi (Donanım + Yazılım)</span>
+                        <div class="g1-icon-circle-tan"><i class="bi bi-layers-fill"></i></div>
+                    </div>
+                    <div class="fs-1 fw-bold text-dark mb-1" style="font-family: 'Google Sans', sans-serif;">@Model.EskiMusteriIkisiSayisi</div>
+                    <small class="text-secondary">Komple çözüm alan eski ortaklar</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kategori Filtre Butonları (Google One Pill Group) -->
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
+            <div class="d-flex gap-2 p-1.5 rounded-pill bg-white border shadow-sm flex-wrap">
+                <a asp-action="BayiYonetimMerkezi" asp-route-tab="eskimusteriler" asp-route-eskiKategori="tum" asp-route-q="@Model.AramaKelimesi"
+                   class="btn rounded-pill px-4 fw-bold @(seciliEskiKat == "tum" ? "btn-primary" : "btn-light text-secondary")"
+                   style="@(seciliEskiKat == "tum" ? "background: #0b57d0; border: none;" : "")">
+                    <i class="bi bi-grid-fill me-1"></i>Tümü (@Model.ToplamEskiMusteriSayisi)
+                </a>
+                <a asp-action="BayiYonetimMerkezi" asp-route-tab="eskimusteriler" asp-route-eskiKategori="yazilim" asp-route-q="@Model.AramaKelimesi"
+                   class="btn rounded-pill px-4 fw-bold @(seciliEskiKat == "yazilim" ? "btn-primary" : "btn-light text-secondary")"
+                   style="@(seciliEskiKat == "yazilim" ? "background: #0b57d0; border: none;" : "")">
+                    <i class="bi bi-code-square me-1"></i>Yalnızca Yazılım (@Model.EskiMusteriYazilimSayisi)
+                </a>
+                <a asp-action="BayiYonetimMerkezi" asp-route-tab="eskimusteriler" asp-route-eskiKategori="donanim" asp-route-q="@Model.AramaKelimesi"
+                   class="btn rounded-pill px-4 fw-bold @(seciliEskiKat == "donanim" ? "btn-primary" : "btn-light text-secondary")"
+                   style="@(seciliEskiKat == "donanim" ? "background: #0b57d0; border: none;" : "")">
+                    <i class="bi bi-cpu me-1"></i>Yalnızca Donanım (@Model.EskiMusteriDonanimSayisi)
+                </a>
+                <a asp-action="BayiYonetimMerkezi" asp-route-tab="eskimusteriler" asp-route-eskiKategori="ikisi" asp-route-q="@Model.AramaKelimesi"
+                   class="btn rounded-pill px-4 fw-bold @(seciliEskiKat == "ikisi" ? "btn-primary" : "btn-light text-secondary")"
+                   style="@(seciliEskiKat == "ikisi" ? "background: #0b57d0; border: none;" : "")">
+                    <i class="bi bi-layers-fill me-1"></i>Donanım + Yazılım (İkisi) (@Model.EskiMusteriIkisiSayisi)
+                </a>
+            </div>
+
+            <div class="small text-secondary">
+                <i class="bi bi-check-circle me-1 text-success"></i>Tarihler, ödenen tutarlar ve ayrılış nedenleri arşivlenmiştir.
+            </div>
+        </div>
+
+        <!-- Eski Müşteriler Tablosu (Google Beyaz Tablo) -->
+        <div class="g1-table-card">
+            <div class="table-responsive">
+                <table class="g1-table">
+                    <thead>
+                        <tr>
+                            <th>Eski Bayi / Müşteri</th>
+                            <th>Kategori</th>
+                            <th>Neler Aldı?</th>
+                            <th>Ne Kadar Ödedi?</th>
+                            <th>Ne Zaman Aldı?</th>
+                            <th>Ne Zaman Bitti?</th>
+                            <th>Ayrılış / Bitiş Nedeni</th>
+                            <th class="text-end">Geri Kazanım</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.EskiMusteriler.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="8" class="text-center py-5 text-secondary">
+                                    <i class="bi bi-inbox fs-2 d-block mb-2 text-muted"></i>
+                                    Seçilen filtre kriterlerine uygun eski bayi veya müşteri kaydı bulunamadı.
+                                </td>
+                            </tr>
+                        }
+                        @foreach (var em in Model.EskiMusteriler)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="fw-bold fs-6 mb-1 text-dark">@em.FirmaVeyaKisiAdi</div>
+                                    <div class="small text-secondary">
+                                        @if (!string.IsNullOrEmpty(em.YetkiliAdSoyad))
+                                        {
+                                            <span><i class="bi bi-person me-1"></i>@em.YetkiliAdSoyad &bull; </span>
+                                        }
+                                        <span class="font-monospace">@em.CariKodu</span>
+                                        @if (!string.IsNullOrEmpty(em.Sehir))
+                                        {
+                                            <span> &bull; @em.Sehir</span>
+                                        }
+                                    </div>
+                                    <div class="small text-muted mt-0.5" style="font-size: 0.76rem;">
+                                        <i class="bi bi-telephone me-1"></i>@em.Telefon &bull; <i class="bi bi-envelope me-1"></i>@em.Eposta
+                                    </div>
+                                </td>
+                                <td>
+                                    @if (em.Kategori == "Yazılım")
+                                    {
+                                        <span class="badge rounded-pill px-3 py-1.5 fw-bold" style="background: #edf2fc; color: #0b57d0;">
+                                            <i class="bi bi-code-slash me-1"></i>Yazılım
+                                        </span>
+                                    }
+                                    else if (em.Kategori == "Donanım")
+                                    {
+                                        <span class="badge rounded-pill px-3 py-1.5 fw-bold" style="background: #fef7ee; color: #b06000;">
+                                            <i class="bi bi-cpu me-1"></i>Donanım
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge rounded-pill px-3 py-1.5 fw-bold" style="background: #f0f4f9; color: #1f1f1f; border: 1px solid #dadce0;">
+                                            <i class="bi bi-layers-fill me-1"></i>Donanım + Yazılım (İkisi)
+                                        </span>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="small text-dark fw-semibold" style="max-width: 260px; line-height: 1.45;">@em.NelerAldiDetay</div>
+                                </td>
+                                <td>
+                                    <div class="fs-6 fw-bold text-success">₺@em.OdenenToplamTutarTL.ToString("N2")</div>
+                                    <div class="small text-secondary mt-0.5" style="font-size: 0.75rem;">@em.FaturaDekontOzet</div>
+                                </td>
+                                <td>
+                                    <div class="fw-bold">@em.AlisTarihi.ToString("dd.MM.yyyy")</div>
+                                    <small class="text-secondary">Başlangıç</small>
+                                </td>
+                                <td>
+                                    <div class="fw-bold text-danger">@em.BitisTarihi.ToString("dd.MM.yyyy")</div>
+                                    <small class="text-muted">
+                                        @{
+                                            var sure = (em.BitisTarihi - em.AlisTarihi).Days;
+                                            var ay = sure / 30;
+                                        }
+                                        <span>Aktif: ~@ay Ay</span>
+                                    </small>
+                                </td>
+                                <td>
+                                    <div class="small text-secondary" style="max-width: 220px; line-height: 1.45;">
+                                        <i class="bi bi-x-octagon-fill text-danger me-1"></i>@em.BitisNedeni
+                                    </div>
+                                    <span class="badge rounded-pill px-2 py-0.5 text-danger bg-danger bg-opacity-10 mt-1" style="font-size: 0.7rem;">@em.AktiflikDurumu</span>
+                                </td>
+                                <td class="text-end">
+                                    <div class="mb-2">
+                                        <span class="badge rounded-pill px-2.5 py-1 text-primary bg-primary bg-opacity-10 fw-semibold" style="font-size: 0.75rem;">
+                                            @em.GeriKazanimDurumu
+                                        </span>
+                                    </div>
+                                    <button type="button" class="g1-btn-tan py-1.5 px-3 text-nowrap" style="font-size: 0.82rem;"
+                                            onclick="openEskiMusteriModal('@em.Id', '@em.FirmaVeyaKisiAdi', '@em.Kategori', '@em.NelerAldiDetay', '@em.OdenenToplamTutarTL.ToString("N2")', '@em.GeriKazanimDurumu', '@em.SonIletisimNotu')">
+                                        <i class="bi bi-arrow-repeat me-1"></i>Aksiyon Notu
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</div>
+
+
+<!-- ================================================================= -->
+<!-- GOOGLE ONE MODALLAR (YUVARLATILMIŞ KÖŞELER, FERAH FORM ELEMANLARI) -->
+<!-- ================================================================= -->
+
+<!-- 1. MODAL: YENİ DUYURU & BİLDİRİM GÖNDER -->
+<div class="modal fade" id="modalYeniDuyuru" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content rounded-5 border-0 shadow-lg p-3" style="background: #ffffff;">
+            <div class="modal-header border-bottom pb-3">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="g1-icon-circle-blue"><i class="bi bi-megaphone-fill"></i></div>
+                    <div>
+                        <h4 class="modal-title fw-bold mb-0" style="font-family: 'Google Sans', sans-serif;">Hızlı Duyuru &amp; Bildirim Gönder</h4>
+                        <small class="text-secondary">Bayilere anlık portal ve e-posta bildirimi ulaştırın</small>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <form method="post" asp-action="DuyuruBildirimGonder">
+                @Html.AntiForgeryToken()
+                <div class="modal-body py-4">
+                    <div class="mb-4">
+                        <label class="form-label fw-bold small text-dark">Hedef Kitle <span class="text-danger">*</span></label>
+                        <div class="d-flex gap-4 p-3 rounded-4 bg-light border">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="hedefTipi" id="rdHedefModalTum" value="TumBayiler" checked onchange="toggleModalHedefSecimi(false)" />
+                                <label class="form-check-label fw-bold small text-primary" for="rdHedefModalTum">Tüm Bayilere Gönder</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="hedefTipi" id="rdHedefModalSecili" value="SeciliBayiler" onchange="toggleModalHedefSecimi(true)" />
+                                <label class="form-check-label fw-bold small text-dark" for="rdHedefModalSecili">Seçili Bayilere Gönder</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="modalSeciliBayilerAlani" class="mb-4 d-none">
+                        <label class="form-label fw-bold small text-secondary">Hedef Bayileri Seçin</label>
+                        <div class="p-3 rounded-4 bg-light border overflow-auto" style="max-height: 160px;">
+                            @foreach (var b in bayiler)
+                            {
+                                var bAd = b.FirmaAdi ?? b.AdSoyad ?? b.UserName;
+                                <div class="form-check py-1 border-bottom">
+                                    <input class="form-check-input" type="checkbox" name="seciliBayiIdleri" value="@b.Id" id="chk_modal_bayi_@b.Id" />
+                                    <label class="form-check-label small" for="chk_modal_bayi_@b.Id"><strong>@bAd</strong> (@b.CariKodu)</label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold small text-dark">Duyuru Başlığı <span class="text-danger">*</span></label>
+                        <input type="text" name="baslik" class="form-control" placeholder="Duyuru başlığını yazın..." required />
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-6">
+                            <label class="form-label fw-bold small text-dark">Kategori</label>
+                            <select name="kategori" class="form-select">
+                                <option value="Genel Duyuru">Genel Duyuru</option>
+                                <option value="Yeni Ürün Lansmanı">Yeni Ürün Lansmanı</option>
+                                <option value="Lojistik & Kargo">Lojistik &amp; Kargo</option>
+                                <option value="Sistem Bakımı">Sistem Bakımı</option>
+                                <option value="Fiyat & İskonto">Fiyat &amp; İskonto</option>
+                                <option value="Acil & Kritik">Acil &amp; Kritik</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label fw-bold small text-dark">Öncelik</label>
+                            <select name="oncelik" class="form-select">
+                                <option value="Normal">Normal</option>
+                                <option value="Önemli">Önemli</option>
+                                <option value="Acil & Kritik">Acil &amp; Kritik</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold small text-dark">Açıklama / Bildirim İçeriği <span class="text-danger">*</span></label>
+                        <textarea name="icerik" rows="4" class="form-control" placeholder="Duyuru içeriğini detaylıca belirtin..." required></textarea>
+                    </div>
+
+                    <div class="d-flex gap-4 p-3 rounded-4 bg-light border">
+                        <div class="form-check small">
+                            <input class="form-check-input" type="checkbox" name="portalBildirimi" value="true" checked id="chkModalPortal" />
+                            <label class="form-check-label" for="chkModalPortal">Portal Bildirimi</label>
+                        </div>
+                        <div class="form-check small">
+                            <input class="form-check-input" type="checkbox" name="epostaGonder" value="true" checked id="chkModalMail" />
+                            <label class="form-check-label" for="chkModalMail">E-Posta Gönder</label>
+                        </div>
+                        <div class="form-check small">
+                            <input class="form-check-input" type="checkbox" name="smsGonder" value="true" id="chkModalSms" />
+                            <label class="form-check-label" for="chkModalSms">SMS Gönder</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-top pt-3">
+                    <button type="button" class="g1-btn-tan py-2 px-4" data-bs-dismiss="modal">Vazgeç</button>
+                    <button type="submit" class="g1-btn-blue py-2 px-4">Yayınla &amp; Gönder</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 2. MODAL: SERVİS DURUMU TANIMLA & BAYİYE İLET -->
+<div class="modal fade" id="modalServisDurumu" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content rounded-5 border-0 shadow-lg p-3" style="background: #ffffff;">
+            <div class="modal-header border-bottom pb-3">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="g1-icon-circle-tan"><i class="bi bi-tools"></i></div>
+                    <div>
+                        <h4 class="modal-title fw-bold mb-0" id="servisModalBaslik" style="font-family: 'Google Sans', sans-serif;">Servis Durumu Güncelle &amp; Bayiye İlet</h4>
+                        <small class="text-secondary">Konum, durum aşaması ve tutar bilgisini bayinin ekranına aktarın</small>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <form method="post" asp-action="ServisDurumuGuncelleVeIlet">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="servisTakipNo" id="servisTakipNoInput" value="" />
+
+                <div class="modal-body py-4">
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-dark">İlgili Bayi <span class="text-danger">*</span></label>
+                            <select name="bayiId" id="servisBayiIdSelect" class="form-select" required>
+                                @foreach (var b in bayiler)
+                                {
+                                    var bAd = b.FirmaAdi ?? b.AdSoyad ?? b.UserName;
+                                    <option value="@b.Id">@bAd (@b.CariKodu)</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-dark">Araç / Cihaz Türü <span class="text-danger">*</span></label>
+                            <select name="aracCihazTipi" id="servisAracTipiSelect" class="form-select">
+                                <option value="Saha Mobil Servis Aracı">Saha Mobil Servis Aracı</option>
+                                <option value="Donanım / POS Terminali">Donanım / POS Terminali</option>
+                                <option value="Barkod & Endüstriyel Yazıcı">Barkod &amp; Endüstriyel Yazıcı</option>
+                                <option value="El Terminali / Barkod Okuyucu">El Terminali / Barkod Okuyucu</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-dark">Plaka veya Seri Numarası <span class="text-danger">*</span></label>
+                            <input type="text" name="plakaVeyaSeriNo" id="servisPlakaInput" class="form-control" placeholder="Örn: 34 HYT 802 veya SN: SUN-D2S-88412" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-dark">Model / Araç Tanımı <span class="text-danger">*</span></label>
+                            <input type="text" name="modelTanim" id="servisModelInput" class="form-control" placeholder="Örn: Sunmi D2s Android POS Terminali" required />
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-danger"><i class="bi bi-geo-alt-fill me-1"></i>Nerede Olduğu (Konum) <span class="text-danger">*</span></label>
+                            <input type="text" name="neredeKonum" id="servisKonumInput" class="form-control" placeholder="Örn: Merkez Teknik Laboratuvar (Masa 4) veya Saha Ekip Aracı Yolda" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-primary"><i class="bi bi-activity me-1"></i>Ne Durumda Olduğu (Aşama) <span class="text-danger">*</span></label>
+                            <input type="text" name="durumAsamasi" id="servisDurumInput" class="form-control" placeholder="Örn: Yedek Parça Bekleniyor veya Onarım Tamamlandı" required />
+                        </div>
+                    </div>
+
+                    <!-- FİYAT / MALİYET HESABI -->
+                    <div class="p-3.5 rounded-4 bg-light border mb-4">
+                        <label class="form-label fw-bold small text-success d-block mb-2"><i class="bi bi-cash-coin me-1"></i>Ne Kadar Tutacağı (Maliyet &amp; Servis Ücreti)</label>
+                        <div class="row g-3">
+                            <div class="col-4">
+                                <label class="small text-secondary">Parça Tutarı (₺)</label>
+                                <input type="number" step="0.01" name="parcaTutarTL" id="servisParcaInput" class="form-control" value="0" />
+                            </div>
+                            <div class="col-4">
+                                <label class="small text-secondary">İşçilik Tutarı (₺)</label>
+                                <input type="number" step="0.01" name="iscilikTutarTL" id="servisIscilikInput" class="form-control" value="0" />
+                            </div>
+                            <div class="col-4">
+                                <label class="small text-secondary">Tahmini Tutar (₺)</label>
+                                <input type="number" step="0.01" name="tahminiTutarTL" id="servisTahminiInput" class="form-control" value="0" />
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <label class="small text-secondary">Garanti Kapsamı</label>
+                            <select name="garantiDurumu" id="servisGarantiSelect" class="form-select">
+                                <option value="Garantili (0 TL)">Garantili (0 TL)</option>
+                                <option value="Ücretli Servis">Ücretli Servis</option>
+                                <option value="Şirket Filo Servis Kapsamında">Şirket Filo Servis Kapsamında</option>
+                                <option value="Saha Bakım Sözleşmeli">Saha Bakım Sözleşmeli</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold small text-dark">Arıza Açıklaması ve Yapılan İşlemler <span class="text-danger">*</span></label>
+                        <textarea name="arizaVeYapilanIslemler" id="servisIslemlerTextarea" rows="3" class="form-control" placeholder="Yapılan parça revizyonları, arıza nedenleri, test sonuçları..." required></textarea>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-dark">Atanan Teknisyen / Sorumlu</label>
+                            <input type="text" name="atananTeknisyen" id="servisTeknisyenInput" class="form-control" value="Hakan Demir (Donanım Uzmanı)" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-dark">Tahmini Teslim Tarihi</label>
+                            <input type="date" name="tahminiTeslimTarihi" id="servisTeslimTarihiInput" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-check p-3 rounded-4 border" style="background: #e6f4ea; border-color: #ceead6 !important;">
+                        <input class="form-check-input ms-1" type="checkbox" name="bayiyeIlet" value="true" id="chkServisIlet" checked />
+                        <label class="form-check-label fw-bold small text-success ms-2" for="chkServisIlet">
+                            <i class="bi bi-send-check me-1"></i>Bu servis/araç durumunu ve maliyet bilgisini seçili bayinin paneline anında ilet
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer border-top pt-3">
+                    <button type="button" class="g1-btn-tan py-2 px-4" data-bs-dismiss="modal">Vazgeç</button>
+                    <button type="submit" class="g1-btn-blue py-2 px-4">Kaydet &amp; Bayiye Gönder</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 3. MODAL: TALEP / ŞİKAYETİ YANITLA -->
+<div class="modal fade" id="modalTalepYanitla" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-5 border-0 shadow-lg p-3" style="background: #ffffff;">
+            <div class="modal-header border-bottom pb-3">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="g1-icon-circle-blue"><i class="bi bi-chat-left-dots-fill"></i></div>
+                    <div>
+                        <h4 class="modal-title fw-bold mb-0" style="font-family: 'Google Sans', sans-serif;">Bayi Talebine Yanıt Ver</h4>
+                        <small class="text-secondary" id="talepModalAltBaslik">TKT-XXXX</small>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <form method="post" asp-action="TalepSikayetYanitla">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="talepNo" id="talepNoInput" value="" />
+
+                <div class="modal-body py-4">
+                    <div class="p-3.5 rounded-4 mb-4 bg-light border">
+                        <div class="small fw-bold text-primary mb-1" id="talepBaslikText">Başlık</div>
+                        <div class="small text-secondary" id="talepMesajText">Mesaj içeriği...</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold small text-dark">Talep Durumu</label>
+                        <select name="durum" id="talepDurumSelect" class="form-select">
+                            <option value="Çözüldü & Kapatıldı">Çözüldü & Kapatıldı</option>
+                            <option value="İnceleniyor">İnceleniyor</option>
+                            <option value="Bayiden Yanıt Bekleniyor">Bayiden Yanıt Bekleniyor</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold small text-dark">Bayiye İletilecek Yanıt Mesajı <span class="text-danger">*</span></label>
+                        <textarea name="adminCevap" id="talepCevapTextarea" rows="4" class="form-control" placeholder="Bayiye iletilecek çözüm veya bilgilendirme notu..." required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer border-top pt-3">
+                    <button type="button" class="g1-btn-tan py-2 px-4" data-bs-dismiss="modal">İptal</button>
+                    <button type="submit" class="g1-btn-blue py-2 px-4">Yanıtı Gönder &amp; Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 4. MODAL: BOZUK CİHAZ SWAP ONAYLA -->
+<div class="modal fade" id="modalSwapGuncelle" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-5 border-0 shadow-lg p-3" style="background: #ffffff;">
+            <div class="modal-header border-bottom pb-3">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="g1-icon-circle-tan"><i class="bi bi-arrow-repeat"></i></div>
+                    <div>
+                        <h4 class="modal-title fw-bold mb-0" style="font-family: 'Google Sans', sans-serif;">Bozuk Cihaz Swap / Değişim Onayı</h4>
+                        <small class="text-secondary" id="swapModalAltBaslik">SWAP-XXXX</small>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <form method="post" asp-action="BozukCihazSwapOnayla">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="swapNo" id="swapNoInput" value="" />
+
+                <div class="modal-body py-4">
+                    <div class="p-3.5 rounded-4 mb-4 bg-light border">
+                        <div class="small text-secondary">Arızalı Cihaz:</div>
+                        <div class="fw-bold fs-6 text-dark" id="swapBozukCihazText">Sunmi V2s</div>
+                        <div class="small font-monospace text-danger" id="swapBozukSeriNoText">SN-XXXX</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold small text-success"><i class="bi bi-box-seam me-1"></i>Verilen Yeni / Swap Cihaz Seri No <span class="text-danger">*</span></label>
+                        <input type="text" name="verilenYeniCihazSeriNo" id="swapYeniSeriNoInput" class="form-control font-monospace" placeholder="Örn: SN: SUN-V2S-99015-TR" required />
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold small text-dark">Kargo Takip Numarası</label>
+                        <input type="text" name="kargoTakipNo" id="swapKargoInput" class="form-control font-monospace" placeholder="Örn: YK-8812401" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold small text-dark">Onay Durumu</label>
+                        <select name="durum" id="swapDurumSelect" class="form-select">
+                            <option value="Onaylandı & Yeni Cihaz Sevk Edildi">Onaylandı & Yeni Cihaz Sevk Edildi</option>
+                            <option value="İncelemede">İncelemede</option>
+                            <option value="Cihaz Bekleniyor">Cihaz Bekleniyor</option>
+                            <option value="Reddedildi">Reddedildi</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer border-top pt-3">
+                    <button type="button" class="g1-btn-tan py-2 px-4" data-bs-dismiss="modal">İptal</button>
+                    <button type="submit" class="g1-btn-blue py-2 px-4">Swap Onayla &amp; Bayiye İlet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 5. MODAL: ESKİ MÜŞTERİ GERİ KAZANIM NOTU & TEKLİF -->
+<div class="modal fade" id="modalEskiMusteriGeriKazanim" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-5 border-0 shadow-lg p-3" style="background: #ffffff;">
+            <div class="modal-header border-bottom pb-3">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="g1-icon-circle-tan"><i class="bi bi-clock-history"></i></div>
+                    <div>
+                        <h4 class="modal-title fw-bold mb-0" style="font-family: 'Google Sans', sans-serif;">Eski Müşteri / Bayi Geri Kazanım Aksiyonu</h4>
+                        <small class="text-secondary" id="eskiMusteriModalAltBaslik">Firma Adı</small>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <form method="post" asp-action="EskiMusteriGeriKazanimNotuKaydet">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="musteriId" id="eskiMusteriIdInput" value="" />
+
+                <div class="modal-body py-4">
+                    <div class="p-3.5 rounded-4 mb-4 bg-light border">
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                            <span class="badge rounded-pill bg-light text-secondary border" id="eskiMusteriKategoriBadge">Kategori</span>
+                            <span class="fw-bold text-success fs-6" id="eskiMusteriOdenenText">₺0,00</span>
+                        </div>
+                        <div class="small fw-semibold text-dark" id="eskiMusteriNelerAldiText">Neler almıştı...</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold small text-dark">Geri Kazanım / İletişim Durumu</label>
+                        <select name="geriKazanimDurumu" id="eskiMusteriDurumSelect" class="form-select">
+                            <option value="Teklif Hazırlanabilir">Teklif Hazırlanabilir</option>
+                            <option value="Teklif Gönderildi">Teklif Gönderildi (İnceleme Aşamasında)</option>
+                            <option value="Geri Kazanıldı & Yeniden Aktif">Geri Kazanıldı &amp; Yeniden Aktif</option>
+                            <option value="Ulaşılamadı">Ulaşılamadı / Geri Dönüş Yapmadı</option>
+                            <option value="Sektör Değiştirdi / Kapandı">Sektör Değiştirdi / Kapandı</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold small text-dark">İletişim &amp; Görüşme Notu <span class="text-danger">*</span></label>
+                        <textarea name="sonIletisimNotu" id="eskiMusteriNotTextarea" rows="4" class="form-control" placeholder="Müşteri/bayi ile yapılan son görüşme, sunulan indirim teklifi veya talepler..." required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer border-top pt-3">
+                    <button type="button" class="g1-btn-tan py-2 px-4" data-bs-dismiss="modal">İptal</button>
+                    <button type="submit" class="g1-btn-blue py-2 px-4">Aksiyon Notunu Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    function toggleHedefBayiSecimi(isSecili) {
+        const area = document.getElementById('seciliBayilerAlani');
+        if (area) {
+            if (isSecili) area.classList.remove('d-none');
+            else area.classList.add('d-none');
+        }
+    }
+
+    function toggleModalHedefSecimi(isSecili) {
+        const area = document.getElementById('modalSeciliBayilerAlani');
+        if (area) {
+            if (isSecili) area.classList.remove('d-none');
+            else area.classList.add('d-none');
+        }
+    }
+
+    function hepsiniIsaretle(val) {
+        document.querySelectorAll('.secili-bayi-chk').forEach(c => c.checked = val);
+    }
+
+    function openServisDuzenleModal(no, bayiId, tip, plaka, model, konum, durum, tahmini, parca, iscilik, garanti, islemler, teknisyen) {
+        document.getElementById('servisModalBaslik').innerText = 'Servis No: ' + no + ' Güncelle & Bayiye İlet';
+        document.getElementById('servisTakipNoInput').value = no;
+        document.getElementById('servisBayiIdSelect').value = bayiId;
+        document.getElementById('servisAracTipiSelect').value = tip;
+        document.getElementById('servisPlakaInput').value = plaka;
+        document.getElementById('servisModelInput').value = model;
+        document.getElementById('servisKonumInput').value = konum;
+        document.getElementById('servisDurumInput').value = durum;
+        document.getElementById('servisTahminiInput').value = tahmini;
+        document.getElementById('servisParcaInput').value = parca;
+        document.getElementById('servisIscilikInput').value = iscilik;
+        document.getElementById('servisGarantiSelect').value = garanti;
+        document.getElementById('servisIslemlerTextarea').value = islemler;
+        document.getElementById('servisTeknisyenInput').value = teknisyen;
+
+        const modal = new bootstrap.Modal(document.getElementById('modalServisDurumu'));
+        modal.show();
+    }
+
+    function openTalepModal(no, bayiAdi, baslik, mesaj, durum, cevap) {
+        document.getElementById('talepModalAltBaslik').innerText = no + ' - ' + bayiAdi;
+        document.getElementById('talepNoInput').value = no;
+        document.getElementById('talepBaslikText').innerText = baslik;
+        document.getElementById('talepMesajText').innerText = mesaj;
+        document.getElementById('talepDurumSelect').value = durum;
+        document.getElementById('talepCevapTextarea').value = cevap || '';
+
+        const modal = new bootstrap.Modal(document.getElementById('modalTalepYanitla'));
+        modal.show();
+    }
+
+    function openSwapModal(no, bayiAdi, model, eskiSeri, yeniSeri, durum, kargo) {
+        document.getElementById('swapModalAltBaslik').innerText = no + ' - ' + bayiAdi;
+        document.getElementById('swapNoInput').value = no;
+        document.getElementById('swapBozukCihazText').innerText = model;
+        document.getElementById('swapBozukSeriNoText').innerText = 'Bozuk SN: ' + eskiSeri;
+        document.getElementById('swapYeniSeriNoInput').value = yeniSeri || '';
+        document.getElementById('swapDurumSelect').value = durum;
+        document.getElementById('swapKargoInput').value = kargo || '';
+
+        const modal = new bootstrap.Modal(document.getElementById('modalSwapGuncelle'));
+        modal.show();
+    }
+
+    function openEskiMusteriModal(id, firma, kat, neler, odenen, durum, not) {
+        document.getElementById('eskiMusteriModalAltBaslik').innerText = firma;
+        document.getElementById('eskiMusteriIdInput').value = id;
+        document.getElementById('eskiMusteriKategoriBadge').innerText = kat;
+        document.getElementById('eskiMusteriOdenenText').innerText = '₺' + odenen;
+        document.getElementById('eskiMusteriNelerAldiText').innerText = neler;
+        document.getElementById('eskiMusteriDurumSelect').value = durum;
+        document.getElementById('eskiMusteriNotTextarea').value = not || '';
+
+        const modal = new bootstrap.Modal(document.getElementById('modalEskiMusteriGeriKazanim'));
+        modal.show();
+    }
+</script>
+}

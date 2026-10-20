@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <linearGradient id="zgRed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#b91c1c"/>
+    </linearGradient>
+    <filter id="zgGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#ef4444" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+  <rect width="120" height="120" rx="26" fill="url(#zgRed)" filter="url(#zgGlow)"/>
+  <!-- Ziraat Başak & Z harfi stilize vektör amblem -->
+  <g fill="#ffffff" transform="translate(60,60)">
+    <!-- Sol Başak Taneleri -->
+    <path d="M-6,-34 C-14,-26 -16,-14 -12,-8 C-8,-14 -6,-24 -6,-34 Z" opacity="0.95"/>
+    <path d="M-8,-20 C-18,-14 -20,-2 -16,4 C-12,-2 -9,-12 -8,-20 Z" opacity="0.95"/>
+    <path d="M-10,-6 C-20,0 -22,12 -18,18 C-14,12 -11,2 -10,-6 Z" opacity="0.95"/>
+    <!-- Sağ Başak Taneleri -->
+    <path d="M6,-34 C14,-26 16,-14 12,-8 C8,-14 6,-24 6,-34 Z" opacity="0.95"/>
+    <path d="M8,-20 C18,-14 20,-2 16,4 C12,-2 9,-12 8,-20 Z" opacity="0.95"/>
+    <path d="M10,-6 C20,0 22,12 18,18 C14,12 11,2 10,-6 Z" opacity="0.95"/>
+    <!-- Orta Gövde ve Z Çizgisi -->
+    <rect x="-2" y="-36" width="4" height="66" rx="2"/>
+    <path d="M-18,22 L18,22 C18,22 10,32 -16,32 C12,32 18,22 18,22 Z" opacity="0.9"/>
+  </g>
+</svg>

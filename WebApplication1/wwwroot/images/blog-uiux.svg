@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 350" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgLightUi" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0f7ff" />
+      <stop offset="100%" stop-color="#e2e8f0" />
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#0071e3" flood-opacity="0.12" />
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.06" />
+    </filter>
+  </defs>
+
+  <!-- Clean Light Canvas -->
+  <rect width="600" height="350" fill="url(#bgLightUi)" />
+
+  <!-- Subtle Blueprint Grid Pattern -->
+  <g stroke="#0071e3" stroke-opacity="0.06" stroke-width="1">
+    <line x1="0" y1="70" x2="600" y2="70" />
+    <line x1="0" y1="140" x2="600" y2="140" />
+    <line x1="0" y1="210" x2="600" y2="210" />
+    <line x1="0" y1="280" x2="600" y2="280" />
+    <line x1="120" y1="0" x2="120" y2="350" />
+    <line x1="240" y1="0" x2="240" y2="350" />
+    <line x1="360" y1="0" x2="360" y2="350" />
+    <line x1="480" y1="0" x2="480" y2="350" />
+  </g>
+
+  <!-- Ambient Light Orbs -->
+  <circle cx="160" cy="90" r="90" fill="#38bdf8" fill-opacity="0.18" filter="blur(30px)" />
+  <circle cx="460" cy="240" r="100" fill="#818cf8" fill-opacity="0.15" filter="blur(35px)" />
+
+  <!-- Secondary Background Glass Layer -->
+  <rect x="220" y="45" width="280" height="210" rx="20" fill="#ffffff" fill-opacity="0.7" stroke="#cbd5e1" stroke-width="1.5" />
+
+  <!-- Primary Floating Apple UI Card -->
+  <g filter="url(#cardShadow)">
+    <rect x="90" y="70" width="370" height="225" rx="18" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" />
+
+    <!-- Window Header -->
+    <rect x="90" y="70" width="370" height="38" rx="18" fill="#f8fafc" />
+    <line x1="90" y1="108" x2="460" y2="108" stroke="#f1f5f9" stroke-width="1.5" />
+
+    <!-- Mac Traffic Light Dots -->
+    <circle cx="116" cy="89" r="5" fill="#ef4444" />
+    <circle cx="132" cy="89" r="5" fill="#f59e0b" />
+    <circle cx="148" cy="89" r="5" fill="#10b981" />
+
+    <!-- Search/URL Bar Pill -->
+    <rect x="180" y="80" width="180" height="18" rx="9" fill="#edf2f7" />
+    <circle cx="192" cy="89" r="3.5" fill="#94a3b8" />
+
+    <!-- UI Sidebar -->
+    <rect x="108" y="124" width="70" height="15" rx="4" fill="#0071e3" fill-opacity="0.12" />
+    <rect x="108" y="148" width="55" height="8" rx="3" fill="#cbd5e1" />
+    <rect x="108" y="164" width="60" height="8" rx="3" fill="#cbd5e1" />
+    <rect x="108" y="180" width="48" height="8" rx="3" fill="#cbd5e1" />
+
+    <!-- Hero Card Inside UI -->
+    <rect x="195" y="124" width="245" height="80" rx="12" fill="linear-gradient(135deg, #0071e3, #38bdf8)" />
+    <rect x="215" y="142" width="110" height="12" rx="4" fill="#ffffff" />
+    <rect x="215" y="162" width="160" height="7" rx="3.5" fill="#ffffff" fill-opacity="0.75" />
+    <rect x="215" y="174" width="90" height="7" rx="3.5" fill="#ffffff" fill-opacity="0.55" />
+
+    <!-- Mini Component Grid Inside UI -->
+    <rect x="195" y="215" width="75" height="60" rx="8" fill="#f8fafc" stroke="#e2e8f0" />
+    <circle cx="218" cy="235" r="9" fill="#38bdf8" fill-opacity="0.25" />
+    <rect x="210" y="252" width="45" height="5" rx="2" fill="#94a3b8" />
+
+    <rect x="280" y="215" width="75" height="60" rx="8" fill="#f8fafc" stroke="#e2e8f0" />
+    <circle cx="303" cy="235" r="9" fill="#10b981" fill-opacity="0.25" />
+    <rect x="295" y="252" width="45" height="5" rx="2" fill="#94a3b8" />
+
+    <rect x="365" y="215" width="75" height="60" rx="8" fill="#f8fafc" stroke="#e2e8f0" />
+    <circle cx="388" cy="235" r="9" fill="#7c3aed" fill-opacity="0.25" />
+    <rect x="380" y="252" width="45" height="5" rx="2" fill="#94a3b8" />
+  </g>
+
+  <!-- Floating Floating Glass Pill Badge (2026 UI/UX) -->
+  <g filter="url(#cardShadow)">
+    <rect x="380" y="190" width="145" height="42" rx="21" fill="#ffffff" stroke="#0071e3" stroke-width="1.5" />
+    <circle cx="402" cy="211" r="10" fill="#0071e3" />
+    <path d="M 399 211 L 401.5 213.5 L 406 208.5" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    <text x="420" y="215" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="11.5" font-weight="700" fill="#0f172a">Apple Light</text>
+  </g>
+
+  <!-- Precision Vector Cursor -->
+  <g transform="translate(350, 160)">
+    <path d="M 0 0 L 0 18 L 4.5 14 L 9 22 L 12 20.5 L 7.5 12.5 L 13.5 12.5 Z" fill="#0071e3" stroke="#ffffff" stroke-width="1.8" />
+  </g>
+</svg>

@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 520" width="100%" height="100%" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+  <defs>
+    <style>
+      text {
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: geometricPrecision;
+      }
+    </style>
+
+    <linearGradient id="mCanvasBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#f8faff"/>
+      <stop offset="100%" stop-color="#edf4ff"/>
+    </linearGradient>
+
+    <linearGradient id="mCardBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Arka Plan -->
+  <rect width="420" height="520" rx="24" fill="url(#mCanvasBg)"/>
+  
+  <!-- İnce Geometrik Vurgular -->
+  <circle cx="360" cy="80" r="120" fill="#0071e3" fill-opacity="0.04"/>
+  <circle cx="40" cy="420" r="140" fill="#4f46e5" fill-opacity="0.04"/>
+
+  <!-- ANA PANEL: HiCariTakip ERP & POS -->
+  <g transform="translate(16, 16)">
+    <!-- Kart Tabanı -->
+    <rect x="0" y="4" width="388" height="488" rx="20" fill="#0071e3" fill-opacity="0.04"/>
+    <rect x="0" y="0" width="388" height="488" rx="20" fill="#ffffff" stroke="rgba(0, 113, 227, 0.25)" stroke-width="1.8"/>
+
+    <!-- Üst Başlık Çubuğu -->
+    <rect x="0" y="0" width="388" height="44" rx="20" fill="#ffffff"/>
+    <rect x="0" y="24" width="388" height="20" fill="#ffffff"/>
+    <line x1="0" y1="44" x2="388" y2="44" stroke="rgba(0, 0, 0, 0.08)" stroke-width="1"/>
+
+    <!-- Pencere Butonları -->
+    <circle cx="22" cy="22" r="5" fill="#ef4444"/>
+    <circle cx="38" cy="22" r="5" fill="#f59e0b"/>
+    <circle cx="54" cy="22" r="5" fill="#10b981"/>
+
+    <!-- Marka Başlığı -->
+    <text x="214" y="28" fill="#0f172a" font-size="14" font-weight="900" text-anchor="middle">
+      Hayat İşleri &#8226; HiCariTakip ERP &amp; POS
+    </text>
+
+    <!-- 1. METRİK ALANI: 2 Kutu Yan Yana -->
+    <g transform="translate(14, 56)">
+      <!-- Kutu 1: Ciro -->
+      <rect x="0" y="0" width="174" height="74" rx="12" fill="#f8fafc" stroke="rgba(0, 113, 227, 0.18)" stroke-width="1.2"/>
+      <text x="12" y="20" fill="#475569" font-size="11" font-weight="800">GÜNLÜK CİRO / POS</text>
+      <text x="12" y="46" fill="#0f172a" font-size="19" font-weight="900">₺ 48.650</text>
+      <text x="12" y="64" fill="#059669" font-size="11.5" font-weight="800">&#8593; %18 Hızlı Satış</text>
+      <circle cx="152" cy="26" r="11" fill="rgba(0, 113, 227, 0.1)"/>
+      <text x="152" y="30" fill="#0071e3" font-size="10.5" font-weight="900" text-anchor="middle">POS</text>
+    </g>
+
+    <g transform="translate(200, 56)">
+      <!-- Kutu 2: Cari Hesap -->
+      <rect x="0" y="0" width="174" height="74" rx="12" fill="#f8fafc" stroke="rgba(16, 185, 129, 0.18)" stroke-width="1.2"/>
+      <text x="12" y="20" fill="#475569" font-size="11" font-weight="800">CARİ &amp; ENTEGRE</text>
+      <text x="12" y="46" fill="#0f172a" font-size="19" font-weight="900">128 Cari</text>
+      <text x="12" y="64" fill="#0284c7" font-size="11.5" font-weight="800">GİB e-Fatura &#10003;</text>
+      <circle cx="152" cy="26" r="11" fill="rgba(16, 185, 129, 0.1)"/>
+      <text x="152" y="30.5" fill="#059669" font-size="12" font-weight="900" text-anchor="middle">&#10003;</text>
+    </g>
+
+    <!-- 2. CANLI GRAFİK ALANI -->
+    <g transform="translate(14, 140)">
+      <rect x="0" y="0" width="360" height="116" rx="12" fill="#ffffff" stroke="rgba(0, 0, 0, 0.08)" stroke-width="1"/>
+      <text x="14" y="22" fill="#0f172a" font-size="13" font-weight="900">Haftalık Satış &amp; Stok Grafiği</text>
+      <text x="346" y="22" fill="#0071e3" font-size="11.5" font-weight="800" text-anchor="end">Canlı Veri &#8226;</text>
+      
+      <!-- Izgara Çizgileri -->
+      <line x1="14" y1="42" x2="346" y2="42" stroke="#f1f5f9" stroke-width="1"/>
+      <line x1="14" y1="70" x2="346" y2="70" stroke="#f1f5f9" stroke-width="1"/>
+
+      <!-- Grafik Alanı & Çizgisi -->
+      <path d="M22,86 Q75,65 130,72 T235,46 T338,34 L338,96 L22,96 Z" fill="rgba(0, 113, 227, 0.09)"/>
+      <path d="M22,86 Q75,65 130,72 T235,46 T338,34" fill="none" stroke="#0071e3" stroke-width="2.8" stroke-linecap="round"/>
+
+      <!-- Veri Noktaları -->
+      <circle cx="22" cy="86" r="3.5" fill="#ffffff" stroke="#0071e3" stroke-width="2"/>
+      <circle cx="130" cy="72" r="3.5" fill="#ffffff" stroke="#0071e3" stroke-width="2"/>
+      <circle cx="235" cy="46" r="4.5" fill="#ffffff" stroke="#0071e3" stroke-width="2.5"/>
+      <circle cx="338" cy="34" r="4.5" fill="#10b981" stroke="#ffffff" stroke-width="2"/>
+
+      <!-- Günler -->
+      <text x="22" y="106" fill="#64748b" font-size="11" font-weight="700" text-anchor="middle">Pzt</text>
+      <text x="85" y="106" fill="#64748b" font-size="11" font-weight="700" text-anchor="middle">Sal</text>
+      <text x="148" y="106" fill="#64748b" font-size="11" font-weight="700" text-anchor="middle">Çar</text>
+      <text x="211" y="106" fill="#64748b" font-size="11" font-weight="700" text-anchor="middle">Per</text>
+      <text x="274" y="106" fill="#64748b" font-size="11" font-weight="700" text-anchor="middle">Cum</text>
+      <text x="338" y="106" fill="#64748b" font-size="11" font-weight="700" text-anchor="middle">Cts</text>
+    </g>
+
+    <!-- 3. MOBİL ÇÖZÜM KARTLARI (2x2 Net Izgara) -->
+    <!-- Kart A: POS & Barkod -->
+    <g transform="translate(14, 268)">
+      <rect x="0" y="0" width="174" height="66" rx="12" fill="#ffffff" stroke="rgba(0, 113, 227, 0.22)" stroke-width="1.2"/>
+      <text x="12" y="19" fill="#0071e3" font-size="10.5" font-weight="900">DONANIM &amp; POS</text>
+      <text x="12" y="38" fill="#0f172a" font-size="14" font-weight="900">Dokunmatik Satış</text>
+      <text x="12" y="54" fill="#475569" font-size="11" font-weight="700">Barkod &amp; Fiş Yazıcı</text>
+    </g>
+
+    <!-- Kart B: Kafe & Restoran -->
+    <g transform="translate(200, 268)">
+      <rect x="0" y="0" width="174" height="66" rx="12" fill="#ffffff" stroke="rgba(16, 185, 129, 0.22)" stroke-width="1.2"/>
+      <text x="12" y="19" fill="#047857" font-size="10.5" font-weight="900">KAFE &amp; RESTORAN</text>
+      <text x="12" y="38" fill="#0f172a" font-size="14" font-weight="900">Masa Adisyon</text>
+      <text x="12" y="54" fill="#475569" font-size="11" font-weight="700">El Terminali &amp; QR</text>
+    </g>
+
+    <!-- Kart C: Özel Yazılım -->
+    <g transform="translate(14, 344)">
+      <rect x="0" y="0" width="174" height="66" rx="12" fill="#ffffff" stroke="rgba(79, 70, 229, 0.22)" stroke-width="1.2"/>
+      <text x="12" y="19" fill="#4f46e5" font-size="10.5" font-weight="900">ÖZEL YAZILIM</text>
+      <text x="12" y="38" fill="#0f172a" font-size="14" font-weight="900">B2B Web &amp; E-Ticaret</text>
+      <text x="12" y="54" fill="#475569" font-size="11" font-weight="700">Tam ERP Entegrasyon</text>
+    </g>
+
+    <!-- Kart D: Elazığ Merkez -->
+    <g transform="translate(200, 344)">
+      <rect x="0" y="0" width="174" height="66" rx="12" fill="#ffffff" stroke="rgba(245, 158, 11, 0.22)" stroke-width="1.2"/>
+      <text x="12" y="19" fill="#b45309" font-size="10.5" font-weight="900">ELAZIĞ MERKEZ</text>
+      <text x="12" y="38" fill="#0f172a" font-size="14" font-weight="900">Teknoloji Ortağı</text>
+      <text x="12" y="54" fill="#475569" font-size="11" font-weight="700">Yerinde Kurulum</text>
+    </g>
+
+    <!-- Alt Güven Rozeti -->
+    <g transform="translate(14, 422)">
+      <rect x="0" y="0" width="360" height="38" rx="19" fill="#f8fafc" stroke="rgba(0, 113, 227, 0.2)" stroke-width="1.2"/>
+      <circle cx="24" cy="19" r="6" fill="#10b981"/>
+      <text x="42" y="24" fill="#0f172a" font-size="12.5" font-weight="900">Hayat İşleri &#8226; Kurumsal İşletme Çözümleri</text>
+    </g>
+  </g>
+</svg>

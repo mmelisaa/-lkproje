@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 350" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgLightLanding" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#faf5ff" />
+      <stop offset="100%" stop-color="#f1f5f9" />
+    </linearGradient>
+    <linearGradient id="chartBarGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+    <linearGradient id="chartAreaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#c4b5fd" stop-opacity="0.02" />
+    </linearGradient>
+    <filter id="landingShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#7c3aed" flood-opacity="0.12" />
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.05" />
+    </filter>
+  </defs>
+
+  <!-- Clean Light Canvas -->
+  <rect width="600" height="350" fill="url(#bgLightLanding)" />
+
+  <!-- Ambient Light Orbs -->
+  <circle cx="150" cy="110" r="110" fill="#a855f7" fill-opacity="0.16" filter="blur(35px)" />
+  <circle cx="460" cy="230" r="100" fill="#38bdf8" fill-opacity="0.14" filter="blur(35px)" />
+
+  <!-- Main Growth Dashboard Card -->
+  <g filter="url(#landingShadow)">
+    <rect x="90" y="60" width="420" height="230" rx="20" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" />
+
+    <!-- Card Header -->
+    <text x="120" y="96" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13.5" font-weight="700" fill="#0f172a">Dönüşüm &amp; Ziyaretçi Artışı</text>
+    <text x="120" y="114" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="10.5" font-weight="500" fill="#64748b">Yüksek Performanslı Landing Page Mimarisi</text>
+
+    <!-- Upward Trend Area Chart -->
+    <path d="M 120 220 C 170 210, 210 195, 260 170 C 310 145, 360 160, 410 120 C 440 96, 465 92, 480 85 L 480 235 L 120 235 Z" fill="url(#chartAreaGrad)" />
+    <path d="M 120 220 C 170 210, 210 195, 260 170 C 310 145, 360 160, 410 120 C 440 96, 465 92, 480 85" fill="none" stroke="#7c3aed" stroke-width="3.5" stroke-linecap="round" />
+
+    <!-- Chart Peak Point & Glow -->
+    <circle cx="480" cy="85" r="7" fill="#7c3aed" stroke="#ffffff" stroke-width="2.5" />
+    <circle cx="410" cy="120" r="5" fill="#8b5cf6" stroke="#ffffff" stroke-width="2" />
+    <circle cx="260" cy="170" r="5" fill="#8b5cf6" stroke="#ffffff" stroke-width="2" />
+
+    <!-- Metric Columns below chart -->
+    <line x1="120" y1="235" x2="480" y2="235" stroke="#f1f5f9" stroke-width="1.5" />
+    
+    <text x="145" y="260" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#94a3b8">Pzt</text>
+    <text x="210" y="260" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#94a3b8">Sal</text>
+    <text x="275" y="260" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#94a3b8">Çar</text>
+    <text x="340" y="260" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#94a3b8">Per</text>
+    <text x="405" y="260" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#7c3aed">Cum</text>
+    <text x="465" y="260" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#7c3aed">Hafta Sonu</text>
+  </g>
+
+  <!-- Floating Conversion Rate Pill -->
+  <g filter="url(#landingShadow)">
+    <rect x="340" y="40" width="160" height="42" rx="21" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5" />
+    <circle cx="362" cy="61" r="10" fill="#7c3aed" />
+    <path d="M 358 64 L 366 58 M 361 58 L 366 58 L 366 63" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+    <text x="382" y="65" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#5b21b6">+%48 Dönüşüm</text>
+  </g>
+</svg>

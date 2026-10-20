@@ -22,8 +22,9 @@ namespace WebApplication1.Controllers
             _emailService = emailService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            ViewBag.Referanslar = await _context.ReferansProjeler.ToListAsync();
             return View();
         }
 
@@ -39,6 +40,13 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
+        [Route("yazilimlar")]
+        public IActionResult Yazilimlar()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Hakkimizda()
         {
             var model = await _context.Hakkimizda.FirstOrDefaultAsync();
@@ -47,14 +55,14 @@ namespace WebApplication1.Controllers
                 model = new Hakkimizda
                 {
                     Baslik = "Hakkımızda",
-                    Aciklama = "Elazığ merkezli olarak kurulan Hayat İşleri, web tasarımı, özel yazılım, e-ticaret, hosting ve SEO alanlarında profesyonel kurumsal çözümler sunar.",
-                    GorselUrl = "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
-                    HizmetAlanlari = "Web tasarım, özel yazılım geliştirme, e-ticaret sistemleri ve kurumsal hosting hizmetleri sunuyoruz.",
-                    KurumsalGucumuz = "Genç, dinamik ve alanında uzman ekibimizle en güncel teknolojileri projelendiriyoruz.",
-                    CalismaIlkelerimiz = "Şeffaflık, zamanında teslim, müşteri memnuniyeti ve sürdürülebilir destek.",
-                    Vizyonumuz = "Bölgesel gücümüzü uluslararası standartlarda yazılım çözümleriyle birleştirerek sektörün lideri olmak.",
-                    Misyonumuz = "İşletmelerin dijital dönüşüm süreçlerini güvenli, hızlı ve estetik altyapılarla desteklemek.",
-                    Onceliklerimiz = "Donanım satışı veya tamiri ile vakit kaybetmeden, tamamen yazılım ve web teknolojilerine odaklanmak."
+                    Aciklama = "Elazığ merkezli olarak faaliyet gösteren Hayat İşleri, HiCariTakip ön muhasebe, barkodlu hızlı satış sistemleri, yeni nesil POS, PDKS turnike geçiş ve özel kurumsal yazılım alanlarında anahtar teslim işletme çözümleri sunar.",
+                    GorselUrl = "/images/hakkimizda-hero.svg",
+                    HizmetAlanlari = "HiCariTakip ön muhasebe ve cari takip, barkod & mağaza otomasyonu, yeni nesil POS çözümleri, PDKS geçiş kontrol, özel yazılım & kurumsal web sistemleri.",
+                    KurumsalGucumuz = "Genç, dinamik ve alanında uzman ekibimizle işletmelerin dijitalleşme ve otomasyon süreçlerini yerinde destekliyoruz.",
+                    CalismaIlkelerimiz = "Şeffaflık, yerinde ve uzaktan kesintisiz teknik destek, müşteri memnuniyeti ve sürdürülebilir işletme verimliliği.",
+                    Vizyonumuz = "Elazığ ve bölge genelinde işletme otomasyonu, ön muhasebe ve yazılım çözümlerinde güvenilir öncü teknoloji ortağı olmak.",
+                    Misyonumuz = "KOBİ ve kurumsal işletmelerin satış, stok, muhasebe ve personel süreçlerini modern yazılım ve donanım altyapısıyla kolaylaştırmak.",
+                    Onceliklerimiz = "İşletmelerin operasyonel hızını artıran, hatasız ve güvenilir ticari yazılım, barkod ve otomasyon sistemlerine odaklanmak."
                 };
                 _context.Hakkimizda.Add(model);
                 await _context.SaveChangesAsync();
@@ -128,6 +136,12 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
+        public IActionResult Urunler()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Referanslarimiz()
         {
             var projeler = await _context.ReferansProjeler.ToListAsync();
@@ -137,19 +151,19 @@ namespace WebApplication1.Controllers
                 {
                     new ReferansProje
                     {
-                        Baslik = "Elazığ Global Lojistik - E-Ticaret ve Takip Sistemi",
-                        Kategori = "Özel Yazılım & E-Ticaret",
-                        Aciklama = "Bölgesel lojistik süreçlerini dijitalleştiren, uçtan uca kargo takip ve sipariş yönetim altyapısı.",
-                        GorselUrl = "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80",
-                        Etiketler = "ASP.NET Core, SQL Server, Bootstrap",
-                        ProjeLinki = "#"
+                        Baslik = "Ön Muhasebe Programı ve B2B Cari Yönetimi | HiCariTakip",
+                        Kategori = "Özel Yazılım & Finans",
+                        Aciklama = "GİB e-Fatura/e-Arşiv entegrasyonu, gerçek zamanlı stok, cari hesap takibi ve çok şubeli gelir-gider analitiği.",
+                        GorselUrl = "/images/ref-real-1.jpg",
+                        Etiketler = "e-Fatura GİB, Bulut ERP, Stok Yönetimi",
+                        ProjeLinki = "https://www.hicari.com.tr/"
                     },
                     new ReferansProje
                     {
                         Baslik = "Fırat Mimarlık - Kurumsal Portfolyo Sitesi",
                         Kategori = "Web Tasarım",
                         Aciklama = "Minimalist ve Apple tarzı tasarım çizgileriyle, mimari projelerin sergilendiği yüksek performanslı web arayüzü.",
-                        GorselUrl = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+                        GorselUrl = "/images/ref-real-2.jpg",
                         Etiketler = "UI/UX, HTML5, CSS3, JavaScript",
                         ProjeLinki = "#"
                     },
@@ -158,7 +172,7 @@ namespace WebApplication1.Controllers
                         Baslik = "Anadolu Tarım Market - Çok Satıcılı E-Ticaret",
                         Kategori = "E-Ticaret Sistemleri",
                         Aciklama = "Yerel üreticilerin ürünlerini ulusal pazara taşıdığı, gelişmiş ödeme entegrasyonlu e-ticaret platformu.",
-                        GorselUrl = "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80",
+                        GorselUrl = "/images/ref-real-3.jpg",
                         Etiketler = "E-Ticaret, API Entegrasyonu, Güvenlik",
                         ProjeLinki = "#"
                     },
@@ -167,7 +181,7 @@ namespace WebApplication1.Controllers
                         Baslik = "Kriter Akademi - Uzaktan Eğitim ve Sınav Otomasyonu",
                         Kategori = "Kurumsal Yazılım",
                         Aciklama = "Öğrencilerin deneme sınavı analizlerini yapabildiği, video içerik ve canlı ders yönetim sistemi.",
-                        GorselUrl = "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80",
+                        GorselUrl = "/images/ref-real-4.jpg",
                         Etiketler = "Yazılım Geliştirme, Bulut Hosting",
                         ProjeLinki = "#"
                     }
@@ -193,7 +207,7 @@ namespace WebApplication1.Controllers
                         Ozet = "Profesyonel ekip ve güçlü altyapıyla yürütülen çalışmalar, yazılım projelerinde etkin sonuçlar ortaya koyuyor. Firma aynı zamanda sürdürülebilir teknoloji sunuyor.",
                         Tarih = "27 Eylül 2026",
                         Kategori = "Duyuru",
-                        GorselUrl = "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80"
+                        GorselUrl = "/images/blog-yazilim.svg"
                     },
                     new BlogPost
                     {
@@ -201,7 +215,7 @@ namespace WebApplication1.Controllers
                         Ozet = "Test blog yazısı kısa açıklamalarının yer alacağı alanımız burasıdır. Yazı içinden yada harici olarak kısa bir açıklama girilecek.",
                         Tarih = "27 Eylül 2026",
                         Kategori = "Teknoloji",
-                        GorselUrl = "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
+                        GorselUrl = "/images/blog-uiux.svg"
                     }
                 };
                 _context.BlogPosts.AddRange(yazilar);
@@ -268,6 +282,53 @@ namespace WebApplication1.Controllers
 
             TempData["FormMesaj"] = "Teklif talebiniz alındı. Ekibimiz en kısa sürede sizinle iletişime geçecektir.";
             return RedirectToAction(nameof(TeklifAl));
+        }
+
+        [HttpGet]
+        public IActionResult Destek()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Destek(string adSoyad, string eposta, string? telefon, string? konu, string? mesaj)
+        {
+            var siteMesaj = new SiteMesaj
+            {
+                AdSoyad = adSoyad,
+                Eposta = eposta,
+                Telefon = telefon,
+                Konu = konu,
+                Mesaj = mesaj,
+                FormTipi = "Teknik Destek Talebi",
+                GonderimTarihi = DateTime.Now
+            };
+            _context.SiteMesajlari.Add(siteMesaj);
+            await _context.SaveChangesAsync();
+
+            await _emailService.SendFormNotificationAsync("Teknik Destek Talebi", adSoyad, eposta, telefon, konu, null, mesaj, null);
+
+            TempData["DestekMesaj"] = "Destek talebiniz başarıyla oluşturuldu. Uzman teknik ekibimiz en kısa sürede sizinle iletişime geçecektir.";
+            return RedirectToAction(nameof(Destek));
+        }
+
+        [HttpGet]
+        public IActionResult BayiGirisi()
+        {
+            // Giriş yapmış bayi doğrudan kendi paneline gider
+            if (User.Identity?.IsAuthenticated == true && User.IsInRole(Roller.Bayi))
+                return RedirectToAction("Dashboard", "Bayi");
+
+            return View();
+        }
+
+        // Eski formlar bu adrese POST ediyordu; giriş ve başvuru artık BayiController (Giris / Kayit) üzerinden yürür.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult BayiGirisi(string? islemTipi)
+        {
+            return RedirectToAction(nameof(BayiGirisi));
         }
     }
 }

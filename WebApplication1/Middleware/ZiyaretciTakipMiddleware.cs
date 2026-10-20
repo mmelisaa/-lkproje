@@ -16,11 +16,12 @@ namespace WebApplication1.Middleware
         {
             // Sadece sayfa isteklerini logla (statik dosyaları, API'leri vs. hariç tut)
             var path = context.Request.Path.Value ?? "";
-            if (!path.StartsWith("/lib/") &&
-                !path.StartsWith("/css/") &&
-                !path.StartsWith("/js/") &&
-                !path.StartsWith("/favicon") &&
-                !path.StartsWith("/Identity/") &&
+            if (!path.StartsWith("/lib/", StringComparison.OrdinalIgnoreCase) &&
+                !path.StartsWith("/css/", StringComparison.OrdinalIgnoreCase) &&
+                !path.StartsWith("/js/", StringComparison.OrdinalIgnoreCase) &&
+                !path.StartsWith("/favicon", StringComparison.OrdinalIgnoreCase) &&
+                !path.StartsWith("/Identity/", StringComparison.OrdinalIgnoreCase) &&
+                !path.StartsWith("/Admin/Ziyaretci", StringComparison.OrdinalIgnoreCase) &&
                 !path.Contains(".") &&
                 context.Request.Method == "GET")
             {

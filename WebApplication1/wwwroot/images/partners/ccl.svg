@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190 60" height="34">
+  <g transform="translate(6, 10)">
+    <rect width="40" height="40" rx="8" fill="#d97706"/>
+    <text x="7" y="28" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, Arial, sans-serif" font-weight="900" font-size="20">CCL</text>
+  </g>
+  <text x="56" y="38" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, Arial, sans-serif" font-weight="900" font-size="24" letter-spacing="2">CCL</text>
+  <text x="58" y="49" fill="#fde68a" font-family="-apple-system, BlinkMacSystemFont, Arial, sans-serif" font-weight="600" font-size="8" letter-spacing="1">INDUSTRIES</text>
+</svg>

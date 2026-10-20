@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" height="34">
+  <g transform="translate(6, 10)">
+    <circle cx="18" cy="18" r="16" fill="#7c3aed"/>
+    <path d="M12 18h12M18 12v12" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <text x="52" y="38" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, Arial, sans-serif" font-weight="900" font-size="24" letter-spacing="2">elanda</text>
+  <text x="54" y="49" fill="#c4b5fd" font-family="-apple-system, BlinkMacSystemFont, Arial, sans-serif" font-weight="600" font-size="8" letter-spacing="1">TOUCH POS</text>
+</svg>

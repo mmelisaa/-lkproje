@@ -1,0 +1,1957 @@
+@{
+    ViewData["Title"] = "Ürünlerimiz • Otomatik Tanıma, Barkod ve POS Donanımları";
+}
+
+<!-- GOOGLE FONTS & ÖZEL STİLLER -->
+<style>
+    .products-portal,
+    .products-portal button,
+    .products-portal input,
+    .product-slide-drawer {
+        font-family: 'Google Sans Text', 'Google Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+    }
+
+    /* ==================================================================== */
+    /* GOOGLE ONE BENTO FILTER CONSOLE                                      */
+    /* Ultra-zarif, modern, responsive hap menü ve canlı arama merkezi     */
+    /* ==================================================================== */
+    .bento-filter-console {
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 28px;
+        padding: 1.4rem 1.6rem;
+        box-shadow: 0 12px 36px rgba(11, 87, 208, 0.06), 0 2px 8px rgba(0, 0, 0, 0.03);
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 2.5rem;
+    }
+
+    /* Google One 4-Color Accent Band */
+    .bento-console-accent-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3.5px;
+        background: linear-gradient(90deg, #4285F4 0%, #4285F4 25%, #EA4335 25%, #EA4335 50%, #FBBC05 50%, #FBBC05 75%, #34A853 75%, #34A853 100%);
+    }
+
+    /* Üst Navigasyon Kontrol Şeridi */
+    .bento-console-topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+        padding-bottom: 1.15rem;
+        border-bottom: 1px solid rgba(15, 23, 42, 0.07);
+        margin-bottom: 1.25rem;
+    }
+
+    /* Segmentli Mod Seçici */
+    .bento-mode-capsule {
+        display: inline-flex;
+        background: #f1f5f9;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        border-radius: 999px;
+        padding: 4px;
+        gap: 4px;
+    }
+
+    .bento-mode-btn {
+        border: none;
+        background: transparent;
+        padding: 0.55rem 1.35rem;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 0.88rem;
+        color: #475569;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .bento-mode-btn:hover {
+        color: #0b57d0;
+    }
+
+    .bento-mode-btn.is-active {
+        background: linear-gradient(135deg, #1d4ed8 0%, #0b57d0 100%);
+        color: #ffffff !important;
+        box-shadow: 0 4px 14px rgba(11, 87, 208, 0.35);
+    }
+
+    .bento-mode-badge {
+        font-size: 0.72rem;
+        padding: 0.2rem 0.55rem;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.08);
+        color: #475569;
+    }
+
+    .bento-mode-btn.is-active .bento-mode-badge {
+        background: rgba(255, 255, 255, 0.25);
+        color: #ffffff;
+    }
+
+    /* Canlı Arama Kutusu */
+    .bento-search-box {
+        position: relative;
+        flex-grow: 1;
+        max-width: 380px;
+        min-width: 240px;
+    }
+
+    .bento-search-icon {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #64748b;
+        font-size: 0.95rem;
+        pointer-events: none;
+    }
+
+    .bento-search-input {
+        width: 100%;
+        background: #f8fafc;
+        border: 1.5px solid rgba(15, 23, 42, 0.1);
+        border-radius: 999px;
+        padding: 0.6rem 2.4rem 0.6rem 2.5rem;
+        font-size: 0.88rem;
+        color: #0f172a;
+        transition: all 0.25s ease;
+    }
+
+    .bento-search-input:focus {
+        background: #ffffff;
+        border-color: #0b57d0;
+        box-shadow: 0 0 0 4px rgba(11, 87, 208, 0.14);
+        outline: none;
+    }
+
+    .bento-search-clear {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        border: none;
+        background: transparent;
+        color: #94a3b8;
+        cursor: pointer;
+        padding: 0;
+        font-size: 1rem;
+        display: none;
+    }
+
+    .bento-search-clear:hover {
+        color: #0f172a;
+    }
+
+    /* Durum & Hızlı Sıfırlama */
+    .bento-hud-wrap {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+    }
+
+    .bento-active-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(11, 87, 208, 0.08);
+        border: 1px solid rgba(11, 87, 208, 0.2);
+        border-radius: 999px;
+        padding: 0.45rem 1rem;
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: #0b57d0;
+    }
+
+    .bento-pulse-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #0b57d0;
+        box-shadow: 0 0 8px rgba(11, 87, 208, 0.8);
+    }
+
+    .bento-reset-btn {
+        background: #ffffff;
+        border: 1px solid rgba(15, 23, 42, 0.12);
+        border-radius: 999px;
+        padding: 0.45rem 0.95rem;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #334155;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+    }
+
+    .bento-reset-btn:hover {
+        background: #0b57d0;
+        color: #ffffff;
+        border-color: #0b57d0;
+        box-shadow: 0 4px 12px rgba(11, 87, 208, 0.25);
+    }
+
+    /* Hap Filtre Izgarası (Bento Pill Flow Wrap) */
+    .bento-pills-flow {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .g1-filter-pill {
+        border: 1px solid rgba(15, 23, 42, 0.09);
+        background: #ffffff;
+        border-radius: 999px;
+        padding: 0.45rem 0.95rem 0.45rem 0.55rem;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        white-space: nowrap;
+        font-size: 0.83rem;
+        font-weight: 600;
+        color: #334155;
+        transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+    }
+
+    .g1-filter-pill:hover {
+        border-color: rgba(11, 87, 208, 0.35);
+        color: #0b57d0;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(11, 87, 208, 0.12);
+    }
+
+    .g1-filter-pill.is-active {
+        background: linear-gradient(135deg, #1d4ed8 0%, #0b57d0 100%) !important;
+        border-color: #0b57d0 !important;
+        color: #ffffff !important;
+        box-shadow: 0 6px 20px rgba(11, 87, 208, 0.38) !important;
+        transform: translateY(-1px);
+    }
+
+    .g1-pill-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: rgba(11, 87, 208, 0.08);
+        color: #0b57d0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.88rem;
+        flex-shrink: 0;
+        transition: all 0.2s ease;
+    }
+
+    .g1-filter-pill.is-active .g1-pill-icon {
+        background: rgba(255, 255, 255, 0.25);
+        color: #ffffff;
+    }
+
+    .g1-pill-title {
+        letter-spacing: -0.1px;
+    }
+
+    .g1-pill-count {
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 0.15rem 0.5rem;
+        border-radius: 999px;
+        background: #f1f5f9;
+        color: #64748b;
+        transition: all 0.2s ease;
+    }
+
+    .g1-filter-pill.is-active .g1-pill-count {
+        background: rgba(255, 255, 255, 0.25);
+        color: #ffffff;
+    }
+
+    /* Marka Bilgi Şeridi */
+    .bento-brand-ribbon {
+        margin-top: 1.25rem;
+        padding: 1rem 1.4rem;
+        border-radius: 18px;
+        background: linear-gradient(135deg, rgba(248, 250, 252, 0.95) 0%, rgba(239, 246, 255, 0.9) 100%);
+        border: 1px solid rgba(11, 87, 208, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    /* ==================================================================== */
+    /* ÜRÜN KARTLARI (Apple & Google One Minimalist Estetik)                 */
+    /* ==================================================================== */
+    .hardware-product-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 1.35rem;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+        position: relative;
+    }
+    .hardware-product-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(11, 87, 208, 0.35);
+        box-shadow: 0 20px 45px rgba(11, 87, 208, 0.1);
+    }
+
+    .product-photo-wrap {
+        position: relative;
+        width: 100%;
+        height: 230px;
+        background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.25rem;
+        overflow: hidden;
+    }
+    .product-real-img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hardware-product-card:hover .product-real-img {
+        transform: scale(1.08);
+    }
+
+    .product-brand-badge {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: rgba(15, 23, 42, 0.85);
+        color: #ffffff;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.6px;
+        padding: 0.25rem 0.65rem;
+        border-radius: 6px;
+        backdrop-filter: blur(8px);
+        z-index: 2;
+    }
+
+    .product-cat-tag {
+        position: absolute;
+        bottom: 12px;
+        right: 12px;
+        background: rgba(255, 255, 255, 0.9);
+        color: #0b57d0;
+        border: 1px solid rgba(11, 87, 208, 0.2);
+        font-size: 0.68rem;
+        font-weight: 700;
+        padding: 0.2rem 0.55rem;
+        border-radius: 6px;
+        backdrop-filter: blur(8px);
+        z-index: 2;
+    }
+
+    .product-card-body {
+        padding: 1.35rem 1.4rem 1.4rem 1.4rem;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+    .product-model-title {
+        font-size: 1.14rem;
+        font-weight: 800;
+        color: #0f172a;
+        letter-spacing: -0.3px;
+        margin-bottom: 0.25rem;
+    }
+    .product-class-subtitle {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #0b57d0;
+        margin-bottom: 0.75rem;
+    }
+    .product-short-desc {
+        font-size: 0.85rem;
+        color: #64748b;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .product-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0.22rem 0.55rem;
+        background: #f1f5f9;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: #334155;
+    }
+    .btn-detail-drawer {
+        background: rgba(11, 87, 208, 0.08);
+        color: #0b57d0;
+        border: 1px solid rgba(11, 87, 208, 0.22);
+        font-size: 0.82rem;
+        font-weight: 700;
+        border-radius: 99px;
+        padding: 0.45rem 0.95rem;
+        transition: all 0.2s ease;
+    }
+    .btn-detail-drawer:hover {
+        background: #0b57d0;
+        color: #ffffff;
+        border-color: #0b57d0;
+    }
+
+    /* ==================================================================== */
+    /* DETAY PANELİ (SLIDE-OVER DRAWER)                                     */
+    /* ==================================================================== */
+    .product-drawer-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        z-index: 1080;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .product-drawer-backdrop.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .product-slide-drawer {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 530px;
+        max-width: 100vw;
+        height: 100vh;
+        background: #ffffff;
+        z-index: 1090;
+        box-shadow: -15px 0 50px rgba(0, 0, 0, 0.25);
+        display: flex;
+        flex-direction: column;
+        transform: translateX(100%);
+        transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+        overflow: hidden;
+    }
+    .product-slide-drawer.active {
+        transform: translateX(0);
+    }
+
+    .drawer-top-bar {
+        padding: 1.25rem 1.6rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #ffffff;
+        flex-shrink: 0;
+    }
+    .drawer-close-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #f1f5f9;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #475569;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .drawer-close-btn:hover {
+        background: #e2e8f0;
+        color: #0f172a;
+        transform: rotate(90deg);
+    }
+
+    .drawer-scroll-body {
+        padding: 1.6rem 1.8rem;
+        overflow-y: auto;
+        flex-grow: 1;
+    }
+    .drawer-scroll-body::-webkit-scrollbar {
+        width: 6px;
+    }
+    .drawer-scroll-body::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 99px;
+    }
+
+    .drawer-photo-container {
+        width: 100%;
+        height: 260px;
+        background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+        border: 1px solid #e2e8f0;
+        border-radius: 1.15rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    .drawer-photo-container img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+
+    .drawer-product-title {
+        color: #0f172a;
+        font-weight: 800;
+        font-size: 1.35rem;
+        letter-spacing: -0.3px;
+        margin-bottom: 0.25rem;
+    }
+    .drawer-product-subtitle {
+        color: #0b57d0;
+        font-weight: 700;
+        font-size: 0.88rem;
+        margin-bottom: 1rem;
+    }
+    .drawer-section-heading {
+        color: #0f172a;
+        font-weight: 700;
+        font-size: 0.92rem;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+    .drawer-overview-text {
+        font-size: 0.88rem;
+        line-height: 1.7;
+        color: #475569;
+    }
+    .drawer-usecase-box {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 14px;
+        padding: 1.1rem;
+    }
+
+    .drawer-specs-table th {
+        width: 40%;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #64748b;
+        background: #f8fafc;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        padding: 0.65rem 0.85rem;
+        border-color: #e2e8f0;
+    }
+    .drawer-specs-table td {
+        font-size: 0.86rem;
+        font-weight: 500;
+        color: #1e293b;
+        padding: 0.65rem 0.85rem;
+        border-color: #e2e8f0;
+    }
+    .drawer-footer-bar {
+        padding: 1.25rem 1.6rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+        background: #f8fafc;
+        flex-shrink: 0;
+    }
+
+    /* ==================================================================== */
+    /* KOYU MOD (DARK THEME) ZARİF KONTRAST & OKUNABİLİRLİK                 */
+    /* ==================================================================== */
+    html[data-theme="dark"] .bento-filter-console {
+        background: rgba(22, 27, 34, 0.9) !important;
+        border-color: rgba(255, 255, 255, 0.12) !important;
+        box-shadow: 0 16px 45px rgba(0, 0, 0, 0.5) !important;
+    }
+    html[data-theme="dark"] .bento-console-topbar {
+        border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+    }
+    html[data-theme="dark"] .bento-mode-capsule {
+        background: rgba(15, 23, 42, 0.85) !important;
+        border-color: rgba(255, 255, 255, 0.12) !important;
+    }
+    html[data-theme="dark"] .bento-mode-btn {
+        color: #94a3b8 !important;
+    }
+    html[data-theme="dark"] .bento-mode-btn:hover {
+        color: #38bdf8 !important;
+    }
+    html[data-theme="dark"] .bento-mode-btn.is-active {
+        background: linear-gradient(135deg, #2563eb 0%, #0b57d0 100%) !important;
+        color: #ffffff !important;
+        box-shadow: 0 4px 16px rgba(37, 99, 235, 0.4) !important;
+    }
+    html[data-theme="dark"] .bento-search-input {
+        background: rgba(15, 23, 42, 0.8) !important;
+        color: #ffffff !important;
+        border-color: rgba(255, 255, 255, 0.14) !important;
+    }
+    html[data-theme="dark"] .bento-search-input:focus {
+        background: #1e293b !important;
+        border-color: #38bdf8 !important;
+        box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.2) !important;
+    }
+    html[data-theme="dark"] .bento-search-input::placeholder {
+        color: #64748b !important;
+    }
+    html[data-theme="dark"] .bento-search-icon {
+        color: #94a3b8 !important;
+    }
+    html[data-theme="dark"] .bento-active-pill {
+        background: rgba(56, 189, 248, 0.12) !important;
+        border-color: rgba(56, 189, 248, 0.3) !important;
+        color: #38bdf8 !important;
+    }
+    html[data-theme="dark"] .bento-pulse-dot {
+        background: #38bdf8 !important;
+        box-shadow: 0 0 10px rgba(56, 189, 248, 0.9) !important;
+    }
+    html[data-theme="dark"] .bento-reset-btn {
+        background: rgba(30, 41, 59, 0.8) !important;
+        color: #e2e8f0 !important;
+        border-color: rgba(255, 255, 255, 0.14) !important;
+    }
+    html[data-theme="dark"] .bento-reset-btn:hover {
+        background: #0284c7 !important;
+        color: #ffffff !important;
+    }
+    html[data-theme="dark"] .g1-filter-pill {
+        background: rgba(30, 41, 59, 0.75) !important;
+        border-color: rgba(255, 255, 255, 0.1) !important;
+        color: #e2e8f0 !important;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important;
+    }
+    html[data-theme="dark"] .g1-filter-pill:hover {
+        background: #1e293b !important;
+        border-color: rgba(56, 189, 248, 0.4) !important;
+        color: #38bdf8 !important;
+    }
+    html[data-theme="dark"] .g1-filter-pill.is-active {
+        background: linear-gradient(135deg, #2563eb 0%, #0284c7 100%) !important;
+        border-color: #38bdf8 !important;
+        color: #ffffff !important;
+        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5) !important;
+    }
+    html[data-theme="dark"] .g1-pill-icon {
+        background: rgba(255, 255, 255, 0.08) !important;
+        color: #93c5fd !important;
+    }
+    html[data-theme="dark"] .g1-filter-pill.is-active .g1-pill-icon {
+        background: rgba(255, 255, 255, 0.25) !important;
+        color: #ffffff !important;
+    }
+    html[data-theme="dark"] .g1-pill-count {
+        background: rgba(255, 255, 255, 0.08) !important;
+        color: #94a3b8 !important;
+    }
+    html[data-theme="dark"] .g1-filter-pill.is-active .g1-pill-count {
+        background: rgba(255, 255, 255, 0.25) !important;
+        color: #ffffff !important;
+    }
+    html[data-theme="dark"] .bento-brand-ribbon {
+        background: rgba(15, 23, 42, 0.8) !important;
+        border-color: rgba(255, 255, 255, 0.12) !important;
+    }
+
+    /* Ürün Kartları Koyu Mod */
+    html[data-theme="dark"] .hardware-product-card {
+        background: rgba(22, 27, 34, 0.88) !important;
+        border-color: rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+    }
+    html[data-theme="dark"] .hardware-product-card:hover {
+        border-color: rgba(56, 189, 248, 0.4) !important;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.1) !important;
+    }
+    html[data-theme="dark"] .product-photo-wrap {
+        background: linear-gradient(180deg, #161b22 0%, #0d1117 100%) !important;
+        border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+    }
+    html[data-theme="dark"] .product-model-title {
+        color: #ffffff !important;
+    }
+    html[data-theme="dark"] .product-class-subtitle {
+        color: #38bdf8 !important;
+    }
+    html[data-theme="dark"] .product-short-desc {
+        color: #94a3b8 !important;
+    }
+    html[data-theme="dark"] .product-chip {
+        background: rgba(255, 255, 255, 0.06) !important;
+        border-color: rgba(255, 255, 255, 0.1) !important;
+        color: #cbd5e1 !important;
+    }
+    html[data-theme="dark"] .btn-detail-drawer {
+        background: rgba(56, 189, 248, 0.12) !important;
+        color: #38bdf8 !important;
+        border-color: rgba(56, 189, 248, 0.28) !important;
+    }
+    html[data-theme="dark"] .btn-detail-drawer:hover {
+        background: #0284c7 !important;
+        color: #ffffff !important;
+    }
+
+    /* Detay Paneli (Drawer) Koyu Mod */
+    html[data-theme="dark"] .product-slide-drawer {
+        background: #0b1120 !important;
+        border-left: 1px solid rgba(56, 189, 248, 0.25) !important;
+        box-shadow: -20px 0 60px rgba(0, 0, 0, 0.85) !important;
+    }
+    html[data-theme="dark"] .drawer-top-bar {
+        background: #111827 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+    html[data-theme="dark"] .drawer-close-btn {
+        background: #1f2937 !important;
+        color: #f1f5f9 !important;
+        border-color: rgba(255, 255, 255, 0.15) !important;
+    }
+    html[data-theme="dark"] .drawer-close-btn:hover {
+        background: #374151 !important;
+        color: #ffffff !important;
+    }
+    html[data-theme="dark"] .drawer-scroll-body {
+        background: #0b1120 !important;
+        color: #f8fafc !important;
+    }
+    html[data-theme="dark"] .drawer-photo-container {
+        background: linear-gradient(180deg, #111827 0%, #0b1120 100%) !important;
+        border-color: rgba(255, 255, 255, 0.1) !important;
+    }
+    html[data-theme="dark"] .drawer-product-title {
+        color: #ffffff !important;
+        font-weight: 800 !important;
+    }
+    html[data-theme="dark"] .drawer-product-subtitle {
+        color: #38bdf8 !important;
+        font-weight: 600 !important;
+    }
+    html[data-theme="dark"] .drawer-section-heading {
+        color: #e2e8f0 !important;
+        font-weight: 700 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+        padding-bottom: 0.4rem;
+        margin-bottom: 0.6rem;
+    }
+    html[data-theme="dark"] .drawer-overview-text {
+        color: #cbd5e1 !important;
+        line-height: 1.75 !important;
+        font-size: 0.94rem !important;
+    }
+    html[data-theme="dark"] .drawer-usecase-box {
+        background: #111827 !important;
+        border: 1px solid rgba(56, 189, 248, 0.2) !important;
+        color: #f8fafc !important;
+    }
+    html[data-theme="dark"] .drawer-usecase-box p {
+        color: #cbd5e1 !important;
+        line-height: 1.65 !important;
+    }
+    /* Tablo Yazı Okunurluğu Garantisi (Bootstrap .table Dark Mode Override) */
+    html[data-theme="dark"] .table.drawer-specs-table,
+    html[data-theme="dark"] .table.drawer-specs-table > :not(caption) > * > *,
+    html[data-theme="dark"] .table.drawer-specs-table tr,
+    html[data-theme="dark"] .table.drawer-specs-table th,
+    html[data-theme="dark"] .table.drawer-specs-table td {
+        background-color: transparent !important;
+        color: #f8fafc !important;
+        border-color: rgba(255, 255, 255, 0.09) !important;
+    }
+    html[data-theme="dark"] .table.drawer-specs-table th {
+        color: #93c5fd !important;
+        font-weight: 700 !important;
+        background-color: rgba(56, 189, 248, 0.06) !important;
+        width: 38%;
+    }
+    html[data-theme="dark"] .table.drawer-specs-table td {
+        color: #f8fafc !important;
+        font-weight: 500 !important;
+    }
+    html[data-theme="dark"] .table-striped > tbody > tr:nth-of-type(odd) > * {
+        background-color: rgba(255, 255, 255, 0.04) !important;
+        color: #f8fafc !important;
+    }
+    html[data-theme="dark"] .table-striped > tbody > tr:nth-of-type(even) > * {
+        background-color: rgba(255, 255, 255, 0.015) !important;
+        color: #f8fafc !important;
+    }
+    html[data-theme="dark"] .drawer-footer-bar {
+        background: #111827 !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+
+    /* Boş Durum (Empty State) Koyu Mod */
+    html[data-theme="dark"] #productEmptyState .p-5 {
+        background: #1e293b !important;
+        border-color: rgba(255, 255, 255, 0.12) !important;
+    }
+    html[data-theme="dark"] #emptyStateTitle {
+        color: #ffffff !important;
+    }
+    html[data-theme="dark"] #emptyStateDesc {
+        color: #cbd5e1 !important;
+    }
+</style>
+
+<div class="products-portal position-relative" style="z-index: 2;">
+
+    <!-- ========================================== -->
+    <!-- 1. HERO BÖLÜMÜ                             -->
+    <!-- ========================================== -->
+    <section class="py-5 position-relative overflow-hidden" style="padding-top: 5.5rem !important;">
+        <div class="container py-2 text-center position-relative" style="z-index: 2;">
+            <span class="badge px-3.5 py-1.5 rounded-pill fw-bold text-uppercase mb-3 shadow-sm d-inline-flex align-items-center gap-1.5" style="background: rgba(11, 87, 208, 0.08); color: #0b57d0; border: 1px solid rgba(11, 87, 208, 0.2); font-size: 0.78rem;">
+                <i class="bi bi-box-seam-fill"></i>
+                <span>Otomatik Tanıma &bull; POS &bull; Barkod &bull; Ödeme Sistemleri</span>
+            </span>
+            <h1 class="display-5 fw-bold mb-3" style="letter-spacing: -1.2px;">
+                Endüstriyel Ürün &amp; Donanım Ekosistemi
+            </h1>
+            <p class="lead text-muted mx-auto mb-4" style="max-width: 680px; font-size: 1.05rem; line-height: 1.75;">
+                Perakende, restoran, depo ve saha süreçleriniz için barkod yazıcılar, el terminalleri, dokunmatik POS sistemleri, Android yazarkasalar ve nakit yönetim sistemleri.
+            </p>
+
+            <!-- ======================================================== -->
+            <!-- GOOGLE ONE BENTO FILTER CONSOLE                          -->
+            <!-- ======================================================== -->
+            <div class="bento-filter-console mx-auto" style="max-width: 1240px;" id="bentoFilterConsole">
+                <div class="bento-console-accent-bar"></div>
+
+                <!-- Üst Kontrol Çubuğu -->
+                <div class="bento-console-topbar">
+                    <!-- Segmentli Mod Seçici -->
+                    <div class="bento-mode-capsule" role="tablist">
+                        <button type="button" class="bento-mode-btn is-active" id="btnModeCategories" onclick="switchBentoMode('kategoriler')">
+                            <i class="bi bi-grid-3x3-gap-fill"></i>
+                            <span>Ürün Grupları</span>
+                            <span class="bento-mode-badge" id="badgeModeCatCount">20 Kategori</span>
+                        </button>
+                        <button type="button" class="bento-mode-btn" id="btnModeBrands" onclick="switchBentoMode('markalar')">
+                            <i class="bi bi-tags-fill"></i>
+                            <span>Markalar</span>
+                            <span class="bento-mode-badge" id="badgeModeBrandCount">23 Marka</span>
+                        </button>
+                    </div>
+
+                    <!-- Canlı Arama Çubuğu -->
+                    <div class="bento-search-box">
+                        <i class="bi bi-search bento-search-icon"></i>
+                        <input type="text" id="productSearchInput" class="bento-search-input" placeholder="Model, marka veya özellik ara..." autocomplete="off">
+                        <button type="button" class="bento-search-clear" id="bentoSearchClear" onclick="clearProductSearch()" title="Aramayı temizle">
+                            <i class="bi bi-x-circle-fill"></i>
+                        </button>
+                    </div>
+
+                    <!-- Durum HUD & Hızlı Sıfırlama -->
+                    <div class="bento-hud-wrap">
+                        <div class="bento-active-pill">
+                            <span class="bento-pulse-dot"></span>
+                            <span id="filterReadoutVal">TÜM MODELLER (225 ÜRÜN)</span>
+                        </div>
+                        <button type="button" class="bento-reset-btn" onclick="resetAllProductFilters()" title="Tüm filtreleri sıfırla">
+                            <i class="bi bi-arrow-counterclockwise"></i>
+                            <span>Tümünü Göster</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 1. KATEGORİLER İÇERİK IZGARASI (Flow Bento Pills) -->
+                <div id="bentoFlowCategories" class="bento-pills-flow">
+                    <button type="button" class="g1-filter-pill is-active" data-cat-slug="all" onclick="selectCategory('all', 'TÜM MODELLER (225)')">
+                        <span class="g1-pill-icon"><i class="bi bi-grid-fill"></i></span>
+                        <span class="g1-pill-title">Tüm Ürünler</span>
+                        <span class="g1-pill-count">225</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-cat-slug="yazarkasa-pos" onclick="selectCategory('yazarkasa-pos', 'YAZARKASA POS & ÖKC (9)')">
+                        <span class="g1-pill-icon"><i class="bi bi-calculator-fill"></i></span>
+                        <span class="g1-pill-title">Yazarkasa POS (ÖKC)</span>
+                        <span class="g1-pill-count">9</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-cat-slug="para-cekmecesi" onclick="selectCategory('para-cekmecesi', 'PARA ÇEKMECELERİ (7)')">
+                        <span class="g1-pill-icon"><i class="bi bi-inbox-fill"></i></span>
+                        <span class="g1-pill-title">Para Çekmecesi</span>
+                        <span class="g1-pill-count">7</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-cat-slug="celik-kasa" onclick="selectCategory('celik-kasa', 'ŞİFRELİ ÇELİK KASALAR (6)')">
+                        <span class="g1-pill-icon"><i class="bi bi-safe2-fill"></i></span>
+                        <span class="g1-pill-title">Şifreli Çelik Kasa</span>
+                        <span class="g1-pill-count">6</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-cat-slug="pos-standlari" onclick="selectCategory('pos-standlari', 'POS STANDLARI (6)')">
+                        <span class="g1-pill-icon"><i class="bi bi-phone-landscape"></i></span>
+                        <span class="g1-pill-title">POS Standları</span>
+                        <span class="g1-pill-count">6</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-cat-slug="para-sayma" onclick="selectCategory('para-sayma', 'PARA SAYMA MAKİNELERİ (6)')">
+                        <span class="g1-pill-icon"><i class="bi bi-cash-stack"></i></span>
+                        <span class="g1-pill-title">Para Sayma Makinesi</span>
+                        <span class="g1-pill-count">6</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-cat-slug="el-terminalleri" onclick="selectCategory('el-terminalleri', 'EL TERMİNALLERİ (49)')">
+                        <span class="g1-pill-icon"><i class="bi bi-phone"></i></span>
+                        <span class="g1-pill-title">El Terminalleri</span>
+                        <span class="g1-pill-count">49</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-cat-slug="dokunmatik-pos-pc" onclick="selectCategory('dokunmatik-pos-pc', 'DOKUNMATİK POS PC (18)')">
+                        <span class="g1-pill-icon"><i class="bi bi-display"></i></span>
+                        <span class="g1-pill-title">Dokunmatik POS PC</span>
+                        <span class="g1-pill-count">18</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-cat-slug="barkod-okuyucular" onclick="selectCategory('barkod-okuyucular', 'BARKOD OKUYUCULAR (47)')">
+                        <span class="g1-pill-icon"><i class="bi bi-upc-scan"></i></span>
+                        <span class="g1-pill-title">Barkod Okuyucular</span>
+                        <span class="g1-pill-count">47</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-cat-slug="barkod-yazicilar" onclick="selectCategory('barkod-yazicilar', 'BARKOD YAZICILAR (9)')">
+                        <span class="g1-pill-icon"><i class="bi bi-printer"></i></span>
+                        <span class="g1-pill-title">Barkod Yazıcılar</span>
+                        <span class="g1-pill-count">9</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-cat-slug="endustriyel-yazicilar" onclick="selectCategory('endustriyel-yazicilar', 'ENDÜSTRİYEL YAZICILAR (39)')">
+                        <span class="g1-pill-icon"><i class="bi bi-hdd-stack"></i></span>
+                        <span class="g1-pill-title">Endüstriyel Yazıcı</span>
+                        <span class="g1-pill-count">39</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-cat-slug="masaustu-yazicilar" onclick="selectCategory('masaustu-yazicilar', 'MASAÜSTÜ YAZICILAR (13)')">
+                        <span class="g1-pill-icon"><i class="bi bi-printer-fill"></i></span>
+                        <span class="g1-pill-title">Masaüstü Yazıcı</span>
+                        <span class="g1-pill-count">13</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-cat-slug="fis-adisyon-yazicilar" onclick="selectCategory('fis-adisyon-yazicilar', 'FİŞ / ADİSYON YAZICILAR (4)')">
+                        <span class="g1-pill-icon"><i class="bi bi-receipt"></i></span>
+                        <span class="g1-pill-title">Fiş / Adisyon Yazıcı</span>
+                        <span class="g1-pill-count">4</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-cat-slug="mobil-yazicilar" onclick="selectCategory('mobil-yazicilar', 'MOBİL YAZICILAR (6)')">
+                        <span class="g1-pill-icon"><i class="bi bi-phone-flip"></i></span>
+                        <span class="g1-pill-title">Mobil Yazıcılar</span>
+                        <span class="g1-pill-count">6</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-cat-slug="kart-yazicilar" onclick="selectCategory('kart-yazicilar', 'KART YAZICILAR (4)')">
+                        <span class="g1-pill-icon"><i class="bi bi-credit-card-2-front"></i></span>
+                        <span class="g1-pill-title">Kart Yazıcılar</span>
+                        <span class="g1-pill-count">4</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-cat-slug="endustriyel-pc-tablet" onclick="selectCategory('endustriyel-pc-tablet', 'ENDÜSTRİYEL TABLET (12)')">
+                        <span class="g1-pill-icon"><i class="bi bi-tablet"></i></span>
+                        <span class="g1-pill-title">Endüstriyel Tablet</span>
+                        <span class="g1-pill-count">12</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-cat-slug="giyilebilir-cihazlar" onclick="selectCategory('giyilebilir-cihazlar', 'GİYİLEBİLİR CİHAZLAR (6)')">
+                        <span class="g1-pill-icon"><i class="bi bi-watch"></i></span>
+                        <span class="g1-pill-title">Giyilebilir Barkod</span>
+                        <span class="g1-pill-count">6</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-cat-slug="kiosklar" onclick="selectCategory('kiosklar', 'KİOSK SİSTEMLERİ (6)')">
+                        <span class="g1-pill-icon"><i class="bi bi-window"></i></span>
+                        <span class="g1-pill-title">Kiosk Sistemleri</span>
+                        <span class="g1-pill-count">6</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-cat-slug="patlayici-ortamlar" onclick="selectCategory('patlayici-ortamlar', 'PATLAYICI ORTAM (5)')">
+                        <span class="g1-pill-icon"><i class="bi bi-shield-exclamation"></i></span>
+                        <span class="g1-pill-title">Patlayıcı Ortam (ATEX)</span>
+                        <span class="g1-pill-count">5</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-cat-slug="mobil-cihaz-yonetimi" onclick="selectCategory('mobil-cihaz-yonetimi', 'CİHAZ YÖNETİMİ (2)')">
+                        <span class="g1-pill-icon"><i class="bi bi-gear-wide-connected"></i></span>
+                        <span class="g1-pill-title">Cihaz Yönetimi (MDM)</span>
+                        <span class="g1-pill-count">2</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-cat-slug="aksesuarlar" onclick="selectCategory('aksesuarlar', 'AKSESUAR & SARF (37)')">
+                        <span class="g1-pill-icon"><i class="bi bi-hdd-network"></i></span>
+                        <span class="g1-pill-title">Aksesuar &amp; Sarf</span>
+                        <span class="g1-pill-count">37</span>
+                    </button>
+                </div>
+
+                <!-- 2. MARKALAR İÇERİK IZGARASI (Flow Bento Pills) -->
+                <div id="bentoFlowBrands" class="bento-pills-flow" style="display: none;">
+                    <button type="button" class="g1-filter-pill is-active" data-brand-key="all" onclick="selectBrand('all')">
+                        <span class="g1-pill-icon"><i class="bi bi-asterisk"></i></span>
+                        <span class="g1-pill-title">Tüm Markalar</span>
+                        <span class="g1-pill-count">225</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-brand-key="koddata" onclick="selectBrand('koddata')">
+                        <span class="g1-pill-icon fw-bold">KD</span>
+                        <span class="g1-pill-title">Koddata</span>
+                        <span class="g1-pill-count">37</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-brand-key="zebra" onclick="selectBrand('zebra')">
+                        <span class="g1-pill-icon fw-bold">ZB</span>
+                        <span class="g1-pill-title">Zebra</span>
+                        <span class="g1-pill-count">47</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-brand-key="tsc" onclick="selectBrand('tsc')">
+                        <span class="g1-pill-icon fw-bold">TSC</span>
+                        <span class="g1-pill-title">TSC</span>
+                        <span class="g1-pill-count">38</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-brand-key="newland" onclick="selectBrand('newland')">
+                        <span class="g1-pill-icon fw-bold">NL</span>
+                        <span class="g1-pill-title">Newland</span>
+                        <span class="g1-pill-count">24</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-brand-key="bluebird" onclick="selectBrand('bluebird')">
+                        <span class="g1-pill-icon fw-bold">BB</span>
+                        <span class="g1-pill-title">Bluebird</span>
+                        <span class="g1-pill-count">18</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-brand-key="ozlem" onclick="selectBrand('ozlem')">
+                        <span class="g1-pill-icon fw-bold">ÖZT</span>
+                        <span class="g1-pill-title">Özlem Ticaret</span>
+                        <span class="g1-pill-count">12</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-brand-key="citizen" onclick="selectBrand('citizen')">
+                        <span class="g1-pill-icon fw-bold">CT</span>
+                        <span class="g1-pill-title">Citizen</span>
+                        <span class="g1-pill-count">11</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-brand-key="mastersafe" onclick="selectBrand('mastersafe')">
+                        <span class="g1-pill-icon fw-bold">MS</span>
+                        <span class="g1-pill-title">MasterSafe</span>
+                        <span class="g1-pill-count">6</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-brand-key="paysis" onclick="selectBrand('paysis')">
+                        <span class="g1-pill-icon fw-bold">PYS</span>
+                        <span class="g1-pill-title">Paysis</span>
+                        <span class="g1-pill-count">5</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-brand-key="pax" onclick="selectBrand('pax')">
+                        <span class="g1-pill-icon fw-bold">PAX</span>
+                        <span class="g1-pill-title">PAX POS</span>
+                        <span class="g1-pill-count">4</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-brand-key="ingenico" onclick="selectBrand('ingenico')">
+                        <span class="g1-pill-icon fw-bold">ING</span>
+                        <span class="g1-pill-title">İngenico</span>
+                        <span class="g1-pill-count">3</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-brand-key="inpos" onclick="selectBrand('inpos')">
+                        <span class="g1-pill-icon fw-bold">INP</span>
+                        <span class="g1-pill-title">İNPOS</span>
+                        <span class="g1-pill-count">3</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-brand-key="beko" onclick="selectBrand('beko')">
+                        <span class="g1-pill-icon fw-bold">BKO</span>
+                        <span class="g1-pill-title">Beko ÖKC</span>
+                        <span class="g1-pill-count">3</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-brand-key="samuto" onclick="selectBrand('samuto')">
+                        <span class="g1-pill-icon fw-bold">SMT</span>
+                        <span class="g1-pill-title">Samuto</span>
+                        <span class="g1-pill-count">3</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-brand-key="propay" onclick="selectBrand('propay')">
+                        <span class="g1-pill-icon fw-bold">PRP</span>
+                        <span class="g1-pill-title">Propay</span>
+                        <span class="g1-pill-count">2</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-brand-key="pavo" onclick="selectBrand('pavo')">
+                        <span class="g1-pill-icon fw-bold">PAV</span>
+                        <span class="g1-pill-title">Pavo</span>
+                        <span class="g1-pill-count">2</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-brand-key="elanda" onclick="selectBrand('elanda')">
+                        <span class="g1-pill-icon fw-bold">EL</span>
+                        <span class="g1-pill-title">Elanda</span>
+                        <span class="g1-pill-count">5</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-brand-key="pepperl-fuchs-ecom" onclick="selectBrand('pepperl-fuchs-ecom')">
+                        <span class="g1-pill-icon fw-bold">PF</span>
+                        <span class="g1-pill-title">Pepperl+Fuchs</span>
+                        <span class="g1-pill-count">5</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-brand-key="ccl" onclick="selectBrand('ccl')">
+                        <span class="g1-pill-icon fw-bold">CCL</span>
+                        <span class="g1-pill-title">CCL Design</span>
+                        <span class="g1-pill-count">1</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-brand-key="italora" onclick="selectBrand('italora')">
+                        <span class="g1-pill-icon fw-bold">IT</span>
+                        <span class="g1-pill-title">Italora</span>
+                        <span class="g1-pill-count">1</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-brand-key="bartender" onclick="selectBrand('bartender')">
+                        <span class="g1-pill-icon fw-bold">BT</span>
+                        <span class="g1-pill-title">BarTender</span>
+                        <span class="g1-pill-count">1</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-brand-key="soti" onclick="selectBrand('soti')">
+                        <span class="g1-pill-icon fw-bold">ST</span>
+                        <span class="g1-pill-title">SOTI</span>
+                        <span class="g1-pill-count">1</span>
+                    </button>
+                    <button type="button" class="g1-filter-pill" data-brand-key="movfast" onclick="selectBrand('movfast')">
+                        <span class="g1-pill-icon fw-bold">MF</span>
+                        <span class="g1-pill-title">Movfast</span>
+                        <span class="g1-pill-count">1</span>
+                    </button>
+                </div>
+
+                <!-- Marka Meta Bilgi Şeridi -->
+                <div class="bento-brand-ribbon" id="bentoBrandRibbon" style="display: none;">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="d-flex align-items-center justify-content-center bg-white rounded-3 shadow-sm border p-2" style="width: 48px; height: 48px; flex-shrink: 0;" id="bentoBrandLogoBox">
+                            <span class="fw-bold fs-5 text-primary font-monospace" id="bentoBrandLogoText">KD</span>
+                        </div>
+                        <div class="text-start">
+                            <div class="d-flex align-items-center gap-2">
+                                <strong class="text-dark" id="bentoBrandTitle">KODDATA</strong>
+                                <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 small" id="bentoBrandBadge">
+                                    Yetkili Çözüm Ortağı
+                                </span>
+                            </div>
+                            <div class="small text-muted" id="bentoBrandDesc" style="font-size: 0.82rem; line-height: 1.4;">
+                                Otomatik Tanıma ve Barkod donanım üreticisi.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="badge bg-light text-dark border px-2.5 py-1.5 small fw-bold" id="bentoBrandTag1">Model Portföyü</span>
+                        <span class="badge bg-light text-dark border px-2.5 py-1.5 small fw-bold" id="bentoBrandTag2">2 Yıl Garanti</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 2. FOTOĞRAFLI ÜRÜN KARTLARI GRİDİ          -->
+    <!-- ========================================== -->
+    <section class="py-2 position-relative" style="z-index: 2;">
+        <div class="container">
+            <div class="row g-4" id="productsCatalogContainer">
+
+                <!-- Dinamik Ürün Kartları (225 Resmi Model) JavaScript ile Yüklenir -->
+                <!-- Boş Durum (Özel Tedarik / Distribütör Çözümü) -->
+                <div class="col-12 text-center py-4" id="productEmptyState" style="display: none;">
+                    <div class="p-5 rounded-4 bg-white border shadow-sm mx-auto" style="max-width: 640px; border-color: rgba(11, 87, 208, 0.18) !important;">
+                        <div class="mb-3">
+                            <span class="d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 68px; height: 68px; background: rgba(11, 87, 208, 0.08); color: #0b57d0; font-size: 1.85rem;">
+                                <i class="bi bi-box-seam"></i>
+                            </span>
+                        </div>
+                        <h4 class="fw-bold text-dark mb-2" id="emptyStateTitle">Resmi Distribütör &amp; Proje Tedariği</h4>
+                        <p class="text-muted small mb-4" id="emptyStateDesc" style="line-height: 1.6;">
+                            Seçili marka veya ürün grubu portföyümüz kapsamında doğrudan resmi distribütör garantisiyle kurumsal tedarik ve toplu alım imkanı sunuyoruz. Şartnamenize en uygun modeller için teklif isteyebilirsiniz.
+                        </p>
+                        <a asp-controller="Home" asp-action="TeklifAl" class="btn btn-primary rounded-pill px-4 py-2.5 fw-bold" style="background-color: #0b57d0; border: none; box-shadow: 0 4px 14px rgba(11, 87, 208, 0.35);">
+                            Hemen Fiyat &amp; Proje Teklifi Alın &rarr;
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 3. DONANIM TEKLİF & DANIŞMANLIK BANNERI     -->
+    <!-- ========================================== -->
+    <section class="py-5 position-relative overflow-hidden" style="z-index: 2;">
+        <div class="container py-2">
+            <div class="p-4 p-md-5 text-center position-relative overflow-hidden rounded-4 shadow-sm" style="background: linear-gradient(135deg, rgba(255,255,255,0.96) 0%, rgba(240,247,255,0.92) 100%); border: 1px solid rgba(11, 87, 208, 0.22);">
+                <div class="col-lg-8 mx-auto position-relative" style="z-index: 2;">
+                    <span class="badge px-3 py-1.5 rounded-pill fw-bold text-uppercase mb-3 shadow-sm" style="background: rgba(11, 87, 208, 0.08); color: #0b57d0; border: 1px solid rgba(11, 87, 208, 0.2); font-size: 0.74rem;">
+                        Kurumsal Donanım Çözüm Ortaklığı
+                    </span>
+                    <h2 class="h2 fw-bold mb-3" style="letter-spacing: -0.8px;">
+                        İşletmeniz İçin En Doğru Donanım Paketini Birlikte Belirleyelim
+                    </h2>
+                    <p class="lead fs-6 text-muted mb-4 mx-auto" style="max-width: 620px; line-height: 1.75;">
+                        İhtiyacınıza en uygun etiket yazıcı, barkod okuyucu veya dokunmatik POS terminalini belirlemek için uzman ekibimizden doğrudan bilgi ve toplu sipariş teklifi alabilirsiniz.
+                    </p>
+                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <a asp-controller="Home" asp-action="TeklifAl" class="btn btn-primary rounded-pill px-4 py-2.5 fw-bold shadow-sm" style="background-color: #0b57d0; border: none;">
+                            <span>Donanım Teklifi Alın &rarr;</span>
+                        </a>
+                        <a href="tel:+905010146623" class="btn btn-outline-secondary rounded-pill px-4 py-2.5 fw-semibold d-inline-flex align-items-center gap-2" style="border-color: rgba(0,0,0,0.15); color: #1f1f1f; background: rgba(255,255,255,0.85);">
+                            <i class="bi bi-telephone-fill text-success"></i>
+                            <span>0501 014 6623</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<!-- ======================================================== -->
+<!-- 4. APPLE-STYLE SAĞDAN KAYAN ŞIK DETAY PANELİ (DRAWER)    -->
+<!-- (Koyu ve Açık Modda Kusursuz Okunabilirlik)              -->
+<!-- ======================================================== -->
+<div class="product-drawer-backdrop" id="productDrawerBackdrop" onclick="closeProductDrawer()"></div>
+<aside class="product-slide-drawer" id="productSlideDrawer" aria-hidden="true">
+    <div class="drawer-top-bar">
+        <div class="d-flex align-items-center gap-2">
+            <span class="badge rounded-pill px-3 py-1 bg-primary text-white font-monospace small" id="drawerCategoryPill">Kategori</span>
+            <span class="badge rounded-pill px-2.5 py-1 bg-success bg-opacity-10 text-success border border-success border-opacity-25 small" id="drawerOriginBadge">
+                <i class="bi bi-shield-check me-1"></i> Orijinal Koddata
+            </span>
+        </div>
+        <button type="button" class="drawer-close-btn" onclick="closeProductDrawer()" aria-label="Kapat">
+            <i class="bi bi-x-lg"></i>
+        </button>
+    </div>
+
+    <div class="drawer-scroll-body" id="drawerScrollableContent">
+        <!-- Büyük Ürün Fotoğrafı -->
+        <div class="drawer-photo-container">
+            <img id="drawerProductImage" src="" alt="Ürün Fotoğrafı" onerror="this.src='/images/donanim.jpg'" />
+        </div>
+
+        <h3 class="drawer-product-title" id="drawerProductTitle"></h3>
+        <div class="drawer-product-subtitle" id="drawerProductSubtitle"></div>
+
+        <!-- Ürün Tanıtımı -->
+        <div class="mb-4">
+            <div class="drawer-section-heading">
+                <i class="bi bi-info-circle-fill text-primary"></i>
+                <span>Ürün Tanıtımı</span>
+            </div>
+            <p class="drawer-overview-text mb-0" id="drawerProductOverview"></p>
+        </div>
+
+        <!-- Teknik Özellikler Tablosu -->
+        <div class="mb-4">
+            <div class="drawer-section-heading">
+                <i class="bi bi-sliders text-primary"></i>
+                <span>Teknik Özellikler Tablosu</span>
+            </div>
+            <div class="table-responsive rounded-3 border">
+                <table class="table table-sm table-striped drawer-specs-table mb-0">
+                    <tbody id="drawerSpecsBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Kullanım Alanları -->
+        <div class="drawer-usecase-box">
+            <div class="fw-bold small text-primary mb-1">
+                <i class="bi bi-building-check me-1"></i> Önerilen Kullanım Alanları
+            </div>
+            <p class="small mb-0" id="drawerProductUseCases" style="line-height: 1.6;"></p>
+        </div>
+    </div>
+
+    <div class="drawer-footer-bar">
+        <a asp-controller="Home" asp-action="TeklifAl" id="drawerOfferLink" class="btn btn-primary rounded-pill w-100 py-2.5 fw-bold shadow-sm" style="background-color: #0b57d0; border: none;">
+            Bu Ürün İçin Teklif Alın &rarr;
+        </a>
+    </div>
+</aside>
+
+<!-- ========================================== -->
+<!-- 5. İNTERAKTİF FİLTRELEME & DRAWER SCRİPTİ  -->
+<!-- ========================================== -->
+@section Scripts {
+    <script src="~/js/products-data.js" asp-append-version="true"></script>
+    <script>
+        // Türkçe Karakter Normalizasyonu (Ç, Ğ, İ, I, Ö, Ş, Ü ve noktasız/noktalı harf toleransı)
+        function normalizeText(str) {
+            if (!str) return '';
+            return str
+                .replace(/İ/g, 'i')
+                .replace(/I/g, 'ı')
+                .toLowerCase()
+                .replace(/ç/g, 'c')
+                .replace(/ğ/g, 'g')
+                .replace(/ı/g, 'i')
+                .replace(/ö/g, 'o')
+                .replace(/ş/g, 's')
+                .replace(/ü/g, 'u')
+                .replace(/[^a-z0-9]/g, ' ')
+                .trim();
+        }
+
+        // Akıllı Türkçe Eşanlamlılar & Kök Eşleştirme Sözlüğü
+        const searchSynonyms = {
+            'pos': ['pos', 'okc', 'yazarkasa', 'terminal', 'odeme'],
+            'kasa': ['kasa', 'celik', 'safe', 'mastersafe', 'cekmeci', 'cekmece', 'cekmecesi', 'cekmeceleri', 'okc'],
+            'para': ['para', 'banknot', 'madeni', 'sayma', 'cekmeci', 'cekmece', 'cekmecesi', 'cekmeceleri', 'drawer', 'kasa'],
+            'cekmeci': ['cekmeci', 'cekmece', 'drawer', 'kasiyer', 'cekmecesi', 'cekmeceleri'],
+            'cekmece': ['cekmeci', 'cekmece', 'drawer', 'kasiyer', 'cekmecesi', 'cekmeceleri'],
+            'cekmecesi': ['cekmeci', 'cekmece', 'drawer', 'kasiyer', 'cekmecesi', 'cekmeceleri'],
+            'cekmeceleri': ['cekmeci', 'cekmece', 'drawer', 'kasiyer', 'cekmecesi', 'cekmeceleri'],
+            'yazarkasa': ['yazarkasa', 'yazar', 'okc', 'pos', 'pax', 'ingenico', 'inpos', 'beko', 'propay', 'pavo', 'hugin'],
+            'yazar': ['yazarkasa', 'yazar', 'okc', 'pos'],
+            'stand': ['stand', 'standi', 'standlari', 'tutucu', 'kolu', 'kol'],
+            'standi': ['stand', 'standi', 'standlari', 'tutucu', 'kolu', 'kol'],
+            'sayma': ['sayma', 'sayici', 'banknot', 'para sayma', 'paysis', 'samuto'],
+            'terminal': ['terminal', 'terminalleri', 'el terminali', 'mobil', 'zebra', 'bluebird', 'newland'],
+            'okuyucu': ['okuyucu', 'barkod', 'tarayici', 'karekod', '2d', 'imager', 'scanner'],
+            'yazici': ['yazici', 'yazicilar', 'printer', 'ribon', 'termal', 'tsc', 'citizen', 'zebra']
+        };
+
+        // Ürün Veritabanı
+        const productsDatabase = {};
+
+        function initProductsDatabase() {
+            if (!window.KODDATA_PRODUCTS) return;
+            window.KODDATA_PRODUCTS.forEach(p => {
+                productsDatabase[p.id] = {
+                    title: p.title,
+                    subtitle: p.subtitle,
+                    brand: p.brand,
+                    brandDisplay: p.brand_display,
+                    category: p.main_cat_name,
+                    img: p.image,
+                    overview: p.overview,
+                    specs: p.specs,
+                    useCases: p.use_cases
+                };
+            });
+        }
+
+        function renderProductCards() {
+            const container = document.getElementById('productsCatalogContainer');
+            const emptyState = document.getElementById('productEmptyState');
+            if (!container || !window.KODDATA_PRODUCTS) return;
+
+            const cardsHtml = window.KODDATA_PRODUCTS.map(p => {
+                const chipsHtml = (p.chips || []).map(c => `<span class="product-chip">${c}</span>`).join('');
+                const catsAttr = (p.categories || []).join(' ');
+
+                // Tüm arama alanlarını Türkçe normalize ederek karta yaz
+                const searchableText = normalizeText([
+                    p.title,
+                    p.subtitle,
+                    p.brand,
+                    p.brand_display,
+                    p.main_cat_name,
+                    (p.categories || []).join(' '),
+                    (p.chips || []).join(' '),
+                    p.overview
+                ].join(' '));
+
+                return `
+                    <div class="col-lg-4 col-md-6 product-card-col" 
+                         data-category="${catsAttr}" 
+                         data-brand="${p.brand}" 
+                         data-keywords="${searchableText}">
+                        <div class="hardware-product-card">
+                            <div class="product-photo-wrap">
+                                <span class="product-brand-badge">${p.brand_display}</span>
+                                <span class="product-cat-tag">${p.main_cat_name}</span>
+                                <img src="${p.image}" alt="${p.title}" class="product-real-img" loading="lazy" onerror="this.src='/images/donanim.jpg'" />
+                            </div>
+                            <div class="product-card-body">
+                                <h3 class="product-model-title">${p.title}</h3>
+                                <div class="product-class-subtitle">${p.subtitle}</div>
+                                <p class="product-short-desc">
+                                    ${p.overview}
+                                </p>
+                                <div class="d-flex flex-wrap gap-1 mb-3">
+                                    ${chipsHtml}
+                                </div>
+                                <div class="mt-auto pt-3 border-top d-flex gap-2">
+                                    <button type="button" class="btn btn-detail-drawer flex-grow-1" onclick="openProductDrawer('${p.id}')">
+                                        <i class="bi bi-info-circle me-1"></i> Detayları İncele
+                                    </button>
+                                    <a href="/Home/TeklifAl?urun=${encodeURIComponent(p.title)}" class="btn btn-sm btn-primary rounded-pill px-3 py-1.5 fw-bold" style="background-color: #0b57d0; border: none;">
+                                        Teklif Al &rarr;
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            if (emptyState) {
+                container.innerHTML = cardsHtml;
+                container.appendChild(emptyState);
+            } else {
+                container.innerHTML = cardsHtml;
+            }
+
+            // Rozet sayılarını veritabanındaki gerçek ürünlerle tam senkronize et
+            updateDynamicPillCounts();
+        }
+
+        function updateDynamicPillCounts() {
+            if (!window.KODDATA_PRODUCTS) return;
+
+            // Kategori hapları rozetleri
+            document.querySelectorAll('#bentoFlowCategories .g1-filter-pill[data-cat-slug]').forEach(pill => {
+                const slug = pill.getAttribute('data-cat-slug');
+                const badge = pill.querySelector('.g1-pill-count');
+                if (!badge) return;
+
+                if (slug === 'all') {
+                    badge.innerText = window.KODDATA_PRODUCTS.length;
+                } else {
+                    const count = window.KODDATA_PRODUCTS.filter(p => (p.categories || []).includes(slug)).length;
+                    badge.innerText = count;
+                }
+            });
+
+            // Marka hapları rozetleri
+            document.querySelectorAll('#bentoFlowBrands .g1-filter-pill[data-brand-key]').forEach(pill => {
+                const brandKey = pill.getAttribute('data-brand-key');
+                const badge = pill.querySelector('.g1-pill-count');
+                if (!badge) return;
+
+                if (brandKey === 'all') {
+                    badge.innerText = window.KODDATA_PRODUCTS.length;
+                } else {
+                    const count = window.KODDATA_PRODUCTS.filter(p => (p.brand || '').toLowerCase() === brandKey.toLowerCase()).length;
+                    badge.innerText = count;
+                }
+            });
+        }
+
+        // Marka ve Kategori Sözlükleri
+        const brandMeta = {
+            'all': { name: 'TÜM ÇÖZÜM ORTAKLARI', badge: '23 Global & Yerli Marka (225 Model)', desc: 'Otomatik Tanıma, Barkod, POS, Kiosk, Yazarkasa ve Nakit Yönetiminde dünya lideri üreticiler ve kurumsal donanım tedariği.', tag1: '225 Resmi Model', tag2: 'Doğrudan Distribütör', logo: 'HI' },
+            'koddata': { name: 'KODDATA', badge: 'Yetkili Çözüm Ortağı', desc: 'Otomatik Tanıma ve Veri Toplama (AIDC) sektöründe öncü donanım üreticisi. Barkod etiket yazıcıları, fiş yazıcıları, karekod okuyucuları ve POS sistemleri.', tag1: '37 Resmi Model', tag2: '2 Yıl Garanti', logo: 'KD' },
+            'pax': { name: 'PAX GLOBAL TECHNOLOGY', badge: 'Android POS & Yazarkasa Lideri', desc: 'Dünyanın lider güvenli elektronik ödeme terminali üreticisi. Android işletim sistemli, VUK 507 ve GİB onaylı yeni nesil mobil yazarkasa POS çözümleri.', tag1: 'A910SF Android', tag2: 'VUK 507 & GİB Onaylı', logo: 'PAX' },
+            'ingenico': { name: 'INGENICO PAYMENT SERVICES', badge: 'Global Ödeme Standardı', desc: 'Dünya genelinde kullanılan İngenico ödeme sistemleri. Telium TETRA mimarisiyle Türkiye ortak POS altyapısına tam uyumlu mobil ÖKC cihazları.', tag1: 'Move 5000F Serisi', tag2: 'Tüm Bankalarla Uyumlu', logo: 'ING' },
+            'inpos': { name: 'İNPOS BİLİŞİM', badge: 'Yerli Ödeme Teknolojisi', desc: 'Yerli Ar-Ge gücüyle geliştirilmiş yeni nesil 4G dokunmatik yazarkasa POS cihazları ve mali onaylı çevre birimleri.', tag1: 'M-530 4G Serisi', tag2: 'TÜBİTAK & GİB Onaylı', logo: 'INP' },
+            'beko': { name: 'BEKO ÖDEME SİSTEMLERİ', badge: 'Koç Holding Güvencesi', desc: 'Türkiye çapında yaygın servis ağıyla desteklenen Beko yeni nesil yazarkasa POS terminalleri ve perakende satış çözümleri.', tag1: 'X30 TR Modeli', tag2: 'Yaygın Servis Ağı', logo: 'BKO' },
+            'propay': { name: 'PROPAY ÖKC TEKNOLOJİSİ', badge: 'Android ECR Çözümleri', desc: 'Dokunmatik Android arayüzü ile mali yazarkasa donanımını buluşturan yenilikçi perakende satış terminalleri.', tag1: 'P1000 ECR', tag2: '5.5" HD Ekran', logo: 'PRP' },
+            'paysis': { name: 'PAYSİS TEKNOLOJİ', badge: 'Para Sayma & Kasa Çözümleri', desc: 'Çift katlı yüksek hassasiyetli sahte para tespitli para sayma makineleri ve ağır hizmet tipi metal para çekmeceleri.', tag1: 'PS-10 & PS-50 Serisi', tag2: '%100 Sahte Yakalama', logo: 'PYS' },
+            'pavo': { name: 'PAVO ÖDEME ÇÖZÜMLERİ', badge: 'Yeni Nesil Mali POS & VUK 507', desc: 'Gelişmiş Android mobil ve masaüstü ödeme terminalleri, VUK 507 mali uygulamaları ve e-dönüşüm entegrasyonu.', tag1: 'N86 PRO & CT20', tag2: 'Android Kurumsal', logo: 'PAV' },
+            'mastersafe': { name: 'MASTERSAFE GÜVENLİK', badge: 'Elektronik Güvenlik Kasaları', desc: 'İşletmeler ve ofisler için motorlu kilit dilli elektronik şifreli çelik kasalar ve nakit saklama çözümleri.', tag1: 'MS2032E Çelik Kasa', tag2: 'Motorlu Kilitleme', logo: 'MS' },
+            'samuto': { name: 'SAMUTO', badge: 'Nakit Yönetim Teknolojileri', desc: 'Karışık banknot sayımı, seri no okuma ve çoklu para birimi kontrol makineleri.', tag1: 'Model-70 Plus', tag2: 'Hızlı Sayım', logo: 'SMT' },
+            'ozlem': { name: 'ÖZLEM TİCARET TEDARİK', badge: 'Resmi Çözüm & Dağıtım Ortağı', desc: 'Yazarkasa POS, para sayma makineleri, universal 360° döner POS standları ve ödeme aksesuarlarında doğrudan kurumsal tedarik partnerimiz.', tag1: 'Yetkili Distribütör', tag2: 'Anında Stok & Servis', logo: 'ÖZT' },
+            'zebra': { name: 'ZEBRA TECHNOLOGIES', badge: 'Global Endüstri Standardı', desc: 'Kurumsal el terminalleri, barkod okuyucular, RFID ve endüstriyel etiketleme çözümlerinde küresel pazar lideri.', tag1: '47 Endüstriyel Model', tag2: 'Proje Tedariği', logo: 'ZB' },
+            'tsc': { name: 'TSC AUTO ID', badge: 'Yüksek Performanslı Baskı', desc: 'Masaüstü ve ağır sanayi tipi termal barkod etiket yazıcılarında güvenilir baskı çözümleri.', tag1: '38 Baskı Modeli', tag2: '2 Yıl Garanti', logo: 'TSC' },
+            'newland': { name: 'NEWLAND AIDC', badge: 'Akıllı Veri Toplama', desc: 'Gelişmiş 2D karekod okuyucular, mikro kiosklar ve ergonomik el terminalleri.', tag1: '24 Akıllı Model', tag2: 'Ergonomik Tasarım', logo: 'NL' },
+            'citizen': { name: 'CITIZEN SYSTEMS', badge: 'Japon Hassas Mühendislik', desc: 'Yüksek hassasiyetli fiş yazıcıları, etiket yazıcıları ve mobil saha baskı donanımları.', tag1: '11 Japon Model', tag2: 'Maksimum Güvenilirlik', logo: 'CT' },
+            'ccl': { name: 'CCL DESIGN', badge: 'Endüstriyel Etiket & Self Servis', desc: 'Perakende, restoran ve lojistik sektörlerine özel self servis kiosklar ve kimliklendirme sistemleri.', tag1: 'Self Servis Kiosk', tag2: 'Kurumsal Tedarik', logo: 'CCL' },
+            'pepperl-fuchs-ecom': { name: 'PEPPERL+FUCHS / ECOM', badge: 'ATEX Patlayıcı Ortam Sertifikalı', desc: 'Petrol, kimya ve gaz tesisleri için Ex-proof, ATEX Zone 1/21 sertifikalı akıllı telefon ve tablet çözümleri.', tag1: 'ATEX Zone 1/2', tag2: 'Ex-Proof Güvenlik', logo: 'PF' },
+            'elanda': { name: 'ELANDA POS', badge: 'Dokunmatik Terminal & Kiosk', desc: 'Perakende ve ağırlama sektörü için modern alüminyum gövdeli dokunmatik POS terminalleri.', tag1: 'Alüminyum POS & Kiosk', tag2: 'Fansız Mimari', logo: 'EL' },
+            'italora': { name: 'ITALORA', badge: 'Endüstriyel Tartım & Etiketleme', desc: 'Gıda, lojistik ve üretim hatları için çift taraflı etiketleme ve barkod aplikasyon sistemleri.', tag1: 'Çift Taraflı Baskı', tag2: 'Hat Entegrasyonu', logo: 'IT' },
+            'bartender': { name: 'SEAGULL SCIENTIFIC BARTENDER', badge: 'Dünya Standardı Barkod Yazılımı', desc: 'Barkod, etiket ve RFID tasarımı ve kurumsal otomasyon yazılımı. ERP, SAP ve SQL entegrasyonu.', tag1: 'Starter & Enterprise', tag2: 'ERP Entegrasyonu', logo: 'BT' },
+            'soti': { name: 'SOTI MOBICONTROL', badge: 'Kurumsal Mobil Cihaz Yönetimi (EMM)', desc: 'Tüm Android, iOS ve Windows endüstriyel el terminalleri ve tabletleri uzaktan yönetme platformu.', tag1: 'SOTI ONE Platform', tag2: 'Saha Güvenliği', logo: 'ST' },
+            'bluebird': { name: 'BLUEBIRD', badge: 'Kurumsal IoT & El Terminalleri', desc: 'Depo, saha servisleri ve perakende için ergonomik ve dayanımlı akıllı el terminalleri.', tag1: '18 Kurumsal Model', tag2: 'Android Kurumsal', logo: 'BB' },
+            'movfast': { name: 'MOVFAST', badge: 'Hızlı Lojistik Donanımları', desc: 'E-ticaret operasyonları ve depo lojistiği için yeni nesil akıllı el terminalleri.', tag1: 'Ranger 2 Serisi', tag2: 'Uzun Pil Ömrü', logo: 'MF' }
+        };
+
+        const categoryNames = {
+            'all': 'Tüm Kategoriler',
+            'yazarkasa-pos': 'Yazarkasa POS & ÖKC',
+            'para-cekmecesi': 'Para Çekmeceleri',
+            'celik-kasa': 'Elektronik Şifreli Kasalar',
+            'pos-standlari': 'POS Standları & Aksesuar',
+            'para-sayma': 'Para Sayma Makineleri',
+            'el-terminalleri': 'El Terminalleri',
+            'dokunmatik-pos-pc': 'Dokunmatik POS PC',
+            'barkod-okuyucular': 'Barkod Okuyucular',
+            'barkod-yazicilar': 'Barkod Yazıcılar',
+            'endustriyel-yazicilar': 'Endüstriyel Yazıcılar',
+            'masaustu-yazicilar': 'Masaüstü Yazıcılar',
+            'fis-adisyon-yazicilar': 'Fiş/Adisyon Yazıcılar',
+            'mobil-yazicilar': 'Mobil Yazıcılar',
+            'kart-yazicilar': 'Kart Yazıcılar',
+            'endustriyel-pc-tablet': 'Endüstriyel PC-Tablet',
+            'giyilebilir-cihazlar': 'Giyilebilir Cihazlar',
+            'kiosklar': 'Kiosklar',
+            'patlayici-ortamlar': 'Patlayıcı Ortamlar',
+            'mobil-cihaz-yonetimi': 'Mobil Cihaz Yönetimi',
+            'aksesuarlar': 'Aksesuar & Sarf'
+        };
+
+        function getBrandDisplayName(key) {
+            return (brandMeta[key] && brandMeta[key].name) ? brandMeta[key].name : key.toUpperCase();
+        }
+
+        function getCategoryDisplayName(key) {
+            return categoryNames[key] || key;
+        }
+
+        // Filtre Durumu
+        let currentMode = 'kategoriler';
+        let currentCategory = 'all';
+        let currentBrand = 'all';
+        let searchQuery = '';
+
+        function updateFilterReadout(text) {
+            const el = document.getElementById('filterReadoutVal');
+            if (el) el.innerText = text;
+        }
+
+        function switchBentoMode(mode) {
+            currentMode = mode;
+            const btnCat = document.getElementById('btnModeCategories');
+            const btnBrand = document.getElementById('btnModeBrands');
+            const flowCat = document.getElementById('bentoFlowCategories');
+            const flowBrand = document.getElementById('bentoFlowBrands');
+            const brandRibbon = document.getElementById('bentoBrandRibbon');
+
+            if (mode === 'kategoriler') {
+                if (btnCat) btnCat.classList.add('is-active');
+                if (btnBrand) btnBrand.classList.remove('is-active');
+                if (flowCat) flowCat.style.display = 'flex';
+                if (flowBrand) flowBrand.style.display = 'none';
+                if (brandRibbon) brandRibbon.style.display = 'none';
+            } else {
+                if (btnBrand) btnBrand.classList.add('is-active');
+                if (btnCat) btnCat.classList.remove('is-active');
+                if (flowCat) flowCat.style.display = 'none';
+                if (flowBrand) flowBrand.style.display = 'flex';
+                if (brandRibbon) brandRibbon.style.display = (currentBrand !== 'all') ? 'flex' : 'none';
+            }
+            applyProductFilters();
+        }
+
+        const switchSpatialMode = switchBentoMode;
+        const switchViewMode = switchBentoMode;
+
+        function selectCategory(slug, displayName) {
+            currentMode = 'kategoriler';
+            currentCategory = slug;
+            currentBrand = 'all'; // Kategori tıklandığında marka kısıtını sıfırla
+            searchQuery = '';
+
+            const sInput = document.getElementById('productSearchInput');
+            if (sInput) sInput.value = '';
+            const clearBtn = document.getElementById('bentoSearchClear');
+            if (clearBtn) clearBtn.style.display = 'none';
+
+            // Mod butonlarını güncelle
+            const btnCat = document.getElementById('btnModeCategories');
+            const btnBrand = document.getElementById('btnModeBrands');
+            if (btnCat) btnCat.classList.add('is-active');
+            if (btnBrand) btnBrand.classList.remove('is-active');
+
+            const flowCat = document.getElementById('bentoFlowCategories');
+            const flowBrand = document.getElementById('bentoFlowBrands');
+            if (flowCat) flowCat.style.display = 'flex';
+            if (flowBrand) flowBrand.style.display = 'none';
+
+            const brandRibbon = document.getElementById('bentoBrandRibbon');
+            if (brandRibbon) brandRibbon.style.display = 'none';
+
+            // Kategori haplarını güncelle
+            document.querySelectorAll('#bentoFlowCategories .g1-filter-pill').forEach(pill => {
+                if (pill.getAttribute('data-cat-slug') === slug) {
+                    pill.classList.add('is-active');
+                } else {
+                    pill.classList.remove('is-active');
+                }
+            });
+
+            applyProductFilters();
+
+            // Ürünlerin olduğu bölüme kaydır
+            if (slug !== 'all') {
+                const catalog = document.getElementById('productsCatalogContainer');
+                if (catalog) {
+                    const topPos = catalog.getBoundingClientRect().top + window.pageYOffset - 150;
+                    window.scrollTo({ top: topPos, behavior: 'smooth' });
+                }
+            }
+        }
+
+        const selectSpatialCategory = selectCategory;
+        const selectGtCategory = selectCategory;
+
+        function selectBrand(brandKey) {
+            currentMode = 'markalar';
+            currentBrand = brandKey;
+            currentCategory = 'all'; // Marka tıklandığında kategori kısıtını sıfırla
+            searchQuery = '';
+
+            const sInput = document.getElementById('productSearchInput');
+            if (sInput) sInput.value = '';
+            const clearBtn = document.getElementById('bentoSearchClear');
+            if (clearBtn) clearBtn.style.display = 'none';
+
+            // Mod butonlarını güncelle
+            const btnCat = document.getElementById('btnModeCategories');
+            const btnBrand = document.getElementById('btnModeBrands');
+            if (btnBrand) btnBrand.classList.add('is-active');
+            if (btnCat) btnCat.classList.remove('is-active');
+
+            const flowCat = document.getElementById('bentoFlowCategories');
+            const flowBrand = document.getElementById('bentoFlowBrands');
+            if (flowCat) flowCat.style.display = 'none';
+            if (flowBrand) flowBrand.style.display = 'flex';
+
+            // Marka haplarını güncelle
+            document.querySelectorAll('#bentoFlowBrands .g1-filter-pill').forEach(pill => {
+                if (pill.getAttribute('data-brand-key') === brandKey) {
+                    pill.classList.add('is-active');
+                } else {
+                    pill.classList.remove('is-active');
+                }
+            });
+
+            // Marka şeridini güncelle
+            const brandRibbon = document.getElementById('bentoBrandRibbon');
+            if (brandKey === 'all') {
+                if (brandRibbon) brandRibbon.style.display = 'none';
+            } else {
+                if (brandRibbon) brandRibbon.style.display = 'flex';
+                const meta = brandMeta[brandKey] || { name: brandKey.toUpperCase(), badge: 'Yetkili Çözüm Ortağı', desc: 'Resmi ürün portföyü.', tag1: 'Orijinal Model', tag2: '2 Yıl Garanti', logo: brandKey.substring(0,2).toUpperCase() };
+                const titleEl = document.getElementById('bentoBrandTitle');
+                const badgeEl = document.getElementById('bentoBrandBadge');
+                const descEl = document.getElementById('bentoBrandDesc');
+                const tag1El = document.getElementById('bentoBrandTag1');
+                const tag2El = document.getElementById('bentoBrandTag2');
+                const logoTextEl = document.getElementById('bentoBrandLogoText');
+
+                if (titleEl) titleEl.innerText = meta.name;
+                if (badgeEl) badgeEl.innerText = meta.badge;
+                if (descEl) descEl.innerText = meta.desc;
+                if (tag1El) tag1El.innerText = meta.tag1;
+                if (tag2El) tag2El.innerText = meta.tag2;
+                if (logoTextEl) logoTextEl.innerText = meta.logo;
+            }
+
+            applyProductFilters();
+
+            if (brandKey !== 'all') {
+                const catalog = document.getElementById('productsCatalogContainer');
+                if (catalog) {
+                    const topPos = catalog.getBoundingClientRect().top + window.pageYOffset - 150;
+                    window.scrollTo({ top: topPos, behavior: 'smooth' });
+                }
+            }
+        }
+
+        const selectSpatialBrand = selectBrand;
+
+        function resetAllProductFilters() {
+            currentCategory = 'all';
+            currentBrand = 'all';
+            searchQuery = '';
+
+            const sInput = document.getElementById('productSearchInput');
+            if (sInput) sInput.value = '';
+            const clearBtn = document.getElementById('bentoSearchClear');
+            if (clearBtn) clearBtn.style.display = 'none';
+
+            document.querySelectorAll('#bentoFlowCategories .g1-filter-pill').forEach(pill => {
+                if (pill.getAttribute('data-cat-slug') === 'all') pill.classList.add('is-active');
+                else pill.classList.remove('is-active');
+            });
+
+            document.querySelectorAll('#bentoFlowBrands .g1-filter-pill').forEach(pill => {
+                if (pill.getAttribute('data-brand-key') === 'all') pill.classList.add('is-active');
+                else pill.classList.remove('is-active');
+            });
+
+            const brandRibbon = document.getElementById('bentoBrandRibbon');
+            if (brandRibbon) brandRibbon.style.display = 'none';
+
+            switchBentoMode('kategoriler');
+            applyProductFilters();
+        }
+
+        function clearProductSearch() {
+            const sInput = document.getElementById('productSearchInput');
+            if (sInput) sInput.value = '';
+            searchQuery = '';
+            const clearBtn = document.getElementById('bentoSearchClear');
+            if (clearBtn) clearBtn.style.display = 'none';
+            applyProductFilters();
+        }
+
+        function applyProductFilters() {
+            const cards = document.querySelectorAll('.product-card-col');
+            const emptyState = document.getElementById('productEmptyState');
+            let visibleCount = 0;
+
+            const qNorm = normalizeText(searchQuery);
+            const tokens = qNorm.split(/\s+/).filter(Boolean);
+
+            cards.forEach(card => {
+                const cardCat = (card.getAttribute('data-category') || '').toLowerCase();
+                const cardBrand = (card.getAttribute('data-brand') || '').toLowerCase();
+                const cardKeywords = card.getAttribute('data-keywords') || '';
+
+                let matchesMode = true;
+
+                // Eğer canlı arama yapılıyorsa TÜM KATALOG içinde ara (kategori kısıtını esnet)
+                if (tokens.length > 0) {
+                    matchesMode = true;
+                } else if (currentMode === 'markalar') {
+                    matchesMode = (currentBrand === 'all' || cardBrand === currentBrand || cardBrand.includes(currentBrand));
+                } else {
+                    if (currentCategory === 'all') {
+                        matchesMode = true;
+                    } else {
+                        const cats = cardCat.split(/\s+/);
+                        const targetCat = currentCategory.toLowerCase();
+                        matchesMode = cats.includes(targetCat) || cardCat.includes(targetCat);
+
+                        // Özel kategori takma adları
+                        if (!matchesMode) {
+                            if (targetCat === 'yazarkasa-pos') {
+                                const posBrands = ['pax', 'ingenico', 'inpos', 'beko', 'propay', 'pavo'];
+                                if (cardCat.includes('yazarkasa') || cardKeywords.includes('yazarkasa') || posBrands.includes(cardBrand)) {
+                                    matchesMode = true;
+                                }
+                            } else if (targetCat === 'para-cekmecesi') {
+                                if (cardCat.includes('para-cekmecesi') || cardKeywords.includes('cekmec') || cardKeywords.includes('para cekmeci') || cardKeywords.includes('para cekmecesi') || cardKeywords.includes('para cekmeceleri') || cardKeywords.includes('drawer')) {
+                                    matchesMode = true;
+                                }
+                            } else if (targetCat === 'celik-kasa') {
+                                if (cardCat.includes('celik-kasa') || cardKeywords.includes('celik kasa') || cardBrand === 'mastersafe') {
+                                    matchesMode = true;
+                                }
+                            } else if (targetCat === 'pos-standlari') {
+                                if (cardCat.includes('pos-standlari') || cardKeywords.includes('stand')) {
+                                    matchesMode = true;
+                                }
+                            } else if (targetCat === 'para-sayma') {
+                                if (cardCat.includes('para-sayma') || cardKeywords.includes('sayma')) {
+                                    matchesMode = true;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Akıllı Türkçe Arama Eşleştirme (Tüm kelimeler + eşanlamlılar + kök kontrolü)
+                let matchesSearch = true;
+                if (tokens.length > 0) {
+                    matchesSearch = tokens.every(tok => {
+                        if (cardKeywords.includes(tok)) return true;
+                        // Eşanlamlı kelime kontrolü (pos -> okc / yazarkasa vb.)
+                        if (searchSynonyms[tok]) {
+                            if (searchSynonyms[tok].some(syn => cardKeywords.includes(syn))) return true;
+                        }
+                        // Türkçe çoğul ve yapım eki gövdesi (örn: çekmecesi -> çekmec)
+                        if (tok.length > 5) {
+                            const stem = tok.substring(0, Math.min(tok.length - 2, 6));
+                            if (cardKeywords.includes(stem)) return true;
+                        }
+                        return false;
+                    });
+                }
+
+                if (matchesMode && matchesSearch) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // HUD Filtre Başlığını Canlı Sayıyla Güncelle
+            if (tokens.length > 0) {
+                updateFilterReadout(`ARAMA: "${searchQuery.toUpperCase()}" (${visibleCount} ÜRÜN)`);
+            } else if (currentMode === 'markalar') {
+                const bName = getBrandDisplayName(currentBrand);
+                updateFilterReadout(`${bName.toUpperCase()} (${visibleCount} ÜRÜN)`);
+            } else {
+                const cName = getCategoryDisplayName(currentCategory);
+                updateFilterReadout(`${cName.toUpperCase()} (${visibleCount} ÜRÜN)`);
+            }
+
+            if (emptyState) {
+                if (visibleCount === 0) {
+                    emptyState.style.display = 'block';
+                    const emptyTitle = document.getElementById('emptyStateTitle');
+                    const emptyDesc = document.getElementById('emptyStateDesc');
+                    if (tokens.length > 0) {
+                        if (emptyTitle) emptyTitle.innerText = `"${searchQuery}" İçin Ürün Bulunamadı`;
+                        if (emptyDesc) emptyDesc.innerText = `Aramanızla tam eşleşen ürün bulunamadı. Özel şartname veya proje tedariği için kurumsal satış ekibimizden teklif isteyebilirsiniz.`;
+                    } else if (currentMode === 'markalar') {
+                        const bName = getBrandDisplayName(currentBrand);
+                        if (emptyTitle) emptyTitle.innerText = `${bName} Distribütör & Proje Tedariği`;
+                        if (emptyDesc) emptyDesc.innerText = `${bName} portföyündeki kurumsal modeller doğrudan resmi distribütör garantisiyle tarafımızdan tedarik edilmektedir.`;
+                    } else {
+                        const cName = getCategoryDisplayName(currentCategory);
+                        if (emptyTitle) emptyTitle.innerText = `${cName} Kurumsal Tedarik`;
+                        if (emptyDesc) emptyDesc.innerText = `${cName} grubundaki tüm modeller için resmi distribütör güvencesiyle şartnamenize en uygun teklifi hazırlıyoruz.`;
+                    }
+                } else {
+                    emptyState.style.display = 'none';
+                }
+            }
+        }
+
+        // Canlı Arama Olay Dinleyicisi
+        const searchInput = document.getElementById('productSearchInput');
+        const clearBtn = document.getElementById('bentoSearchClear');
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                searchQuery = this.value.trim();
+                if (clearBtn) {
+                    clearBtn.style.display = searchQuery.length > 0 ? 'block' : 'none';
+                }
+                // Canlı arama yapıldığında tüm ürünler modunu etkinleştir
+                if (searchQuery.length > 0) {
+                    currentCategory = 'all';
+                    currentBrand = 'all';
+                    document.querySelectorAll('#bentoFlowCategories .g1-filter-pill').forEach(pill => {
+                        if (pill.getAttribute('data-cat-slug') === 'all') pill.classList.add('is-active');
+                        else pill.classList.remove('is-active');
+                    });
+                }
+                applyProductFilters();
+            });
+        }
+
+        // Kategori takma adı / slug normalizasyonu
+        function slugifyCategory(val) {
+            if (!val) return 'all';
+            const v = normalizeText(val).replace(/\s+/g, '-');
+            if (v.includes('para-cekmec') || v.includes('cekmece')) return 'para-cekmecesi';
+            if (v.includes('celik-kasa') || v.includes('kasa') || v.includes('safe')) return 'celik-kasa';
+            if (v.includes('pos-stand') || v.includes('stand')) return 'pos-standlari';
+            if (v.includes('para-sayma') || v.includes('sayma')) return 'para-sayma';
+            if (v.includes('yazarkasa') || v.includes('okc')) return 'yazarkasa-pos';
+            if (v.includes('el-terminal')) return 'el-terminalleri';
+            if (v.includes('dokunmatik') || v.includes('pos-pc')) return 'dokunmatik-pos-pc';
+            if (v.includes('barkod-okuyucu') || v.includes('okuyucu')) return 'barkod-okuyucular';
+            if (v.includes('barkod-yazici') || v.includes('yazici')) return 'barkod-yazicilar';
+            if (v.includes('endustriyel-yazici')) return 'endustriyel-yazicilar';
+            if (v.includes('masaustu-yazici')) return 'masaustu-yazicilar';
+            if (v.includes('fis') || v.includes('adisyon')) return 'fis-adisyon-yazicilar';
+            if (v.includes('mobil-yazici')) return 'mobil-yazicilar';
+            if (v.includes('kart-yazici')) return 'kart-yazicilar';
+            if (v.includes('endustriyel-tablet') || v.includes('tablet')) return 'endustriyel-tablet';
+            if (v.includes('giyilebilir')) return 'giyilebilir-barkod';
+            if (v.includes('kiosk')) return 'kiosk-sistemleri';
+            if (v.includes('patlayici') || v.includes('atex')) return 'patlayici-ortamlar';
+            if (v.includes('cihaz-yonetimi') || v.includes('mdm')) return 'mobil-cihaz-yonetimi';
+            if (v.includes('aksesuar') || v.includes('sarf')) return 'aksesuarlar';
+            return v;
+        }
+
+        // URL Parametrelerine Göre Açılış (Örn: ?q=... veya ?kategori=para-cekmecesi veya ?marka=pax)
+        (function initFromUrl() {
+            initProductsDatabase();
+            renderProductCards();
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const paramMarka = urlParams.get('marka');
+            const paramKategori = urlParams.get('kategori');
+            const paramQ = urlParams.get('q');
+
+            if (paramQ) {
+                const sInput = document.getElementById('productSearchInput');
+                if (sInput) sInput.value = paramQ;
+                searchQuery = paramQ.trim();
+                const clearBtn = document.getElementById('bentoSearchClear');
+                if (clearBtn) clearBtn.style.display = 'block';
+                currentCategory = 'all';
+                currentBrand = 'all';
+                applyProductFilters();
+            } else if (paramKategori) {
+                const normCat = slugifyCategory(paramKategori);
+                selectCategory(normCat, getCategoryDisplayName(normCat));
+            } else if (paramMarka) {
+                switchBentoMode('markalar');
+                selectBrand(paramMarka);
+            } else {
+                switchBentoMode('kategoriler');
+                selectCategory('all', 'TÜM MODELLER (225)');
+            }
+        })();
+
+        // ==========================================
+        // SAĞDAN KAYAN ŞIK DETAY PANELİ FONKSİYONLARI
+        // (Bootstrap Modal Olmadığı İçin ASLA Donmaz)
+        // ==========================================
+        function openProductDrawer(productKey) {
+            const data = productsDatabase[productKey];
+            if (!data) return;
+
+            // Fotoğraf & Bilgileri Doldur
+            document.getElementById('drawerProductImage').src = data.img;
+            document.getElementById('drawerProductImage').alt = data.title;
+            document.getElementById('drawerCategoryPill').innerText = data.category;
+            document.getElementById('drawerProductTitle').innerText = data.title;
+            document.getElementById('drawerProductSubtitle').innerText = data.subtitle;
+            document.getElementById('drawerProductOverview').innerText = data.overview;
+            document.getElementById('drawerProductUseCases').innerText = data.useCases;
+            document.getElementById('drawerOfferLink').href = `/Home/TeklifAl?urun=${encodeURIComponent(data.title)}`;
+
+            // Tedarik / Distribütör Rozeti
+            const ozlemBrands = ['pax', 'ingenico', 'inpos', 'beko', 'propay', 'paysis', 'pavo', 'mastersafe', 'samuto', 'ozlem'];
+            const originBadge = document.getElementById('drawerOriginBadge');
+            if (originBadge) {
+                if (ozlemBrands.includes(data.brand)) {
+                    originBadge.className = 'badge rounded-pill px-2.5 py-1 bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 small';
+                    originBadge.innerHTML = '<i class="bi bi-box-seam me-1"></i> Özlem Ticaret &amp; Yetkili Tedarik';
+                } else {
+                    originBadge.className = 'badge rounded-pill px-2.5 py-1 bg-success bg-opacity-10 text-success border border-success border-opacity-25 small';
+                    originBadge.innerHTML = '<i class="bi bi-shield-check me-1"></i> Orijinal Koddata Distribütör';
+                }
+            }
+
+            // Tablo Satırları
+            let rowsHtml = '';
+            if (data.specs && Array.isArray(data.specs)) {
+                data.specs.forEach(s => {
+                    rowsHtml += `
+                        <tr>
+                            <th>${s.key}</th>
+                            <td>${s.val}</td>
+                        </tr>
+                    `;
+                });
+            }
+            document.getElementById('drawerSpecsBody').innerHTML = rowsHtml;
+
+            // Paneli ve Perdeyi Aç
+            const drawer = document.getElementById('productSlideDrawer');
+            const backdrop = document.getElementById('productDrawerBackdrop');
+            if (drawer && backdrop) {
+                drawer.classList.add('active');
+                backdrop.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeProductDrawer() {
+            const drawer = document.getElementById('productSlideDrawer');
+            const backdrop = document.getElementById('productDrawerBackdrop');
+            if (drawer && backdrop) {
+                drawer.classList.remove('active');
+                backdrop.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // ESC Tuşu ile Kapatma
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeProductDrawer();
+            }
+        });
+    </script>
+}

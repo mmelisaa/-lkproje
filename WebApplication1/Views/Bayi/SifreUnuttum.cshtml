@@ -1,0 +1,22 @@
+@{
+    ViewData["Title"] = "Bayi Şifre Sıfırlama";
+}
+<section class="py-5">
+    <div class="container py-4" style="max-width: 540px;">
+        <div class="g1-surface-card p-4 p-lg-5 rounded-4 border">
+            <h1 class="h4 fw-bold mb-2">Bayi Portalı Şifremi Unuttum</h1>
+            <p class="small text-muted mb-4">Kayıtlı kurumsal e-posta adresinizi girin; şifre sıfırlama bağlantısını hemen gönderelim.</p>
+            <form asp-controller="Bayi" asp-action="SifreUnuttum" method="post" class="row g-3">
+                @Html.AntiForgeryToken()
+                <div class="col-12">
+                    <label class="form-label small fw-semibold">Kurumsal E-Posta Adresiniz *</label>
+                    <input type="email" name="eposta" class="form-control g1-input" placeholder="bayi@firmaniz.com" required />
+                </div>
+                <div class="col-12 d-flex justify-content-between align-items-center pt-2">
+                    <a asp-controller="Home" asp-action="BayiGirisi" class="small text-decoration-none">Giriş ekranına dön</a>
+                    <button type="submit" class="g1-btn-primary px-4 py-2">Sıfırlama Bağlantısı Gönder</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

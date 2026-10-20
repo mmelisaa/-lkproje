@@ -1,0 +1,1234 @@
+@{
+    ViewData["Title"] = "Yazılımlar & Bulut Çözümleri | Hayat İşleri";
+}
+
+<style>
+    /* YAZILIMLAR SAYFASI ÖZEL TASARIM & BENTO GRID */
+    .yazilimlar-hero {
+        padding: 5rem 0 3.5rem;
+        position: relative;
+        background: radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.08) 0%, transparent 60%);
+    }
+
+    .yazilimlar-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.45rem 1.15rem;
+        border-radius: 999px;
+        background: rgba(14, 165, 233, 0.1);
+        border: 1px solid rgba(14, 165, 233, 0.25);
+        color: #0284c7;
+        font-family: 'Google Sans', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+    }
+
+    .yazilimlar-title {
+        font-family: 'Google Sans', sans-serif;
+        font-weight: 800;
+        font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+        line-height: 1.15;
+        letter-spacing: -0.03em;
+        color: #0f172a;
+    }
+
+    .yazilimlar-subtitle {
+        font-family: 'Google Sans Text', sans-serif;
+        font-size: 1.12rem;
+        line-height: 1.75;
+        color: #475569;
+        max-width: 780px;
+        margin: 0 auto;
+    }
+
+    /* KATEGORİ FİLTRE BUTONLARI */
+    .yazilimlar-filter-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+        margin: 2.5rem 0 3rem;
+    }
+
+    .yazilimlar-filter-btn {
+        padding: 0.55rem 1.25rem;
+        border-radius: 999px;
+        border: 1px solid rgba(15, 23, 42, 0.12);
+        background: #ffffff;
+        color: #334155;
+        font-family: 'Google Sans', sans-serif;
+        font-size: 0.88rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.22s ease;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        user-select: none;
+    }
+
+    .yazilimlar-filter-btn:hover {
+        border-color: #0077ff;
+        color: #0077ff;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 119, 255, 0.12);
+    }
+
+    .yazilimlar-filter-btn.active {
+        background: #0077ff;
+        border-color: #0077ff;
+        color: #ffffff;
+        box-shadow: 0 4px 16px rgba(0, 119, 255, 0.3);
+    }
+
+    /* BENTO YAZILIM KARTLARI */
+    .soft-card {
+        background: #ffffff;
+        border: 1px solid rgba(226, 232, 240, 0.95);
+        border-radius: 22px;
+        box-shadow: 0 4px 24px rgba(15, 23, 42, 0.04);
+        padding: 2rem;
+        transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .soft-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 36px rgba(15, 23, 42, 0.09);
+        border-color: rgba(0, 119, 255, 0.35);
+    }
+
+    .soft-card-featured {
+        border: 2px solid #0077ff;
+        box-shadow: 0 8px 30px rgba(0, 119, 255, 0.12);
+    }
+
+    .soft-icon-box {
+        width: 56px;
+        height: 56px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+        margin-bottom: 1.25rem;
+        flex-shrink: 0;
+    }
+
+    .soft-badge-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.3rem 0.8rem;
+        border-radius: 999px;
+        font-size: 0.74rem;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
+    }
+
+    .soft-card-title {
+        font-family: 'Google Sans', sans-serif;
+        font-weight: 700;
+        font-size: 1.35rem;
+        color: #0f172a;
+        margin-bottom: 0.65rem;
+        line-height: 1.3;
+    }
+
+    .soft-card-desc {
+        font-family: 'Google Sans Text', sans-serif;
+        font-size: 0.95rem;
+        line-height: 1.65;
+        color: #475569;
+        margin-bottom: 1.25rem;
+    }
+
+    .soft-feature-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 1.5rem 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.65rem;
+    }
+
+    .soft-feature-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.65rem;
+        font-family: 'Google Sans Text', sans-serif;
+        font-size: 0.88rem;
+        color: #334155;
+        line-height: 1.45;
+    }
+
+    .soft-feature-item i {
+        color: #10b981;
+        font-size: 1rem;
+        margin-top: 0.15rem;
+        flex-shrink: 0;
+    }
+
+    .soft-tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .soft-tag-pill {
+        padding: 0.25rem 0.65rem;
+        border-radius: 8px;
+        background: rgba(241, 245, 249, 0.9);
+        border: 1px solid rgba(226, 232, 240, 0.8);
+        font-size: 0.74rem;
+        font-weight: 600;
+        color: #475569;
+    }
+
+    .soft-card-actions {
+        margin-top: auto;
+        padding-top: 1.25rem;
+        border-top: 1px solid rgba(226, 232, 240, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+    }
+
+    .soft-btn-primary {
+        background: #0077ff;
+        color: #ffffff;
+        border: none;
+        border-radius: 999px;
+        padding: 0.55rem 1.25rem;
+        font-family: 'Google Sans', sans-serif;
+        font-weight: 600;
+        font-size: 0.86rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    .soft-btn-primary:hover {
+        background: #0060d4;
+        color: #ffffff;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 119, 255, 0.3);
+    }
+
+    .soft-btn-outline {
+        background: transparent;
+        color: #0f172a;
+        border: 1px solid rgba(15, 23, 42, 0.18);
+        border-radius: 999px;
+        padding: 0.55rem 1.15rem;
+        font-family: 'Google Sans', sans-serif;
+        font-weight: 600;
+        font-size: 0.86rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    .soft-btn-outline:hover {
+        border-color: #0077ff;
+        color: #0077ff;
+        background: rgba(0, 119, 255, 0.05);
+    }
+
+    /* DEMO TALEP BANNERI - GOOGLE ONE WARM SKIN-TONE / ECRU CONTAINER */
+    .soft-demo-banner {
+        background: linear-gradient(135deg, #FAF6F0 0%, #F5EFE6 50%, #ECE2D4 100%);
+        border: 1px solid rgba(215, 198, 178, 0.85);
+        border-radius: 32px;
+        padding: 3.75rem 3rem;
+        color: #1F1F1F;
+        box-shadow: 0 20px 50px rgba(110, 85, 60, 0.08), 0 2px 12px rgba(0, 0, 0, 0.03);
+        position: relative;
+        overflow: hidden;
+        margin-top: 4.5rem;
+    }
+
+    .soft-demo-banner::before {
+        content: '';
+        position: absolute;
+        width: 440px;
+        height: 440px;
+        top: -120px;
+        right: -80px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(245, 239, 230, 0) 70%);
+        border-radius: 50%;
+        pointer-events: none;
+    }
+
+    .soft-demo-banner::after {
+        content: '';
+        position: absolute;
+        width: 320px;
+        height: 320px;
+        bottom: -80px;
+        left: -80px;
+        background: radial-gradient(circle, rgba(240, 225, 205, 0.5) 0%, rgba(245, 239, 230, 0) 70%);
+        border-radius: 50%;
+        pointer-events: none;
+    }
+
+    .soft-demo-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.45rem 1.15rem;
+        border-radius: 999px;
+        background: #EFE4D4;
+        border: 1px solid rgba(195, 160, 120, 0.45);
+        color: #7A4F18;
+        font-family: 'Google Sans', sans-serif;
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .soft-demo-pill i {
+        color: #c97d10;
+    }
+
+    .soft-demo-title {
+        font-family: 'Google Sans', sans-serif;
+        font-weight: 800;
+        font-size: clamp(1.85rem, 3.2vw, 2.5rem);
+        line-height: 1.2;
+        letter-spacing: -0.025em;
+        color: #1F1F1F;
+    }
+
+    .soft-demo-desc {
+        font-family: 'Google Sans Text', sans-serif;
+        font-size: 1.05rem;
+        line-height: 1.7;
+        color: #4A453E;
+        max-width: 620px;
+    }
+
+    .soft-perk-chips-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .soft-perk-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        padding: 0.6rem 1.25rem;
+        border-radius: 999px;
+        background: #FFFFFF;
+        border: 1px solid rgba(215, 200, 180, 0.85);
+        color: #2D2721;
+        font-family: 'Google Sans', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 600;
+        box-shadow: 0 2px 8px rgba(110, 85, 60, 0.05);
+        transition: all 0.22s ease;
+        text-decoration: none;
+    }
+
+    .soft-perk-chip:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(110, 85, 60, 0.1);
+        border-color: #CBB89F;
+        color: #1F1F1F;
+        background: #FFFFFF;
+    }
+
+    .soft-perk-chip i {
+        color: #1e8e3e;
+        font-size: 1.1rem;
+    }
+
+    .soft-demo-form-card {
+        background: #FFFFFF;
+        border: 1px solid rgba(220, 206, 188, 0.95);
+        border-radius: 26px;
+        padding: 2.25rem 2rem;
+        box-shadow: 0 16px 40px rgba(100, 80, 60, 0.08);
+        position: relative;
+    }
+
+    .soft-demo-form-title {
+        font-family: 'Google Sans', sans-serif;
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: #1F1F1F;
+    }
+
+    .soft-demo-form-sub {
+        font-family: 'Google Sans Text', sans-serif;
+        font-size: 0.88rem;
+        color: #6A6258;
+        line-height: 1.5;
+    }
+
+    .soft-demo-form-card .form-label {
+        font-family: 'Google Sans', sans-serif;
+        font-weight: 600;
+        font-size: 0.82rem;
+        color: #3C3730;
+        margin-bottom: 0.35rem;
+    }
+
+    .soft-demo-input {
+        background: #FAF8F5 !important;
+        border: 1.5px solid #E2D7C8 !important;
+        color: #1F1F1F !important;
+        border-radius: 999px !important;
+        padding: 0.6rem 1.15rem !important;
+        font-size: 0.88rem !important;
+        font-family: 'Google Sans Text', sans-serif !important;
+        transition: all 0.2s ease;
+    }
+
+    .soft-demo-input:focus {
+        background: #FFFFFF !important;
+        border-color: #0b57d0 !important;
+        box-shadow: 0 0 0 3.5px rgba(11, 87, 208, 0.15) !important;
+        outline: none;
+    }
+
+    .soft-demo-btn {
+        background: #1F1F1F;
+        border: 1px solid #1F1F1F;
+        color: #FFFFFF;
+        border-radius: 999px;
+        padding: 0.75rem 1.5rem;
+        font-family: 'Google Sans', sans-serif;
+        font-weight: 600;
+        font-size: 0.95rem;
+        letter-spacing: 0.2px;
+        transition: all 0.22s ease;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    .soft-demo-btn:hover {
+        background: #000000;
+        border-color: #000000;
+        color: #FFFFFF;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.24);
+    }
+
+    /* GOOGLE ONE ILHAMLI SICAK KARTLAR */
+    .soft-card-warm {
+        background: linear-gradient(135deg, #FAF7F2 0%, #F5EFE6 100%);
+        border: 1px solid rgba(218, 202, 183, 0.85);
+        box-shadow: 0 10px 30px rgba(100, 80, 60, 0.05);
+    }
+
+    .soft-card-warm:hover {
+        border-color: rgba(185, 155, 120, 0.7);
+        box-shadow: 0 16px 36px rgba(100, 80, 60, 0.09);
+    }
+
+    .soft-modal-header {
+        background: linear-gradient(135deg, #FAF6F0 0%, #F5EFE6 100%);
+        border-bottom: 1px solid rgba(220, 206, 188, 0.85);
+        color: #1F1F1F;
+        padding: 1.25rem 1.5rem;
+    }
+
+    .soft-modal-subtitle {
+        color: #6A6258;
+        font-size: 0.85rem;
+    }
+
+    /* KOYU MOD STİLLERİ */
+    html[data-theme="dark"] .yazilimlar-hero {
+        background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.1) 0%, transparent 60%);
+    }
+
+    html[data-theme="dark"] .yazilimlar-title {
+        color: #f8fafc;
+    }
+
+    html[data-theme="dark"] .yazilimlar-subtitle {
+        color: #94a3b8;
+    }
+
+    html[data-theme="dark"] .yazilimlar-pill {
+        background: rgba(56, 189, 248, 0.12);
+        border-color: rgba(56, 189, 248, 0.25);
+        color: #38bdf8;
+    }
+
+    html[data-theme="dark"] .yazilimlar-filter-btn {
+        background: #161b26;
+        border-color: rgba(255, 255, 255, 0.1);
+        color: #cbd5e1;
+    }
+
+    html[data-theme="dark"] .yazilimlar-filter-btn:hover {
+        border-color: #38bdf8;
+        color: #38bdf8;
+    }
+
+    html[data-theme="dark"] .yazilimlar-filter-btn.active {
+        background: #0077ff;
+        border-color: #0077ff;
+        color: #ffffff;
+        box-shadow: 0 4px 16px rgba(0, 119, 255, 0.4);
+    }
+
+    html[data-theme="dark"] .soft-card {
+        background: #0e1420;
+        border-color: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    html[data-theme="dark"] .soft-card:hover {
+        border-color: rgba(56, 189, 248, 0.35);
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+    }
+
+    html[data-theme="dark"] .soft-card-featured {
+        border-color: #38bdf8;
+        box-shadow: 0 8px 30px rgba(56, 189, 248, 0.15);
+    }
+
+    html[data-theme="dark"] .soft-card-title {
+        color: #f8fafc;
+    }
+
+    html[data-theme="dark"] .soft-card-desc {
+        color: #94a3b8;
+    }
+
+    html[data-theme="dark"] .soft-feature-item {
+        color: #cbd5e1;
+    }
+
+    html[data-theme="dark"] .soft-tag-pill {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.08);
+        color: #cbd5e1;
+    }
+
+    html[data-theme="dark"] .soft-card-actions {
+        border-top-color: rgba(255, 255, 255, 0.08);
+    }
+
+    html[data-theme="dark"] .soft-btn-outline {
+        color: #f1f5f9;
+        border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    html[data-theme="dark"] .soft-btn-outline:hover {
+        border-color: #38bdf8;
+        color: #38bdf8;
+        background: rgba(56, 189, 248, 0.08);
+    }
+
+    html[data-theme="dark"] .soft-demo-banner {
+        background: linear-gradient(145deg, #1C1917 0%, #171412 100%);
+        border-color: rgba(220, 195, 165, 0.18);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        color: #FAF5EE;
+    }
+
+    html[data-theme="dark"] .soft-demo-pill {
+        background: rgba(235, 190, 135, 0.14);
+        border-color: rgba(235, 190, 135, 0.25);
+        color: #F8B868;
+    }
+
+    html[data-theme="dark"] .soft-demo-title {
+        color: #FAF5EE;
+    }
+
+    html[data-theme="dark"] .soft-demo-desc {
+        color: #D5C8B8;
+    }
+
+    html[data-theme="dark"] .soft-perk-chip {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.1);
+        color: #FAF5EE;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    html[data-theme="dark"] .soft-perk-chip:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(235, 190, 135, 0.3);
+        color: #FAF5EE;
+    }
+
+    html[data-theme="dark"] .soft-demo-form-card {
+        background: #141210;
+        border-color: rgba(220, 195, 165, 0.16);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+        color: #FAF5EE;
+    }
+
+    html[data-theme="dark"] .soft-demo-form-title {
+        color: #FAF5EE;
+    }
+
+    html[data-theme="dark"] .soft-demo-form-sub {
+        color: #A89D91;
+    }
+
+    html[data-theme="dark"] .soft-demo-form-card .form-label {
+        color: #D5C8B8;
+    }
+
+    html[data-theme="dark"] .soft-demo-input {
+        background: #1E1B18 !important;
+        border-color: rgba(255, 255, 255, 0.12) !important;
+        color: #FAF5EE !important;
+    }
+
+    html[data-theme="dark"] .soft-demo-input:focus {
+        background: #25221E !important;
+        border-color: #8ab4f8 !important;
+        box-shadow: 0 0 0 3.5px rgba(138, 180, 248, 0.18) !important;
+    }
+
+    html[data-theme="dark"] .soft-demo-btn {
+        background: #FAF5EE;
+        border-color: #FAF5EE;
+        color: #1F1F1F;
+    }
+
+    html[data-theme="dark"] .soft-demo-btn:hover {
+        background: #FFFFFF;
+        border-color: #FFFFFF;
+        color: #000000;
+    }
+
+    html[data-theme="dark"] .soft-card-warm {
+        background: #141210;
+        border-color: rgba(220, 195, 165, 0.16);
+    }
+
+    html[data-theme="dark"] .soft-modal-header {
+        background: #1C1917;
+        border-color: rgba(220, 195, 165, 0.18);
+        color: #FAF5EE;
+    }
+
+    html[data-theme="dark"] .soft-modal-subtitle {
+        color: #A89D91;
+    }
+</style>
+
+<div class="yazilimlar-page">
+    <!-- HERO BÖLÜMÜ -->
+    <section class="yazilimlar-hero text-center">
+        <div class="container position-relative" style="z-index: 2;">
+            <div class="yazilimlar-pill mb-3">
+                <i class="bi bi-cloud-check-fill"></i>
+                <span>Yeni Nesil Bulut &amp; Kurumsal Yazılım Çözümleri</span>
+            </div>
+            <h1 class="yazilimlar-title mb-3">
+                İşinizi Dilediğiniz Yerden Yöneten<br />
+                <span style="color: #0077ff;">Modern Yazılım Sistemleri</span>
+            </h1>
+            <p class="yazilimlar-subtitle">
+                HiCari ve HiPosMenüm bulut mimarimiz, barkodlu hızlı satış, B2B bayi sipariş portalı, Android saha el terminalleri ve e-ticaret pazaryeri entegrasyonlarımızla işletmenizin tüm operasyonlarını tek merkezden yönetin.
+            </p>
+
+            <!-- Hızlı Aksiyon Butonları -->
+            <div class="d-flex flex-wrap justify-content-center gap-3 mt-4">
+                <a href="#demoFormSection" class="btn btn-primary rounded-pill px-4 py-2.5 fw-semibold d-inline-flex align-items-center gap-2 shadow-sm" style="background: #0077ff; border-color: #0077ff; font-family: 'Google Sans', sans-serif;">
+                    <i class="bi bi-laptop"></i>
+                    <span>Ücretsiz Demo Talep Edin</span>
+                </a>
+                <a asp-controller="Home" asp-action="TeklifAl" class="btn btn-outline-dark rounded-pill px-4 py-2.5 fw-semibold d-inline-flex align-items-center gap-2 soft-btn-outline" style="font-family: 'Google Sans', sans-serif;">
+                    <i class="bi bi-file-earmark-text"></i>
+                    <span>Fiyat Teklifi Alın</span>
+                </a>
+                <a asp-controller="Home" asp-action="BayiGirisi" class="btn btn-outline-primary rounded-pill px-4 py-2.5 fw-semibold d-inline-flex align-items-center gap-2" style="border-color: #0b57d0; color: #0b57d0; font-family: 'Google Sans', sans-serif;">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    <span>B2B Bayi Girişi</span>
+                </a>
+            </div>
+
+            <!-- KATEGORİ FİLTRELEME -->
+            <div class="yazilimlar-filter-wrap" id="softFilterGroup">
+                <button type="button" class="yazilimlar-filter-btn active" data-filter="all">Tüm Çözümler (7)</button>
+                <button type="button" class="yazilimlar-filter-btn" data-filter="erp">Bulut ERP &amp; Muhasebe</button>
+                <button type="button" class="yazilimlar-filter-btn" data-filter="restoran">Restoran &amp; Kafe (HiPos)</button>
+                <button type="button" class="yazilimlar-filter-btn" data-filter="pos">Market &amp; Hızlı Satış</button>
+                <button type="button" class="yazilimlar-filter-btn" data-filter="b2b">B2B Bayi Portalı</button>
+                <button type="button" class="yazilimlar-filter-btn" data-filter="saha">Depo &amp; Saha Android</button>
+                <button type="button" class="yazilimlar-filter-btn" data-filter="pdks">PDKS &amp; Turnike</button>
+                <button type="button" class="yazilimlar-filter-btn" data-filter="pazaryeri">Pazaryeri &amp; E-Ticaret</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- YAZILIM KARTLARI IZGARASI -->
+    <section class="pb-5">
+        <div class="container">
+            <div class="row g-4" id="softCardsRow">
+
+                <!-- 1. HiCariTakip ERP & Bulut Ön Muhasebe (ÖNE ÇIKAN) -->
+                <div class="col-lg-6 soft-item" data-category="erp">
+                    <div class="soft-card soft-card-featured">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <div class="soft-icon-box" style="background: #e0f2fe; color: #0284c7;">
+                                <i class="bi bi-cloud-arrow-up-fill"></i>
+                            </div>
+                            <span class="soft-badge-pill" style="background: #dcfce7; color: #15803d;">
+                                <i class="bi bi-patch-check-fill"></i> GİB Onaylı Bulut ERP
+                            </span>
+                        </div>
+                        <h3 class="soft-card-title">HiCariTakip - Bulut &amp; Hibrit Ön Muhasebe</h3>
+                        <p class="soft-card-desc">
+                            Masaüstü, web ve akıllı telefonlarla %100 senkronize çalışan, sunucu masrafsız ve 256-bit SSL güvenlikli yeni nesil ön muhasebe ve ticari operasyon platformu.
+                        </p>
+                        <ul class="soft-feature-list">
+                            <li class="soft-feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span><strong>GİB Tam Uyumlu:</strong> e-Fatura, e-Arşiv, e-İrsaliye ve e-Müstahsil makbuzu saniyeler içinde doğrudan sisteme düşer.</span>
+                            </li>
+                            <li class="soft-feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span><strong>Cari &amp; Bakiye Yaşlandırma:</strong> Müşteri ve tedarikçi cari ekstreleri, otomatik mutabakat ve WhatsApp/SMS bakiye hatırlatma.</span>
+                            </li>
+                            <li class="soft-feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span><strong>Çoklu Depo &amp; Stok:</strong> Barkod/Seri No/Parti No takibi, kritik stok uyarıları ve depolar arası anlık transferler.</span>
+                            </li>
+                            <li class="soft-feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span><strong>Finansal Kokpit:</strong> Canlı ciro raporu, kasa, banka hesap hareketleri, çek-senet ve POS gün sonu analitiği.</span>
+                            </li>
+                        </ul>
+                        <div class="soft-tag-list">
+                            <span class="soft-tag-pill">GİB e-Dönüşüm</span>
+                            <span class="soft-tag-pill">Bulut Mimarisi</span>
+                            <span class="soft-tag-pill">Android &amp; iOS</span>
+                            <span class="soft-tag-pill">Çok Şube</span>
+                            <span class="soft-tag-pill">256-bit SSL</span>
+                        </div>
+                        <div class="soft-card-actions">
+                            <a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" class="soft-btn-primary">
+                                <span>hicari.com.tr'yi Ziyaret Et</span>
+                                <i class="bi bi-box-arrow-up-right"></i>
+                            </a>
+                            <button type="button" class="soft-btn-outline" onclick="openDemoModal('HiCariTakip Ön Muhasebe')">
+                                <i class="bi bi-laptop"></i>
+                                <span>Demo İste</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. HiPosMenüm - Restoran & Kafe Dokunmatik Adisyon & QR Menü -->
+                <div class="col-lg-6 soft-item" data-category="restoran">
+                    <div class="soft-card">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <div class="soft-icon-box" style="background: #fef3c7; color: #d97706;">
+                                <i class="bi bi-cup-hot-fill"></i>
+                            </div>
+                            <span class="soft-badge-pill" style="background: #fef3c7; color: #b45309;">
+                                <i class="bi bi-lightning-fill"></i> Kafe &amp; Restoran Otomasyonu
+                            </span>
+                        </div>
+                        <h3 class="soft-card-title">HiPosMenüm - Restoran Adisyon &amp; QR Menü</h3>
+                        <p class="soft-card-desc">
+                            Kafeler, restoranlar, pastaneler ve fast-food zincirleri için dokunmatik masa planı, garson el terminali, mutfak ekranı ve dinamik QR menü entegrasyonu.
+                        </p>
+                        <ul class="soft-feature-list">
+                            <li class="soft-feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span><strong>Dokunmatik Masa Planı:</strong> Salon, bahçe, teras yerleşim krokisi, masa birleştirme, taşıma ve parçalı hesap alma.</span>
+                            </li>
+                            <li class="soft-feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span><strong>Garson Android Terminalleri:</strong> Garsonların telefon veya tabletlerinden saniyeler içinde sipariş alıp mutfağa iletmesi.</span>
+                            </li>
+                            <li class="soft-feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span><strong>KDS Mutfak Ekranı &amp; Fiş:</strong> Mutfak ve bar yazıcılarına anında fiş yazdırma; hazırlanan siparişleri ekrandan tamamlama.</span>
+                            </li>
+                            <li class="soft-feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span><strong>Temassız QR Menü:</strong> Masaya özel QR kod okutularak dinamik fiyatlı menü görüntüleme ve garson çağırma.</span>
+                            </li>
+                        </ul>
+                        <div class="soft-tag-list">
+                            <span class="soft-tag-pill">Dokunmatik POS</span>
+                            <span class="soft-tag-pill">Garson El Terminali</span>
+                            <span class="soft-tag-pill">Mutfak KDS</span>
+                            <span class="soft-tag-pill">QR Menü</span>
+                            <span class="soft-tag-pill">Paket Servis</span>
+                        </div>
+                        <div class="soft-card-actions">
+                            <button type="button" class="soft-btn-primary" onclick="openDemoModal('HiPosMenüm Restoran Adisyon')">
+                                <span>Canlı Demo İncele</span>
+                                <i class="bi bi-play-circle-fill"></i>
+                            </button>
+                            <a asp-controller="Home" asp-action="TeklifAl" class="soft-btn-outline">
+                                <i class="bi bi-receipt"></i>
+                                <span>Teklif İste</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Market & Mağaza Barkodlu Hızlı Satış POS -->
+                <div class="col-lg-6 soft-item" data-category="pos">
+                    <div class="soft-card">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <div class="soft-icon-box" style="background: #dcfce7; color: #16a34a;">
+                                <i class="bi bi-upc-scan"></i>
+                            </div>
+                            <span class="soft-badge-pill" style="background: #e0f2fe; color: #0369a1;">
+                                <i class="bi bi-speedometer2"></i> Milisaniye Hızında
+                            </span>
+                        </div>
+                        <h3 class="soft-card-title">Market &amp; Mağaza Hızlı Satış POS</h3>
+                        <p class="soft-card-desc">
+                            Yoğun kasalarda kuyrukları bitiren, lazer barkod tarama, elektronik terazi, müşteri bilgi ekranı ve anında fiş/fatura kesen profesyonel perakende yazılımı.
+                        </p>
+                        <ul class="soft-feature-list">
+                            <li class="soft-feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span><strong>Seri Barkod &amp; Terazi Entegrasyonu:</strong> Gramajlı ve adetli ürünlerin ağırlığını teraziden otomatik okuma.</span>
+                            </li>
+                            <li class="soft-feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span><strong>Çoklu Ödeme &amp; Para Üstü:</strong> Nakit, kredi kartı, parçalı ödeme ve anında döviz/para üstü hesaplama.</span>
+                            </li>
+                            <li class="soft-feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span><strong>Kasiyer &amp; Vardiya Yönetimi:</strong> Kasiyer bazlı kasa açılış-kapanış, X ve Z raporları, kasa devir takibi.</span>
+                            </li>
+                            <li class="soft-feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span><strong>Veresiye &amp; Sadakat Kartı:</strong> Müşteri veresiye limiti tanımlama ve puan kampanyası yürütme.</span>
+                            </li>
+                        </ul>
+                        <div class="soft-tag-list">
+                            <span class="soft-tag-pill">Barkod Okuyucu</span>
+                            <span class="soft-tag-pill">Terazi Entegre</span>
+                            <span class="soft-tag-pill">Müşteri Ekranı</span>
+                            <span class="soft-tag-pill">Veresiye Defteri</span>
+                            <span class="soft-tag-pill">Z Raporu</span>
+                        </div>
+                        <div class="soft-card-actions">
+                            <button type="button" class="soft-btn-primary" onclick="openDemoModal('Market Barkodlu Hızlı Satış POS')">
+                                <span>Demo Talep Et</span>
+                                <i class="bi bi-laptop"></i>
+                            </button>
+                            <a asp-controller="Home" asp-action="TeklifAl" class="soft-btn-outline">
+                                <i class="bi bi-arrow-right"></i>
+                                <span>Fiyat Teklifi</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Hayat B2B - Yetkili Bayi & Sipariş Yönetim Portalı -->
+                <div class="col-lg-6 soft-item" data-category="b2b">
+                    <div class="soft-card">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <div class="soft-icon-box" style="background: #ede9fe; color: #6d28d9;">
+                                <i class="bi bi-buildings-fill"></i>
+                            </div>
+                            <span class="soft-badge-pill" style="background: #f3e8ff; color: #7e22ce;">
+                                <i class="bi bi-shield-lock-fill"></i> Kurumsal B2B Portalı
+                            </span>
+                        </div>
+                        <h3 class="soft-card-title">Hayat B2B - Bayi Sipariş &amp; Tahsilat Portalı</h3>
+                        <p class="soft-card-desc">
+                            Donanım, POS ve yazılım bayileriniz için özel iskontolu fiyat listeleri, 7/24 online sipariş, Sanal POS ile kredi kartı tahsilatı ve RMA teknik servis takibi.
+                        </p>
+                        <ul class="soft-feature-list">
+                            <li class="soft-feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span><strong>Kademeli İskonto Grupları:</strong> Bayi türüne göre (Donanım Bayisi, Yazılım Bayisi, Tam Yetkili) özel fiyatlandırma.</span>
+                            </li>
+                            <li class="soft-feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span><strong>3D Secure Sanal POS:</strong> Tüm bankaların kredi kartlarıyla taksitli veya tek çekim cari tahsilat alma.</span>
+                            </li>
+                            <li class="soft-feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span><strong>RMA Arıza &amp; Garanti Takibi:</strong> Bayilerin arızalı cihazları için kargo takip no ve onarım süreci başlatması.</span>
+                            </li>
+                            <li class="soft-feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span><strong>Deal Registration:</strong> Bayilerin kurumsal projelerini sisteme kaydederek fiyat koruması alması.</span>
+                            </li>
+                        </ul>
+                        <div class="soft-tag-list">
+                            <span class="soft-tag-pill">B2B Sipariş</span>
+                            <span class="soft-tag-pill">Sanal POS</span>
+                            <span class="soft-tag-pill">RMA Arıza Takip</span>
+                            <span class="soft-tag-pill">Fırsat Kaydı</span>
+                            <span class="soft-tag-pill">7/24 Online</span>
+                        </div>
+                        <div class="soft-card-actions">
+                            <a asp-controller="Home" asp-action="BayiGirisi" class="soft-btn-primary">
+                                <span>Bayi Portalına Git</span>
+                                <i class="bi bi-box-arrow-in-right"></i>
+                            </a>
+                            <a asp-controller="Home" asp-action="BayiGirisi" asp-fragment="bayiBasvuruFormu" class="soft-btn-outline">
+                                <i class="bi bi-person-plus-fill"></i>
+                                <span>Bayilik Başvurusu</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Depo & Saha Satış El Terminali Yazılımı (Android) -->
+                <div class="col-lg-6 soft-item" data-category="saha">
+                    <div class="soft-card">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <div class="soft-icon-box" style="background: #e0f2fe; color: #0369a1;">
+                                <i class="bi bi-phone-fill"></i>
+                            </div>
+                            <span class="soft-badge-pill" style="background: #e0f2fe; color: #0284c7;">
+                                <i class="bi bi-truck"></i> Android &amp; Saha Satış
+                            </span>
+                        </div>
+                        <h3 class="soft-card-title">Depo &amp; Saha El Terminali Otomasyonu</h3>
+                        <p class="soft-card-desc">
+                            Android el terminalleri ve akıllı telefonlarla çalışan, sıcak/soğuk saha satış, depo mal kabul, sayım, lokasyon transferi ve mobil bluetooth fatura kesimi.
+                        </p>
+                        <ul class="soft-feature-list">
+                            <li class="soft-feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span><strong>Çevrimdışı (Offline) Mimarisi:</strong> İnternet olmayan depolarda veya sahada kesintisiz çalışma; bağlantı kurulunca otomatik eşitleme.</span>
+                            </li>
+                            <li class="soft-feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span><strong>Sıcak &amp; Soğuk Satış:</strong> Araçta Bluetooth mobil yazıcıdan anında e-Fatura veya irsaliye basımı, anlık tahsilat.</span>
+                            </li>
+                            <li class="soft-feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span><strong>Hatasız Depo Sayımı:</strong> Barkod okutarak saniyeler içinde raf sayımı ve irsaliye mal kabul kontrolü.</span>
+                            </li>
+                            <li class="soft-feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span><strong>Plasiyer Rota Takibi:</strong> Sahadaki personelin müşteri ziyaret sırası, konum bilgisi ve sipariş performansı.</span>
+                            </li>
+                        </ul>
+                        <div class="soft-tag-list">
+                            <span class="soft-tag-pill">Android OS</span>
+                            <span class="soft-tag-pill">Bluetooth Fatura</span>
+                            <span class="soft-tag-pill">Çevrimdışı Çalışma</span>
+                            <span class="soft-tag-pill">Depo Raf Sayımı</span>
+                            <span class="soft-tag-pill">Sıcak Satış</span>
+                        </div>
+                        <div class="soft-card-actions">
+                            <button type="button" class="soft-btn-primary" onclick="openDemoModal('Android Saha & Depo El Terminali')">
+                                <span>Demo Talep Et</span>
+                                <i class="bi bi-laptop"></i>
+                            </button>
+                            <a asp-controller="Home" asp-action="TeklifAl" class="soft-btn-outline">
+                                <i class="bi bi-receipt"></i>
+                                <span>Teklif İste</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. PDKS & Turnike Geçiş Kontrol Yazılımı -->
+                <div class="col-lg-6 soft-item" data-category="pdks">
+                    <div class="soft-card">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <div class="soft-icon-box" style="background: #ffe4e6; color: #e11d48;">
+                                <i class="bi bi-fingerprint"></i>
+                            </div>
+                            <span class="soft-badge-pill" style="background: #ffe4e6; color: #be123c;">
+                                <i class="bi bi-person-check-fill"></i> Personel Takip
+                            </span>
+                        </div>
+                        <h3 class="soft-card-title">PDKS &amp; Turnike Geçiş Kontrol Yazılımı</h3>
+                        <p class="soft-card-desc">
+                            Yüz tanıma terminalleri, parmak izi okuyucular ve kartlı turnikelerle entegre çalışan; vardiya, mesai, geç kalma ve bordro hesaplamalarını otomatikleştiren sistem.
+                        </p>
+                        <ul class="soft-feature-list">
+                            <li class="soft-feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span><strong>Canlı Cihaz İletişimi:</strong> Giriş-çıkış hareketlerinin donanımlardan anlık TCP/IP üzerinden çekilmesi.</span>
+                            </li>
+                            <li class="soft-feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span><strong>Otomatik Puantaj &amp; Mesai:</strong> Fazla mesai, eksik çalışma, resmi tatil ve mazeret izinlerinin otomatik hesaplanması.</span>
+                            </li>
+                            <li class="soft-feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span><strong>Bordro Entegrasyonu:</strong> Resmi muhasebe ve bordro programlarına doğrudan veri aktarımı.</span>
+                            </li>
+                            <li class="soft-feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span><strong>Acil Durum &amp; Yoklama:</strong> Yangın veya afet durumunda içerideki personel sayısının anında dökülmesi.</span>
+                            </li>
+                        </ul>
+                        <div class="soft-tag-list">
+                            <span class="soft-tag-pill">Yüz Tanıma</span>
+                            <span class="soft-tag-pill">Parmak İzi</span>
+                            <span class="soft-tag-pill">Turnike Kontrol</span>
+                            <span class="soft-tag-pill">Canlı Puantaj</span>
+                            <span class="soft-tag-pill">Bordro Aktarım</span>
+                        </div>
+                        <div class="soft-card-actions">
+                            <button type="button" class="soft-btn-primary" onclick="openDemoModal('PDKS & Turnike Geçiş Kontrol')">
+                                <span>Demo Talep Et</span>
+                                <i class="bi bi-laptop"></i>
+                            </button>
+                            <a asp-controller="Home" asp-action="TeklifAl" class="soft-btn-outline">
+                                <i class="bi bi-arrow-right"></i>
+                                <span>Fiyat Teklifi</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. Pazaryeri & E-Ticaret Çift Yönlü Entegrasyon Modülü -->
+                <div class="col-12 soft-item" data-category="pazaryeri">
+                    <div class="soft-card soft-card-warm">
+                        <div class="row align-items-center g-4">
+                            <div class="col-lg-8">
+                                <div class="d-flex align-items-center gap-3 mb-2">
+                                    <div class="soft-icon-box mb-0" style="background: #f3e8ff; color: #9333ea;">
+                                        <i class="bi bi-shop"></i>
+                                    </div>
+                                    <div>
+                                        <span class="soft-badge-pill" style="background: #f3e8ff; color: #7e22ce;">
+                                            <i class="bi bi-arrow-left-right"></i> Çift Yönlü Entegrasyon
+                                        </span>
+                                        <h3 class="soft-card-title mb-0 mt-1">Pazaryeri &amp; E-Ticaret Entegrasyon Köprüsü</h3>
+                                    </div>
+                                </div>
+                                <p class="soft-card-desc mt-3">
+                                    Trendyol, Hepsiburada, Amazon, N11, Çiçeksepeti ve e-ticaret sitelerinizle ERP muhasebe programınızı tam senkronize edin. Sipariş geldiğinde tek tıkla e-Fatura kesin, stok tüm pazaryerlerinde anında güncellensin.
+                                </p>
+                                <div class="d-flex flex-wrap gap-2 mb-3">
+                                    <span class="soft-perk-chip" style="font-size: 0.8rem; padding: 0.35rem 0.85rem;">Trendyol API</span>
+                                    <span class="soft-perk-chip" style="font-size: 0.8rem; padding: 0.35rem 0.85rem;">Hepsiburada API</span>
+                                    <span class="soft-perk-chip" style="font-size: 0.8rem; padding: 0.35rem 0.85rem;">Amazon TR</span>
+                                    <span class="soft-perk-chip" style="font-size: 0.8rem; padding: 0.35rem 0.85rem;">N11 Entegrasyonu</span>
+                                    <span class="soft-perk-chip" style="font-size: 0.8rem; padding: 0.35rem 0.85rem;">WooCommerce / Shopify</span>
+                                    <span class="soft-perk-chip" style="font-size: 0.8rem; padding: 0.35rem 0.85rem;">Otomatik Kargo Fişi</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 text-lg-end">
+                                <div class="d-flex flex-column gap-2 justify-content-center">
+                                    <button type="button" class="soft-btn-primary justify-content-center" onclick="openDemoModal('Pazaryeri Entegrasyon Modülü')">
+                                        <i class="bi bi-laptop"></i>
+                                        <span>Entegrasyon Demosu Talep Et</span>
+                                    </button>
+                                    <a asp-controller="Home" asp-action="TeklifAl" class="soft-btn-outline justify-content-center">
+                                        <i class="bi bi-file-earmark-spreadsheet"></i>
+                                        <span>Proje Teklifi Al</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- DEMO TALEP BANNERI & FORMU (GOOGLE ONE SICAK TEN RENGİ TASARIM) -->
+            <div class="soft-demo-banner" id="demoFormSection">
+                <div class="row align-items-center g-4 position-relative" style="z-index: 2;">
+                    <div class="col-lg-7">
+                        <div class="mb-3">
+                            <span class="soft-demo-pill">
+                                <i class="bi bi-stars"></i> Ücretsiz Canlı Demo &amp; Sunum
+                            </span>
+                        </div>
+                        <h2 class="soft-demo-title">
+                            İşletmenize En Uygun Çözümü Birlikte Belirleyelim
+                        </h2>
+                        <p class="soft-demo-desc">
+                            Uzman yazılım ekibimiz, ofisinizde veya online video konferans ile programlarımızın tüm özelliklerini iş süreçlerinize özel olarak tanıtsın.
+                        </p>
+                        <div class="soft-perk-chips-wrap">
+                            <div class="soft-perk-chip">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>Kurulumsuz 14 Gün Deneme</span>
+                            </div>
+                            <div class="soft-perk-chip">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>Ücretsiz Veri Aktarım Desteği</span>
+                            </div>
+                            <div class="soft-perk-chip">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>7/24 Teknik Danışmanlık</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="soft-demo-form-card">
+                            <h4 class="soft-demo-form-title">Hızlı Demo Formu</h4>
+                            <p class="soft-demo-form-sub">Bilgilerinizi bırakın, aynı gün içinde sizi arayıp sistemi gösterelim.</p>
+                            <form asp-controller="Home" asp-action="TeklifAl" method="post" id="inlineDemoForm">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="konu" id="inlineDemoKonu" value="Yazılım Canlı Demo Talebi" />
+                                <div class="mb-2.5">
+                                    <label class="form-label">Ad Soyad / Firma</label>
+                                    <input type="text" name="adSoyad" class="form-control form-control-sm soft-demo-input" placeholder="Adınız ve Şirket Unvanınız" required />
+                                </div>
+                                <div class="mb-2.5">
+                                    <label class="form-label">Telefon Numarası</label>
+                                    <input type="tel" name="telefon" class="form-control form-control-sm soft-demo-input" placeholder="05XX XXX XX XX" required />
+                                </div>
+                                <div class="mb-2.5">
+                                    <label class="form-label">E-Posta</label>
+                                    <input type="email" name="eposta" class="form-control form-control-sm soft-demo-input" placeholder="ornek@sirketiniz.com" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">İlgilendiğiniz Yazılım</label>
+                                    <select name="mesaj" id="inlineDemoSelect" class="form-select form-select-sm soft-demo-input">
+                                        <option value="HiCariTakip Bulut Ön Muhasebe & ERP">HiCariTakip Bulut Ön Muhasebe &amp; ERP</option>
+                                        <option value="HiPosMenüm Restoran Adisyon & QR Menü">HiPosMenüm Restoran Adisyon &amp; QR Menü</option>
+                                        <option value="Market & Mağaza Barkodlu Hızlı Satış">Market &amp; Mağaza Barkodlu Hızlı Satış</option>
+                                        <option value="Hayat B2B Bayi Sipariş Portalı">Hayat B2B Bayi Sipariş Portalı</option>
+                                        <option value="Depo & Saha Android El Terminali">Depo &amp; Saha Android El Terminali</option>
+                                        <option value="PDKS & Turnike Geçiş Kontrol">PDKS &amp; Turnike Geçiş Kontrol</option>
+                                        <option value="Pazaryeri & E-Ticaret Entegrasyonu">Pazaryeri &amp; E-Ticaret Entegrasyonu</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="soft-demo-btn">
+                                    <span>Demoyu Başlat</span>
+                                    <i class="bi bi-arrow-right"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>
+
+<!-- DEMO TALEP MODALI -->
+<div class="modal fade" id="demoRequestModal" tabindex="-1" aria-labelledby="demoRequestModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 shadow-lg overflow-hidden">
+            <div class="modal-header soft-modal-header border-0">
+                <div>
+                    <h5 class="modal-title fw-bold" id="demoRequestModalLabel" style="font-family: 'Google Sans', sans-serif;">Canlı Demo Talebi</h5>
+                    <small class="soft-modal-subtitle" id="modalSubTitle">Sistemi canlı ekranda test edin</small>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <div class="modal-body p-4" style="background: var(--g1-surface, #ffffff); color: var(--g1-text, #1f1f1f);">
+                <form asp-controller="Home" asp-action="TeklifAl" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="konu" id="modalFormKonu" value="Yazılım Demo Talebi" />
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Seçilen Yazılım</label>
+                        <input type="text" id="modalSelectedSoft" class="form-control soft-demo-input bg-light" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Ad Soyad / Firma Yetkilisi</label>
+                        <input type="text" name="adSoyad" class="form-control soft-demo-input" placeholder="Adınız Soyadınız" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Telefon Numarası</label>
+                        <input type="tel" name="telefon" class="form-control soft-demo-input" placeholder="05XX XXX XX XX" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">E-Posta Adresi</label>
+                        <input type="email" name="eposta" class="form-control soft-demo-input" placeholder="ornek@firma.com" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Ek Notlar / Beklentileriniz (Opsiyonel)</label>
+                        <textarea name="mesaj" class="form-control rounded-3" rows="3" placeholder="İşletmeniz hakkında kısa bilgi veya özel istekleriniz..."></textarea>
+                    </div>
+                    <div class="d-flex justify-content-end gap-2 pt-2">
+                        <button type="button" class="btn btn-outline-secondary rounded-pill px-3" data-bs-dismiss="modal">Vazgeç</button>
+                        <button type="submit" class="btn btn-dark rounded-pill px-4 fw-semibold d-inline-flex align-items-center gap-2" style="background: #1F1F1F; border-color: #1F1F1F;">
+                            <span>Talebi Gönder</span>
+                            <i class="bi bi-send-fill"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // KATEGORİ FİLTRELEME
+    (function () {
+        const filterBtns = document.querySelectorAll('.yazilimlar-filter-btn');
+        const items = document.querySelectorAll('.soft-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function () {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const filter = this.getAttribute('data-filter');
+
+                items.forEach(item => {
+                    const cat = item.getAttribute('data-category');
+                    if (filter === 'all' || cat === filter) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    })();
+
+    // MODAL AÇICI
+    function openDemoModal(softwareName) {
+        const modalEl = document.getElementById('demoRequestModal');
+        const inputSoft = document.getElementById('modalSelectedSoft');
+        const inputKonu = document.getElementById('modalFormKonu');
+        const subTitle = document.getElementById('modalSubTitle');
+
+        if (inputSoft) inputSoft.value = softwareName;
+        if (inputKonu) inputKonu.value = 'Demo Talebi: ' + softwareName;
+        if (subTitle) subTitle.textContent = softwareName + ' için canlı sunum randevusu';
+
+        const inlineSelect = document.getElementById('inlineDemoSelect');
+        if (inlineSelect) {
+            for (let i = 0; i < inlineSelect.options.length; i++) {
+                if (inlineSelect.options[i].text.includes(softwareName) || inlineSelect.options[i].value.includes(softwareName)) {
+                    inlineSelect.selectedIndex = i;
+                    break;
+                }
+            }
+        }
+
+        if (window.bootstrap && bootstrap.Modal) {
+            const modal = new bootstrap.Modal(modalEl);
+            modal.show();
+        } else {
+            // Alternatif olarak forma scroll
+            const formSec = document.getElementById('demoFormSection');
+            if (formSec) formSec.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+</script>

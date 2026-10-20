@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Erişim Reddedildi";
+}
+
+<div class="d-flex align-items-center justify-content-center py-5 min-vh-100" style="background: #fbfbfd;">
+    <div class="text-center p-5 rounded-4 shadow-sm" style="max-width: 500px; background: rgba(255, 255, 255, 0.88); border: 1px solid rgba(0, 0, 0, 0.08);">
+        <div class="d-inline-flex align-items-center justify-content-center mb-4 rounded-circle" style="width: 72px; height: 72px; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); color: #dc2626;">
+            <i class="bi bi-shield-x fs-1"></i>
+        </div>
+        <h3 class="fw-bold mb-2" style="color: #1f1f1f;">Erişim İzniniz Yok</h3>
+        <p class="small mb-4" style="color: #444746;">Bu sayfayı görüntülemek için Yönetici (Admin) yetkisine sahip bir hesapla giriş yapmanız gerekmektedir.</p>
+        <div class="d-flex gap-2 justify-content-center">
+            <a asp-controller="Account" asp-action="Login" class="btn btn-sm rounded-pill px-4 text-white" style="background: #0b57d0; border: 1px solid #0b57d0;">Farklı Hesapla Giriş Yap</a>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-sm btn-outline-secondary rounded-pill px-4">Anasayfa</a>
+        </div>
+    </div>
+</div>

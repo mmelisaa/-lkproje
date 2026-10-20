@@ -3,32 +3,41 @@
     ViewData["Title"] = Model.Baslik;
 }
 
-<!-- ========== HERO BANNER - Canvas Animasyonlu ========== -->
-<section class="position-relative overflow-hidden text-white w-100" id="hakkimizdaHeroBanner" style="background:#050c1a; min-height:420px; display:flex; align-items:center;">
-    <canvas id="hakkimizdaCanvas" class="position-absolute w-100 h-100" style="top:0;left:0;z-index:0;"></canvas>
-    <div class="position-absolute w-100 h-100" style="top:0;left:0;z-index:1;background:linear-gradient(135deg,rgba(5,12,26,0.75) 0%,rgba(10,22,55,0.65) 60%,rgba(5,12,26,0.75) 100%);"></div>
-    <div class="position-absolute ambient-orb-1" style="top:-80px;right:-80px;width:440px;height:440px;background:radial-gradient(circle,rgba(56,189,248,0.2) 0%,transparent 70%);filter:blur(60px);z-index:1;pointer-events:none;"></div>
-    <div class="position-absolute ambient-orb-2" style="bottom:-80px;left:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(99,102,241,0.2) 0%,transparent 70%);filter:blur(55px);z-index:1;pointer-events:none;"></div>
+<!-- ========== HERO BANNER ========== -->
+<section class="position-relative overflow-hidden w-100" id="hakkimizdaHeroBanner" style="background: transparent; min-height:460px; display:flex; align-items:center;">
+    <!-- Hakkımızda'ya Özel Bütünleşik 3D WebGL Anıtı & Parçacık Arka Planı (Kutudan bağımsız) -->
+    <canvas id="hakkimizdaHeroCanvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;"></canvas>
 
     <div class="container position-relative py-5" style="z-index:2;">
         <div class="row align-items-center g-5">
             <div class="col-lg-7 text-start">
-                <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill mb-4 shadow-sm" style="background:rgba(255,255,255,0.06);border:1px solid rgba(56,189,248,0.3);backdrop-filter:blur(12px);">
-                    <span class="ref-pulse-dot"></span>
-                    <span class="text-white small fw-bold text-uppercase" style="letter-spacing:2px;">
-                        <i class="bi bi-buildings-fill text-info me-1"></i> Kurumsal Profil
+                <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill mb-4 shadow-sm" style="background:rgba(255,255,255,0.88);border:1px solid rgba(11, 87, 208,0.2);">
+                    <img src="/images/hayat-isleri-logo.svg" alt="Hayat İşleri Logo" style="height: 26px; width: auto; object-fit: contain;" />
+                    <span class="small fw-bold text-uppercase" style="color:#1f1f1f;letter-spacing:2px;">
+                        Kurumsal Profil
                     </span>
                     <span class="badge bg-primary bg-opacity-75 rounded-pill px-2 py-1 ms-1 small" style="font-size: 0.72rem;">Elazığ &amp; Türkiye</span>
                 </div>
-                <h1 class="display-4 fw-bold text-white mb-3" style="letter-spacing:-1.2px;">@Model.Baslik</h1>
-                <p class="lead text-light text-opacity-80 fs-5 mb-0" style="line-height: 1.8; max-width: 620px;">
+                <h1 class="display-4 fw-bold mb-3" style="color:#1f1f1f;letter-spacing:-1.2px;">@Model.Baslik</h1>
+                <p class="lead text-light text-opacity-80 fs-5 mb-0" style="color:#444746;line-height: 1.8; max-width: 620px;">
                     @Model.Aciklama
                 </p>
             </div>
             <div class="col-lg-5">
-                <div class="tech-card p-2 position-relative overflow-hidden shadow-lg tech-tilt-card" style="border: 1px solid rgba(56,189,248,0.25);">
-                    <div class="scanline-effect"></div>
-                    <img src="@Model.GorselUrl" alt="Hayat İşleri Teknoloji" class="img-fluid rounded-4 w-100" style="object-fit: cover; height: 320px;">
+                <div class="lusion-work-card p-3 position-relative overflow-hidden shadow-lg tech-tilt-card" style="border: 1px solid rgba(11, 87, 208, 0.2); background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 247, 255, 0.88) 100%); border-radius: 1.8rem; transform-style: preserve-3d; will-change: transform;">
+                    <div class="lusion-card-sheen"></div>
+                    <picture>
+                        <source media="(max-width: 767px)" srcset="/images/hakkimizda-kurumsal-mobile.svg">
+                        <img src="/images/hakkimizda-kurumsal.svg" alt="Hayat İşleri İşletme Çözümleri" class="img-fluid rounded-4 w-100 shadow-sm" style="width: 100%; height: auto; max-height: 380px; object-fit: contain; border: 1px solid rgba(11, 87, 208, 0.12); background-color: #ffffff; image-rendering: -webkit-optimize-contrast; transform: translateZ(0); backface-visibility: hidden;">
+                    </picture>
+                    <!-- Floating Live Badges -->
+                    <div class="position-absolute bottom-0 start-0 m-4 px-3 py-1.5 rounded-pill shadow-sm small fw-semibold d-flex align-items-center gap-2" style="background: rgba(255, 255, 255, 0.95); border: 1px solid rgba(11, 87, 208, 0.2); color: #0b57d0; font-size: 0.78rem;">
+                        <img src="/images/hayat-isleri-logo.svg" alt="Hayat İşleri" style="height: 22px; width: auto;" />
+                        <span>İşletme Çözümleri &amp; POS</span>
+                    </div>
+                    <div class="position-absolute top-0 end-0 m-4 px-3 py-1.5 rounded-pill shadow-sm small fw-semibold" style="background: rgba(255, 255, 255, 0.95); border: 1px solid rgba(16, 185, 129, 0.2); color: #059669; font-size: 0.75rem;">
+                        <i class="bi bi-shield-check me-1"></i> Elazığ Teknoloji Ortağı
+                    </div>
                 </div>
             </div>
         </div>
@@ -38,111 +47,163 @@
 <!-- Veri Akışı Ayracı -->
 <div class="tech-divider-stream opacity-40"></div>
 
-<!-- ========== 6 TEMEL KURUMSAL KART ALANI ========== -->
-<div class="position-relative w-100 py-5 overflow-hidden" style="background: radial-gradient(circle at 50% 0%, #0a1329 0%, #050b17 100%);">
-    <div class="position-absolute w-100 h-100 tech-grid-bg" style="top:0;left:0;opacity:0.5;pointer-events:none;"></div>
-    <div class="position-absolute ambient-orb-1" style="top:25%;right:-70px;width:380px;height:380px;background:radial-gradient(circle,rgba(56,189,248,0.12) 0%,transparent 70%);filter:blur(60px);pointer-events:none;"></div>
-    <div class="position-absolute ambient-orb-2" style="bottom:15%;left:-70px;width:400px;height:400px;background:radial-gradient(circle,rgba(168,85,247,0.12) 0%,transparent 70%);filter:blur(60px);pointer-events:none;"></div>
-
+<!-- ========== 6 TEMEL KURUMSAL KART ALANI (Google One Bento Showcase) ========== -->
+<div class="position-relative w-100 py-5 overflow-hidden" style="background: transparent; position: relative; z-index: 2;">
     <div class="container position-relative py-4" style="z-index:2;">
-        <div class="text-center mb-5">
-            <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill hero-badge mb-3 shadow-sm" style="border: 1px solid rgba(56, 189, 248, 0.25);">
-                <i class="bi bi-shield-check text-info small"></i>
-                <span class="text-info small fw-bold text-uppercase" style="letter-spacing:2px; font-size: 0.75rem;">STRATEJİK DEĞERLERİMİZ</span>
-            </div>
-            <h2 class="fw-bold text-white mb-3 display-6" style="letter-spacing: -0.5px;">Kurumsal Yapımız ve İlkelerimiz</h2>
-            <div class="mx-auto" style="width: 80px; height: 3px; background: linear-gradient(90deg, #38bdf8, #818cf8); border-radius: 99px;"></div>
+        <div class="text-center mb-5 pb-2">
+            <span class="badge px-3 py-1.5 rounded-pill fw-bold text-uppercase mb-2 shadow-sm d-inline-flex align-items-center gap-1.5" style="background: rgba(11, 87, 208, 0.08); color: #0b57d0; border: 1px solid rgba(11, 87, 208, 0.2); font-size: 0.74rem;">
+                <i class="bi bi-shield-check"></i> Stratejik Değerlerimiz
+            </span>
+            <h2 class="fw-bold mb-2 display-6" style="color:#1f1f1f; letter-spacing: -0.6px;">Kurumsal Yapımız ve İlkelerimiz</h2>
+            <p class="text-muted mx-auto mb-0" style="max-width: 680px; font-size: 0.96rem; line-height: 1.65;">
+                Elazığ ve Doğu Anadolu'dan tüm Türkiye'ye uzanan teknoloji ve kurumsal otomasyon vizyonumuzun temel yapı taşları.
+            </p>
+            <div class="mx-auto mt-3" style="width: 60px; height: 3px; background: linear-gradient(90deg, #4285f4, #8ab4f8); border-radius: 99px;"></div>
         </div>
 
-        <!-- 6 Kutucuk / Kart Alanı -->
+        <!-- 6 Kutucuk / Kart Alanı (Google One Bento Modülleri) -->
         <div class="row g-4">
-            <!-- 1. Hizmet Alanları -->
+            <!-- 1. Hizmet Alanları (Google One Blue) -->
             <div class="col-md-6 col-lg-4">
-                <div class="tech-card h-100 p-4 position-relative tech-tilt-card" style="border: 1px solid rgba(255,255,255,0.08); background: rgba(14, 23, 42, 0.85);">
-                    <div class="scanline-effect"></div>
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <div class="tech-icon-box" style="background: rgba(56, 189, 248, 0.12); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.25);">
-                            <i class="bi bi-grid-1x2-fill fs-4"></i>
+                <div class="g1-bento-corp-card h-100 p-4 position-relative overflow-hidden">
+                    <div class="g1-bento-top-stripe stripe-blue"></div>
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="g1-bento-icon-pill icon-blue">
+                            <i class="bi bi-grid-1x2-fill"></i>
                         </div>
-                        <span class="server-led" style="background-color: #38bdf8;"></span>
+                        <span class="g1-bento-chip chip-blue">%100 Entegre</span>
                     </div>
-                    <h4 class="card-title fw-bold mb-3 fs-5 text-white" style="letter-spacing: -0.3px;">Hizmet Alanlarımız</h4>
-                    <p class="card-text text-light text-opacity-75" style="line-height: 1.7; font-size: 0.92rem;">@Model.HizmetAlanlari</p>
+                    <h4 class="card-title fw-bold mb-2 fs-5 g1-corp-title">Hizmet Alanlarımız</h4>
+                    <p class="card-text g1-corp-text mb-4">@Model.HizmetAlanlari</p>
+                    <div class="mt-auto pt-3 border-top border-light-subtle">
+                        <div class="d-flex justify-content-between small mb-1.5 g1-bento-micro-label">
+                            <span>Sistem &amp; ERP Uyumluluğu</span>
+                            <span class="fw-bold text-primary">Tam Kapsam</span>
+                        </div>
+                        <div class="g1-bento-micro-track">
+                            <div class="g1-bento-micro-fill fill-blue" style="width: 96%;"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- 2. Kurumsal Gücümüz -->
+            <!-- 2. Kurumsal Gücümüz (Google One Purple) -->
             <div class="col-md-6 col-lg-4">
-                <div class="tech-card h-100 p-4 position-relative tech-tilt-card" style="border: 1px solid rgba(255,255,255,0.08); background: rgba(14, 23, 42, 0.85);">
-                    <div class="scanline-effect"></div>
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <div class="tech-icon-box" style="background: rgba(129, 140, 248, 0.14); color: #818cf8; border: 1px solid rgba(129, 140, 248, 0.28);">
-                            <i class="bi bi-lightning-charge-fill fs-4"></i>
+                <div class="g1-bento-corp-card g1-bento-corp-featured h-100 p-4 position-relative overflow-hidden">
+                    <div class="g1-bento-top-stripe stripe-multi"></div>
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="g1-bento-icon-pill icon-purple">
+                            <i class="bi bi-lightning-charge-fill"></i>
                         </div>
-                        <span class="server-led delay-1" style="background-color: #818cf8;"></span>
+                        <span class="g1-bento-chip chip-purple">Ar-Ge &amp; Güç</span>
                     </div>
-                    <h4 class="card-title fw-bold mb-3 fs-5 text-white" style="letter-spacing: -0.3px;">Kurumsal Gücümüz</h4>
-                    <p class="card-text text-light text-opacity-75" style="line-height: 1.7; font-size: 0.92rem;">@Model.KurumsalGucumuz</p>
+                    <h4 class="card-title fw-bold mb-2 fs-5 g1-corp-title">Kurumsal Gücümüz</h4>
+                    <p class="card-text g1-corp-text mb-4">@Model.KurumsalGucumuz</p>
+                    <div class="mt-auto pt-3 border-top border-light-subtle">
+                        <div class="d-flex justify-content-between small mb-1.5 g1-bento-micro-label">
+                            <span>Operasyonel Yetkinlik</span>
+                            <span class="fw-bold" style="color: #7c3aed;">360° Mühendislik</span>
+                        </div>
+                        <div class="g1-bento-micro-track">
+                            <div class="g1-bento-micro-fill fill-multi" style="width: 100%;"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- 3. Çalışma İlkelerimiz -->
+            <!-- 3. Çalışma İlkelerimiz (Google One Green) -->
             <div class="col-md-6 col-lg-4">
-                <div class="tech-card h-100 p-4 position-relative tech-tilt-card" style="border: 1px solid rgba(255,255,255,0.08); background: rgba(14, 23, 42, 0.85);">
-                    <div class="scanline-effect"></div>
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <div class="tech-icon-box" style="background: rgba(16, 185, 129, 0.12); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.25);">
-                            <i class="bi bi-shield-check fs-4"></i>
+                <div class="g1-bento-corp-card h-100 p-4 position-relative overflow-hidden">
+                    <div class="g1-bento-top-stripe stripe-emerald"></div>
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="g1-bento-icon-pill icon-emerald">
+                            <i class="bi bi-patch-check-fill"></i>
                         </div>
-                        <span class="server-led delay-2" style="background-color: #10b981;"></span>
+                        <span class="g1-bento-chip chip-emerald">%100 Güven</span>
                     </div>
-                    <h4 class="card-title fw-bold mb-3 fs-5 text-white" style="letter-spacing: -0.3px;">Çalışma İlkelerimiz</h4>
-                    <p class="card-text text-light text-opacity-75" style="line-height: 1.7; font-size: 0.92rem;">@Model.CalismaIlkelerimiz</p>
+                    <h4 class="card-title fw-bold mb-2 fs-5 g1-corp-title">Çalışma İlkelerimiz</h4>
+                    <p class="card-text g1-corp-text mb-4">@Model.CalismaIlkelerimiz</p>
+                    <div class="mt-auto pt-3 border-top border-light-subtle">
+                        <div class="d-flex justify-content-between small mb-1.5 g1-bento-micro-label">
+                            <span>Müşteri Memnuniyeti SLA</span>
+                            <span class="fw-bold text-success">%99.9 Taahhüt</span>
+                        </div>
+                        <div class="g1-bento-micro-track">
+                            <div class="g1-bento-micro-fill fill-emerald" style="width: 99%;"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- 4. Vizyonumuz -->
+            <!-- 4. Vizyonumuz (Google One Amber) -->
             <div class="col-md-6 col-lg-4">
-                <div class="tech-card h-100 p-4 position-relative tech-tilt-card" style="border: 1px solid rgba(255,255,255,0.08); background: rgba(14, 23, 42, 0.85);">
-                    <div class="scanline-effect"></div>
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <div class="tech-icon-box" style="background: rgba(245, 158, 11, 0.12); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.25);">
-                            <i class="bi bi-eye-fill fs-4"></i>
+                <div class="g1-bento-corp-card h-100 p-4 position-relative overflow-hidden">
+                    <div class="g1-bento-top-stripe stripe-gold"></div>
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="g1-bento-icon-pill icon-gold">
+                            <i class="bi bi-compass-fill"></i>
                         </div>
-                        <span class="server-led delay-3" style="background-color: #f59e0b;"></span>
+                        <span class="g1-bento-chip chip-gold">2030 Vizyonu</span>
                     </div>
-                    <h4 class="card-title fw-bold mb-3 fs-5 text-white" style="letter-spacing: -0.3px;">Vizyonumuz</h4>
-                    <p class="card-text text-light text-opacity-75" style="line-height: 1.7; font-size: 0.92rem;">@Model.Vizyonumuz</p>
+                    <h4 class="card-title fw-bold mb-2 fs-5 g1-corp-title">Vizyonumuz</h4>
+                    <p class="card-text g1-corp-text mb-4">@Model.Vizyonumuz</p>
+                    <div class="mt-auto pt-3 border-top border-light-subtle">
+                        <div class="d-flex justify-content-between small mb-1.5 g1-bento-micro-label">
+                            <span>Teknoloji &amp; İnovasyon Çıtası</span>
+                            <span class="fw-bold text-warning">Global Standart</span>
+                        </div>
+                        <div class="g1-bento-micro-track">
+                            <div class="g1-bento-micro-fill fill-gold" style="width: 95%;"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- 5. Misyonumuz -->
+            <!-- 5. Misyonumuz (Google One Indigo) -->
             <div class="col-md-6 col-lg-4">
-                <div class="tech-card h-100 p-4 position-relative tech-tilt-card" style="border: 1px solid rgba(255,255,255,0.08); background: rgba(14, 23, 42, 0.85);">
-                    <div class="scanline-effect"></div>
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <div class="tech-icon-box" style="background: rgba(192, 132, 252, 0.14); color: #c084fc; border: 1px solid rgba(192, 132, 252, 0.28);">
-                            <i class="bi bi-compass-fill fs-4"></i>
+                <div class="g1-bento-corp-card h-100 p-4 position-relative overflow-hidden">
+                    <div class="g1-bento-top-stripe stripe-indigo"></div>
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="g1-bento-icon-pill icon-indigo">
+                            <i class="bi bi-rocket-takeoff-fill"></i>
                         </div>
-                        <span class="server-led" style="background-color: #c084fc;"></span>
+                        <span class="g1-bento-chip chip-blue">B2B Verimlilik</span>
                     </div>
-                    <h4 class="card-title fw-bold mb-3 fs-5 text-white" style="letter-spacing: -0.3px;">Misyonumuz</h4>
-                    <p class="card-text text-light text-opacity-75" style="line-height: 1.7; font-size: 0.92rem;">@Model.Misyonumuz</p>
+                    <h4 class="card-title fw-bold mb-2 fs-5 g1-corp-title">Misyonumuz</h4>
+                    <p class="card-text g1-corp-text mb-4">@Model.Misyonumuz</p>
+                    <div class="mt-auto pt-3 border-top border-light-subtle">
+                        <div class="d-flex justify-content-between small mb-1.5 g1-bento-micro-label">
+                            <span>Süreç Otomasyonu</span>
+                            <span class="fw-bold" style="color: #4f46e5;">2x Hızlanma</span>
+                        </div>
+                        <div class="g1-bento-micro-track">
+                            <div class="g1-bento-micro-fill fill-blue" style="width: 94%;"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- 6. Önceliklerimiz -->
+            <!-- 6. Önceliklerimiz (Google One Coral/Red) -->
             <div class="col-md-6 col-lg-4">
-                <div class="tech-card h-100 p-4 position-relative tech-tilt-card" style="border: 1px solid rgba(255,255,255,0.08); background: rgba(14, 23, 42, 0.85);">
-                    <div class="scanline-effect"></div>
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <div class="tech-icon-box" style="background: rgba(239, 68, 68, 0.12); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.25);">
-                            <i class="bi bi-bullseye fs-4"></i>
+                <div class="g1-bento-corp-card h-100 p-4 position-relative overflow-hidden">
+                    <div class="g1-bento-top-stripe stripe-red"></div>
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="g1-bento-icon-pill icon-red">
+                            <i class="bi bi-shield-lock-fill"></i>
                         </div>
-                        <span class="server-led delay-1" style="background-color: #ef4444;"></span>
+                        <span class="g1-bento-chip chip-red">Sıfır Hata</span>
                     </div>
-                    <h4 class="card-title fw-bold mb-3 fs-5 text-white" style="letter-spacing: -0.3px;">Önceliklerimiz</h4>
-                    <p class="card-text text-light text-opacity-75" style="line-height: 1.7; font-size: 0.92rem;">@Model.Onceliklerimiz</p>
+                    <h4 class="card-title fw-bold mb-2 fs-5 g1-corp-title">Önceliklerimiz</h4>
+                    <p class="card-text g1-corp-text mb-4">@Model.Onceliklerimiz</p>
+                    <div class="mt-auto pt-3 border-top border-light-subtle">
+                        <div class="d-flex justify-content-between small mb-1.5 g1-bento-micro-label">
+                            <span>Kalite ve Güvenlik Seviyesi</span>
+                            <span class="fw-bold text-danger">Tier-3 Güvence</span>
+                        </div>
+                        <div class="g1-bento-micro-track">
+                            <div class="g1-bento-micro-fill fill-red" style="width: 100%;"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -150,94 +211,572 @@
     </div>
 </div>
 
+<style>
+/* ========================================================
+   HAKKIMIZDA GOOGLE ONE BENTO STYLES
+   ======================================================== */
+.g1-bento-corp-card {
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.g1-bento-corp-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 44px rgba(11, 87, 208, 0.08);
+    border-color: rgba(11, 87, 208, 0.28);
+}
+.g1-bento-corp-featured {
+    background: linear-gradient(160deg, #ffffff 0%, #f8faff 60%, #fef9ee 100%);
+    border-color: rgba(11, 87, 208, 0.22);
+}
+.g1-bento-corp-card .g1-bento-top-stripe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+}
+.stripe-indigo { background: linear-gradient(90deg, #4f46e5, #818cf8); }
+.stripe-red { background: linear-gradient(90deg, #ea4335, #f28b82); }
+
+.g1-bento-icon-pill {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+.icon-blue { background: #e8f0fe; color: #0b57d0; border: 1px solid rgba(11, 87, 208, 0.2); }
+.icon-purple { background: #f3e8ff; color: #7c3aed; border: 1px solid rgba(124, 58, 237, 0.2); }
+.icon-emerald { background: #e6f4ea; color: #137333; border: 1px solid rgba(19, 115, 51, 0.2); }
+.icon-gold { background: #fef3c7; color: #b45309; border: 1px solid rgba(217, 119, 6, 0.22); }
+.icon-indigo { background: #e0e7ff; color: #4338ca; border: 1px solid rgba(79, 70, 229, 0.2); }
+.icon-red { background: #fce8e6; color: #c5221f; border: 1px solid rgba(234, 67, 53, 0.22); }
+
+.g1-bento-chip {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.26rem 0.72rem;
+    border-radius: 999px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+.chip-blue { background: #e8f0fe; color: #0b57d0; border: 1px solid rgba(11, 87, 208, 0.2); }
+.chip-purple { background: #f3e8ff; color: #7c3aed; border: 1px solid rgba(124, 58, 237, 0.2); }
+.chip-emerald { background: #e6f4ea; color: #137333; border: 1px solid rgba(19, 115, 51, 0.2); }
+.chip-gold { background: #fef3c7; color: #92400e; border: 1px solid rgba(217, 119, 6, 0.22); }
+.chip-red { background: #fce8e6; color: #c5221f; border: 1px solid rgba(234, 67, 53, 0.22); }
+
+.g1-corp-title {
+    font-family: 'Google Sans', sans-serif;
+    color: #1f1f1f;
+    letter-spacing: -0.3px;
+}
+.g1-corp-text {
+    line-height: 1.72;
+    font-size: 0.92rem;
+    color: #444746;
+}
+
+.g1-bento-micro-label {
+    color: #64748b;
+    font-size: 0.74rem;
+}
+.g1-bento-micro-track {
+    width: 100%;
+    height: 5px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.08);
+    overflow: hidden;
+}
+.g1-bento-micro-fill {
+    height: 100%;
+    border-radius: 999px;
+}
+.g1-bento-micro-fill.fill-blue { background: linear-gradient(90deg, #4285f4, #8ab4f8); }
+.g1-bento-micro-fill.fill-multi { background: linear-gradient(90deg, #4285f4, #9b72cb, #fbbc04); }
+.g1-bento-micro-fill.fill-emerald { background: linear-gradient(90deg, #34a853, #81c995); }
+.g1-bento-micro-fill.fill-gold { background: linear-gradient(90deg, #fbbc04, #f59e0b); }
+.g1-bento-micro-fill.fill-red { background: linear-gradient(90deg, #ea4335, #f28b82); }
+
+/* Koyu Mod Uyumlu */
+html[data-theme="dark"] .g1-bento-corp-card {
+    background: #101522 !important;
+    background-image: linear-gradient(165deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5) !important;
+}
+html[data-theme="dark"] .g1-bento-corp-card:hover {
+    border-color: rgba(138, 180, 248, 0.45) !important;
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.7), 0 0 24px rgba(66, 133, 244, 0.15) !important;
+}
+html[data-theme="dark"] .g1-corp-title {
+    color: #ffffff !important;
+}
+html[data-theme="dark"] .g1-corp-text {
+    color: #cbd5e1 !important;
+}
+html[data-theme="dark"] .g1-bento-micro-label {
+    color: #94a3b8 !important;
+}
+html[data-theme="dark"] .g1-bento-micro-track {
+    background: rgba(255, 255, 255, 0.12) !important;
+}
+html[data-theme="dark"] .chip-blue { background: rgba(66, 133, 244, 0.22) !important; color: #93c5fd !important; border-color: rgba(147, 197, 253, 0.35) !important; }
+html[data-theme="dark"] .chip-purple { background: rgba(124, 58, 237, 0.22) !important; color: #c084fc !important; border-color: rgba(192, 132, 252, 0.35) !important; }
+html[data-theme="dark"] .chip-emerald { background: rgba(52, 168, 83, 0.22) !important; color: #86efac !important; border-color: rgba(134, 239, 172, 0.35) !important; }
+html[data-theme="dark"] .chip-gold { background: rgba(251, 188, 4, 0.2) !important; color: #fde047 !important; border-color: rgba(253, 224, 71, 0.35) !important; }
+html[data-theme="dark"] .chip-red { background: rgba(234, 67, 53, 0.22) !important; color: #fca5a5 !important; border-color: rgba(252, 165, 165, 0.35) !important; }
+</style>
+
+<style>
+/* Apple Light Aesthetic Overrides for Hakkımızda */
+.ref-pulse-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #0b57d0;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 0 0 rgba(11, 87, 208, 0.7);
+    animation: refPulseRing 2s infinite cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+@@keyframes refPulseRing {
+    0% { box-shadow: 0 0 0 0 rgba(11, 87, 208, 0.6); }
+    70% { box-shadow: 0 0 0 10px rgba(11, 87, 208, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(11, 87, 208, 0); }
+}
+
+.tech-grid-bg {
+    background-image: 
+        linear-gradient(to right, rgba(11, 87, 208, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(11, 87, 208, 0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+.tech-divider-stream {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(11, 87, 208, 0.35), rgba(79, 70, 229, 0.45), transparent);
+    background-size: 200% 100%;
+    animation: dataStreamFlow 4s linear infinite;
+}
+
+.tech-card {
+    border-radius: 1.25rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.tech-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(11, 87, 208, 0.3) !important;
+    box-shadow: 0 20px 50px rgba(11, 87, 208, 0.12) !important;
+}
+
+/* 3D Decorative Geometric Accent Shape (top-right corner) via ::before */
+.tech-card::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(11, 87, 208, 0.14) 0%, rgba(79, 70, 229, 0.05) 100%);
+    border: 1px solid rgba(11, 87, 208, 0.15);
+    transform: perspective(500px) rotateX(15deg) rotateY(15deg) rotateZ(25deg);
+    pointer-events: none;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+    opacity: 0.75;
+    z-index: 0;
+}
+
+.tech-card:hover::before {
+    transform: perspective(500px) rotateX(25deg) rotateY(25deg) rotateZ(45deg) scale(1.15);
+    opacity: 1;
+}
+
+/* Subtle decorative 3D-like glow pseudo-element via ::after */
+.tech-card::after {
+    content: '';
+    position: absolute;
+    bottom: -25px;
+    right: 15%;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(11, 87, 208, 0.07) 0%, transparent 70%);
+    pointer-events: none;
+    opacity: 0.6;
+    transition: transform 0.5s ease;
+}
+
+.tech-card:hover::after {
+    transform: scale(1.3);
+}
+
+.tech-card .card-title {
+    color: #1f1f1f !important;
+}
+
+.tech-card .card-text {
+    color: #444746 !important;
+}
+
+.corp-exec-card {
+    border: 1px solid #e0e2ec;
+    background: #ffffff;
+    border-radius: 28px;
+}
+
+.corp-arch-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1.05rem;
+    border-radius: 18px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.arch-theme-blue {
+    background: linear-gradient(135deg, #f0f6ff 0%, #e4eeff 100%);
+    border-color: rgba(11, 87, 208, 0.22);
+    --arch-accent: #0b57d0;
+}
+
+.arch-theme-purple {
+    background: linear-gradient(135deg, #f8f2ff 0%, #efe3fe 100%);
+    border-color: rgba(118, 39, 187, 0.22);
+    --arch-accent: #7627bb;
+}
+
+.arch-theme-green {
+    background: linear-gradient(135deg, #eefaf2 0%, #dff3e6 100%);
+    border-color: rgba(19, 115, 51, 0.22);
+    --arch-accent: #137333;
+}
+
+.arch-theme-amber {
+    background: linear-gradient(135deg, #fffbeb 0%, #fef0c7 100%);
+    border-color: rgba(176, 96, 0, 0.22);
+    --arch-accent: #b06000;
+}
+
+.arch-theme-indigo {
+    background: linear-gradient(135deg, #f0f4ff 0%, #e0eaff 100%);
+    border-color: rgba(26, 115, 232, 0.22);
+    --arch-accent: #1a73e8;
+}
+
+.arch-theme-red {
+    background: linear-gradient(135deg, #fff1f0 0%, #fde2e0 100%);
+    border-color: rgba(197, 34, 31, 0.22);
+    --arch-accent: #c5221f;
+}
+
+.corp-arch-index {
+    font-family: 'Google Sans', sans-serif;
+    font-size: 1.55rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--arch-accent, #0b57d0);
+    padding-right: 0.75rem;
+    border-right: 2px solid rgba(15, 23, 42, 0.1);
+}
+
+.corp-arch-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.corp-arch-code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #334155;
+}
+
+.corp-arch-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 10px;
+}
+
+.corp-arch-bars span {
+    width: 10px;
+    height: 4px;
+    border-radius: 99px;
+    background: var(--arch-accent, #0b57d0);
+    opacity: 0.35;
+    transition: all 0.3s ease;
+}
+
+.corp-arch-bars span:nth-child(1) { height: 6px; opacity: 0.9; }
+.corp-arch-bars span:nth-child(2) { height: 9px; opacity: 0.75; }
+.corp-arch-bars span:nth-child(3) { height: 5px; opacity: 0.55; }
+.corp-arch-bars span:nth-child(4) { height: 10px; opacity: 0.95; }
+
+.tech-card:hover .corp-arch-bars span:nth-child(1) { height: 10px; opacity: 1; }
+.tech-card:hover .corp-arch-bars span:nth-child(2) { height: 5px; opacity: 0.85; }
+.tech-card:hover .corp-arch-bars span:nth-child(3) { height: 9px; opacity: 1; }
+.tech-card:hover .corp-arch-bars span:nth-child(4) { height: 7px; opacity: 0.9; }
+
+.g1-mini-chip {
+    font-family: 'Google Sans', sans-serif;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 0.24rem 0.62rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+}
+
+.chip-blue { background: #ffffff; color: #0b57d0; border: 1px solid rgba(11, 87, 208, 0.22); }
+.chip-purple { background: #ffffff; color: #7627bb; border: 1px solid rgba(155, 114, 203, 0.25); }
+.chip-green { background: #ffffff; color: #137333; border: 1px solid rgba(19, 115, 51, 0.22); }
+.chip-amber { background: #ffffff; color: #b06000; border: 1px solid rgba(176, 96, 0, 0.25); }
+.chip-red { background: #ffffff; color: #c5221f; border: 1px solid rgba(197, 34, 31, 0.22); }
+
+html[data-theme="dark"] .corp-arch-header {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.92) 100%) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+html[data-theme="dark"] .corp-arch-index {
+    color: #93c5fd !important;
+    border-right-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+html[data-theme="dark"] .corp-arch-code {
+    color: #cbd5e1 !important;
+}
+
+html[data-theme="dark"] .corp-arch-bars span {
+    background: #60a5fa !important;
+}
+
+html[data-theme="dark"] .g1-mini-chip {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #e3e3e3 !important;
+    border-color: rgba(255, 255, 255, 0.14) !important;
+}
+</style>
+
 @section Scripts {
 <script>
 (function () {
-    const canvas = document.getElementById('hakkimizdaCanvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+    // 1. HAKKIMIZDA BÜTÜNLEŞİK 3D WEBGL ARKA PLAN MOTORU
+    const canvas = document.getElementById('hakkimizdaHeroCanvas');
     const banner = document.getElementById('hakkimizdaHeroBanner');
-    function resize() { canvas.width = banner.offsetWidth; canvas.height = banner.offsetHeight; }
-    resize();
-    window.addEventListener('resize', resize);
+    if (!canvas || !banner || typeof THREE === 'undefined') return;
 
-    const mouse = { x: null, y: null, radius: 150 };
-    banner.addEventListener('mousemove', function(e) {
-        const rect = banner.getBoundingClientRect();
-        mouse.x = e.clientX - rect.left;
-        mouse.y = e.clientY - rect.top;
+    const isMobile = window.innerWidth < 768;
+
+    // Sahne, Kamera ve Saydam Renderer
+    const scene = new THREE.Scene();
+    scene.background = null;
+
+    const camera = new THREE.PerspectiveCamera(50, banner.offsetWidth / banner.offsetHeight, 0.1, 100);
+    camera.position.set(0, 0, 9);
+
+    const renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+        alpha: true,
+        antialias: !isMobile,
+        powerPreference: 'high-performance'
     });
-    banner.addEventListener('mouseleave', function() {
-        mouse.x = null;
-        mouse.y = null;
+    renderer.setClearColor(0x000000, 0);
+    renderer.setSize(banner.offsetWidth, banner.offsetHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.25 : 2));
+
+    // Işıklandırma
+    const ambientLight = new THREE.AmbientLight(0xffffff, 2.4);
+    scene.add(ambientLight);
+
+    const pointLight1 = new THREE.PointLight(0x0071e3, 3.2, 30);
+    pointLight1.position.set(6, 6, 6);
+    scene.add(pointLight1);
+
+    const pointLight2 = new THREE.PointLight(0x4f46e5, 2.5, 30);
+    pointLight2.position.set(-6, -4, 5);
+    scene.add(pointLight2);
+
+    // 3D Hareketli Anıt Grubu (Arka Planda Süzülen Kristal & Giroskop)
+    const monument = new THREE.Group();
+    // Sağ tarafa ve geriye doğru zarif bir biçimde konumlandır
+    monument.position.set(isMobile ? 0 : 2.2, 0, -0.5);
+    scene.add(monument);
+
+    // Dış Saydam İkozahedron Kristal
+    const icosaGeo = new THREE.IcosahedronGeometry(2.4, 0);
+    const icosaMat = new THREE.MeshStandardMaterial({
+        color: 0x0071e3,
+        roughness: 0.2,
+        metalness: 0.15,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.35
     });
+    const icosaMesh = new THREE.Mesh(icosaGeo, icosaMat);
+    monument.add(icosaMesh);
 
-    const COUNT = 70, DIST = 135;
-    const clrs = ['#38bdf8','#818cf8','#c084fc','#67e8f9'];
-    const pts = Array.from({ length: COUNT }, () => ({
-        x: Math.random() * canvas.width, y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.55, vy: (Math.random() - 0.5) * 0.55,
-        r: Math.random() * 2.2 + 1, c: clrs[Math.floor(Math.random() * clrs.length)]
-    }));
+    // İç Çekirdek (Octahedron Prizma)
+    const coreGeo = new THREE.OctahedronGeometry(1.25, 0);
+    const coreMat = new THREE.MeshStandardMaterial({
+        color: 0x38bdf8,
+        emissive: 0x0071e3,
+        emissiveIntensity: 0.4,
+        roughness: 0.2,
+        metalness: 0.3,
+        transparent: true,
+        opacity: 0.75
+    });
+    const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+    monument.add(coreMesh);
 
-    function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        for (let i = 0; i < pts.length; i++) {
-            for (let j = i + 1; j < pts.length; j++) {
-                const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
-                const d = Math.sqrt(dx*dx + dy*dy);
-                if (d < DIST) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = `rgba(56,189,248,${(1-d/DIST)*0.35})`;
-                    ctx.lineWidth = 0.8;
-                    ctx.moveTo(pts[i].x, pts[i].y);
-                    ctx.lineTo(pts[j].x, pts[j].y);
-                    ctx.stroke();
-                }
-            }
+    // Giroskopik Yörünge Halkaları
+    const ringGroup = new THREE.Group();
+    monument.add(ringGroup);
 
-            if (mouse.x !== null && mouse.y !== null) {
-                const mdx = pts[i].x - mouse.x;
-                const mdy = pts[i].y - mouse.y;
-                const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
-                if (mdist < mouse.radius) {
-                    const mAlpha = (1 - mdist / mouse.radius) * 0.45;
-                    ctx.beginPath();
-                    ctx.strokeStyle = `rgba(129, 140, 248, ${mAlpha})`;
-                    ctx.lineWidth = 1;
-                    ctx.moveTo(pts[i].x, pts[i].y);
-                    ctx.lineTo(mouse.x, mouse.y);
-                    ctx.stroke();
-                }
-            }
-        }
-        for (const p of pts) {
-            ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-            ctx.fillStyle = p.c; ctx.shadowBlur = 8; ctx.shadowColor = p.c;
-            ctx.fill(); ctx.shadowBlur = 0;
-            p.x += p.vx; p.y += p.vy;
-            if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-        }
-        requestAnimationFrame(draw);
+    const ring1Geo = new THREE.TorusGeometry(3.3, 0.03, 8, isMobile ? 32 : 64);
+    const ring1Mat = new THREE.MeshBasicMaterial({ color: 0x0071e3, transparent: true, opacity: 0.55 });
+    const ring1 = new THREE.Mesh(ring1Geo, ring1Mat);
+    ring1.rotation.x = Math.PI * 0.35;
+    ringGroup.add(ring1);
+
+    const ring2Geo = new THREE.TorusGeometry(3.6, 0.025, 8, isMobile ? 32 : 64);
+    const ring2Mat = new THREE.MeshBasicMaterial({ color: 0x6366f1, transparent: true, opacity: 0.45 });
+    const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
+    ring2.rotation.y = Math.PI * 0.42;
+    ringGroup.add(ring2);
+
+    // Yörüngede Dönen Uydu Veri Noktaları
+    const satCount = isMobile ? 6 : 14;
+    const satGeo = new THREE.SphereGeometry(0.12, 12, 12);
+    const satMat = new THREE.MeshBasicMaterial({ color: 0x0284c7 });
+    const sats = [];
+    for (let i = 0; i < satCount; i++) {
+        const s = new THREE.Mesh(satGeo, satMat);
+        monument.add(s);
+        sats.push({
+            mesh: s,
+            angle: (i / satCount) * Math.PI * 2,
+            radius: 3.0 + (i % 2) * 0.65,
+            speed: 0.55 + (i % 3) * 0.2
+        });
     }
-    draw();
 
-    // 3D Tilt
-    const tiltCards = document.querySelectorAll('.tech-tilt-card');
-    tiltCards.forEach(card => {
-        card.addEventListener('mouseenter', () => { card.style.transition = 'none'; });
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = (e.clientX - rect.left) / rect.width - 0.5;
-            const y = (e.clientY - rect.top) / rect.height - 0.5;
-            card.style.transform = `perspective(1000px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg) translateY(-6px)`;
-        });
-        card.addEventListener('mouseleave', () => {
-            card.style.transition = 'transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease';
-            card.style.transform = '';
-        });
+    // Arka Planda Süzülen Hafif Parçacık Tozu
+    const pCount = isMobile ? 40 : 90;
+    const pGeo = new THREE.BufferGeometry();
+    const pPos = new Float32Array(pCount * 3);
+    for (let i = 0; i < pCount * 3; i += 3) {
+        pPos[i] = (Math.random() - 0.5) * 18;
+        pPos[i + 1] = (Math.random() - 0.5) * 10;
+        pPos[i + 2] = (Math.random() - 0.5) * 6;
+    }
+    pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+    const pMat = new THREE.PointsMaterial({
+        size: 0.08,
+        color: 0x0071e3,
+        transparent: true,
+        opacity: 0.4
     });
+    const particles = new THREE.Points(pGeo, pMat);
+    scene.add(particles);
+
+    // Fare Etkileşimi
+    let mouseX = 0, mouseY = 0;
+    let targetRotX = 0, targetRotY = 0;
+
+    banner.addEventListener('mousemove', (e) => {
+        const rect = banner.getBoundingClientRect();
+        mouseX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        mouseY = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+    });
+
+    banner.addEventListener('mouseleave', () => {
+        mouseX = 0;
+        mouseY = 0;
+    });
+
+    function onResize() {
+        if (!banner || !canvas) return;
+        const w = banner.offsetWidth;
+        const h = banner.offsetHeight || 460;
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.25 : 2));
+    }
+    window.addEventListener('resize', onResize, { passive: true });
+    onResize();
+
+    // 60 FPS Canlı Render Döngüsü
+    const clock = new THREE.Clock();
+    function render() {
+        requestAnimationFrame(render);
+        if (document.hidden) return;
+
+        const delta = Math.min(clock.getDelta(), 0.1);
+        const t = clock.getElapsedTime();
+
+        targetRotY += mouseX * 0.025;
+        targetRotX += -mouseY * 0.025;
+
+        monument.rotation.y += (targetRotY - monument.rotation.y) * 0.07 + delta * 0.22;
+        monument.rotation.x += (targetRotX - monument.rotation.x) * 0.07 + Math.sin(t * 0.5) * 0.002;
+
+        ring1.rotation.z += delta * 0.45;
+        ring2.rotation.z -= delta * 0.38;
+        coreMesh.rotation.x = -t * 0.45;
+        coreMesh.rotation.y = t * 0.65;
+
+        sats.forEach(s => {
+            s.angle += s.speed * delta;
+            s.mesh.position.x = Math.cos(s.angle) * s.radius;
+            s.mesh.position.z = Math.sin(s.angle) * s.radius;
+            s.mesh.position.y = Math.sin(s.angle * 2) * 0.45;
+        });
+
+        particles.rotation.y = t * 0.03;
+
+        renderer.render(scene, camera);
+    }
+    render();
+
+    // 2. 3D Kart Tilt & Manyetik Efekt (Yalnızca Masaüstü Hassas İşaretçi - Mobilde Netliği Korumak İçin Devre Dışı)
+    if (window.matchMedia('(pointer: fine)').matches && window.innerWidth >= 992) {
+        const tiltCards = document.querySelectorAll('.tech-tilt-card');
+        tiltCards.forEach(card => {
+            card.addEventListener('mouseenter', () => { card.style.transition = 'none'; });
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                card.style.transform = `perspective(1000px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg) translateY(-6px)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transition = 'transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease';
+                card.style.transform = '';
+            });
+        });
+    }
 })();
 </script>
-}
+}

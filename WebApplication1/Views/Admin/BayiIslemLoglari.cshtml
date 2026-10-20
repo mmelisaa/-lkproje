@@ -1,0 +1,234 @@
+@model List<WebApplication1.Models.Siniflar.DenetimKaydi>
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Bayi Giriş & İşlem Denetim İzi";
+    var girisLoglari = ViewBag.GirisLoglari as List<WebApplication1.Models.Siniflar.AdminGirisLog> ?? new();
+    var bayiKullanicilari = ViewBag.BayiKullanicilari as HashSet<string> ?? new();
+    var seciliKullanici = ViewBag.FiltreKullanici as string ?? "";
+    var seciliEylem = ViewBag.FiltreEylem as string ?? "";
+    var seciliQ = ViewBag.FiltreQ as string ?? "";
+}
+
+<div class="container-fluid px-0">
+    <!-- Üst Başlık & Açıklama -->
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
+        <div>
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge rounded-pill px-3 py-1.5" style="background: rgba(14, 165, 233, 0.12); color: #0284c7; font-weight: 700; border: 1px solid rgba(14, 165, 233, 0.25);">
+                    <i class="bi bi-cpu-fill me-1"></i> B2B Güvenlik &amp; Denetim İzleme
+                </span>
+                <span class="badge bg-secondary bg-opacity-10 text-secondary border rounded-pill px-2.5 py-1">24/7 Canlı Takip</span>
+            </div>
+            <h2 class="fw-bold mb-1" style="color: var(--adm-text-main); letter-spacing: -0.5px;">Bayi Giriş &amp; İşlem Denetim Logları</h2>
+            <p class="text-secondary small mb-0">
+                Bayilerin portala hangi saatte, hangi bilgisayar/cihaz üzerinden bağlandığını ve yaptıkları tüm işlemleri (RMA, Ödeme, Lisans, Alt Kullanıcı, Eşleştirme) anlık olarak izleyin.
+            </p>
+        </div>
+        <div class="d-flex gap-2">
+            <a asp-controller="Admin" asp-action="BayiPortallari" class="btn btn-primary btn-sm rounded-pill px-3.5 py-2 fw-semibold" style="background: #0b57d0; border: none;">
+                <i class="bi bi-shield-lock-fill me-1"></i> Portal Yetki Yönetimi
+            </a>
+        </div>
+    </div>
+
+    <!-- Filtreleme Çubuğu -->
+    <div class="p-3.5 rounded-4 shadow-sm mb-4" style="background: var(--adm-card-bg); border: 1px solid var(--adm-card-border);">
+        <form asp-controller="Admin" asp-action="BayiIslemLoglari" method="get" class="row g-2 align-items-center">
+            <div class="col-md-4 col-sm-12">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text bg-transparent border-end-0 text-secondary"><i class="bi bi-search"></i></span>
+                    <input type="text" name="q" value="@seciliQ" class="form-control border-start-0" placeholder="İşlem detayı, seri no, cari kod ara..." />
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <select name="kullanici" class="form-select form-select-sm">
+                    <option value="">Tüm Bayi Kullanıcıları</option>
+                    @foreach (var k in bayiKullanicilari)
+                    {
+                        <option value="@k" selected="@(seciliKullanici == k)">@k</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <select name="eylem" class="form-select form-select-sm">
+                    <option value="">Tüm İşlem Türleri</option>
+                    <option value="RMATalebiAcma" selected="@(seciliEylem == "RMATalebiAcma")">RMA Teknik Servis</option>
+                    <option value="B2BOnlineOdeme" selected="@(seciliEylem == "B2BOnlineOdeme")">B2B Sanal POS Ödeme</option>
+                    <option value="AltKullaniciEkleme" selected="@(seciliEylem == "AltKullaniciEkleme")">Alt Kullanıcı Ekleme</option>
+                    <option value="FirsatProjeKaydi" selected="@(seciliEylem == "FirsatProjeKaydi")">Fırsat / Proje Kaydı</option>
+                    <option value="DemoCihazTalebi" selected="@(seciliEylem == "DemoCihazTalebi")">Demo Cihaz Talebi</option>
+                    <option value="YazilimDestekTicket" selected="@(seciliEylem == "YazilimDestekTicket")">Yazılım Destek (Ticket)</option>
+                    <option value="AltMusteriLisansAtama" selected="@(seciliEylem == "AltMusteriLisansAtama")">Alt Müşteri Lisansı</option>
+                    <option value="CihazYazilimSenkronizasyon" selected="@(seciliEylem == "CihazYazilimSenkronizasyon")">Cihaz - Yazılım Eşleştirme</option>
+                    <option value="MdfPazarlamaFonuTalebi" selected="@(seciliEylem == "MdfPazarlamaFonuTalebi")">MDF Pazarlama Fonu</option>
+                    <option value="EskiCihazGeriAlim" selected="@(seciliEylem == "EskiCihazGeriAlim")">Eski Cihaz Değişim</option>
+                    <option value="BayiPortalYetkiAtama" selected="@(seciliEylem == "BayiPortalYetkiAtama")">Portal Yetki Ataması</option>
+                </select>
+            </div>
+            <div class="col-md-2 col-sm-12 d-flex gap-2">
+                <button type="submit" class="btn btn-sm btn-primary rounded-pill px-3 py-1.5 fw-bold flex-grow-1" style="background: #0b57d0; border: none;">
+                    Filtrele
+                </button>
+                <a asp-controller="Admin" asp-action="BayiIslemLoglari" class="btn btn-sm btn-outline-secondary rounded-pill px-2.5 py-1.5" title="Sıfırla">
+                    <i class="bi bi-arrow-counterclockwise"></i>
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Sekmeler: 1. İşlem Denetim İzi & 2. Giriş Logları -->
+    <ul class="nav nav-pills mb-3 gap-2" id="logPillsTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active rounded-pill px-3.5 py-2 fw-bold" id="pills-islemler-tab" data-bs-toggle="pill" data-bs-target="#pills-islemler" type="button" role="tab" style="font-size: 0.88rem;">
+                <i class="bi bi-list-check me-1"></i> Bayi İşlem &amp; Değişiklik İzi (@Model.Count)
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link rounded-pill px-3.5 py-2 fw-bold" id="pills-girisler-tab" data-bs-toggle="pill" data-bs-target="#pills-girisler" type="button" role="tab" style="font-size: 0.88rem;">
+                <i class="bi bi-shield-check me-1"></i> Bayi Giriş &amp; Oturum Logları (@girisLoglari.Count)
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="logPillsTabContent">
+        <!-- 1. İŞLEM DENETİM İZİ TABLOSU -->
+        <div class="tab-pane fade show active" id="pills-islemler" role="tabpanel">
+            <div class="p-4 rounded-4 shadow-sm" style="background: var(--adm-card-bg); border: 1px solid var(--adm-card-border);">
+                <div class="table-responsive">
+                    <table class="table align-middle mb-0">
+                        <thead>
+                            <tr class="small text-uppercase text-secondary border-bottom">
+                                <th>İşlem Zamanı (Saat)</th>
+                                <th>Bayi / Kullanıcı</th>
+                                <th>Bağlandığı Bilgisayar &amp; IP</th>
+                                <th>İşlem Türü</th>
+                                <th>Ne Değişti / Detay</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Count == 0)
+                            {
+                                <tr>
+                                    <td colspan="5" class="text-center py-4 text-muted">
+                                        Filtre kriterlerinize uyan bayi işlem kaydı bulunamadı.
+                                    </td>
+                                </tr>
+                            }
+                            @foreach (var log in Model)
+                            {
+                                <tr>
+                                    <td style="white-space: nowrap;">
+                                        <div class="fw-bold" style="color: var(--adm-text-main); font-size: 0.85rem;">
+                                            <i class="bi bi-clock me-1 text-primary"></i>@log.Zaman.ToString("dd.MM.yyyy HH:mm:ss")
+                                        </div>
+                                        <small class="text-secondary">@((DateTime.Now - log.Zaman).TotalHours < 24 ? $"{(int)(DateTime.Now - log.Zaman).TotalMinutes} dk önce" : "")</small>
+                                    </td>
+                                    <td>
+                                        <strong style="color: var(--adm-text-main); font-size: 0.9rem;">@log.KullaniciAdi</strong>
+                                        <div class="small text-secondary">Rol: @(string.IsNullOrEmpty(log.Rol) ? "Bayi" : log.Rol)</div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-1.5">
+                                            <i class="bi bi-display text-info"></i>
+                                            <span class="fw-semibold small" style="color: var(--adm-text-main);">
+                                                @(string.IsNullOrEmpty(log.BilgisayarCihaz) ? "Windows PC (Web Tarayıcı)" : log.BilgisayarCihaz)
+                                            </span>
+                                        </div>
+                                        <div class="small font-monospace text-muted">IP: @log.IpAdresi</div>
+                                    </td>
+                                    <td>
+                                        <span class="badge rounded-pill px-2.5 py-1" style="background: rgba(11, 87, 208, 0.12); color: #0b57d0; font-weight: 700; border: 1px solid rgba(11, 87, 208, 0.2);">
+                                            @log.Eylem
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div style="font-size: 0.85rem; color: var(--adm-text-main); max-width: 420px; line-height: 1.45;">
+                                            @log.Ozet
+                                        </div>
+                                        @if (!string.IsNullOrEmpty(log.YeniDeger))
+                                        {
+                                            <div class="small mt-1 font-monospace text-success" style="font-size: 0.72rem;">
+                                                <i class="bi bi-arrow-right-circle me-1"></i>@log.YeniDeger
+                                            </div>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. GİRİŞ LOGLARI TABLOSU -->
+        <div class="tab-pane fade" id="pills-girisler" role="tabpanel">
+            <div class="p-4 rounded-4 shadow-sm" style="background: var(--adm-card-bg); border: 1px solid var(--adm-card-border);">
+                <div class="table-responsive">
+                    <table class="table align-middle mb-0">
+                        <thead>
+                            <tr class="small text-uppercase text-secondary border-bottom">
+                                <th>Giriş Saati &amp; Tarih</th>
+                                <th>Giriş Yapan Bayi</th>
+                                <th>Bilgisayar / İşletim Sistemi</th>
+                                <th>Tarayıcı &amp; Cihaz Detayı</th>
+                                <th>IP Adresi</th>
+                                <th class="text-end">Durum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (girisLoglari.Count == 0)
+                            {
+                                <tr>
+                                    <td colspan="6" class="text-center py-4 text-muted">
+                                        Henüz kaydedilmiş bayi giriş logu bulunmuyor.
+                                    </td>
+                                </tr>
+                            }
+                            @foreach (var g in girisLoglari)
+                            {
+                                <tr>
+                                    <td style="white-space: nowrap;">
+                                        <div class="fw-bold" style="color: var(--adm-text-main); font-size: 0.85rem;">
+                                            <i class="bi bi-calendar3 me-1 text-primary"></i>@g.GirisTarihi.ToString("dd.MM.yyyy HH:mm:ss")
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <strong style="color: var(--adm-text-main);">@g.KullaniciAdi</strong>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-1.5">
+                                            <i class="bi bi-laptop text-primary"></i>
+                                            <span class="small fw-semibold">@(string.IsNullOrEmpty(g.IsletimSistemi) ? "Windows 10/11" : g.IsletimSistemi)</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="small text-secondary">
+                                            <i class="bi bi-browser-chrome me-1"></i>@(string.IsNullOrEmpty(g.Tarayici) ? "Google Chrome" : g.Tarayici)
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="font-monospace small text-muted">@g.IpAdresi</span>
+                                    </td>
+                                    <td class="text-end">
+                                        @if (g.BasariliMi)
+                                        {
+                                            <span class="badge rounded-pill px-3 py-1 bg-success bg-opacity-10 text-success border border-success border-opacity-25 fw-bold">
+                                                <i class="bi bi-check-circle-fill me-1"></i> Başarılı Oturum
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge rounded-pill px-3 py-1 bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25 fw-bold">
+                                                <i class="bi bi-x-circle-fill me-1"></i> Başarısız Giriş
+                                            </span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

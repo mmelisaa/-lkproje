@@ -15,12 +15,12 @@ html {
 html {
   position: relative;
   min-height: 100%;
-  background-color: #050c1a;
+  background-color: #ffffff;
 }
 
 html, body {
-  background-color: #050c1a;
-  color: #f1f5f9;
+  background-color: #ffffff;
+  color: #1f1f1f;
   overflow-x: hidden;
 }
 
@@ -49,8 +49,6 @@ body {
 
 .hero-badge {
   background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
@@ -78,8 +76,6 @@ body {
 
 .hero-glass-card {
   background: rgba(18, 24, 38, 0.82);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
@@ -105,18 +101,16 @@ body {
 }
 
 .hero-btn-secondary {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: #1f1f1f;
   transition: all 0.3s ease;
 }
 
 .hero-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.4);
-  color: #fff;
+  background: rgba(11, 87, 208, 0.1);
+  border-color: #0b57d0;
+  color: #0b57d0;
   transform: translateY(-2px);
 }
 
@@ -174,18 +168,16 @@ body {
 }
 
 .ambient-orb-1 {
-  animation: floatOrb1 12s ease-in-out infinite;
+  animation: none;
 }
 
 .ambient-orb-2 {
-  animation: floatOrb2 15s ease-in-out infinite;
+  animation: none;
 }
 
 /* Tech Glassmorphic Cards */
 .tech-card {
   background: var(--tech-card-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 1.25rem;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -233,7 +225,6 @@ body {
   inset: -2px;
   border-radius: 1.1rem;
   background: inherit;
-  filter: blur(12px);
   opacity: 0.4;
   z-index: -1;
   transition: opacity 0.3s ease;
@@ -342,4 +333,4242 @@ body {
   transform: scale(1.08);
 }
 
-
+/* ============================================================
+   LUSION STUDIO & APPLE LIGHT AESTHETIC DESIGN SYSTEM
+   (AÃ§Ä±k, Ferah, Apple & Lusion TarzÄ± Uyumlu Renkler)
+   ============================================================ */
+
+:root {
+  --lusion-light-bg: #ffffff;
+  --lusion-light-surface: #ffffff;
+  --lusion-light-gray: #f5f5f7;
+  --lusion-text-primary: #1f1f1f;
+  --lusion-text-secondary: #444746;
+  --lusion-text-muted: #747775;
+  --lusion-accent-blue: #0b57d0;
+  --lusion-accent-cyan: #0284c7;
+  --lusion-accent-indigo: #4f46e5;
+  --lusion-accent-emerald: #10b981;
+  --lusion-border-subtle: rgba(0, 0, 0, 0.08);
+}
+
+/* 1. LUSION APPLE-LIGHT STUDIO HEADER */
+.lusion-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 74px;
+  background: rgba(251, 251, 253, 0.96);
+  border-bottom: 1px solid var(--lusion-border-subtle);
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.03);
+  z-index: 1040;
+  transition: all 0.3s ease;
+}
+
+.lusion-header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+
+.lusion-logo {
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: 1.2px;
+  color: var(--lusion-text-primary) !important;
+  text-decoration: none;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: opacity 0.25s ease;
+}
+
+.lusion-logo:hover {
+  opacity: 0.75;
+}
+
+.lusion-logo-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--lusion-accent-blue);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(11, 87, 208, 0.6);
+  display: inline-block;
+}
+
+.lusion-header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* KÃ¼Ã§Ã¼k Yuvarlak Admin PortalÄ± Butonu */
+.lusion-admin-circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--lusion-border-subtle);
+  color: var(--lusion-text-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.lusion-admin-circle:hover {
+  background: rgba(11, 87, 208, 0.08);
+  border-color: var(--lusion-accent-blue);
+  color: var(--lusion-accent-blue);
+  transform: scale(1.06);
+}
+
+.lusion-admin-pulse {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 7px;
+  height: 7px;
+  background-color: var(--lusion-accent-emerald);
+  border-radius: 50%;
+  box-shadow: 0 0 6px var(--lusion-accent-emerald);
+}
+
+/* Apple TarzÄ± "Teklif AlÄ±n" Pill Butonu */
+.lusion-btn-talk {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.55rem 1.35rem;
+  border-radius: 9999px;
+  background: var(--lusion-accent-blue);
+  color: #ffffff !important;
+  font-weight: 600;
+  font-size: 0.88rem;
+  letter-spacing: 0.2px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(11, 87, 208, 0.25);
+}
+
+.lusion-btn-talk:hover {
+  background: #0842a0;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(11, 87, 208, 0.35);
+}
+
+.lusion-btn-talk-arrow {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  transition: transform 0.25s ease;
+}
+
+.lusion-btn-talk:hover .lusion-btn-talk-arrow {
+  transform: translate(2px, -2px);
+}
+
+/* Lusion Apple Light "Menu" Pill Butonu */
+.lusion-btn-menu {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 1.25rem;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--lusion-border-subtle);
+  color: var(--lusion-text-primary);
+  font-weight: 600;
+  font-size: 0.88rem;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.lusion-btn-menu:hover {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.lusion-menu-dots {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.lusion-menu-dot {
+  width: 5px;
+  height: 5px;
+  background: var(--lusion-text-primary);
+  border-radius: 50%;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.lusion-btn-menu:hover .lusion-menu-dot {
+  background: var(--lusion-accent-blue);
+}
+
+/* 2. LUSION AÇIK TEMA SAĞ ÇEKMECE MENÜSÜ */
+.lusion-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 10040 !important;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.lusion-menu-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lusion-menu-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  max-width: 480px;
+  height: 100vh;
+  height: 100dvh;
+  background: rgba(255, 255, 255, 0.98);
+  border-left: 1px solid var(--lusion-border-subtle);
+  z-index: 10050 !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2.25rem 2.75rem 2.5rem 2.75rem;
+  transform: translateX(100%);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+  box-shadow: -20px 0 50px rgba(0, 0, 0, 0.08);
+}
+
+.lusion-menu-drawer.open {
+  transform: translateX(0);
+}
+
+.lusion-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--lusion-border-subtle);
+}
+
+.lusion-drawer-close-btn {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--lusion-border-subtle);
+  color: var(--lusion-text-primary);
+  padding: 0.45rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: all 0.25s ease;
+}
+
+.lusion-drawer-close-btn:hover {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.35);
+  color: #dc2626;
+}
+
+.lusion-drawer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 2rem 0;
+}
+
+.lusion-drawer-link {
+  color: var(--lusion-text-primary);
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  padding: 0.45rem 0;
+  transition: all 0.25s ease;
+}
+
+.lusion-drawer-link:hover {
+  color: var(--lusion-accent-blue);
+  transform: translateX(8px);
+}
+
+.lusion-drawer-num {
+  font-size: 0.78rem;
+  font-family: monospace;
+  color: var(--lusion-accent-blue);
+  font-weight: 600;
+}
+
+.lusion-drawer-footer {
+  padding-top: 2rem;
+  padding-bottom: 1.25rem;
+  border-top: 1px solid var(--lusion-border-subtle);
+  flex-shrink: 0;
+}
+
+/* 3. HERO & TYPOGRAPHY */
+.lusion-display-title {
+  font-size: clamp(2.4rem, 6.5vw, 5.2rem);
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 1.05;
+  color: var(--lusion-text-primary);
+}
+
+.lusion-hero-gradient {
+  background: linear-gradient(135deg, #1f1f1f 0%, #0b57d0 50%, #4f46e5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* ğŸŒŸ STARK DEFENCE TYPEWRITER & CHARACTER REVEAL */
+.stark-display-title {
+  font-family: 'Google Sans', system-ui, sans-serif !important;
+  font-size: clamp(2.1rem, 4.2vw, 3.6rem) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.025em !important;
+  line-height: 1.14 !important;
+  color: var(--lusion-text-primary);
+  display: block;
+}
+
+.hero-intro-text {
+  font-family: 'Google Sans Text', 'Google Sans', sans-serif;
+  color: #444746;
+  font-size: 1.125rem;
+  line-height: 1.65;
+  max-width: 660px;
+  margin-top: 0.5rem;
+  font-weight: 400;
+}
+
+/* 🌟 HERO PREMİUM ACTION BUTTONS */
+.hero-action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.hero-btn-quote {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 26px 12px 14px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #0b57d0 0%, #005ec4 50%, #1e40af 100%);
+  color: #ffffff !important;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: -0.2px;
+  box-shadow: 0 10px 24px -4px rgba(11, 87, 208, 0.42), 0 2px 6px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  text-decoration: none !important;
+}
+
+.hero-btn-quote::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transition: left 0.6s ease;
+}
+
+.hero-btn-quote:hover::before {
+  left: 100%;
+}
+
+.hero-btn-quote:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 16px 32px -4px rgba(11, 87, 208, 0.55), 0 4px 12px rgba(0, 0, 0, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  color: #ffffff !important;
+}
+
+.hero-btn-quote .hero-btn-icon-wrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fbbf24;
+  font-size: 1.15rem;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hero-btn-quote:hover .hero-btn-icon-wrap {
+  transform: rotate(15deg) scale(1.12);
+}
+
+.hero-btn-quote .hero-btn-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  line-height: 1;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hero-btn-quote:hover .hero-btn-arrow {
+  transform: translateX(5px);
+}
+
+.hero-btn-about {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px 12px 14px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  color: #1f1f1f !important;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: -0.2px;
+  border: 1px solid rgba(11, 87, 208, 0.22);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05), inset 0 1px 1px #ffffff;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  text-decoration: none !important;
+}
+
+.hero-btn-about:hover {
+  transform: translateY(-3px) scale(1.02);
+  background: #ffffff;
+  border-color: rgba(11, 87, 208, 0.45);
+  box-shadow: 0 14px 28px rgba(11, 87, 208, 0.16), inset 0 1px 1px #ffffff;
+  color: #0b57d0 !important;
+}
+
+.hero-btn-about .hero-btn-icon-wrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(11, 87, 208, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0b57d0;
+  font-size: 1.1rem;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease;
+}
+
+.hero-btn-about:hover .hero-btn-icon-wrap {
+  background: rgba(11, 87, 208, 0.15);
+  transform: scale(1.1);
+}
+
+.hero-btn-about .hero-btn-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease;
+}
+
+.hero-btn-about:hover .hero-btn-arrow {
+  color: #0b57d0;
+  transform: translateX(4px);
+}
+
+.stark-line {
+  display: block;
+  white-space: normal;
+}
+
+.stark-char {
+  display: inline-block;
+  opacity: 0;
+  color: #94a3b8;
+  transform: translateX(-14px);
+  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, color, transform;
+}
+
+.stark-char.revealed {
+  opacity: 1;
+  color: #1f1f1f;
+  transform: translateX(0);
+}
+
+/* Koyu Modda 'DİJİTAL DÜNYAYI': Zarif platin-inci beyazı ve ince derinlik ışıltısı (Açık moda dokunulmaz) */
+html[data-theme="dark"] .stark-line-1,
+html[data-theme="dark"] .stark-line-1 .stark-char,
+html[data-theme="dark"] .stark-line-1 .stark-char.revealed,
+html[data-theme="dark"] #starkTypewriterHeading .stark-line-1,
+html[data-theme="dark"] #starkTypewriterHeading .stark-line-1::after {
+  color: #f8fafc !important;
+  text-shadow: 0 2px 28px rgba(255, 255, 255, 0.12);
+}
+
+html[data-theme="dark"] .stark-line-1 .stark-char:not(.revealed) {
+  color: #475569 !important;
+}
+
+.stark-char.stark-accent {
+  opacity: 0;
+  color: #93c5fd;
+}
+
+.stark-char.stark-accent.revealed {
+  opacity: 1;
+  color: #0b57d0;
+  text-shadow: 0 0 28px rgba(11, 87, 208, 0.25);
+}
+
+.stark-cursor {
+  display: inline-block;
+  width: 4px;
+  height: 0.8em;
+  background-color: #0b57d0;
+  margin-left: 6px;
+  vertical-align: -0.05em;
+  border-radius: 2px;
+  animation: starkCursorBlink 0.85s infinite step-end;
+}
+
+@keyframes starkCursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* 4. DÃœÅÃœÅ KORÄ°DORU & HUD PÄ°LL (Apple Light) */
+.lusion-descent-corridor {
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.lusion-hud-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--lusion-border-subtle);
+  color: var(--lusion-accent-blue);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 20px rgba(11, 87, 208, 0.12);
+  pointer-events: auto;
+}
+
+.lusion-hud-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--lusion-accent-blue);
+  box-shadow: 0 0 10px rgba(11, 87, 208, 0.6);
+  animation: hudPulse 1.5s infinite alternate;
+}
+
+@keyframes hudPulse {
+  from { opacity: 0.4; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1.3); }
+}
+
+/* 5. REFERANSLAR & HÄ°ZMETLER VÄ°TRÄ°NÄ° (Apple Frosted Glass) */
+.lusion-works-section {
+  position: relative;
+  background: transparent !important;
+  padding: 5rem 0 7rem;
+  border-top: none;
+  z-index: 2;
+}
+
+.lusion-filter-btn {
+  background: #ffffff;
+  border: 1px solid rgba(11, 87, 208, 0.28);
+  color: #0b57d0;
+  padding: 0.6rem 1.5rem;
+  border-radius: 9999px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  box-shadow: 0 3px 10px rgba(11, 87, 208, 0.08);
+  transition: all 0.25s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.lusion-filter-btn:hover,
+.lusion-filter-btn.active {
+  background: rgba(11, 87, 208, 0.1);
+  border-color: var(--lusion-accent-blue);
+  color: var(--lusion-accent-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(11, 87, 208, 0.15);
+}
+
+/* LUSION SCROLL-DRIVEN CARD REVEAL & 3D PERSPECTIVE */
+.lusion-ref-trail-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Symmetrical 2x2 Grid Layout for Featured References */
+@media (min-width: 992px) {
+  #refCardsContainer .ref-item:nth-child(even),
+  #refCardsContainer .ref-item:nth-child(odd) {
+    margin-top: 0 !important;
+  }
+}
+
+/* Temel Kart - Kenardan GiriÅŸ FiziÄŸi (Ultra Hafif GPU HÄ±zlandÄ±rmalÄ±) */
+.ref-item {
+  transition: transform 1.35s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 1.25s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+/* SOL KENARDAN GELEN ESERLER */
+.ref-item.ref-from-left {
+  opacity: 0;
+  transform: translate3d(-50px, 20px, 0);
+}
+
+/* SAÄ KENARDAN GELEN ESERLER */
+.ref-item.ref-from-right {
+  opacity: 0;
+  transform: translate3d(50px, 20px, 0);
+}
+
+/* Ekrana GirildiÄŸinde (In-View): Kusursuzca Yerine Oturan Kart */
+.ref-item.ref-from-left.lusion-card-in-view,
+.ref-item.ref-from-right.lusion-card-in-view {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Tablet ve Mobil UyarlamasÄ± */
+@media (max-width: 991.98px) {
+  .ref-item.ref-from-left {
+    transform: translate3d(-25px, 15px, 0);
+  }
+  .ref-item.ref-from-right {
+    transform: translate3d(25px, 15px, 0);
+  }
+}
+
+/* ========================================================
+   HIZMETLER & COZUMLER - AKICI 3D KADEMELI GIRIS EFEKTI
+   ======================================================== */
+.service-item {
+  opacity: 0;
+  transform: translate3d(0, 48px, 0) scale(0.96);
+  transition: transform 1.25s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 1.15s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.service-item.service-in-view {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.service-card-modern {
+  border-radius: 1.25rem;
+  padding: 1.5rem 1.35rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s ease;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.service-card-modern:hover {
+  transform: translateY(-8px);
+}
+
+.service-icon-box {
+  width: 46px;
+  height: 46px;
+  border-radius: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  margin-bottom: 1rem;
+  transition: transform 0.35s ease;
+}
+
+.service-card-modern:hover .service-icon-box {
+  transform: scale(1.08) rotate(4deg);
+}
+
+.lusion-work-card {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--lusion-border-subtle);
+  border-radius: 1.5rem;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+.lusion-work-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(11, 87, 208, 0.35);
+  box-shadow: 0 20px 45px rgba(11, 87, 208, 0.12);
+}
+
+/* 3D Specular Sheen Effect */
+.lusion-card-sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  background: radial-gradient(circle 280px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.65), transparent 70%);
+  transition: opacity 0.35s ease;
+  z-index: 4;
+}
+
+.lusion-work-card:hover .lusion-card-sheen {
+  opacity: 1;
+}
+
+.lusion-work-img-wrap {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+  background: #f5f5f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  z-index: 2;
+}
+
+.lusion-work-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.lusion-work-card:hover .lusion-work-img {
+  transform: scale(1.06);
+}
+
+/* 6. KARÄ°YER / Ä°Å BAÅVURUSU ALANI (Apple Luminous Light) */
+.lusion-career-box {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 245, 255, 0.9) 100%);
+  border: 1px solid rgba(11, 87, 208, 0.2);
+  border-radius: 2rem;
+  padding: 3.5rem 2.5rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(11, 87, 208, 0.06);
+}
+
+.lusion-career-box::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(11, 87, 208, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* 7. LUSION APPLE-LIGHT FOOTER */
+.lusion-footer {
+  background: #f5f5f7;
+  border-top: 1px solid var(--lusion-border-subtle);
+  padding: 5rem 0 2.5rem 0;
+  color: var(--lusion-text-primary);
+  position: relative;
+  z-index: 2;
+}
+
+.lusion-insta-card {
+  background: #ffffff;
+  border: 1px solid var(--lusion-border-subtle);
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.lusion-insta-card:hover {
+  border-color: rgba(225, 48, 108, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(225, 48, 108, 0.12);
+}
+
+/* Spline 3D Social Bar Instagram Tab */
+.spline-insta-tab-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  vertical-align: middle;
+}
+
+.spline-insta-tab-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease;
+  will-change: transform;
+}
+
+.lusion-insta-card:hover .spline-insta-tab-img,
+.spline-insta-tab-wrap:hover .spline-insta-tab-img,
+a:hover .spline-insta-tab-wrap .spline-insta-tab-img,
+.apple-contact-item:hover .spline-insta-tab-img {
+  transform: translateY(-2px) scale(1.08) rotate(-2deg);
+  filter: drop-shadow(0 8px 20px rgba(225, 48, 108, 0.42));
+}
+
+.lusion-contact-panel {
+  background: #ffffff;
+  border: 1px solid var(--lusion-border-subtle);
+  border-radius: 1.5rem;
+  padding: 2.25rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+/* 8. SABÄ°T FULLSCREEN 3D WEBGL EKRANI */
+.lusion-fixed-canvas,
+.lusion-subpage-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  background: transparent;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease-out;
+}
+
+.lusion-scroll-stage {
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  padding: 5rem 0;
+}
+
+.lusion-glass-card-stage {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--lusion-border-subtle);
+  border-radius: 2rem;
+  padding: 3rem;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.05);
+  transition: transform 0.4s ease, border-color 0.4s ease;
+}
+
+.lusion-glass-card-stage:hover {
+  border-color: rgba(11, 87, 208, 0.3);
+  transform: translateY(-4px);
+}
+
+.lusion-scroll-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--lusion-border-subtle);
+  color: var(--lusion-accent-blue);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  animation: floatHint 2.4s ease-in-out infinite;
+}
+
+@keyframes floatHint {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+/* ============================================================
+   GLOBAL APPLE LIGHT OVERRIDES (KOYU RENKLERÄ° TAMAMEN KALDIRMA)
+   ============================================================ */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--lusion-text-primary);
+}
+
+p, span, li, small {
+  color: inherit;
+}
+
+.text-white {
+  color: var(--lusion-text-primary) !important;
+}
+
+.text-light {
+  color: var(--lusion-text-secondary) !important;
+}
+
+.text-muted {
+  color: var(--lusion-text-muted) !important;
+}
+
+.lead {
+  color: var(--lusion-text-secondary) !important;
+}
+
+.border-white,
+.border-light {
+  border-color: var(--lusion-border-subtle) !important;
+}
+
+.bg-white,
+div.bg-white,
+.card.bg-white {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid var(--lusion-border-subtle) !important;
+  color: var(--lusion-text-primary) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04) !important;
+}
+
+.bg-light,
+div.bg-light {
+  background: #f5f5f7 !important;
+  color: var(--lusion-text-primary) !important;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid var(--lusion-border-subtle) !important;
+  color: var(--lusion-text-primary) !important;
+}
+
+/* Form alanlarÄ± - Temiz Apple AÃ§Ä±k TasarÄ±mÄ± */
+.form-control,
+.form-select {
+  background-color: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.14) !important;
+  color: var(--lusion-text-primary) !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: #ffffff !important;
+  border-color: var(--lusion-accent-blue) !important;
+  box-shadow: 0 0 0 3px rgba(11, 87, 208, 0.15) !important;
+  color: var(--lusion-text-primary) !important;
+}
+
+.form-control::placeholder {
+  color: var(--lusion-text-muted) !important;
+}
+
+.bg-dark,
+input.bg-dark,
+textarea.bg-dark,
+select.bg-dark {
+  background-color: #ffffff !important;
+  color: var(--lusion-text-primary) !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+}
+
+.btn-outline-light {
+  background: rgba(0, 0, 0, 0.04) !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  color: var(--lusion-text-primary) !important;
+}
+
+.btn-outline-light:hover {
+  background: rgba(11, 87, 208, 0.1) !important;
+  border-color: var(--lusion-accent-blue) !important;
+  color: var(--lusion-accent-blue) !important;
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN (TELEFON, TABLET & BÄ°LGÄ°SAYAR)
+   ============================================================ */
+
+/* 1. Canvas ve Dokunmatik Ekranlar */
+.lusion-fixed-canvas,
+.lusion-subpage-canvas {
+  pointer-events: none !important;
+  touch-action: pan-y !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 2. Tablet Ekranlar (768px - 1024px) */
+@media (max-width: 1024px) {
+  .lusion-display-title {
+    font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+    letter-spacing: -1.2px;
+  }
+  .lusion-menu-drawer {
+    max-width: 420px;
+    padding: 2rem 2.2rem;
+  }
+  .lusion-drawer-link {
+    font-size: 1.4rem;
+  }
+}
+
+/* Mobil ve Tablet (< 992px) Boşluk ve Düzen İyileştirmeleri (Masaüstü düzeni birebir korunur) */
+@media (max-width: 991.98px) {
+  #stageHero.min-vh-100 {
+    min-height: auto !important;
+  }
+  #stageHero {
+    min-height: auto !important;
+    padding-top: 5rem !important;
+    padding-bottom: 2.25rem !important;
+  }
+  #stageHero .container.py-5 {
+    padding-top: 0.75rem !important;
+    padding-bottom: 1.25rem !important;
+  }
+  #stageHero .hero-intro-text {
+    margin-bottom: 1.35rem !important;
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+  #stageHero .hero-action-buttons {
+    margin-bottom: 2rem !important;
+  }
+  #scrollDownHint {
+    display: none !important;
+  }
+  .lusion-works-section,
+  #referanslarimiz {
+    padding-top: 3.5rem !important;
+    padding-bottom: 4rem !important;
+  }
+  #referanslarimiz .mb-5 {
+    margin-bottom: 2.25rem !important;
+  }
+  /* Hakkımızda Sayfası Mobil Görsel & Kart İyileştirmesi */
+  #hakkimizdaHeroBanner {
+    min-height: auto !important;
+    padding-top: 4.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+  #hakkimizdaHeroBanner .container.py-5 {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+}
+
+/* 3. Mobil Telefonlar (576px - 767px) */
+@media (max-width: 767.98px) {
+  .lusion-header {
+    height: 64px;
+  }
+  .lusion-logo {
+    font-size: 1.05rem;
+  }
+  .lusion-display-title {
+    font-size: clamp(1.95rem, 8vw, 2.75rem);
+    letter-spacing: -0.8px;
+    line-height: 1.15;
+  }
+  .lusion-scroll-stage {
+    padding: 3.5rem 0 2rem;
+    min-height: auto;
+  }
+  .lusion-menu-drawer {
+    max-width: 380px;
+    padding: 1.75rem 1.75rem;
+  }
+  .lusion-drawer-link {
+    font-size: 1.25rem;
+    gap: 0.85rem;
+  }
+  .lusion-contact-panel {
+    padding: 1.5rem;
+  }
+  .lusion-footer {
+    padding: 3.5rem 0 2rem 0;
+  }
+}
+
+/* 4. KÃ¼Ã§Ã¼k AkÄ±llÄ± Telefonlar (< 576px - iPhone, Samsung vb.) */
+@media (max-width: 575.98px) {
+  .lusion-header {
+    height: 58px;
+  }
+  .lusion-header-container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .lusion-logo {
+    font-size: 0.92rem;
+    letter-spacing: 0.8px;
+  }
+  .lusion-logo-dot {
+    width: 6px;
+    height: 6px;
+  }
+  .lusion-admin-circle {
+    width: 34px;
+    height: 34px;
+    font-size: 0.85rem;
+  }
+  .lusion-btn-talk {
+    padding: 0.4rem 0.85rem;
+    font-size: 0.78rem;
+  }
+  .lusion-btn-talk-arrow {
+    width: 16px;
+    height: 16px;
+    font-size: 0.75rem;
+  }
+  .lusion-btn-menu {
+    padding: 0.4rem 0.85rem;
+    font-size: 0.78rem;
+  }
+  .lusion-menu-drawer {
+    width: 100%;
+    max-width: 100%;
+    padding: 1.25rem 1.25rem 2rem;
+  }
+  .lusion-drawer-link {
+    font-size: 1.15rem;
+    padding: 0.35rem 0;
+  }
+  .lusion-display-title {
+    font-size: 1.9rem;
+    letter-spacing: -0.5px;
+  }
+  .hero-badge {
+    font-size: 0.72rem;
+    padding: 0.35rem 0.75rem !important;
+  }
+  .hero-badge .badge {
+    display: none;
+  }
+  .hero-btn-primary,
+  .hero-btn-secondary {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+  .lusion-career-box {
+    padding: 2rem 1.25rem;
+    border-radius: 1.25rem;
+  }
+  .tech-card {
+    padding: 1.25rem !important;
+  }
+  .form-control,
+  .form-select,
+  .btn {
+    min-height: 44px;
+  }
+}
+
+
+/* Aşağı kaydır işareti */
+.scroll-hint-arrow { animation: scrollHintBounce 1.6s ease-in-out infinite; }
+@keyframes scrollHintBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+/* ======================================================== */
+/* SPLINE 3D LUMINOUS ORB PRELOADER (Apple White Edition)   */
+/* ======================================================== */
+.spline-preloader {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  z-index: 9999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), 
+              visibility 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.spline-preloader.spline-preloader-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: scale(1.02);
+}
+
+.spline-preloader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* 3D Orb Stage with Floating Animation */
+.spline-orb-stage {
+  position: relative;
+  width: 140px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.spline-orb-ball {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  position: relative;
+  /* 3D Shading on Apple Blue & Cyan: Light source top-left */
+  background: radial-gradient(circle at 32% 28%, #ffffff 0%, #70b8ff 15%, #0b57d0 45%, #004fb0 70%, #0c1a3a 100%);
+  box-shadow: 
+    inset -10px -12px 24px rgba(0, 24, 72, 0.75),
+    inset 4px 6px 14px rgba(255, 255, 255, 0.8),
+    0 12px 35px rgba(11, 87, 208, 0.35),
+    0 0 50px rgba(56, 189, 248, 0.25);
+  animation: splineOrbFloat 2.6s ease-in-out infinite, splineOrbBreathe 4.5s ease-in-out infinite;
+  overflow: hidden;
+}
+
+/* Internal refraction core */
+.spline-orb-core {
+  position: absolute;
+  top: 18%;
+  left: 20%;
+  width: 60%;
+  height: 60%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.65) 0%, rgba(11, 87, 208, 0.2) 60%, transparent 100%);
+  filter: blur(4px);
+  animation: splineCorePulse 2.6s ease-in-out infinite alternate;
+}
+
+/* Specular top glare (Spline 3D glass highlight) */
+.spline-orb-glare {
+  position: absolute;
+  top: 8%;
+  left: 18%;
+  width: 44px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0) 100%);
+  transform: rotate(-32deg);
+  filter: blur(1.2px);
+  pointer-events: none;
+}
+
+/* Secondary bottom bounce rim reflection */
+.spline-orb-rim {
+  position: absolute;
+  bottom: 4%;
+  right: 12%;
+  width: 50px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(0deg, rgba(56, 189, 248, 0.7) 0%, transparent 100%);
+  filter: blur(3px);
+  pointer-events: none;
+}
+
+/* Floating shadow on the white floor */
+.spline-orb-shadow {
+  position: absolute;
+  bottom: 6px;
+  width: 76px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0, 75, 176, 0.22) 0%, rgba(11, 87, 208, 0.08) 50%, transparent 80%);
+  filter: blur(4px);
+  animation: splineShadowPulse 2.6s ease-in-out infinite;
+}
+
+/* Keyframe Animations */
+@keyframes splineOrbFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-16px);
+  }
+}
+
+@keyframes splineShadowPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(0.65);
+    opacity: 0.35;
+  }
+}
+
+@keyframes splineOrbBreathe {
+  0%, 100% {
+    box-shadow: 
+      inset -10px -12px 24px rgba(0, 24, 72, 0.75),
+      inset 4px 6px 14px rgba(255, 255, 255, 0.8),
+      0 12px 35px rgba(11, 87, 208, 0.35),
+      0 0 45px rgba(56, 189, 248, 0.22);
+  }
+  50% {
+    box-shadow: 
+      inset -10px -12px 24px rgba(0, 24, 72, 0.85),
+      inset 4px 6px 14px rgba(255, 255, 255, 0.9),
+      0 18px 45px rgba(11, 87, 208, 0.5),
+      0 0 65px rgba(56, 189, 248, 0.45);
+  }
+}
+
+@keyframes splineCorePulse {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  100% { transform: scale(1.15); opacity: 1; }
+}
+
+/* Preloader Typography & Micro Progress Bar */
+.spline-preloader-brand {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.spline-preloader-title {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #1f1f1f;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+.spline-preloader-bar-wrap {
+  width: 110px;
+  height: 3px;
+  background: rgba(11, 87, 208, 0.12);
+  border-radius: 99px;
+  overflow: hidden;
+  position: relative;
+}
+
+.spline-preloader-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 45%;
+  background: linear-gradient(90deg, #0b57d0, #38bdf8);
+  border-radius: 99px;
+  animation: splineBarTravel 1.4s ease-in-out infinite;
+}
+
+@keyframes splineBarTravel {
+  0% {
+    left: -45%;
+    width: 30%;
+  }
+  50% {
+    width: 60%;
+  }
+  100% {
+    left: 100%;
+    width: 30%;
+  }
+}
+
+.spline-preloader-text {
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: #747775;
+  letter-spacing: 0.5px;
+}
+
+.spline-preloader-dots {
+  display: inline-block;
+  animation: splineDotsPulse 1.4s infinite;
+}
+
+@keyframes splineDotsPulse {
+  0%, 20% { opacity: 0.2; }
+  50% { opacity: 1; }
+  100% { opacity: 0.2; }
+}
+
+
+
+
+/* ============================================================
+   GOOGLE ONE DESIGN SYSTEM INTEGRATION
+   (Inspired by https://one.google.com/intl/tr_tr/about/)
+   ============================================================ */
+:root {
+  /* Google One Brand Palette */
+  --g1-blue-primary: #0b57d0;
+  --g1-blue-surface: #e8f0fe;
+  --g1-blue-hover: #0842a0;
+  --g1-google-blue: #4285F4;
+  --g1-google-red: #EA4335;
+  --g1-google-yellow: #FBBC04;
+  --g1-google-green: #34A853;
+  
+  /* Google One Light Tones */
+  --g1-bg-light: #ffffff;
+  --g1-surface-light: #f8fafd;
+  --g1-surface-container: #f0f4f9;
+  --g1-surface-card: #ffffff;
+  --g1-border-light: #e0e2ec;
+  --g1-text-primary: #1f1f1f;
+  --g1-text-secondary: #444746;
+  --g1-text-tertiary: #747775;
+
+  /* Google One Dark/Black Immersion Tones */
+  --g1-bg-dark: #000000;
+  --g1-bg-dark-surface: #0b0c0e;
+  --g1-surface-dark-card: #1e1f20;
+  --g1-surface-dark-hover: #2a2b2d;
+  --g1-border-dark: rgba(255, 255, 255, 0.12);
+  --g1-text-dark-primary: #ffffff;
+  --g1-text-dark-secondary: #c4c7c5;
+  --g1-text-dark-tertiary: #8e918f;
+
+  /* Google One Signature Gradients */
+  --g1-gradient-ai: linear-gradient(90deg, #4285F4 0%, #9B72CB 35%, #D96570 70%, #FBBC04 100%);
+  --g1-gradient-radial-ai: radial-gradient(ellipse at 70% 40%, rgba(66, 133, 244, 0.25) 0%, rgba(155, 114, 203, 0.18) 35%, rgba(234, 67, 53, 0.12) 65%, transparent 80%);
+  --g1-sand-gradient: linear-gradient(180deg, #ffffff 0%, #f8fafd 60%, #f0f4f9 100%);
+  
+  /* Google One Radius */
+  --g1-radius-pill: 100px;
+  --g1-radius-card: 28px;
+  --g1-radius-card-sm: 20px;
+
+  /* Overrides for existing tokens to match Google One */
+  --lusion-accent-blue: #0b57d0;
+  --lusion-text-primary: #1f1f1f;
+  --lusion-text-secondary: #444746;
+  --lusion-bg-apple-light: #ffffff;
+  --lusion-border-subtle: #e0e2ec;
+}
+
+/* Global Typography & Background */
+html, body {
+  font-family: 'Google Sans Text', 'Google Sans', 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  background-color: #ffffff;
+  color: var(--g1-text-primary);
+  letter-spacing: -0.15px;
+}
+
+/* Google 4-Color Logo Dot */
+.lusion-logo-dot {
+  width: 10px !important;
+  height: 10px !important;
+  background: conic-gradient(from 180deg at 50% 50%, #4285F4 0deg, #EA4335 90deg, #FBBC04 180deg, #34A853 270deg, #4285F4 360deg) !important;
+  border-radius: 50% !important;
+  box-shadow: 0 0 10px rgba(66, 133, 244, 0.5) !important;
+  display: inline-block;
+}
+
+/* Google One Frosted Header */
+.lusion-header {
+  height: 70px !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border-bottom: 1px solid var(--g1-border-light) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
+}
+
+.lusion-logo {
+  font-family: 'Google Sans', 'Plus Jakarta Sans', sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.4px !important;
+  font-size: 1.15rem !important;
+  color: #1f1f1f !important;
+  text-transform: none !important;
+}
+
+/* Google One Primary Button ("Teklif Alın") */
+.lusion-btn-talk {
+  background: var(--g1-blue-primary) !important;
+  color: #ffffff !important;
+  border-radius: var(--g1-radius-pill) !important;
+  padding: 0.6rem 1.45rem !important;
+  font-family: 'Google Sans', sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 0.9rem !important;
+  letter-spacing: 0.1px !important;
+  box-shadow: none !important;
+  border: none !important;
+  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1) !important;
+}
+
+.lusion-btn-talk:hover {
+  background: var(--g1-blue-hover) !important;
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.15) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Google One Tonal Menu Button */
+.lusion-btn-menu {
+  background: var(--g1-surface-container) !important;
+  border: 1px solid var(--g1-border-light) !important;
+  border-radius: var(--g1-radius-pill) !important;
+  padding: 0.55rem 1.25rem !important;
+  font-family: 'Google Sans', sans-serif !important;
+  font-weight: 500 !important;
+  color: var(--g1-text-primary) !important;
+  transition: all 0.2s ease !important;
+}
+
+.lusion-btn-menu:hover {
+  background: #e2e7ef !important;
+  border-color: #c4c7c5 !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Google One Hero Text & Gradients */
+.stark-display-title, .lusion-display-title {
+  font-family: 'Google Sans', 'Plus Jakarta Sans', sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: -1.5px !important;
+  color: #1f1f1f !important;
+}
+
+.hero-intro-text {
+  font-family: 'Google Sans Text', system-ui, sans-serif !important;
+  color: var(--g1-text-secondary) !important;
+  font-size: 1.12rem !important;
+  line-height: 1.7 !important;
+}
+
+/* Google One Hero Button Group */
+.hero-btn-quote {
+  background: var(--g1-blue-primary) !important;
+  color: #ffffff !important;
+  border-radius: var(--g1-radius-pill) !important;
+  padding: 0.85rem 1.85rem !important;
+  font-family: 'Google Sans', sans-serif !important;
+  font-weight: 500 !important;
+  box-shadow: none !important;
+  border: none !important;
+  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1) !important;
+}
+
+.hero-btn-quote:hover {
+  background: var(--g1-blue-hover) !important;
+  box-shadow: 0 2px 6px 2px rgba(11, 87, 208, 0.3) !important;
+  transform: translateY(-2px) !important;
+}
+
+.hero-btn-about {
+  background: var(--g1-blue-surface) !important;
+  color: var(--g1-blue-primary) !important;
+  border-radius: var(--g1-radius-pill) !important;
+  padding: 0.85rem 1.85rem !important;
+  font-family: 'Google Sans', sans-serif !important;
+  font-weight: 500 !important;
+  border: none !important;
+  transition: all 0.2s ease !important;
+}
+
+.hero-btn-about:hover {
+  background: #d3e3fd !important;
+  color: var(--g1-blue-hover) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Google One Cards (Material 3 28px Radius & Clean Border) */
+.lusion-work-card, .service-card-modern, .hardware-product-card {
+  border-radius: var(--g1-radius-card) !important;
+  background: #ffffff !important;
+  border: 1px solid var(--g1-border-light) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1) !important;
+  overflow: hidden;
+}
+
+.lusion-work-card:hover, .service-card-modern:hover, .hardware-product-card:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 16px 36px rgba(11, 87, 208, 0.08), 0 2px 6px rgba(0,0,0,0.04) !important;
+  border-color: #c4d4f8 !important;
+}
+
+/* Google One Pill Filter Buttons */
+.lusion-filter-btn {
+  border-radius: var(--g1-radius-pill) !important;
+  font-family: 'Google Sans', sans-serif !important;
+  font-weight: 500 !important;
+  padding: 0.55rem 1.35rem !important;
+  border: 1px solid var(--g1-border-light) !important;
+  background: #ffffff !important;
+  color: var(--g1-text-secondary) !important;
+  transition: all 0.2s ease !important;
+}
+
+.lusion-filter-btn:hover {
+  background: var(--g1-surface-container) !important;
+  color: var(--g1-text-primary) !important;
+  border-color: #c4c7c5 !important;
+}
+
+.lusion-filter-btn.active {
+  background: var(--g1-blue-surface) !important;
+  color: var(--g1-blue-primary) !important;
+  border-color: rgba(11, 87, 208, 0.4) !important;
+  font-weight: 600 !important;
+}
+
+/* ============================================================
+   GOOGLE ONE SIGNATURE: ORTADAKİ AŞAĞI İNİNCE SİYAHA DÖNÜŞEN ALAN
+   (The Iconic Google AI / Gemini Immersive Dark Section + Scroll Transition)
+   ============================================================ */
+.g1-dark-scroll-stage {
+  --g1-stage-progress: 0;
+  position: relative;
+  padding: 28px 16px;
+  z-index: 2;
+  transition: background-color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.g1-dark-scroll-stage::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(10, 12, 16, 0.88) 0%, rgba(5, 6, 8, 0.96) 100%);
+  opacity: calc(var(--g1-stage-progress, 0) * 0.82);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.g1-dark-immersion-section {
+  --g1-dark-scale: 0.94;
+  --g1-dark-radius: 44px;
+  position: relative;
+  max-width: 1380px;
+  margin: 24px auto !important;
+  background-color: #040507 !important;
+  background-image: 
+    radial-gradient(ellipse at 75% 32%, rgba(66, 133, 244, 0.25) 0%, rgba(155, 114, 203, 0.18) 35%, rgba(234, 67, 53, 0.11) 60%, transparent 80%),
+    radial-gradient(ellipse at 22% 70%, rgba(52, 168, 83, 0.14) 0%, rgba(251, 188, 4, 0.09) 35%, transparent 70%) !important;
+  color: #ffffff !important;
+  padding: 88px 0 !important;
+  border-radius: var(--g1-dark-radius, 40px) !important;
+  transform: scale(var(--g1-dark-scale, 1));
+  transform-origin: center center;
+  will-change: transform;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 40px 110px rgba(0, 0, 0, 0.75), 0 0 60px rgba(66, 133, 244, 0.12) !important;
+  overflow: hidden;
+  z-index: 2;
+  transition: box-shadow 0.35s ease;
+}
+
+/* Google AI Iridescent Gradient Headline */
+.g1-gradient-ai-text,
+html[data-theme="dark"] .g1-gradient-ai-text {
+  background: linear-gradient(90deg, #8ab4f8 0%, #c58af9 36%, #f28b82 70%, #fdd663 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  display: inline-block;
+}
+
+/* High-Contrast Typography Inside Dark Immersion Section (Both Light & Dark Themes) */
+.g1-dark-immersion-section h1:not(.g1-gradient-ai-text),
+.g1-dark-immersion-section h2:not(.g1-gradient-ai-text),
+.g1-dark-immersion-section h3,
+.g1-dark-immersion-section h4,
+.g1-dark-immersion-section h5,
+.g1-dark-immersion-section h6,
+.g1-dark-immersion-section .text-white,
+html[data-theme="dark"] .g1-dark-immersion-section h3,
+html[data-theme="dark"] .g1-dark-immersion-section .text-white {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.g1-dark-immersion-section p,
+.g1-dark-immersion-section .lead,
+html[data-theme="dark"] .g1-dark-immersion-section p,
+html[data-theme="dark"] .g1-dark-immersion-section .lead {
+  color: #e2e8f0 !important;
+}
+
+.g1-dark-immersion-section .text-white-50,
+html[data-theme="dark"] .g1-dark-immersion-section .text-white-50 {
+  color: #b6c2cf !important;
+}
+
+/* Dark Mode Google One Feature Tiles */
+.g1-dark-tile,
+html[data-theme="dark"] .g1-dark-tile {
+  background: #17191c !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 22px !important;
+  color: #ffffff !important;
+  padding: 1.15rem 1.25rem !important;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1) !important;
+}
+
+.g1-dark-tile:hover {
+  background: #28292a !important;
+  border-color: rgba(66, 133, 244, 0.45) !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(66, 133, 244, 0.15) !important;
+}
+
+/* 3D Spline in Dark Section */
+.g1-dark-immersion-section .spline-3d-backplate {
+  background: rgba(19, 19, 20, 0.75) !important;
+  backdrop-filter: blur(28px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(66, 133, 244, 0.18) !important;
+}
+
+.g1-dark-immersion-section .spline-3d-card {
+  background: linear-gradient(145deg, #1e1f20 0%, #131314 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9) !important;
+}
+
+.g1-dark-immersion-section .spline-select-bar {
+  background: #131314 !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  color: #ffffff !important;
+}
+
+.g1-dark-immersion-section .spline-select-title {
+  color: #ffffff !important;
+}
+
+.g1-dark-immersion-section .spline-select-subtitle {
+  color: #c4c7c5 !important;
+}
+
+.g1-dark-immersion-section .spline-action-btn {
+  background: var(--g1-blue-primary) !important;
+  color: #ffffff !important;
+}
+
+.g1-dark-immersion-section .spline-dropdown-menu {
+  background: #18191a !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+.g1-dark-immersion-section .spline-partner-row {
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.g1-dark-immersion-section .spline-partner-row:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Google Window Traffic Light Dots (Red, Yellow, Green) */
+.spline-dot.dot-red { background: #EA4335 !important; }
+.spline-dot.dot-yellow { background: #FBBC04 !important; }
+.spline-dot.dot-green { background: #34A853 !important; }
+
+/* ============================================================
+   GOOGLE ONE LIGHT FOOTER (Varsayılan Açık Modda Açık Renk Footer)
+   ============================================================ */
+:root {
+  --g1-bg: #ffffff;
+  --g1-surface: #ffffff;
+  --g1-surface-container: #f8fafd;
+  --g1-surface-high: #f0f4f9;
+  --g1-text: #1f1f1f;
+  --g1-muted: #444746;
+  --g1-border: #e0e2ec;
+  --g1-primary: #0b57d0;
+  --g1-primary-hover: #0842a0;
+  --g1-tonal-bg: #e8f0fe;
+  --g1-tonal-text: #0b57d0;
+}
+
+html[data-theme="dark"] {
+  --g1-bg: #0e1013;
+  --g1-surface: #181a1f;
+  --g1-surface-container: #131519;
+  --g1-surface-high: #1e2229;
+  --g1-text: #e3e3e3;
+  --g1-muted: #9aa0a6;
+  --g1-border: rgba(255, 255, 255, 0.11);
+  --g1-primary: #8ab4f8;
+  --g1-primary-hover: #aecbfa;
+  --g1-tonal-bg: rgba(138, 180, 248, 0.14);
+  --g1-tonal-text: #8ab4f8;
+  --lusion-bg: #0e1013;
+  --lusion-surface: #181a1f;
+  --lusion-text-primary: #f1f3f4;
+  --lusion-text-muted: #9aa0a6;
+  --lusion-border: rgba(255, 255, 255, 0.11);
+}
+
+.lusion-footer {
+  background: #f8fafd !important;
+  color: #1f1f1f !important;
+  border-top: 1px solid #e0e2ec !important;
+  padding: 4.5rem 0 2.5rem 0;
+  position: relative;
+  z-index: 5;
+  transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease;
+}
+
+.g1-footer-brand {
+  color: #0b57d0 !important;
+  font-family: 'Google Sans', sans-serif !important;
+}
+
+.g1-footer-heading {
+  color: #1f1f1f !important;
+  font-family: 'Google Sans', sans-serif !important;
+}
+
+.g1-footer-text {
+  color: #444746 !important;
+  font-family: 'Google Sans Text', sans-serif !important;
+}
+
+.g1-footer-divider {
+  border-color: #e0e2ec !important;
+}
+
+.g1-footer-link {
+  color: #444746 !important;
+  text-decoration: none !important;
+  font-family: 'Google Sans Text', sans-serif !important;
+  font-weight: 500;
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.g1-footer-link:hover {
+  color: #0b57d0 !important;
+  transform: translateX(3px);
+}
+
+.lusion-footer .lusion-insta-card {
+  background: #ffffff !important;
+  border: 1px solid #e0e2ec !important;
+  border-radius: 20px !important;
+  padding: 0.9rem 1.15rem !important;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03) !important;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.lusion-footer .lusion-insta-card:hover {
+  border-color: #c4d4f8 !important;
+  box-shadow: 0 8px 22px rgba(11, 87, 208, 0.08) !important;
+  transform: translateY(-2px);
+}
+
+.g1-footer-chip-btn {
+  background: #ffffff !important;
+  color: #1f1f1f !important;
+  border: 1px solid #e0e2ec !important;
+  font-family: 'Google Sans', sans-serif !important;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.g1-footer-chip-btn:hover {
+  background: #e8f0fe !important;
+  color: #0b57d0 !important;
+  border-color: #c4d4f8 !important;
+}
+
+.lusion-footer .lusion-contact-panel {
+  background: #ffffff !important;
+  border: 1px solid #e0e2ec !important;
+  border-radius: 28px !important;
+  padding: 2rem 2.25rem !important;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04) !important;
+}
+
+.g1-drawer-contact-link {
+  color: var(--g1-text, #1f1f1f) !important;
+}
+
+.g1-border-subtle {
+  border-color: var(--g1-border, #e0e2ec) !important;
+}
+
+/* ============================================================
+   HAYAT İŞLERİ OFFICIAL LOGO SIZING & HOVER EFFECTS
+   ============================================================ */
+.lusion-logo {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.6rem !important;
+  text-decoration: none !important;
+}
+
+.hayat-header-logo {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 2px 5px rgba(15, 23, 42, 0.08));
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.lusion-logo:hover .hayat-header-logo {
+  transform: scale(1.07) rotate(-2deg);
+}
+
+.hayat-header-brand-text {
+  font-family: 'Google Sans', sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+  color: var(--g1-text, #1f1f1f);
+}
+
+.hayat-drawer-logo {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.hayat-footer-logo {
+  height: 52px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 4px 10px rgba(15, 23, 42, 0.08));
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hayat-footer-logo:hover {
+  transform: scale(1.06);
+}
+
+.hayat-preloader-logo {
+  height: 58px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 6px 16px rgba(236, 27, 142, 0.22));
+}
+
+@media (max-width: 575.98px) {
+  .hayat-header-logo {
+    height: 34px;
+  }
+  .hayat-header-brand-text {
+    font-size: 1.02rem;
+  }
+}
+
+/* ============================================================
+   HEADER RIGHT PILLS (DESTEK & BAYİ GİRİŞİ) + SPLINE 3D TOGGLE
+   ============================================================ */
+.lusion-header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.lusion-header-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  padding: 0.48rem 1rem;
+  border-radius: 999px;
+  font-family: 'Google Sans', sans-serif;
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: #1f1f1f;
+  background: #f0f4f9;
+  border: 1px solid #e0e2ec;
+  text-decoration: none !important;
+  transition: all 0.22s cubic-bezier(0.2, 0, 0, 1);
+  white-space: nowrap;
+}
+
+.lusion-header-pill i {
+  font-size: 0.92rem;
+  color: #0b57d0;
+  transition: transform 0.22s ease;
+}
+
+.lusion-header-pill:hover {
+  background: #e8f0fe;
+  color: #0b57d0;
+  border-color: #c4d4f8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(11, 87, 208, 0.1);
+}
+
+.lusion-header-pill:hover i {
+  transform: scale(1.08);
+}
+
+.lusion-header-pill-dealer {
+  background: #ffffff;
+  border-color: #d2e3fc;
+  color: #0b57d0;
+}
+
+.lusion-header-pill-dealer i {
+  color: #1e8e3e;
+}
+
+/* ============================================================
+   SPLINE 3D ON/OFF THEME TOGGLE (Template 7a555885-ebcf-4b62-87cb-5e85bdc7524b)
+   ON = Açık Mod (Light) | OFF = Koyu Mod (Dark)
+   ============================================================ */
+.spline-3d-toggle {
+  --rx: 0deg;
+  --ry: 0deg;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  perspective: 520px;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  flex-shrink: 0;
+}
+
+.spline-3d-housing {
+  position: relative;
+  width: 54px;
+  height: 27px;
+  border-radius: 999px;
+  padding: 2.5px;
+  display: block;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  background: linear-gradient(145deg, #ffffff 0%, #e4ebf5 55%, #cdd7e6 100%);
+  box-shadow:
+    0 4px 10px rgba(15, 23, 42, 0.13),
+    0 1.5px 0 #b8c4d6,
+    inset 0 1px 1px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 2px rgba(15, 23, 42, 0.12);
+  transition: transform 0.22s cubic-bezier(0.2, 0, 0, 1), background 0.35s ease, box-shadow 0.35s ease;
+}
+
+.spline-3d-toggle:hover .spline-3d-housing {
+  box-shadow:
+    0 6px 14px rgba(11, 87, 208, 0.18),
+    0 1.5px 0 #b0bed3,
+    inset 0 1px 1px rgba(255, 255, 255, 1),
+    inset 0 -1px 2px rgba(15, 23, 42, 0.15);
+}
+
+.spline-3d-toggle.is-pressing .spline-3d-housing {
+  transform: scale(0.92) rotateX(var(--rx)) rotateY(var(--ry));
+}
+
+.spline-3d-well {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5.5px;
+  overflow: hidden;
+  /* ON = Light Mode Active: Google Blue / Mint Soft Luminous Recessed Track */
+  background: linear-gradient(180deg, #dbeafe 0%, #eff6ff 100%);
+  box-shadow:
+    inset 0 1.5px 4px rgba(11, 87, 208, 0.22),
+    inset 0 -1px 1.5px rgba(255, 255, 255, 0.85);
+  transition: background 0.38s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.38s ease;
+}
+
+.spline-3d-label {
+  font-family: 'Google Sans', system-ui, sans-serif;
+  font-size: 0.45rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  z-index: 1;
+  transition: opacity 0.28s ease, transform 0.28s ease, color 0.28s ease;
+  pointer-events: none;
+}
+
+.spline-3d-label-on {
+  color: #0b57d0;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
+  opacity: 1;
+  transform: translateX(1px);
+}
+
+.spline-3d-label-off {
+  color: #94a3b8;
+  opacity: 0.35;
+  transform: translateX(-1px);
+}
+
+.spline-3d-thumb {
+  position: absolute;
+  top: 1.5px;
+  left: 1.5px;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  z-index: 2;
+  /* ON State = Thumb on the RIGHT side (showing "ON" label on the left) */
+  transform: translateX(27px);
+  background: linear-gradient(145deg, #ffffff 0%, #f1f5f9 65%, #cbd5e1 100%);
+  box-shadow:
+    -1.5px 2.5px 5px rgba(15, 23, 42, 0.24),
+    0 1px 2px rgba(15, 23, 42, 0.15),
+    inset 0 1.5px 1.5px rgba(255, 255, 255, 1),
+    inset 0 -1.5px 2.5px rgba(148, 163, 184, 0.45);
+  transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.35s ease, box-shadow 0.35s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spline-3d-thumb-top {
+  width: 12.5px;
+  height: 12.5px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, #ffffff 0%, #e8f0fe 70%, #d2e3fc 100%);
+  box-shadow: inset 0 1px 1.5px rgba(15, 23, 42, 0.12), 0 1px 1px rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.35s ease;
+}
+
+.spline-3d-thumb-led {
+  width: 4.5px;
+  height: 4.5px;
+  border-radius: 50%;
+  background: #34a853;
+  box-shadow: 0 0 5px #34a853, 0 0 8px rgba(52, 168, 83, 0.65);
+  transition: background 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* OFF STATE = Koyu Mod (Dark Mode) */
+.spline-3d-toggle[data-state="off"] .spline-3d-housing {
+  background: linear-gradient(145deg, #2b303b 0%, #1c2028 60%, #111419 100%);
+  box-shadow:
+    0 4px 11px rgba(0, 0, 0, 0.55),
+    0 1.5px 0 #0a0c0f,
+    inset 0 1px 1px rgba(255, 255, 255, 0.14),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.spline-3d-toggle[data-state="off"] .spline-3d-well {
+  background: linear-gradient(180deg, #0d1015 0%, #171b22 100%);
+  box-shadow:
+    inset 0 1.5px 4px rgba(0, 0, 0, 0.75),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.06);
+}
+
+.spline-3d-toggle[data-state="off"] .spline-3d-label-on {
+  opacity: 0.25;
+  color: #64748b;
+}
+
+.spline-3d-toggle[data-state="off"] .spline-3d-label-off {
+  opacity: 1;
+  color: #8ab4f8;
+  text-shadow: 0 0 8px rgba(138, 180, 248, 0.45);
+}
+
+.spline-3d-toggle[data-state="off"] .spline-3d-thumb {
+  transform: translateX(0px);
+  background: linear-gradient(145deg, #373d49 0%, #242933 65%, #171a21 100%);
+  box-shadow:
+    1.5px 2.5px 6px rgba(0, 0, 0, 0.65),
+    0 1px 2px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.22),
+    inset 0 -1.5px 2.5px rgba(0, 0, 0, 0.6);
+}
+
+.spline-3d-toggle[data-state="off"] .spline-3d-thumb-top {
+  background: radial-gradient(circle at 32% 28%, #2f3542 0%, #1d212a 75%, #14171d 100%);
+  box-shadow: inset 0 1px 1.5px rgba(0, 0, 0, 0.65), 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.spline-3d-toggle[data-state="off"] .spline-3d-thumb-led {
+  background: #8ab4f8;
+  box-shadow: 0 0 5px #8ab4f8, 0 0 9px rgba(138, 180, 248, 0.75);
+}
+
+@media (max-width: 991.98px) {
+  .lusion-header-pill span {
+    display: none;
+  }
+  .lusion-header-pill {
+    padding: 0.45rem 0.68rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .spline-3d-housing {
+    width: 48px;
+    height: 24px;
+  }
+  .spline-3d-thumb {
+    width: 17px;
+    height: 17px;
+    transform: translateX(23px);
+  }
+  .spline-3d-toggle[data-state="off"] .spline-3d-thumb {
+    transform: translateX(0px);
+  }
+  .spline-3d-thumb-top {
+    width: 11px;
+    height: 11px;
+  }
+  .spline-3d-label {
+    font-size: 0.42rem;
+  }
+  .lusion-header-pill {
+    padding: 0.38rem 0.58rem;
+  }
+}
+
+/* Smooth Cursor Trail in Google One Tones */
+#cursorTrailCanvas {
+  opacity: 0.85;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+/* ============================================================
+   GOOGLE ONE COMPREHENSIVE MULTI-PAGE DESIGN SYSTEM
+   (Authentic https://one.google.com/intl/tr_tr/about/ Palette & Tokens)
+   ============================================================ */
+
+/* 1. Body & Page Atmosphere with Multi-Orb Google Mesh (GPU-Isolated Hardware Accelerated Layer) */
+html {
+  background-color: var(--g1-bg) !important;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: transparent !important;
+  color: var(--g1-text) !important;
+  font-family: 'Google Sans Text', 'Google Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  letter-spacing: 0 !important;
+  line-height: 1.6 !important;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(ellipse 900px 650px at 8% 12%, rgba(66, 133, 244, 0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 800px 550px at 92% 10%, rgba(234, 67, 53, 0.05) 0%, transparent 65%),
+    radial-gradient(ellipse 950px 750px at 50% 50%, rgba(251, 188, 4, 0.04) 0%, transparent 70%),
+    radial-gradient(ellipse 850px 600px at 88% 85%, rgba(52, 168, 83, 0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 750px 550px at 12% 88%, rgba(155, 114, 203, 0.05) 0%, transparent 65%) !important;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+/* 2. Google Typography Harmonization across all pages */
+h1, h2, h3, h4, h5, h6, .display-1, .display-2, .display-3, .display-4, .display-5, .display-6 {
+  font-family: 'Google Sans', system-ui, sans-serif !important;
+  font-weight: 700 !important;
+  color: var(--g1-text) !important;
+  letter-spacing: -0.022em !important;
+  line-height: 1.18 !important;
+}
+
+#isbirliklerimiz h1:not(.g1-gradient-ai-text),
+#isbirliklerimiz h2:not(.g1-gradient-ai-text),
+#isbirliklerimiz h3,
+#isbirliklerimiz h4,
+#isbirliklerimiz h5,
+#isbirliklerimiz h6,
+#isbirliklerimiz .text-white {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+#isbirliklerimiz p,
+#isbirliklerimiz .lead {
+  color: #e2e8f0 !important;
+}
+
+#isbirliklerimiz .text-white-50 {
+  color: #b6c2cf !important;
+}
+
+p, span, a, label, li, .lead, td, th, button, input, select, textarea {
+  font-family: 'Google Sans Text', 'Google Sans', system-ui, sans-serif;
+}
+
+.text-muted, .text-secondary, .g1-muted-text {
+  color: var(--g1-muted) !important;
+}
+
+/* Google One Reusable Page Components (Destek, Bayi Girişi, Subpages) */
+.g1-page-section {
+  position: relative;
+  z-index: 2;
+}
+
+.g1-display-title {
+  font-family: 'Google Sans', system-ui, sans-serif !important;
+  font-size: clamp(2.15rem, 4.4vw, 3.5rem) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.025em !important;
+  line-height: 1.14 !important;
+  color: var(--g1-text) !important;
+}
+
+.g1-lead-text {
+  font-family: 'Google Sans Text', sans-serif !important;
+  font-size: clamp(1.02rem, 1.35vw, 1.2rem) !important;
+  color: var(--g1-muted) !important;
+  line-height: 1.68 !important;
+  font-weight: 400 !important;
+}
+
+.g1-pill-badge {
+  background: var(--g1-surface-high);
+  border: 1px solid var(--g1-border);
+  color: var(--g1-text);
+  border-radius: 999px;
+  padding: 0.42rem 1.05rem;
+  font-family: 'Google Sans', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.g1-four-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.g1-four-dots i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.g1-surface-card {
+  background: var(--g1-surface) !important;
+  border: 1px solid var(--g1-border) !important;
+  border-radius: 28px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 8px 24px rgba(0, 0, 0, 0.03) !important;
+  transition: transform 0.28s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.28s ease, border-color 0.28s ease, background-color 0.3s ease !important;
+}
+
+.g1-surface-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 34px rgba(11, 87, 208, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+  border-color: rgba(11, 87, 208, 0.28) !important;
+}
+
+.g1-icon-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.g1-btn-primary {
+  background: #0b57d0 !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 100px !important;
+  padding: 0.7rem 1.65rem;
+  font-family: 'Google Sans', sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.22s cubic-bezier(0.2, 0, 0, 1) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12) !important;
+}
+
+.g1-btn-primary:hover {
+  background: #0842a0 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(11, 87, 208, 0.3) !important;
+  transform: translateY(-1px);
+}
+
+.g1-btn-tonal {
+  background: var(--g1-tonal-bg) !important;
+  color: var(--g1-tonal-text) !important;
+  border: 1px solid rgba(11, 87, 208, 0.18) !important;
+  border-radius: 100px !important;
+  padding: 0.65rem 1.4rem;
+  font-family: 'Google Sans', sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 0.92rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.22s ease !important;
+}
+
+.g1-btn-tonal:hover {
+  background: #d3e3fd !important;
+  color: #0842a0 !important;
+  transform: translateY(-1px);
+}
+
+.g1-info-callout {
+  background: var(--g1-surface-container);
+  border: 1px solid var(--g1-border);
+}
+
+.g1-input-addon {
+  background: var(--g1-surface-container) !important;
+  border: 1px solid #747775 !important;
+  border-right: none !important;
+  color: var(--g1-muted) !important;
+  border-radius: 12px 0 0 12px !important;
+}
+
+/* 3. Google One Universal Card Standards (Material 3: 28px/24px Radius) */
+.g1-ref-card,
+.lusion-work-card,
+.service-card-modern,
+.tech-card,
+.blog-card,
+.featured-post-card,
+.admin-glass-card,
+.admin-stat-card,
+.hardware-product-card,
+.contact-form-card,
+.price-card,
+.card-modern-g1 {
+  background: var(--g1-surface) !important;
+  border: 1px solid var(--g1-border) !important;
+  border-radius: 28px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.04) !important;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1) !important;
+  overflow: hidden;
+}
+
+.g1-ref-card:hover,
+.lusion-work-card:hover,
+.service-card-modern:hover,
+.tech-card:hover,
+.blog-card:hover,
+.featured-post-card:hover,
+.admin-glass-card:hover,
+.admin-stat-card:hover,
+.hardware-product-card:hover,
+.contact-form-card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 16px 36px rgba(11, 87, 208, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+  border-color: #c4d4f8 !important;
+}
+
+/* 4. Symmetrical References Section Styles */
+.g1-ref-card {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.g1-ref-img-wrap {
+  height: 230px !important;
+  min-height: 230px !important;
+  max-height: 230px !important;
+  background: #f8fafd !important;
+  border-bottom: 1px solid var(--g1-border) !important;
+  display: block !important;
+  padding: 0 !important;
+  position: relative;
+  overflow: hidden !important;
+  flex-shrink: 0;
+}
+
+.g1-ref-img-wrap img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.g1-ref-card:hover .g1-ref-img-wrap img {
+  transform: scale(1.04);
+}
+
+.g1-ref-title {
+  font-family: 'Google Sans', sans-serif !important;
+  font-size: 1.22rem !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.4px !important;
+  color: var(--g1-text) !important;
+  height: 2.4rem;
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.g1-ref-desc {
+  font-family: 'Google Sans Text', sans-serif !important;
+  font-size: 0.92rem !important;
+  color: var(--g1-muted) !important;
+  line-height: 1.6 !important;
+  height: 3.1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.g1-ref-tags {
+  min-height: 34px;
+  max-height: 34px;
+  overflow: hidden;
+}
+
+.g1-ref-tag {
+  background: var(--g1-surface-high) !important;
+  color: var(--g1-muted) !important;
+  border: 1px solid var(--g1-border) !important;
+  border-radius: 100px !important;
+  font-family: 'Google Sans Text', sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 0.74rem !important;
+  letter-spacing: 0.1px !important;
+  padding: 0.3rem 0.7rem !important;
+}
+
+.g1-ref-footer {
+  border-top: 1px solid var(--g1-border) !important;
+  margin-top: auto;
+}
+
+.g1-ref-status {
+  font-family: 'Google Sans Text', sans-serif !important;
+  font-size: 0.82rem !important;
+  color: var(--g1-muted) !important;
+  font-weight: 500 !important;
+}
+
+.g1-btn-card {
+  background: #0b57d0 !important;
+  color: #ffffff !important;
+  border-radius: 100px !important;
+  padding: 0.45rem 1.15rem !important;
+  font-family: 'Google Sans', sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 0.84rem !important;
+  border: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1) !important;
+  text-decoration: none !important;
+}
+
+.g1-btn-card:hover {
+  background: #0842a0 !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 6px rgba(11, 87, 208, 0.3) !important;
+  transform: translateY(-1px) !important;
+}
+
+.g1-ref-web-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 0.85rem;
+  border-radius: 12px;
+  background: rgba(11, 87, 208, 0.07);
+  border: 1px solid rgba(11, 87, 208, 0.22);
+  color: #0b57d0 !important;
+  font-family: 'Google Sans', sans-serif;
+  font-size: 0.83rem;
+  font-weight: 600;
+  text-decoration: none !important;
+  transition: all 0.22s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.g1-ref-web-link:hover {
+  background: #0b57d0 !important;
+  border-color: #0b57d0 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(11, 87, 208, 0.25);
+  transform: translateY(-1px);
+}
+
+html[data-theme="dark"] .g1-ref-web-link {
+  background: rgba(138, 180, 248, 0.12) !important;
+  border-color: rgba(138, 180, 248, 0.28) !important;
+  color: #8ab4f8 !important;
+}
+
+html[data-theme="dark"] .g1-ref-web-link:hover {
+  background: #8ab4f8 !important;
+  border-color: #8ab4f8 !important;
+  color: #0f172a !important;
+}
+
+/* Symmetric In-View Animation (Pure Vertical Balance) */
+.ref-item {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.6s cubic-bezier(0.2, 0, 0, 1), transform 0.6s cubic-bezier(0.2, 0, 0, 1) !important;
+  will-change: opacity, transform;
+}
+
+.ref-item.lusion-card-in-view,
+.ref-item.ref-from-left.lusion-card-in-view,
+.ref-item.ref-from-right.lusion-card-in-view {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* 5. Google 4-Color Category Pills */
+.g1-badge-blue {
+  background: #e8f0fe !important;
+  color: #0b57d0 !important;
+  border: 1px solid rgba(11, 87, 208, 0.22) !important;
+}
+
+.g1-badge-green {
+  background: #e6f4ea !important;
+  color: #137333 !important;
+  border: 1px solid rgba(19, 115, 51, 0.22) !important;
+}
+
+.g1-badge-yellow {
+  background: #fef7e0 !important;
+  color: #b06000 !important;
+  border: 1px solid rgba(176, 96, 0, 0.22) !important;
+}
+
+.g1-badge-red {
+  background: #fce8e6 !important;
+  color: #c5221f !important;
+  border: 1px solid rgba(197, 34, 31, 0.22) !important;
+}
+
+/* 6. Universal Google Form Inputs & Controls */
+.form-control, .form-select, .g1-input, input[type="text"], input[type="email"], input[type="password"], input[type="tel"], textarea {
+  background-color: var(--g1-surface) !important;
+  color: var(--g1-text) !important;
+  border: 1px solid #747775 !important;
+  border-radius: 12px !important;
+  padding: 0.75rem 1rem !important;
+  font-family: 'Google Sans Text', sans-serif !important;
+  font-size: 0.95rem !important;
+  transition: all 0.2s ease !important;
+}
+
+.form-control:focus, .form-select:focus, .g1-input:focus, input:focus, textarea:focus {
+  border-color: var(--g1-primary) !important;
+  box-shadow: 0 0 0 2px rgba(11, 87, 208, 0.2) !important;
+  background-color: var(--g1-surface) !important;
+  outline: none !important;
+}
+
+/* 7. Google One Universal Pill Buttons */
+.btn-primary, .btn-primary-g1 {
+  background-color: #0b57d0 !important;
+  color: #ffffff !important;
+  border-radius: 100px !important;
+  padding: 0.7rem 1.6rem !important;
+  font-family: 'Google Sans', sans-serif !important;
+  font-weight: 500 !important;
+  border: none !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12) !important;
+  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1) !important;
+}
+
+.btn-primary:hover, .btn-primary-g1:hover {
+  background-color: #0842a0 !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(11, 87, 208, 0.35) !important;
+  transform: translateY(-1px) !important;
+}
+
+.btn-tonal-g1, .btn-outline-primary {
+  background-color: var(--g1-tonal-bg) !important;
+  color: var(--g1-tonal-text) !important;
+  border-radius: 100px !important;
+  padding: 0.65rem 1.5rem !important;
+  font-family: 'Google Sans', sans-serif !important;
+  font-weight: 500 !important;
+  border: 1px solid rgba(11, 87, 208, 0.2) !important;
+  transition: all 0.2s ease !important;
+}
+
+.btn-tonal-g1:hover, .btn-outline-primary:hover {
+  background-color: #d3e3fd !important;
+  color: #0842a0 !important;
+  border-color: #0b57d0 !important;
+  transform: translateY(-1px) !important;
+}
+
+/* 8. Hakkımızda & Subpages Card Enhancements */
+.tech-card {
+  background: var(--g1-surface) !important;
+  border: 1px solid var(--g1-border) !important;
+  border-radius: 24px !important;
+  padding: 2rem !important;
+}
+
+.tech-card h3, .tech-card h4 {
+  color: var(--g1-text) !important;
+}
+
+.tech-card p {
+  color: var(--g1-muted) !important;
+}
+
+/* 9. Blog Page Enhancements */
+.blog-card {
+  border-radius: 24px !important;
+  background: var(--g1-surface) !important;
+  border: 1px solid var(--g1-border) !important;
+}
+
+.blog-card h3, .blog-card h4, .blog-card-title {
+  color: var(--g1-text) !important;
+}
+
+.blog-card p, .blog-card-summary {
+  color: var(--g1-muted) !important;
+}
+
+.blog-read-more {
+  color: var(--g1-primary) !important;
+  font-weight: 500 !important;
+}
+
+/* 10. Admin Dashboard Enhancements */
+.admin-glass-card, .admin-stat-card {
+  border-radius: 24px !important;
+  background: var(--g1-surface) !important;
+  border: 1px solid var(--g1-border) !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04) !important;
+}
+
+.admin-stat-num {
+  font-family: 'Google Sans', sans-serif !important;
+  font-weight: 700 !important;
+  color: var(--g1-text) !important;
+}
+
+.admin-table {
+  color: var(--g1-text) !important;
+}
+
+.admin-table thead th {
+  background: var(--g1-surface-container) !important;
+  color: var(--g1-muted) !important;
+  border-bottom: 2px solid var(--g1-border) !important;
+}
+
+/* 11. Modal Dialogs in Material 3 */
+.modal-content {
+  border-radius: 28px !important;
+  border: 1px solid var(--g1-border) !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2) !important;
+  background: var(--g1-surface) !important;
+  color: var(--g1-text) !important;
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--g1-border) !important;
+  padding: 1.5rem !important;
+}
+
+.modal-footer {
+  border-top: 1px solid var(--g1-border) !important;
+  padding: 1.25rem 1.5rem !important;
+}
+
+/* ============================================================
+   GOOGLE ONE FULL WEBSITE DARK MODE (html[data-theme="dark"] / OFF STATE)
+   ============================================================ */
+html[data-theme="dark"],
+html[data-theme="dark"] body {
+  background-color: #0e1013 !important;
+  background-image:
+    radial-gradient(ellipse 900px 650px at 8% 12%, rgba(66, 133, 244, 0.11) 0%, transparent 70%),
+    radial-gradient(ellipse 800px 550px at 92% 10%, rgba(234, 67, 53, 0.08) 0%, transparent 65%),
+    radial-gradient(ellipse 950px 750px at 50% 50%, rgba(251, 188, 4, 0.05) 0%, transparent 70%),
+    radial-gradient(ellipse 850px 600px at 88% 85%, rgba(52, 168, 83, 0.08) 0%, transparent 70%) !important;
+  color: #e3e3e3 !important;
+}
+
+html[data-theme="dark"] .lusion-header {
+  background: rgba(19, 21, 25, 0.85) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09) !important;
+}
+
+html[data-theme="dark"] .lusion-logo {
+  color: #f1f3f4 !important;
+}
+
+html[data-theme="dark"] .lusion-header-pill {
+  background: #1e2229 !important;
+  color: #e3e3e3 !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+html[data-theme="dark"] .lusion-header-pill i {
+  color: #8ab4f8 !important;
+}
+
+html[data-theme="dark"] .lusion-header-pill-dealer i {
+  color: #81c995 !important;
+}
+
+html[data-theme="dark"] .lusion-header-pill:hover {
+  background: rgba(138, 180, 248, 0.16) !important;
+  color: #8ab4f8 !important;
+  border-color: rgba(138, 180, 248, 0.35) !important;
+}
+
+html[data-theme="dark"] .lusion-btn-menu {
+  background: #1e2229 !important;
+  color: #e3e3e3 !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+html[data-theme="dark"] .lusion-menu-dot {
+  background: #e3e3e3 !important;
+}
+
+html[data-theme="dark"] .lusion-menu-drawer {
+  background: rgba(19, 21, 25, 0.97) !important;
+  border-left-color: rgba(255, 255, 255, 0.1) !important;
+  color: #e3e3e3 !important;
+}
+
+html[data-theme="dark"] .lusion-drawer-link {
+  color: #e3e3e3 !important;
+}
+
+html[data-theme="dark"] .lusion-drawer-link:hover {
+  color: #8ab4f8 !important;
+}
+
+html[data-theme="dark"] .lusion-btn-close {
+  background: #1e2229 !important;
+  color: #e3e3e3 !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Dark Mode Footer */
+html[data-theme="dark"] .lusion-footer {
+  background: #131519 !important;
+  color: #e3e3e3 !important;
+  border-top-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+html[data-theme="dark"] .g1-footer-heading {
+  color: #f1f3f4 !important;
+}
+
+html[data-theme="dark"] .g1-footer-brand {
+  color: #8ab4f8 !important;
+}
+
+html[data-theme="dark"] .g1-footer-text,
+html[data-theme="dark"] .g1-footer-link {
+  color: #9aa0a6 !important;
+}
+
+html[data-theme="dark"] .g1-footer-link:hover {
+  color: #8ab4f8 !important;
+}
+
+html[data-theme="dark"] .g1-footer-divider {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+html[data-theme="dark"] .lusion-footer .lusion-insta-card,
+html[data-theme="dark"] .g1-footer-chip-btn,
+html[data-theme="dark"] .lusion-footer .lusion-contact-panel {
+  background: #181a1f !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #e3e3e3 !important;
+}
+
+/* Dark Mode Cards, Sections, Panels & Inline Style Overrides Across All Views */
+html[data-theme="dark"] .g1-surface-card,
+html[data-theme="dark"] .g1-ref-card,
+html[data-theme="dark"] .lusion-work-card,
+html[data-theme="dark"] .service-card-modern,
+html[data-theme="dark"] .tech-card,
+html[data-theme="dark"] .blog-card,
+html[data-theme="dark"] .featured-post-card,
+html[data-theme="dark"] .hardware-product-card,
+html[data-theme="dark"] .contact-form-card,
+html[data-theme="dark"] .price-card,
+html[data-theme="dark"] .card-modern-g1,
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .bg-white,
+html[data-theme="dark"] .bg-light,
+html[data-theme="dark"] .spline-dropdown-menu,
+html[data-theme="dark"] .spline-glass-card,
+html[data-theme="dark"] .lusion-career-box,
+html[data-theme="dark"] .bank-card,
+html[data-theme="dark"] .urun-card,
+html[data-theme="dark"] .filter-sidebar,
+html[data-theme="dark"] [style*="background: #ffffff"],
+html[data-theme="dark"] [style*="background:#ffffff"],
+html[data-theme="dark"] [style*="background-color: #ffffff"],
+html[data-theme="dark"] [style*="background-color:#ffffff"],
+html[data-theme="dark"] [style*="background: #f8fafd"],
+html[data-theme="dark"] [style*="background:#f8fafd"],
+html[data-theme="dark"] [style*="background: #f8fafc"],
+html[data-theme="dark"] [style*="background:#f8fafc"],
+html[data-theme="dark"] [style*="background: #f0f4f9"],
+html[data-theme="dark"] [style*="background:#f0f4f9"],
+html[data-theme="dark"] [style*="background: rgba(255, 255, 255"] {
+  background-color: #181a1f !important;
+  background: #181a1f !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #e3e3e3 !important;
+}
+
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] h4,
+html[data-theme="dark"] h5,
+html[data-theme="dark"] h6,
+html[data-theme="dark"] .text-dark,
+html[data-theme="dark"] .stark-display-title,
+html[data-theme="dark"] [style*="color: #0f172a"],
+html[data-theme="dark"] [style*="color:#0f172a"],
+html[data-theme="dark"] [style*="color: #1f1f1f"],
+html[data-theme="dark"] [style*="color:#1f1f1f"],
+html[data-theme="dark"] [style*="color: #1e293b"],
+html[data-theme="dark"] [style*="color:#1e293b"] {
+  color: #f1f3f4 !important;
+}
+
+html[data-theme="dark"] p,
+html[data-theme="dark"] .hero-intro-text,
+html[data-theme="dark"] .text-muted,
+html[data-theme="dark"] .text-secondary,
+html[data-theme="dark"] [style*="color: #475569"],
+html[data-theme="dark"] [style*="color:#475569"],
+html[data-theme="dark"] [style*="color: #64748b"],
+html[data-theme="dark"] [style*="color:#64748b"],
+html[data-theme="dark"] [style*="color: #444746"],
+html[data-theme="dark"] [style*="color:#444746"] {
+  color: #9aa0a6 !important;
+}
+
+html[data-theme="dark"] .form-control,
+html[data-theme="dark"] .form-select,
+html[data-theme="dark"] .g1-input,
+html[data-theme="dark"] input[type="text"],
+html[data-theme="dark"] input[type="email"],
+html[data-theme="dark"] input[type="password"],
+html[data-theme="dark"] input[type="tel"],
+html[data-theme="dark"] textarea {
+  background-color: #131519 !important;
+  color: #f1f3f4 !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+html[data-theme="dark"] .form-control::placeholder,
+html[data-theme="dark"] .g1-input::placeholder,
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder {
+  color: #6e7681 !important;
+}
+
+html[data-theme="dark"] .accordion-button {
+  color: #f1f3f4 !important;
+}
+
+html[data-theme="dark"] .accordion-button::after {
+  filter: invert(1) brightness(1.6);
+}
+
+html[data-theme="dark"] .table {
+  color: #e3e3e3 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+html[data-theme="dark"] .spline-preloader {
+  background: #0e1013 !important;
+}
+
+/* ============================================================
+   EYE-CATCHING BAYİ BAŞVURU & İŞBİRLİĞİ CTA KUTUCUĞU
+   (Between Öne Çıkan Referanslarımız & Hizmetlerimiz)
+   ============================================================ */
+.g1-dealer-cta-box {
+  background:
+    radial-gradient(circle at 12% 18%, rgba(66, 133, 244, 0.14) 0%, transparent 48%),
+    radial-gradient(circle at 88% 22%, rgba(52, 168, 83, 0.13) 0%, transparent 45%),
+    radial-gradient(circle at 75% 88%, rgba(251, 188, 4, 0.14) 0%, transparent 50%),
+    linear-gradient(135deg, #ffffff 0%, #f4f8ff 48%, #f2fbf6 100%) !important;
+  border-radius: 32px !important;
+  border: 2px solid rgba(11, 87, 208, 0.22) !important;
+  box-shadow:
+    0 24px 60px rgba(11, 87, 208, 0.12),
+    0 8px 24px rgba(19, 115, 51, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  transition: transform 0.35s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.35s ease, border-color 0.35s ease !important;
+}
+
+.g1-dealer-cta-box:hover {
+  transform: translateY(-4px);
+  border-color: rgba(11, 87, 208, 0.42) !important;
+  box-shadow:
+    0 30px 75px rgba(11, 87, 208, 0.18),
+    0 12px 32px rgba(52, 168, 83, 0.12) !important;
+}
+
+.g1-dealer-rainbow-bar {
+  height: 6px;
+  width: 100%;
+  background: linear-gradient(90deg, #4285F4 0%, #EA4335 25%, #FBBC05 50%, #34A853 75%, #4285F4 100%);
+  background-size: 200% 100%;
+  animation: g1RainbowSlide 6s linear infinite;
+}
+
+@keyframes g1RainbowSlide {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.g1-dealer-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(55px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.g1-dealer-orb-blue {
+  width: 280px;
+  height: 280px;
+  top: -90px;
+  left: -60px;
+  background: rgba(66, 133, 244, 0.22);
+}
+
+.g1-dealer-orb-green {
+  width: 260px;
+  height: 260px;
+  bottom: -80px;
+  right: 18%;
+  background: rgba(52, 168, 83, 0.18);
+}
+
+.g1-dealer-orb-gold {
+  width: 220px;
+  height: 220px;
+  top: -50px;
+  right: -40px;
+  background: rgba(251, 188, 4, 0.2);
+}
+
+.g1-dealer-pill-badge {
+  background: #ffffff;
+  border: 1px solid rgba(11, 87, 208, 0.22);
+  color: #0b57d0;
+  box-shadow: 0 4px 14px rgba(11, 87, 208, 0.08);
+  font-family: 'Google Sans', sans-serif;
+}
+
+.g1-dealer-live-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #34A853;
+  box-shadow: 0 0 0 0 rgba(52, 168, 83, 0.7);
+  animation: g1LivePulse 1.8s infinite;
+  display: inline-block;
+}
+
+@keyframes g1LivePulse {
+  0% { box-shadow: 0 0 0 0 rgba(52, 168, 83, 0.65); }
+  70% { box-shadow: 0 0 0 8px rgba(52, 168, 83, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(52, 168, 83, 0); }
+}
+
+.g1-dealer-cta-title {
+  font-family: 'Google Sans', sans-serif !important;
+  font-size: clamp(1.75rem, 3.2vw, 2.55rem) !important;
+  line-height: 1.18 !important;
+  letter-spacing: -0.025em !important;
+  color: #1f1f1f !important;
+}
+
+.g1-dealer-cta-desc {
+  font-family: 'Google Sans Text', sans-serif !important;
+  font-size: 1.02rem !important;
+  line-height: 1.68 !important;
+  color: #444746 !important;
+  max-width: 640px;
+}
+
+.g1-dealer-perk-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(11, 87, 208, 0.16);
+  border-radius: 999px;
+  padding: 0.45rem 0.95rem;
+  font-family: 'Google Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #1f1f1f;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.g1-dealer-btn-primary {
+  background: linear-gradient(135deg, #0b57d0 0%, #1a73e8 50%, #137333 100%) !important;
+  background-size: 180% 180% !important;
+  color: #ffffff !important;
+  border-radius: 999px !important;
+  padding: 0.88rem 1.75rem !important;
+  font-family: 'Google Sans', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 0.96rem !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.6rem !important;
+  box-shadow: 0 10px 26px rgba(11, 87, 208, 0.32) !important;
+  transition: all 0.25s cubic-bezier(0.2, 0, 0, 1) !important;
+  border: none !important;
+}
+
+.g1-dealer-btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 14px 34px rgba(11, 87, 208, 0.45) !important;
+  color: #ffffff !important;
+}
+
+.g1-dealer-btn-secondary {
+  background: #ffffff !important;
+  color: #0b57d0 !important;
+  border: 1.5px solid rgba(11, 87, 208, 0.3) !important;
+  border-radius: 999px !important;
+  padding: 0.84rem 1.45rem !important;
+  font-family: 'Google Sans', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 0.93rem !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04) !important;
+  transition: all 0.22s ease !important;
+}
+
+.g1-dealer-btn-secondary:hover {
+  background: #e8f0fe !important;
+  border-color: #0b57d0 !important;
+  color: #0842a0 !important;
+  transform: translateY(-2px);
+}
+
+.g1-dealer-phone-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none !important;
+  color: #1f1f1f;
+  padding: 0.4rem 0.85rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+.g1-dealer-phone-link:hover {
+  background: #ffffff;
+  border-color: rgba(19, 115, 51, 0.35);
+  color: #137333;
+  transform: translateY(-1px);
+}
+
+.g1-dealer-phone-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #e6f4ea;
+  color: #137333;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+}
+
+.g1-dealer-showcase-card {
+  background: #ffffff;
+  border: 1px solid rgba(11, 87, 208, 0.16);
+  border-radius: 26px;
+  padding: 1.5rem;
+  box-shadow: 0 18px 42px rgba(11, 87, 208, 0.1), 0 4px 12px rgba(0, 0, 0, 0.04);
+  position: relative;
+}
+
+.g1-dealer-logo-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: #f8fafd;
+  border: 1px solid rgba(11, 87, 208, 0.15);
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.g1-dealer-logo-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.g1-dealer-card-heading {
+  font-family: 'Google Sans', sans-serif;
+  color: #1f1f1f;
+}
+
+.g1-dealer-card-sub {
+  color: #5f6368;
+}
+
+.g1-dealer-card-divider {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.g1-dealer-stat-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 18px;
+  background: #f8fafd;
+  border: 1px solid rgba(11, 87, 208, 0.1);
+  transition: transform 0.22s ease, border-color 0.22s ease, background-color 0.22s ease;
+}
+
+.g1-dealer-stat-row:hover {
+  transform: translateX(4px);
+  background: #f0f6ff;
+  border-color: rgba(11, 87, 208, 0.28);
+}
+
+.g1-dealer-stat-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.g1-dealer-stat-title {
+  font-family: 'Google Sans', sans-serif;
+  font-size: 0.88rem;
+  color: #1f1f1f;
+  line-height: 1.25;
+}
+
+.g1-dealer-stat-sub {
+  font-size: 0.75rem;
+  color: #5f6368;
+  line-height: 1.35;
+}
+
+/* Dark Mode Overrides for Bayi Başvuru CTA Box */
+html[data-theme="dark"] .g1-dealer-cta-box {
+  background:
+    radial-gradient(circle at 12% 18%, rgba(66, 133, 244, 0.22) 0%, transparent 50%),
+    radial-gradient(circle at 88% 22%, rgba(52, 168, 83, 0.18) 0%, transparent 48%),
+    linear-gradient(135deg, #151922 0%, #182032 55%, #152321 100%) !important;
+  border-color: rgba(138, 180, 248, 0.3) !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), 0 0 40px rgba(66, 133, 244, 0.14) !important;
+}
+
+html[data-theme="dark"] .g1-dealer-pill-badge {
+  background: rgba(30, 41, 59, 0.9) !important;
+  border-color: rgba(138, 180, 248, 0.3) !important;
+  color: #8ab4f8 !important;
+}
+
+html[data-theme="dark"] .g1-dealer-cta-title {
+  color: #ffffff !important;
+}
+
+html[data-theme="dark"] .g1-dealer-cta-desc {
+  color: #cbd5e1 !important;
+}
+
+html[data-theme="dark"] .g1-dealer-perk-chip {
+  background: rgba(30, 41, 59, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  color: #f1f5f9 !important;
+}
+
+html[data-theme="dark"] .g1-dealer-btn-secondary {
+  background: rgba(30, 41, 59, 0.9) !important;
+  color: #8ab4f8 !important;
+  border-color: rgba(138, 180, 248, 0.35) !important;
+}
+
+html[data-theme="dark"] .g1-dealer-phone-link {
+  background: rgba(30, 41, 59, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  color: #f1f5f9 !important;
+}
+
+html[data-theme="dark"] .g1-dealer-showcase-card {
+  background: #1a202c !important;
+  border-color: rgba(138, 180, 248, 0.25) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6) !important;
+}
+
+html[data-theme="dark"] .g1-dealer-card-heading,
+html[data-theme="dark"] .g1-dealer-stat-title {
+  color: #ffffff !important;
+}
+
+html[data-theme="dark"] .g1-dealer-card-sub,
+html[data-theme="dark"] .g1-dealer-stat-sub {
+  color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] .g1-dealer-stat-row {
+  background: #131822 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+html[data-theme="dark"] .g1-dealer-logo-box {
+  background: #ffffff !important;
+}
+
+/* ============================================================
+   ECOSYSTEM BENTO CARDS & DARK MODE TRANSFORMATION FOR #isbirliklerimiz
+   (Inspired by one.google.com/about — Rich Bento interior + Warm Ecru/Obsidian contrast)
+   ============================================================ */
+.g1-ecosystem-pill {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+.g1-ecosystem-pill-icon {
+  color: #8ab4f8;
+}
+.g1-ecosystem-pill-text {
+  color: #e3e3e3;
+  letter-spacing: 1.2px;
+  font-size: 0.74rem;
+}
+.g1-ecosystem-lead {
+  color: #e2e8f0 !important;
+}
+.g1-ecosystem-subpill {
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+.g1-ecosystem-subpill-text {
+  color: #8ab4f8 !important;
+}
+.g1-ecosystem-subtitle {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+.g1-ecosystem-tile-title {
+  color: #ffffff !important;
+}
+.g1-ecosystem-tile-sub {
+  color: #cbd5e1 !important;
+}
+.g1-ecosystem-hint-pill {
+  background: rgba(66, 133, 244, 0.12);
+  color: #8ab4f8;
+  border: 1px dashed rgba(66, 133, 244, 0.35);
+}
+.g1-ecosystem-cta-btn {
+  background: linear-gradient(135deg, #0b57d0 0%, #4f46e5 100%);
+  color: #ffffff !important;
+  border: 1px solid rgba(138, 180, 248, 0.35);
+  box-shadow: 0 10px 24px rgba(11, 87, 208, 0.35);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.g1-ecosystem-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(11, 87, 208, 0.5);
+  color: #ffffff !important;
+}
+
+/* 3-Card Bento Showcase inside #isbirliklerimiz */
+.g1-ecosystem-bento-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  padding: 1.65rem 1.5rem 1.5rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.g1-ecosystem-bento-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(138, 180, 248, 0.4);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.45);
+}
+.g1-ecosystem-bento-featured {
+  background: linear-gradient(160deg, rgba(66, 133, 244, 0.12) 0%, rgba(155, 114, 203, 0.1) 50%, rgba(255, 255, 255, 0.05) 100%);
+  border-color: rgba(138, 180, 248, 0.32);
+}
+.g1-ecosystem-bento-topbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+}
+.g1-ecosystem-bento-topbar.bar-blue {
+  background: linear-gradient(90deg, #4285f4, #8ab4f8);
+}
+.g1-ecosystem-bento-topbar.bar-multi {
+  background: linear-gradient(90deg, #4285f4 0%, #9b72cb 35%, #d96570 70%, #fbbc04 100%);
+}
+.g1-ecosystem-bento-topbar.bar-emerald {
+  background: linear-gradient(90deg, #34a853, #81c995);
+}
+.g1-ecosystem-tier-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+.g1-ecosystem-tier-tag.tag-blue {
+  background: rgba(66, 133, 244, 0.18);
+  color: #8ab4f8;
+  border: 1px solid rgba(138, 180, 248, 0.3);
+}
+.g1-ecosystem-tier-tag.tag-gold {
+  background: rgba(251, 188, 4, 0.16);
+  color: #fdd663;
+  border: 1px solid rgba(253, 214, 99, 0.35);
+}
+.g1-ecosystem-tier-tag.tag-emerald {
+  background: rgba(52, 168, 83, 0.18);
+  color: #81c995;
+  border: 1px solid rgba(129, 201, 149, 0.3);
+}
+.g1-ecosystem-metric-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.22rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+.g1-ecosystem-bento-title {
+  font-family: 'Google Sans', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.4px;
+}
+.g1-ecosystem-bento-capacity {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #8ab4f8;
+}
+.g1-ecosystem-bento-desc {
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: #cbd5e1;
+}
+.g1-ecosystem-meter-label {
+  color: #cbd5e1;
+  font-size: 0.76rem;
+}
+.g1-ecosystem-meter-bar {
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+.g1-ecosystem-meter-fill {
+  height: 100%;
+  border-radius: 999px;
+}
+.g1-ecosystem-meter-fill.fill-blue {
+  background: linear-gradient(90deg, #4285f4, #8ab4f8);
+}
+.g1-ecosystem-meter-fill.fill-multi {
+  background: linear-gradient(90deg, #4285f4, #9b72cb, #fbbc04);
+}
+.g1-ecosystem-meter-fill.fill-emerald {
+  background: linear-gradient(90deg, #34a853, #81c995);
+}
+
+/* DARK MODE TRANSFORMATION FOR #isbirliklerimiz & ECOSYSTEM SECTION:
+   Deep Obsidian & Glass Contrast in Dark Mode with 100% High Legibility (No light/white washout) */
+html[data-theme="dark"] .g1-dark-scroll-stage::before {
+  background: radial-gradient(circle at 50% 50%, rgba(66, 133, 244, 0.12) 0%, transparent 75%) !important;
+}
+
+html[data-theme="dark"] .g1-dark-immersion-section {
+  background-color: #070a12 !important;
+  background-image:
+    radial-gradient(ellipse at 85% 20%, rgba(66, 133, 244, 0.18) 0%, rgba(155, 114, 203, 0.12) 38%, transparent 70%),
+    radial-gradient(ellipse at 15% 85%, rgba(52, 168, 83, 0.12) 0%, rgba(251, 188, 4, 0.08) 42%, transparent 72%),
+    linear-gradient(160deg, #07090f 0%, #0c101a 55%, #080b12 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow:
+    0 36px 90px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="dark"] .g1-dark-immersion-section .g1-ecosystem-pill {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4) !important;
+}
+html[data-theme="dark"] .g1-dark-immersion-section .g1-ecosystem-pill-icon {
+  color: #8ab4f8 !important;
+}
+html[data-theme="dark"] .g1-dark-immersion-section .g1-ecosystem-pill-text {
+  color: #f1f5f9 !important;
+}
+html[data-theme="dark"] .g1-dark-immersion-section .g1-gradient-ai-text {
+  background: linear-gradient(90deg, #8ab4f8 0%, #c58af9 36%, #f28b82 70%, #fdd663 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+}
+html[data-theme="dark"] .g1-dark-immersion-section .g1-ecosystem-lead {
+  color: #cbd5e1 !important;
+}
+html[data-theme="dark"] .g1-dark-immersion-section .g1-ecosystem-subpill {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(138, 180, 248, 0.3) !important;
+}
+html[data-theme="dark"] .g1-dark-immersion-section .g1-ecosystem-subpill-text {
+  color: #93c5fd !important;
+}
+html[data-theme="dark"] .g1-dark-immersion-section .g1-ecosystem-subtitle {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+/* Bento Cards in Dark Mode */
+html[data-theme="dark"] .g1-dark-immersion-section .g1-ecosystem-bento-card {
+  background: #101522 !important;
+  background-image: linear-gradient(165deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5) !important;
+}
+html[data-theme="dark"] .g1-dark-immersion-section .g1-ecosystem-bento-card:hover {
+  border-color: rgba(138, 180, 248, 0.45) !important;
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(66, 133, 244, 0.16) !important;
+}
+
+html[data-theme="dark"] .g1-dark-immersion-section .g1-ecosystem-bento-featured {
+  background: linear-gradient(160deg, #141c2e 0%, #171b2d 50%, #151624 100%) !important;
+  border: 1.5px solid rgba(138, 180, 248, 0.35) !important;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.65), 0 0 30px rgba(66, 133, 244, 0.15) !important;
+}
+
+html[data-theme="dark"] .g1-dark-immersion-section .g1-ecosystem-bento-title {
+  color: #ffffff !important;
+}
+html[data-theme="dark"] .g1-dark-immersion-section .g1-ecosystem-bento-capacity {
+  color: #93c5fd !important;
+}
+html[data-theme="dark"] .g1-dark-immersion-section .g1-ecosystem-bento-desc {
+  color: #cbd5e1 !important;
+}
+html[data-theme="dark"] .g1-dark-immersion-section .g1-ecosystem-meter-label {
+  color: #cbd5e1 !important;
+}
+html[data-theme="dark"] .g1-dark-immersion-section .g1-ecosystem-meter-bar {
+  background: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Badges & Tags in Dark Mode */
+html[data-theme="dark"] .g1-dark-immersion-section .g1-ecosystem-metric-badge {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #f1f5f9 !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+}
+html[data-theme="dark"] .g1-dark-immersion-section .g1-ecosystem-metric-badge.badge-gold {
+  background: rgba(251, 188, 4, 0.18) !important;
+  color: #fef08a !important;
+  border: 1px solid rgba(253, 224, 71, 0.35) !important;
+}
+
+html[data-theme="dark"] .g1-dark-immersion-section .g1-ecosystem-tier-tag.tag-blue {
+  background: rgba(66, 133, 244, 0.22) !important;
+  color: #93c5fd !important;
+  border: 1px solid rgba(147, 197, 253, 0.35) !important;
+}
+html[data-theme="dark"] .g1-dark-immersion-section .g1-ecosystem-tier-tag.tag-gold {
+  background: rgba(251, 188, 4, 0.2) !important;
+  color: #fde047 !important;
+  border: 1px solid rgba(253, 224, 71, 0.35) !important;
+}
+html[data-theme="dark"] .g1-dark-immersion-section .g1-ecosystem-tier-tag.tag-emerald {
+  background: rgba(52, 168, 83, 0.22) !important;
+  color: #86efac !important;
+  border: 1px solid rgba(134, 239, 172, 0.35) !important;
+}
+
+/* Sub-tiles & ecosystem grid in Dark Mode */
+html[data-theme="dark"] .g1-dark-immersion-section .g1-dark-tile {
+  background: #101522 !important;
+  border: 1px solid rgba(255, 255, 255, 0.11) !important;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4) !important;
+}
+html[data-theme="dark"] .g1-dark-immersion-section .g1-dark-tile:hover {
+  background: #161e2f !important;
+  border-color: rgba(138, 180, 248, 0.4) !important;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6) !important;
+}
+html[data-theme="dark"] .g1-dark-immersion-section .g1-ecosystem-tile-title {
+  color: #ffffff !important;
+}
+html[data-theme="dark"] .g1-dark-immersion-section .g1-ecosystem-tile-sub {
+  color: #94a3b8 !important;
+}
+html[data-theme="dark"] .g1-dark-immersion-section .g1-ecosystem-hint-pill {
+  background: rgba(66, 133, 244, 0.15) !important;
+  color: #93c5fd !important;
+  border: 1px dashed rgba(147, 197, 253, 0.4) !important;
+}
+html[data-theme="dark"] .g1-dark-immersion-section .spline-3d-backplate {
+  background: rgba(15, 23, 42, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65) !important;
+}
+html[data-theme="dark"] .g1-dark-immersion-section .spline-3d-card {
+  background: linear-gradient(145deg, #121724 0%, #0d121c 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7) !important;
+}
+html[data-theme="dark"] .g1-dark-immersion-section .spline-select-bar {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}
+html[data-theme="dark"] .g1-dark-immersion-section .spline-dropdown-menu {
+  background: rgba(15, 23, 42, 0.98) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+/* ============================================================
+   LOGO.COM.TR TARZI KALICI ALT SABİT DANIŞMAN & HIZLI ERİŞİM BARI
+   (Fixed bottom-0 left-0 right-0, never overlaps any text or menu)
+   ============================================================ */
+body {
+  padding-bottom: 66px !important;
+}
+
+.lusion-footer {
+  padding-bottom: 104px !important;
+}
+
+.hayat-sticky-bottom-bar {
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 1020 !important;
+  background: rgba(255, 255, 255, 0.97) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border-top: 1px solid rgba(15, 23, 42, 0.1) !important;
+  box-shadow: 0 -6px 28px rgba(15, 23, 42, 0.08) !important;
+  padding: 10px 16px !important;
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, background-color 0.48s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.48s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.48s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+/* Menü çekmecesi, ürün detay çekmecesi veya modal açıldığında alt bar hiçbir elemanı kapatmaması için zarifçe aşağı çekilir */
+body:has(.lusion-menu-drawer.open) .hayat-sticky-bottom-bar,
+body:has(.product-slide-drawer.active) .hayat-sticky-bottom-bar,
+body.modal-open .hayat-sticky-bottom-bar,
+.hayat-sticky-bottom-bar.drawer-hidden {
+  transform: translateY(110%) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.hayat-sticky-bar-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+@media (min-width: 992px) {
+  .hayat-sticky-bar-inner {
+    gap: 2.25rem;
+  }
+}
+
+.hayat-sticky-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none !important;
+  color: #1f1f1f !important;
+  padding: 4px 10px;
+  border-radius: 12px;
+  transition: transform 0.22s cubic-bezier(0.2, 0, 0, 1), background-color 0.35s ease, color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hayat-sticky-item:hover {
+  background: rgba(11, 87, 208, 0.06);
+  transform: translateY(-1px);
+}
+
+.hayat-sticky-icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #1f1f1f;
+  transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1), color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hayat-sticky-item:hover .hayat-sticky-icon {
+  transform: scale(1.12);
+}
+
+.hayat-sticky-item-primary .hayat-sticky-icon,
+.hayat-sticky-item-primary .hayat-sticky-top-line,
+.hayat-sticky-item-primary .hayat-sticky-bottom-line {
+  color: #0b57d0 !important;
+}
+
+.hayat-sticky-dealer-icon {
+  font-size: 1.45rem;
+  color: #0b57d0;
+  transition: color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hayat-sticky-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  line-height: 1.22;
+  white-space: nowrap;
+}
+
+.hayat-sticky-top-line {
+  font-family: 'Google Sans Text', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: #444746;
+  transition: color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hayat-sticky-bottom-line {
+  font-family: 'Google Sans', sans-serif;
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: #1f1f1f;
+  letter-spacing: -0.01em;
+  transition: color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hayat-sticky-divider {
+  width: 1px;
+  height: 32px;
+  background: rgba(15, 23, 42, 0.12);
+  flex-shrink: 0;
+  transition: background-color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (max-width: 767.98px) {
+  .hayat-sticky-bottom-bar {
+    padding: 8px 8px !important;
+  }
+  .hayat-sticky-bar-inner {
+    gap: 0.35rem;
+    justify-content: space-around;
+  }
+  .hayat-sticky-item {
+    gap: 0.4rem;
+    padding: 4px 5px;
+  }
+  .hayat-sticky-top-line {
+    display: none;
+  }
+  .hayat-sticky-bottom-line {
+    font-size: 0.74rem;
+  }
+  .hayat-sticky-divider {
+    height: 22px;
+  }
+  .hayat-sticky-icon {
+    width: 20px;
+    height: 20px;
+  }
+  .hayat-sticky-dealer-icon {
+    font-size: 1.15rem;
+  }
+}
+
+/* Dark Mode & Scroll-Driven Dark Immersion Rules for Kalıcı Alt Bar */
+html[data-theme="dark"] .hayat-sticky-bottom-bar,
+body.g1-dark-scroll-active .hayat-sticky-bottom-bar {
+  background: rgba(10, 12, 16, 0.95) !important;
+  border-top-color: rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 0 -10px 36px rgba(0, 0, 0, 0.65), 0 -1px 18px rgba(66, 133, 244, 0.14) !important;
+}
+
+html[data-theme="dark"] body.g1-dark-scroll-active .hayat-sticky-bottom-bar {
+  background: rgba(13, 33, 79, 0.95) !important;
+  border-top-color: rgba(125, 211, 252, 0.38) !important;
+  box-shadow: 0 -10px 38px rgba(7, 16, 45, 0.8), 0 -2px 24px rgba(56, 189, 248, 0.25) !important;
+}
+
+html[data-theme="dark"] .hayat-sticky-item,
+body.g1-dark-scroll-active .hayat-sticky-item {
+  color: #f1f3f4 !important;
+}
+
+html[data-theme="dark"] .hayat-sticky-item:hover,
+body.g1-dark-scroll-active .hayat-sticky-item:hover {
+  background: rgba(138, 180, 248, 0.12) !important;
+}
+
+html[data-theme="dark"] .hayat-sticky-icon,
+body.g1-dark-scroll-active .hayat-sticky-icon {
+  color: #f1f3f4 !important;
+}
+
+html[data-theme="dark"] .hayat-sticky-item-primary .hayat-sticky-icon,
+html[data-theme="dark"] .hayat-sticky-item-primary .hayat-sticky-top-line,
+html[data-theme="dark"] .hayat-sticky-item-primary .hayat-sticky-bottom-line,
+html[data-theme="dark"] .hayat-sticky-dealer-icon,
+body.g1-dark-scroll-active .hayat-sticky-item-primary .hayat-sticky-icon,
+body.g1-dark-scroll-active .hayat-sticky-item-primary .hayat-sticky-top-line,
+body.g1-dark-scroll-active .hayat-sticky-item-primary .hayat-sticky-bottom-line,
+body.g1-dark-scroll-active .hayat-sticky-dealer-icon {
+  color: #8ab4f8 !important;
+}
+
+html[data-theme="dark"] .hayat-sticky-top-line,
+body.g1-dark-scroll-active .hayat-sticky-top-line {
+  color: #cbd5e1 !important;
+}
+
+html[data-theme="dark"] .hayat-sticky-bottom-line,
+body.g1-dark-scroll-active .hayat-sticky-bottom-line {
+  color: #ffffff !important;
+}
+
+html[data-theme="dark"] .hayat-sticky-divider,
+body.g1-dark-scroll-active .hayat-sticky-divider {
+  background: rgba(255, 255, 255, 0.16) !important;
+}
+
+/* Spline "Light and Shadow" 3D Logo Badge inside Sticky Bottom Bar */
+.hayat-sticky-spline-logo {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: #090b10;
+  border: 1px solid rgba(138, 180, 248, 0.38);
+  box-shadow: 0 4px 12px rgba(11, 87, 208, 0.22);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease;
+}
+
+.hayat-sticky-item:hover .hayat-sticky-spline-logo {
+  transform: scale(1.08) rotate(-4deg);
+  box-shadow: 0 6px 16px rgba(66, 133, 244, 0.38);
+}
+
+.hayat-sticky-spline-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.32);
+  display: block;
+}
+
+/* ============================================================
+   HAYAT AI-PLUS PLAN CARD AESTHETIC (Inspired by one.google.com/about)
+   Used in:
+   1. Footer Left Column ("İşletmenizi Dijital Dünyaya Taşıyalım.")
+   2. Hizmetlerimiz CTA ("Yeni Projenizi Hayata Geçirmeye Hazır mısınız?")
+   3. İnsan Kaynakları Box (Index.cshtml & InsanKaynaklari.cshtml)
+   ============================================================ */
+.hayat-ai-plus-card {
+  position: relative;
+  background: linear-gradient(165deg, #ffffff 0%, #f8faff 58%, #f3f6fc 100%);
+  border: 1.5px solid rgba(11, 87, 208, 0.22);
+  border-radius: 28px;
+  padding: 2rem 1.85rem 1.85rem;
+  box-shadow:
+    0 20px 50px rgba(11, 87, 208, 0.09),
+    0 4px 14px rgba(15, 23, 42, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.hayat-ai-plus-card-wide {
+  padding: 2.4rem 2.6rem;
+}
+
+.hayat-ai-plus-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(11, 87, 208, 0.38);
+  box-shadow:
+    0 26px 60px rgba(11, 87, 208, 0.14),
+    0 8px 20px rgba(15, 23, 42, 0.06);
+}
+
+/* Top Multi-Tone Iridescent Accent Bar (Signature Plan Card Strip) */
+.hayat-ai-plus-top-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #4285f4 0%, #9b72cb 36%, #d96570 70%, #fbbc04 100%);
+}
+
+.hayat-ai-plus-brand {
+  color: #1f1f1f;
+  font-size: 0.88rem;
+  letter-spacing: 0.6px;
+}
+
+.hayat-ai-plus-sublabel {
+  color: #5f6368;
+  font-size: 0.74rem;
+}
+
+.hayat-ai-plus-tier-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  background: linear-gradient(135deg, rgba(66, 133, 244, 0.14) 0%, rgba(155, 114, 203, 0.16) 100%);
+  color: #0b57d0;
+  border: 1px solid rgba(11, 87, 208, 0.24);
+}
+
+.hayat-ai-plus-subpill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.32rem 0.78rem;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+}
+
+.hayat-ai-plus-title {
+  font-family: 'Google Sans', sans-serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #1f1f1f;
+  letter-spacing: -0.5px;
+  line-height: 1.22;
+}
+
+.hayat-ai-plus-highlight-metric {
+  font-family: 'Google Sans', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #0b57d0 0%, #7c3aed 65%, #d96570 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.1px;
+}
+
+.hayat-ai-plus-desc {
+  color: #444746;
+  font-size: 0.92rem;
+  line-height: 1.68;
+}
+
+.hayat-ai-plus-features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.9rem 1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(11, 87, 208, 0.12);
+}
+
+.hayat-ai-plus-feature-item {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.85rem;
+  color: #1f1f1f;
+  line-height: 1.45;
+}
+
+.hayat-ai-plus-sparkle {
+  color: #7c3aed;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.hayat-ai-plus-check {
+  color: #0b57d0;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.hayat-ai-plus-primary-btn {
+  background: linear-gradient(135deg, #0b57d0 0%, #4f46e5 100%);
+  color: #ffffff !important;
+  box-shadow: 0 10px 24px rgba(11, 87, 208, 0.28);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;
+}
+
+.hayat-ai-plus-primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(11, 87, 208, 0.38);
+  filter: brightness(1.05);
+  color: #ffffff !important;
+}
+
+.hayat-ai-plus-chip-btn {
+  background: #ffffff;
+  color: #1f1f1f !important;
+  border: 1px solid rgba(15, 23, 42, 0.14);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  transition: all 0.2s ease;
+}
+
+.hayat-ai-plus-chip-btn:hover {
+  background: #f0f6ff;
+  border-color: rgba(11, 87, 208, 0.35);
+  color: #0b57d0 !important;
+  transform: translateY(-1px);
+}
+
+.hayat-ai-plus-divider {
+  border-color: rgba(15, 23, 42, 0.1) !important;
+}
+
+.hayat-ai-plus-input-box {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hayat-ai-plus-input-box:focus-within {
+  border-color: #0b57d0;
+  box-shadow: 0 0 0 3px rgba(11, 87, 208, 0.12);
+}
+
+.hayat-ai-plus-label {
+  color: #1f1f1f;
+}
+
+.hayat-ai-plus-input {
+  color: #1f1f1f !important;
+  font-size: 0.95rem;
+}
+
+/* Dark Mode Overrides for .hayat-ai-plus-card */
+html[data-theme="dark"] .hayat-ai-plus-card {
+  background: linear-gradient(165deg, #161b26 0%, #111622 60%, #171528 100%) !important;
+  border-color: rgba(138, 180, 248, 0.28) !important;
+  box-shadow:
+    0 24px 55px rgba(0, 0, 0, 0.55),
+    0 0 35px rgba(66, 133, 244, 0.12) !important;
+}
+
+html[data-theme="dark"] .hayat-ai-plus-brand,
+html[data-theme="dark"] .hayat-ai-plus-title,
+html[data-theme="dark"] .hayat-ai-plus-feature-item,
+html[data-theme="dark"] .hayat-ai-plus-label,
+html[data-theme="dark"] .hayat-ai-plus-input {
+  color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .hayat-ai-plus-sublabel,
+html[data-theme="dark"] .hayat-ai-plus-desc {
+  color: #cbd5e1 !important;
+}
+
+html[data-theme="dark"] .hayat-ai-plus-highlight-metric {
+  background: linear-gradient(90deg, #8ab4f8 0%, #c58af9 55%, #fdd663 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+html[data-theme="dark"] .hayat-ai-plus-tier-pill {
+  background: rgba(66, 133, 244, 0.18) !important;
+  color: #8ab4f8 !important;
+  border-color: rgba(138, 180, 248, 0.35) !important;
+}
+
+html[data-theme="dark"] .hayat-ai-plus-subpill {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #cbd5e1 !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+html[data-theme="dark"] .hayat-ai-plus-features,
+html[data-theme="dark"] .hayat-ai-plus-input-box {
+  background: rgba(15, 23, 42, 0.75) !important;
+  border-color: rgba(138, 180, 248, 0.2) !important;
+}
+
+html[data-theme="dark"] .hayat-ai-plus-chip-btn {
+  background: rgba(30, 41, 59, 0.85) !important;
+  color: #f1f5f9 !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+html[data-theme="dark"] .hayat-ai-plus-chip-btn:hover {
+  background: rgba(66, 133, 244, 0.2) !important;
+  border-color: rgba(138, 180, 248, 0.45) !important;
+  color: #8ab4f8 !important;
+}

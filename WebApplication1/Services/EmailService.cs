@@ -19,14 +19,28 @@ namespace WebApplication1.Services
         {
             try
             {
-                var receiverEmail = _configuration["EmailSettings:ReceiverEmail"] ?? "berkayevrann.1903@gmail.com";
-                var smtpServer = _configuration["EmailSettings:SmtpServer"] ?? "smtp.gmail.com";
-                var smtpPortStr = _configuration["EmailSettings:SmtpPort"] ?? "465";
+                var receiverEmail = Environment.GetEnvironmentVariable("SMTP_RECEIVER_EMAIL")
+                    ?? _configuration["EmailSettings:ReceiverEmail"]
+                    ?? "bilgi@hayatisleri.com";
+                var smtpServer = Environment.GetEnvironmentVariable("SMTP_SERVER")
+                    ?? _configuration["EmailSettings:SmtpServer"]
+                    ?? "smtp.gmail.com";
+                var smtpPortStr = Environment.GetEnvironmentVariable("SMTP_PORT")
+                    ?? _configuration["EmailSettings:SmtpPort"]
+                    ?? "465";
                 int.TryParse(smtpPortStr, out int smtpPort);
                 if (smtpPort == 0) smtpPort = 465;
 
-                var senderEmail = _configuration["EmailSettings:SenderEmail"]?.Trim();
-                var senderPassword = _configuration["EmailSettings:SenderPassword"]?.Replace(" ", "").Trim();
+                var senderEmail = (Environment.GetEnvironmentVariable("SMTP_SENDER_EMAIL")
+                    ?? _configuration["EmailSettings:SenderEmail"])?.Trim();
+                var senderPassword = (Environment.GetEnvironmentVariable("SMTP_SENDER_PASSWORD")
+                    ?? _configuration["EmailSettings:SenderPassword"])?.Replace(" ", "").Trim();
+
+                if (string.IsNullOrEmpty(senderEmail) || string.IsNullOrEmpty(senderPassword))
+                {
+                    _logger.LogWarning("SMTP gönderici kimlik bilgileri (User Secrets veya Ortam Değişkeni) yapılandırılmamış. Bildirim e-postası güvenli şekilde atlandı.");
+                    return;
+                }
 
                 // E-Posta şablonunu oluştur (Modern HTML E-Posta)
                 var htmlBody = $@"
@@ -117,6 +131,50 @@ namespace WebApplication1.Services
                 Console.WriteLine("[EMAIL_SERVICE_HATASI]: " + ex.ToString());
                 Console.ResetColor();
                 _logger.LogError(ex, "E-posta gönderimi sırasında MailKit hatası oluştu: {Message}", ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Herhangi bir alıcıya HTML e-posta gönderir (bayi başvurusu, hesap onayı, şifre sıfırlama, CRM cevabı).
+        /// SMTP bilgileri kaynak koda yazılmaz: User Secrets (EmailSettings:SenderEmail / SenderPassword)
+        /// veya ortam değişkenleri (SMTP_SENDER_EMAIL / SMTP_SENDER_PASSWORD) üzerinden okunur.
+        /// Yapılandırma yoksa false döner ve uygulama çalışmaya devam eder.
+        /// </summary>
+        public async Task<bool> SendAsync(string to, string subject, string htmlBody)
+        {
+            try
+            {
+                var smtpServer = Environment.GetEnvironmentVariable("SMTP_SERVER") ?? _configuration["EmailSettings:SmtpServer"] ?? "smtp.gmail.com";
+                int.TryParse(Environment.GetEnvironmentVariable("SMTP_PORT") ?? _configuration["EmailSettings:SmtpPort"], out int smtpPort);
+                if (smtpPort == 0) smtpPort = 465;
+
+                var senderEmail = (Environment.GetEnvironmentVariable("SMTP_SENDER_EMAIL") ?? _configuration["EmailSettings:SenderEmail"])?.Trim();
+                var senderPassword = (Environment.GetEnvironmentVariable("SMTP_SENDER_PASSWORD") ?? _configuration["EmailSettings:SenderPassword"])?.Replace(" ", "").Trim();
+
+                if (string.IsNullOrEmpty(senderEmail) || string.IsNullOrEmpty(senderPassword))
+                {
+                    _logger.LogWarning("SMTP kimlik bilgileri yapılandırılmamış; '{Konu}' e-postası {Alici} adresine gönderilemedi.", subject, to);
+                    return false;
+                }
+
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("Hayat İşleri", senderEmail));
+                message.To.Add(MailboxAddress.Parse(to));
+                message.Subject = subject;
+                message.Body = new BodyBuilder { HtmlBody = htmlBody }.ToMessageBody();
+
+                using var client = new SmtpClient();
+                await client.ConnectAsync(smtpServer, smtpPort, SecureSocketOptions.Auto);
+                await client.AuthenticateAsync(senderEmail, senderPassword);
+                await client.SendAsync(message);
+                await client.DisconnectAsync(true);
+                _logger.LogInformation("E-posta '{Konu}' {Alici} adresine gönderildi.", subject, to);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "E-posta gönderilemedi ({Alici}): {Message}", to, ex.Message);
+                return false;
             }
         }
     }

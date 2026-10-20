@@ -2,104 +2,415 @@
     ViewData["Title"] = "İletişim";
 }
 
+<style>
+    /* İletişim Kartları (Apple & Google One Glassmorphism) */
+    .apple-contact-card {
+        background: rgba(255, 255, 255, 0.88);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 1.5rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
+    }
+
+    .apple-contact-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 50px rgba(11, 87, 208, 0.12);
+        border-color: rgba(11, 87, 208, 0.3);
+    }
+
+    /* 3D Dekoratif Işık Efekti */
+    .apple-contact-card::after {
+        content: '';
+        position: absolute;
+        top: -35px;
+        right: -35px;
+        width: 140px;
+        height: 140px;
+        background: radial-gradient(circle, rgba(11, 87, 208, 0.14) 0%, rgba(96, 165, 250, 0.06) 50%, transparent 70%);
+        border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+        pointer-events: none;
+        z-index: 0;
+        animation: appleCardOrbRotate 16s linear infinite;
+    }
+
+    @@keyframes appleCardOrbRotate {
+        0% { transform: rotate(0deg) scale(1); }
+        50% { transform: rotate(180deg) scale(1.15); }
+        100% { transform: rotate(360deg) scale(1); }
+    }
+
+    /* Kart Altı Vurgu Çizgisi */
+    .apple-card-accent-line {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #0b57d0 0%, #38bdf8 50%, #818cf8 100%);
+        opacity: 0.9;
+        z-index: 1;
+    }
+
+    /* İkon Kutuları */
+    .apple-icon-box {
+        width: 48px;
+        height: 48px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 14px;
+        background: rgba(11, 87, 208, 0.08);
+        border: 1px solid rgba(11, 87, 208, 0.18);
+        color: #0b57d0;
+        flex-shrink: 0;
+        font-size: 1.25rem;
+        transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .apple-contact-item:hover .apple-icon-box {
+        transform: scale(1.08) rotate(3deg);
+        background: rgba(11, 87, 208, 0.15);
+        box-shadow: 0 8px 18px rgba(11, 87, 208, 0.2);
+    }
+
+    /* Form Kontrolleri (Açık Tema) */
+    .apple-form-control {
+        background-color: #ffffff;
+        color: #0f172a;
+        border: 1.5px solid rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        padding: 0.8rem 1.1rem;
+        font-size: 0.95rem;
+        transition: all 0.25s ease;
+    }
+
+    .apple-form-control::placeholder {
+        color: #94a3b8;
+    }
+
+    .apple-form-control:focus {
+        background-color: #ffffff;
+        color: #0f172a;
+        border-color: #0b57d0;
+        box-shadow: 0 0 0 4px rgba(11, 87, 208, 0.14);
+        outline: none;
+    }
+
+    .apple-submit-btn {
+        background: linear-gradient(135deg, #1d4ed8 0%, #0b57d0 100%);
+        border: none;
+        color: #ffffff;
+        border-radius: 12px;
+        font-weight: 700;
+        letter-spacing: -0.2px;
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 6px 20px rgba(11, 87, 208, 0.28);
+    }
+
+    .apple-submit-btn:hover {
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 28px rgba(11, 87, 208, 0.38);
+        color: #ffffff;
+    }
+
+    .apple-hero-pill {
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(11, 87, 208, 0.22);
+    }
+
+    .apple-pulse-dot {
+        width: 8px;
+        height: 8px;
+        background-color: #0b57d0;
+        border-radius: 50%;
+        display: inline-block;
+        box-shadow: 0 0 0 0 rgba(11, 87, 208, 0.6);
+        animation: applePulse 2s infinite cubic-bezier(0.45, 0, 0.55, 1);
+    }
+
+    @@keyframes applePulse {
+        0% { box-shadow: 0 0 0 0 rgba(11, 87, 208, 0.6); }
+        70% { box-shadow: 0 0 0 8px rgba(11, 87, 208, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(11, 87, 208, 0); }
+    }
+
+    /* Tipografi Sınıfları (Temaya Göre Otomatik Uyumlu) */
+    .contact-title-main {
+        color: #0f172a;
+    }
+    .contact-subtitle-main {
+        color: #475569;
+    }
+    .contact-card-heading {
+        color: #0f172a;
+    }
+    .contact-item-label {
+        color: #0f172a;
+        font-weight: 700;
+    }
+    .contact-item-value {
+        color: #475569;
+    }
+    .contact-form-label {
+        color: #1e293b;
+        font-weight: 600;
+    }
+    .contact-divider {
+        border-color: rgba(0, 0, 0, 0.08);
+        opacity: 1;
+    }
+    .contact-accent-link {
+        color: #0b57d0;
+        transition: color 0.2s ease;
+    }
+    .contact-accent-link:hover {
+        color: #1d4ed8;
+    }
+
+    /* ========================================================= */
+    /* KOYU MOD (DARK THEME) ZARİF & YÜKSEK KONTRASTLI STİLLER    */
+    /* ========================================================= */
+    html[data-theme="dark"] .apple-contact-card {
+        background: rgba(14, 20, 32, 0.95) !important;
+        border: 1px solid rgba(56, 189, 248, 0.22) !important;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.12) !important;
+    }
+
+    html[data-theme="dark"] .apple-contact-card:hover {
+        border-color: rgba(56, 189, 248, 0.5) !important;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 24px rgba(56, 189, 248, 0.2) !important;
+    }
+
+    html[data-theme="dark"] .apple-contact-card::after {
+        background: radial-gradient(circle, rgba(56, 189, 248, 0.18) 0%, rgba(37, 99, 235, 0.08) 50%, transparent 70%) !important;
+    }
+
+    html[data-theme="dark"] .apple-icon-box {
+        background: rgba(56, 189, 248, 0.14) !important;
+        border: 1px solid rgba(56, 189, 248, 0.35) !important;
+        color: #38bdf8 !important;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    }
+
+    html[data-theme="dark"] .apple-contact-item:hover .apple-icon-box {
+        background: rgba(56, 189, 248, 0.25) !important;
+        color: #7dd3fc !important;
+        border-color: rgba(56, 189, 248, 0.55) !important;
+        box-shadow: 0 8px 22px rgba(56, 189, 248, 0.3);
+    }
+
+    html[data-theme="dark"] .contact-title-main {
+        color: #ffffff !important;
+        font-weight: 800 !important;
+    }
+
+    html[data-theme="dark"] .contact-subtitle-main {
+        color: #cbd5e1 !important;
+        font-size: 1.05rem !important;
+    }
+
+    html[data-theme="dark"] .contact-card-heading {
+        color: #ffffff !important;
+        font-weight: 700 !important;
+    }
+
+    html[data-theme="dark"] .contact-item-label {
+        color: #f1f5f9 !important;
+        font-weight: 700 !important;
+        font-size: 0.92rem !important;
+    }
+
+    html[data-theme="dark"] .contact-item-value {
+        color: #e2e8f0 !important;
+        font-size: 0.88rem !important;
+    }
+
+    html[data-theme="dark"] .contact-form-label {
+        color: #f1f5f9 !important;
+        font-weight: 700 !important;
+        font-size: 0.88rem !important;
+    }
+
+    html[data-theme="dark"] .contact-divider {
+        border-color: rgba(255, 255, 255, 0.12) !important;
+    }
+
+    html[data-theme="dark"] .contact-accent-link {
+        color: #38bdf8 !important;
+        font-weight: 600 !important;
+    }
+    html[data-theme="dark"] .contact-accent-link:hover {
+        color: #93c5fd !important;
+        text-decoration: underline !important;
+    }
+
+    html[data-theme="dark"] .apple-hero-pill {
+        background: rgba(17, 24, 39, 0.95) !important;
+        border-color: rgba(56, 189, 248, 0.4) !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+    }
+
+    html[data-theme="dark"] .apple-hero-pill span {
+        color: #f8fafc !important;
+    }
+
+    html[data-theme="dark"] .apple-pulse-dot {
+        background-color: #38bdf8 !important;
+        box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7) !important;
+    }
+
+    html[data-theme="dark"] .apple-form-control {
+        background-color: #111827 !important;
+        color: #ffffff !important;
+        border: 1.5px solid rgba(255, 255, 255, 0.18) !important;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4) !important;
+    }
+
+    html[data-theme="dark"] .apple-form-control::placeholder {
+        color: #94a3b8 !important;
+        opacity: 1 !important;
+    }
+
+    html[data-theme="dark"] .apple-form-control:focus {
+        background-color: #162032 !important;
+        color: #ffffff !important;
+        border-color: #38bdf8 !important;
+        box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.25) !important;
+    }
+
+    html[data-theme="dark"] .apple-submit-btn {
+        background: linear-gradient(135deg, #1d4ed8 0%, #0b57d0 100%) !important;
+        color: #ffffff !important;
+        box-shadow: 0 8px 24px rgba(11, 87, 208, 0.45) !important;
+    }
+
+    html[data-theme="dark"] .apple-submit-btn:hover {
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+        box-shadow: 0 12px 30px rgba(56, 189, 248, 0.5) !important;
+    }
+
+    html[data-theme="dark"] .text-muted {
+        color: #94a3b8 !important;
+    }
+</style>
+
 <div class="container py-5">
     <!-- Sayfa Başlığı -->
     <div class="text-center mb-5">
-        <h1 class="fw-bold display-6 mb-2" style="color: #E0E6ED !important;">Bizimle İletişime Geçin</h1>
-        <p class="fs-6 mb-0" style="color: #94A3B8 !important;">Sorularınız, projeleriniz veya iş birliği teklifleriniz için bize her zaman ulaşabilirsiniz.</p>
+        <div class="d-inline-flex align-items-center gap-2 px-3.5 py-1.5 rounded-pill mb-3 shadow-sm apple-hero-pill">
+            <span class="apple-pulse-dot"></span>
+            <span class="small fw-bold text-uppercase" style="letter-spacing: 1.5px; font-size: 0.78rem;">
+                <i class="bi bi-chat-dots-fill me-1 text-primary"></i> İletişim &amp; Destek
+            </span>
+        </div>
+        <h1 class="fw-bold display-6 mb-2 contact-title-main">Bizimle İletişime Geçin</h1>
+        <p class="fs-6 mb-0 contact-subtitle-main">Sorularınız, projeleriniz veya kurumsal iş birliği teklifleriniz için bize her zaman ulaşabilirsiniz.</p>
     </div>
 
     @if (TempData["FormMesaj"] != null)
     {
-        <div class="alert alert-success alert-dismissible fade show mb-4 rounded-4 border-0 shadow-lg" role="alert" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3) !important; color: #34d399;">
+        <div class="alert alert-success alert-dismissible fade show mb-4 rounded-4 shadow-sm" role="alert" style="background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.25) !important; color: #10b981;">
             <i class="bi bi-check-circle-fill me-2"></i> @TempData["FormMesaj"]
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
 
     <div class="row g-5">
         <!-- İletişim Bilgileri ve Sosyal Medya -->
         <div class="col-lg-5">
-            <div class="p-4 rounded-4 h-100 shadow-sm" style="background-color: #12141c; border: 1px solid rgba(255,255,255,0.08) !important;">
-                <h3 class="text-white fw-bold mb-4 fs-4">İletişim Bilgileri</h3>
+            <div class="p-4 p-md-5 h-100 apple-contact-card">
+                <div class="position-relative" style="z-index: 1;">
+                    <h3 class="fw-bold mb-4 fs-4 contact-card-heading">İletişim Bilgileri</h3>
 
-                <div class="d-flex align-items-start mb-4">
-                    <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-3 me-3 fs-5">
-                        <i class="bi bi-geo-alt-fill"></i>
+                    <div class="d-flex align-items-start mb-4 apple-contact-item">
+                        <div class="apple-icon-box me-3">
+                            <i class="bi bi-geo-alt-fill"></i>
+                        </div>
+                        <div>
+                            <div class="contact-item-label mb-1">Adres</div>
+                            <p class="small mb-0 contact-item-value">Çaydaçıra Mah. / Elazığ</p>
+                        </div>
                     </div>
-                    <div>
-                        <h6 class="text-white fw-bold mb-1">Adres</h6>
-                        <p class="text-muted small mb-0">İstanbul & Elazığ / Türkiye</p>
+
+                    <div class="d-flex align-items-start mb-4 apple-contact-item">
+                        <div class="apple-icon-box me-3">
+                            <i class="bi bi-telephone-fill"></i>
+                        </div>
+                        <div>
+                            <div class="contact-item-label mb-1">Telefon</div>
+                            <a href="tel:+905010146623" class="text-decoration-none fw-semibold small mb-0 d-block contact-accent-link">0501 014 6623</a>
+                        </div>
                     </div>
+
+                    <div class="d-flex align-items-start mb-4 apple-contact-item">
+                        <div class="apple-icon-box me-3">
+                            <i class="bi bi-envelope-fill"></i>
+                        </div>
+                        <div>
+                            <div class="contact-item-label mb-1">E-Posta</div>
+                            <a href="mailto:info@hayatisleri.com" class="text-decoration-none small mb-0 d-block contact-accent-link">info@hayatisleri.com</a>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-start mb-4 apple-contact-item">
+                        <div class="apple-icon-box me-3">
+                            <i class="bi bi-instagram"></i>
+                        </div>
+                        <div>
+                            <div class="contact-item-label mb-1">Instagram</div>
+                            <a href="https://www.instagram.com/hayatislerikurumsal?utm_source=ig_web_button_share_sheet&amp;dlrf=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="text-decoration-none small mb-0 d-block contact-accent-link">@@hayatislerikurumsal</a>
+                        </div>
+                    </div>
+
+                    <hr class="my-4 contact-divider">
+
+                    <div class="contact-item-label mb-3 fs-6">Çalışma Saatleri</div>
+                    <p class="small mb-1 contact-item-value"><i class="bi bi-clock me-1 text-primary"></i> Pazartesi - Cuma: 09:00 - 18:00</p>
+                    <p class="small mb-0 contact-item-value text-opacity-75"><i class="bi bi-calendar-x me-1 text-muted"></i> Cumartesi - Pazar: Kapalı</p>
                 </div>
-
-                <div class="d-flex align-items-start mb-4">
-                    <div class="bg-success bg-opacity-10 text-success p-3 rounded-3 me-3 fs-5">
-                        <i class="bi bi-telephone-fill"></i>
-                    </div>
-                    <div>
-                        <h6 class="text-white fw-bold mb-1">Telefon</h6>
-                        <a href="tel:+905010146623" class="text-info text-decoration-none fw-semibold small mb-0 d-block">0501 014 6623</a>
-                    </div>
-                </div>
-
-                <div class="d-flex align-items-start mb-4">
-                    <div class="bg-warning bg-opacity-10 text-warning p-3 rounded-3 me-3 fs-5">
-                        <i class="bi bi-envelope-fill"></i>
-                    </div>
-                    <div>
-                        <h6 class="text-white fw-bold mb-1">E-Posta</h6>
-                        <a href="mailto:info@hayatisleri.com" class="text-muted text-decoration-none small mb-0 d-block">info@hayatisleri.com</a>
-                    </div>
-                </div>
-
-                <div class="d-flex align-items-start mb-4">
-                    <div class="p-3 rounded-3 me-3 fs-5" style="background: rgba(225, 48, 108, 0.15); color: #e1306c;">
-                        <i class="bi bi-instagram"></i>
-                    </div>
-                    <div>
-                        <h6 class="text-white fw-bold mb-1">Instagram</h6>
-                        <a href="https://www.instagram.com/hayatislerikurumsal?utm_source=ig_web_button_share_sheet&dlrf=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="text-info text-decoration-none small mb-0 d-block">@@hayatislerikurumsal</a>
-                    </div>
-                </div>
-
-                <hr class="border-secondary opacity-25 my-4">
-
-                <h6 class="text-white fw-bold mb-3">Çalışma Saatleri</h6>
-                <p class="text-muted small mb-1">Pazartesi - Cuma: 09:00 - 18:00</p>
-                <p class="text-muted small mb-0">Cumartesi - Pazar: Kapalı</p>
+                <div class="apple-card-accent-line"></div>
             </div>
         </div>
 
         <!-- İletişim Formu -->
         <div class="col-lg-7">
-            <div class="p-4 p-md-5 rounded-4 shadow-sm" style="background-color: #12141c; border: 1px solid rgba(255,255,255,0.08) !important;">
-                <h3 class="text-white fw-bold mb-4 fs-4">Bize Mesaj Gönderin</h3>
+            <div class="p-4 p-md-5 apple-contact-card">
+                <div class="position-relative" style="z-index: 1;">
+                    <h3 class="fw-bold mb-4 fs-4 contact-card-heading">Bize Mesaj Gönderin</h3>
 
-                <form asp-controller="Home" asp-action="Contact" method="post">
-                    @Html.AntiForgeryToken()
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label for="adSoyad" class="form-label text-light small fw-semibold">Adınız Soyadınız *</label>
-                            <input type="text" name="adSoyad" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" id="adSoyad" placeholder="Adınız Soyadınız" required style="font-size: 0.95rem;">
+                    <form asp-controller="Home" asp-action="Contact" method="post">
+                        @Html.AntiForgeryToken()
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="adSoyad" class="form-label small contact-form-label">Adınız Soyadınız *</label>
+                                <input type="text" name="adSoyad" class="form-control apple-form-control" id="adSoyad" placeholder="Adınız Soyadınız" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="eposta" class="form-label small contact-form-label">E-Posta Adresiniz *</label>
+                                <input type="email" name="eposta" class="form-control apple-form-control" id="eposta" placeholder="ornek@mail.com" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="konu" class="form-label small contact-form-label">Konu</label>
+                                <input type="text" name="konu" class="form-control apple-form-control" id="konu" placeholder="Mesajınızın konusu nedir?">
+                            </div>
+                            <div class="col-12">
+                                <label for="mesaj" class="form-label small contact-form-label">Mesajınız *</label>
+                                <textarea name="mesaj" class="form-control apple-form-control" id="mesaj" rows="4" placeholder="Mesajınızı buraya yazabilirsiniz..." required></textarea>
+                            </div>
+                            <div class="col-12 mt-4">
+                                <button type="submit" class="btn w-100 py-3 apple-submit-btn shadow-sm">
+                                    <i class="bi bi-send-fill me-1"></i> Mesajı Gönder
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <label for="eposta" class="form-label text-light small fw-semibold">E-Posta Adresiniz *</label>
-                            <input type="email" name="eposta" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" id="eposta" placeholder="ornek@mail.com" required style="font-size: 0.95rem;">
-                        </div>
-                        <div class="col-12">
-                            <label for="konu" class="form-label text-light small fw-semibold">Konu</label>
-                            <input type="text" name="konu" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" id="konu" placeholder="Mesajınızın konusu nedir?" style="font-size: 0.95rem;">
-                        </div>
-                        <div class="col-12">
-                            <label for="mesaj" class="form-label text-light small fw-semibold">Mesajınız *</label>
-                            <textarea name="mesaj" class="form-control bg-dark text-white border-secondary border-opacity-50 rounded-3 py-2" id="mesaj" rows="4" placeholder="Mesajınızı buraya yazabilirsiniz..." required style="font-size: 0.95rem;"></textarea>
-                        </div>
-                        <div class="col-12 mt-4">
-                            <button type="submit" class="btn btn-primary w-100 py-3 rounded-3 fw-bold shadow-sm">Mesajı Gönder</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="apple-card-accent-line"></div>
             </div>
         </div>
     </div>

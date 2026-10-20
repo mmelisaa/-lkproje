@@ -1,0 +1,177 @@
+﻿@model WebApplication1.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Admin Girişi";
+}
+
+<style>
+    .apple-login-container {
+        min-height: calc(100vh - 120px);
+        background: #fbfbfd;
+        overflow: hidden;
+    }
+    .apple-login-orb {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        opacity: 0.65;
+    }
+    .orb-1 {
+        width: 380px;
+        height: 380px;
+        background: radial-gradient(circle, rgba(11, 87, 208, 0.15) 0%, rgba(11, 87, 208, 0) 70%);
+        top: 10%;
+        left: 15%;
+        animation: floatOrb 10s ease-in-out infinite alternate;
+    }
+    .orb-2 {
+        width: 440px;
+        height: 440px;
+        background: radial-gradient(circle, rgba(129, 140, 248, 0.15) 0%, rgba(129, 140, 248, 0) 70%);
+        bottom: 10%;
+        right: 15%;
+        animation: floatOrb 12s ease-in-out infinite alternate-reverse;
+    }
+    .orb-3 {
+        width: 250px;
+        height: 250px;
+        background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0) 70%);
+        top: 45%;
+        right: 35%;
+        animation: floatOrb 8s ease-in-out infinite alternate;
+    }
+    @@keyframes floatOrb {
+        0% { transform: translate(0, 0) scale(1); }
+        100% { transform: translate(25px, -20px) scale(1.08); }
+    }
+    .apple-login-card {
+        width: 100%;
+        max-width: 440px;
+        background: rgba(255, 255, 255, 0.88);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 1.5rem;
+        box-shadow: 0 25px 60px rgba(11, 87, 208, 0.08), 0 4px 16px rgba(0, 0, 0, 0.02);
+        z-index: 2;
+    }
+    .apple-login-sphere-accent {
+        position: absolute;
+        top: -18px;
+        right: -18px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, #ffffff, rgba(11, 87, 208, 0.25) 60%, rgba(11, 87, 208, 0.1) 100%);
+        box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.9), 0 8px 18px rgba(11, 87, 208, 0.15);
+        border: 1px solid rgba(11, 87, 208, 0.2);
+        pointer-events: none;
+        animation: rotate3dSphere 10s linear infinite;
+    }
+    @@keyframes rotate3dSphere {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    .apple-logo-dot {
+        width: 10px;
+        height: 10px;
+        background: #0b57d0;
+        border-radius: 50%;
+        box-shadow: 0 0 10px rgba(11, 87, 208, 0.6);
+        display: inline-block;
+    }
+    .apple-logo-text {
+        font-weight: 800;
+        font-size: 1.15rem;
+        letter-spacing: 1.5px;
+        color: #1f1f1f;
+        text-transform: uppercase;
+    }
+    .apple-login-btn {
+        background: #0b57d0 !important;
+        border: 1px solid #0b57d0 !important;
+        border-radius: 9999px;
+        font-size: 0.95rem;
+        letter-spacing: 0.3px;
+        box-shadow: 0 4px 15px rgba(11, 87, 208, 0.3);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .apple-login-btn:hover {
+        background: #0842a0 !important;
+        border-color: #0842a0 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(11, 87, 208, 0.4);
+    }
+</style>
+
+<div class="apple-login-container d-flex align-items-center justify-content-center py-5 position-relative">
+    <!-- Ambient 3D Glowing Elements in Background -->
+    <div class="apple-login-orb orb-1"></div>
+    <div class="apple-login-orb orb-2"></div>
+    <div class="apple-login-orb orb-3"></div>
+
+    <div class="apple-login-card position-relative p-4 p-md-5 mx-3">
+        <!-- Card Top Decorative 3D Spheres / Accents -->
+        <div class="apple-login-sphere-accent"></div>
+
+        <!-- Header & Logo -->
+        <div class="text-center mb-4">
+            <div class="d-inline-flex align-items-center justify-content-center gap-2 mb-3">
+                <span class="apple-logo-dot"></span>
+                <span class="apple-logo-text">Hayat İşleri</span>
+            </div>
+            <h3 class="fw-bold mb-1" style="color: #1f1f1f; letter-spacing: -0.5px;">Yönetim Paneli Girişi</h3>
+            <p class="small mb-0" style="color: #747775;">Devam etmek için yönetici kimliğinizle giriş yapın</p>
+        </div>
+
+        @if (!ViewData.ModelState.IsValid && ViewData.ModelState[string.Empty]?.Errors.Count > 0)
+        {
+            <div class="alert alert-danger py-2.5 px-3 rounded-3 small mb-4 d-flex align-items-center gap-2" role="alert" style="background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); color: #dc2626;">
+                <i class="bi bi-exclamation-circle-fill fs-6"></i>
+                <div asp-validation-summary="ModelOnly" class="mb-0"></div>
+            </div>
+        }
+
+        <form asp-controller="Account" asp-action="Login" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post" class="needs-validation">
+            @Html.AntiForgeryToken()
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label small fw-semibold" style="color: #444746;"></label>
+                <div class="input-group">
+                    <span class="input-group-text border-end-0 bg-transparent text-muted" style="border-color: rgba(0,0,0,0.12); border-radius: 0.75rem 0 0 0.75rem;">
+                        <i class="bi bi-person text-secondary"></i>
+                    </span>
+                    <input asp-for="Email" class="form-control border-start-0" placeholder="admin@admin.com veya kullanıcı adı" style="border-color: rgba(0,0,0,0.12); border-radius: 0 0.75rem 0.75rem 0; background-color: #ffffff !important; color: #1f1f1f !important;" required autofocus autocomplete="username" />
+                </div>
+                <span asp-validation-for="Email" class="text-danger small mt-1 d-block"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label small fw-semibold" style="color: #444746;"></label>
+                <div class="input-group">
+                    <span class="input-group-text border-end-0 bg-transparent text-muted" style="border-color: rgba(0,0,0,0.12); border-radius: 0.75rem 0 0 0.75rem;">
+                        <i class="bi bi-lock text-secondary"></i>
+                    </span>
+                    <input asp-for="Password" class="form-control border-start-0" placeholder="••••••••" style="border-color: rgba(0,0,0,0.12); border-radius: 0 0.75rem 0.75rem 0; background-color: #ffffff !important; color: #1f1f1f !important;" required autocomplete="current-password" />
+                </div>
+                <span asp-validation-for="Password" class="text-danger small mt-1 d-block"></span>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <div class="form-check">
+                    <input asp-for="RememberMe" class="form-check-input" style="cursor: pointer;" />
+                    <label asp-for="RememberMe" class="form-check-label small" style="color: #444746; cursor: pointer;"></label>
+                </div>
+                <a asp-controller="Home" asp-action="Index" class="small text-decoration-none" style="color: #0b57d0; font-weight: 500;">
+                    <i class="bi bi-arrow-left me-1"></i>Anasayfaya Dön
+                </a>
+            </div>
+
+            <button type="submit" class="btn w-100 py-2.5 fw-semibold apple-login-btn text-white">
+                <i class="bi bi-shield-check me-1.5"></i> Giriş Yap
+            </button>
+        </form>
+
+        <div class="text-center mt-4 pt-3 border-top" style="border-color: rgba(0,0,0,0.06) !important;">
+            <small style="color: #747775;">Güvenli Yönetim Sistemi &bull; &copy; @DateTime.Now.Year Hayat İşleri</small>
+        </div>
+    </div>
+</div>

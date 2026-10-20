@@ -1,0 +1,31 @@
+@model WebApplication1.Models.SifreSifirlaModel
+@{
+    ViewData["Title"] = "Yeni Bayi Şifresi Belirle";
+}
+<section class="py-5">
+    <div class="container py-4" style="max-width: 540px;">
+        <div class="g1-surface-card p-4 p-lg-5 rounded-4 border">
+            <h1 class="h4 fw-bold mb-2">Yeni Portal Şifresi Belirleyin</h1>
+            @if (TempData["BayiUyari"] is string uyari)
+            {
+                <div class="alert alert-danger small">@uyari</div>
+            }
+            <form asp-controller="Bayi" asp-action="SifreSifirla" method="post" class="row g-3">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="Email" value="@Model.Email" />
+                <input type="hidden" name="Token" value="@Model.Token" />
+                <div class="col-12">
+                    <label class="form-label small fw-semibold">Yeni Şifre *</label>
+                    <input type="password" name="Sifre" class="form-control g1-input" minlength="8" required />
+                </div>
+                <div class="col-12">
+                    <label class="form-label small fw-semibold">Yeni Şifre (Tekrar) *</label>
+                    <input type="password" name="SifreTekrar" class="form-control g1-input" minlength="8" required />
+                </div>
+                <div class="col-12 pt-2">
+                    <button type="submit" class="g1-btn-primary w-100 py-2">Şifremi Güncelle</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
