@@ -359,9 +359,9 @@ body {
   left: 0;
   right: 0;
   height: 74px;
-  background: rgba(251, 251, 253, 0.96);
-  border-bottom: 1px solid var(--lusion-border-subtle);
-  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.03);
+  background: linear-gradient(90deg, rgba(235, 242, 252, 0.92) 0%, rgba(242, 246, 253, 0.94) 55%, rgba(252, 246, 238, 0.92) 100%);
+  border-bottom: 1px solid rgba(11, 87, 208, 0.14);
+  box-shadow: 0 2px 14px rgba(11, 87, 208, 0.05);
   z-index: 1040;
   transition: all 0.3s ease;
 }
@@ -370,13 +370,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1.25rem;
   height: 100%;
   width: 100%;
 }
 
 .lusion-logo {
+  flex-shrink: 0;
   font-weight: 800;
-  font-size: 1.15rem;
+  font-size: 1.10rem;
   letter-spacing: 1.2px;
   color: var(--lusion-text-primary) !important;
   text-decoration: none;
@@ -401,9 +403,10 @@ body {
 }
 
 .lusion-header-right {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.65rem;
 }
 
 /* KÃ¼Ã§Ã¼k Yuvarlak Admin PortalÄ± Butonu */
@@ -544,20 +547,20 @@ body {
   top: 0;
   right: 0;
   width: 100%;
-  max-width: 480px;
+  max-width: 460px;
   height: 100vh;
   height: 100dvh;
-  background: rgba(255, 255, 255, 0.98);
-  border-left: 1px solid var(--lusion-border-subtle);
+  background: linear-gradient(165deg, #ecf3fc 0%, #f3f7fd 52%, #fdf6ec 100%);
+  border-left: 1px solid rgba(11, 87, 208, 0.16);
   z-index: 10050 !important;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 2.25rem 2.75rem 2.5rem 2.75rem;
+  padding: 2rem 2.5rem 2.25rem 2.5rem;
   transform: translateX(100%);
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   overflow-y: auto;
-  box-shadow: -20px 0 50px rgba(0, 0, 0, 0.08);
+  box-shadow: -20px 0 50px rgba(11, 87, 208, 0.10), -4px 0 16px rgba(15, 23, 42, 0.05);
 }
 
 .lusion-menu-drawer.open {
@@ -568,13 +571,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid var(--lusion-border-subtle);
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(11, 87, 208, 0.12);
 }
 
 .lusion-drawer-close-btn {
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid var(--lusion-border-subtle);
+  background: rgba(11, 87, 208, 0.06);
+  border: 1px solid rgba(11, 87, 208, 0.15);
   color: var(--lusion-text-primary);
   padding: 0.45rem 1rem;
   border-radius: 9999px;
@@ -597,26 +600,28 @@ body {
 .lusion-drawer-nav {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  padding: 2rem 0;
+  gap: 0.25rem;
+  padding: 1.25rem 0;
 }
 
 .lusion-drawer-link {
   color: var(--lusion-text-primary);
   text-decoration: none;
-  font-size: 1.6rem;
-  font-weight: 700;
-  letter-spacing: -0.5px;
+  font-size: 1.10rem;
+  font-weight: 600;
+  letter-spacing: -0.2px;
   display: flex;
   align-items: baseline;
-  gap: 1.25rem;
-  padding: 0.45rem 0;
+  gap: 1rem;
+  padding: 0.42rem 0.65rem;
+  border-radius: 10px;
   transition: all 0.25s ease;
 }
 
 .lusion-drawer-link:hover {
   color: var(--lusion-accent-blue);
-  transform: translateX(8px);
+  background: rgba(11, 87, 208, 0.08);
+  transform: translateX(6px);
 }
 
 .lusion-drawer-num {
@@ -627,9 +632,9 @@ body {
 }
 
 .lusion-drawer-footer {
-  padding-top: 2rem;
-  padding-bottom: 1.25rem;
-  border-top: 1px solid var(--lusion-border-subtle);
+  padding-top: 1.5rem;
+  padding-bottom: 1rem;
+  border-top: 1px solid rgba(11, 87, 208, 0.12);
   flex-shrink: 0;
 }
 
@@ -958,6 +963,183 @@ html[data-theme="dark"] .stark-line-1 .stark-char:not(.revealed) {
   z-index: 1;
 }
 
+/* ========================================================
+   SAĞDAN SOLA KESİNTİSİZ AKAN REFERANS & LOGO VİTRİNİ
+   ======================================================== */
+.ref-stream-viewport {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  overflow: hidden;
+  padding: 1rem 0 1.8rem;
+  mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+}
+
+.ref-stream-track {
+  display: flex;
+  gap: 1.15rem;
+  width: max-content;
+  animation: refMarqueeStream 42s linear infinite;
+  will-change: transform;
+}
+
+.ref-stream-viewport:hover .ref-stream-track {
+  animation-play-state: paused;
+}
+
+@keyframes refMarqueeStream {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.ref-stream-card {
+  width: 260px;
+  min-width: 260px;
+  max-width: 260px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease;
+  user-select: none;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.ref-stream-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(11, 87, 208, 0.12);
+  border-color: rgba(11, 87, 208, 0.32);
+}
+
+.ref-logo-box {
+  width: 100%;
+  height: 105px;
+  background: #f8fafd;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin-bottom: 0.75rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.ref-logo-img {
+  max-height: 75px;
+  max-width: 86%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ref-stream-card:hover .ref-logo-img {
+  transform: scale(1.05);
+}
+
+.ref-stream-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-family: 'Google Sans', sans-serif;
+  letter-spacing: 0.3px;
+}
+
+.ref-stream-title {
+  font-family: 'Google Sans', sans-serif;
+  font-weight: 700;
+  font-size: 1.02rem;
+  color: #1f1f1f;
+  margin-bottom: 0.2rem;
+  letter-spacing: -0.3px;
+  line-height: 1.3;
+}
+
+.ref-stream-role {
+  font-family: 'Google Sans Text', sans-serif;
+  font-size: 0.78rem;
+  color: #0b57d0;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.ref-stream-desc {
+  font-family: 'Google Sans Text', sans-serif;
+  font-size: 0.80rem;
+  color: #5f6368;
+  line-height: 1.45;
+  margin-bottom: 0.75rem;
+  flex-grow: 1;
+}
+
+.ref-stream-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  margin-top: auto;
+}
+
+.ref-stream-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  background: #e8f0fe;
+  color: #0b57d0;
+  text-decoration: none;
+  border: 1px solid rgba(11, 87, 208, 0.2);
+  transition: all 0.2s ease;
+  font-family: 'Google Sans', sans-serif;
+}
+
+.ref-stream-action-btn:hover {
+  background: #0b57d0;
+  color: #ffffff;
+  transform: translateX(2px);
+}
+
+.ref-stream-fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 90px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.ref-stream-fade-left {
+  left: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.95), transparent);
+}
+
+.ref-stream-fade-right {
+  right: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.95), transparent);
+}
+
 /* Symmetrical 2x2 Grid Layout for Featured References */
 @media (min-width: 992px) {
   #refCardsContainer .ref-item:nth-child(even),
@@ -966,7 +1148,7 @@ html[data-theme="dark"] .stark-line-1 .stark-char:not(.revealed) {
   }
 }
 
-/* Temel Kart - Kenardan GiriÅŸ FiziÄŸi (Ultra Hafif GPU HÄ±zlandÄ±rmalÄ±) */
+/* Temel Kart - Kenardan Giriş Fiziği (Ultra Hafif GPU Hızlandırmalı) */
 .ref-item {
   transition: transform 1.35s cubic-bezier(0.16, 1, 0.3, 1),
               opacity 1.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1372,7 +1554,7 @@ select.bg-dark {
     padding: 2rem 2.2rem;
   }
   .lusion-drawer-link {
-    font-size: 1.4rem;
+    font-size: 1.10rem;
   }
 }
 
@@ -1443,7 +1625,7 @@ select.bg-dark {
     padding: 1.75rem 1.75rem;
   }
   .lusion-drawer-link {
-    font-size: 1.25rem;
+    font-size: 1.10rem;
     gap: 0.85rem;
   }
   .lusion-contact-panel {
@@ -1454,7 +1636,7 @@ select.bg-dark {
   }
 }
 
-/* 4. KÃ¼Ã§Ã¼k AkÄ±llÄ± Telefonlar (< 576px - iPhone, Samsung vb.) */
+/* 4. Küçük Akıllı Telefonlar (< 576px - iPhone, Samsung vb.) */
 @media (max-width: 575.98px) {
   .lusion-header {
     height: 58px;
@@ -1495,8 +1677,8 @@ select.bg-dark {
     padding: 1.25rem 1.25rem 2rem;
   }
   .lusion-drawer-link {
-    font-size: 1.15rem;
-    padding: 0.35rem 0;
+    font-size: 1.10rem;
+    padding: 0.35rem 0.5rem;
   }
   .lusion-display-title {
     font-size: 1.9rem;
@@ -1837,18 +2019,18 @@ html, body {
 /* Google One Frosted Header */
 .lusion-header {
   height: 70px !important;
-  background: rgba(255, 255, 255, 0.92) !important;
-  backdrop-filter: blur(18px) !important;
-  -webkit-backdrop-filter: blur(18px) !important;
-  border-bottom: 1px solid var(--g1-border-light) !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
+  background: linear-gradient(90deg, rgba(235, 242, 252, 0.90) 0%, rgba(242, 246, 253, 0.92) 55%, rgba(252, 246, 238, 0.90) 100%) !important;
+  backdrop-filter: saturate(180%) blur(20px) !important;
+  -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
+  border-bottom: 1px solid rgba(11, 87, 208, 0.14) !important;
+  box-shadow: 0 4px 18px rgba(11, 87, 208, 0.05) !important;
 }
 
 .lusion-logo {
   font-family: 'Google Sans', 'Plus Jakarta Sans', sans-serif !important;
   font-weight: 700 !important;
   letter-spacing: -0.4px !important;
-  font-size: 1.15rem !important;
+  font-size: 1.10rem !important;
   color: #1f1f1f !important;
   text-transform: none !important;
 }
@@ -1876,8 +2058,8 @@ html, body {
 
 /* Google One Tonal Menu Button */
 .lusion-btn-menu {
-  background: var(--g1-surface-container) !important;
-  border: 1px solid var(--g1-border-light) !important;
+  background: rgba(11, 87, 208, 0.07) !important;
+  border: 1px solid rgba(11, 87, 208, 0.18) !important;
   border-radius: var(--g1-radius-pill) !important;
   padding: 0.55rem 1.25rem !important;
   font-family: 'Google Sans', sans-serif !important;
@@ -1887,8 +2069,8 @@ html, body {
 }
 
 .lusion-btn-menu:hover {
-  background: #e2e7ef !important;
-  border-color: #c4c7c5 !important;
+  background: rgba(11, 87, 208, 0.14) !important;
+  border-color: rgba(11, 87, 208, 0.32) !important;
   transform: translateY(-1px) !important;
 }
 
@@ -2019,7 +2201,8 @@ html, body {
   color: #ffffff !important;
   padding: 88px 0 !important;
   border-radius: var(--g1-dark-radius, 40px) !important;
-  transform: scale(var(--g1-dark-scale, 1));
+  transform: scale3d(var(--g1-dark-scale, 1), var(--g1-dark-scale, 1), 1);
+  -webkit-transform: scale3d(var(--g1-dark-scale, 1), var(--g1-dark-scale, 1), 1);
   transform-origin: center center;
   will-change: transform;
   border: 1px solid rgba(255, 255, 255, 0.12) !important;
@@ -2289,7 +2472,7 @@ html[data-theme="dark"] {
 .hayat-header-brand-text {
   font-family: 'Google Sans', sans-serif;
   font-weight: 700;
-  font-size: 1.15rem;
+  font-size: 1.10rem;
   letter-spacing: -0.02em;
   color: var(--g1-text, #1f1f1f);
 }
@@ -3817,10 +4000,14 @@ html[data-theme="dark"] .g1-dealer-logo-box {
   flex-direction: column;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .g1-ecosystem-bento-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-5px) translateZ(0);
   border-color: rgba(138, 180, 248, 0.4);
   box-shadow: 0 20px 44px rgba(0, 0, 0, 0.45);
 }

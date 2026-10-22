@@ -19,8 +19,8 @@
         :root {
             /* Google One (https://one.google.com/intl/tr_tr/about/) Tasarım Dili */
             --adm-bg: #f8fafd;
-            --adm-sidebar-bg: #ffffff;
-            --adm-sidebar-border: rgba(0, 0, 0, 0.06);
+            --adm-sidebar-bg: #f0f5fc;
+            --adm-sidebar-border: rgba(11, 87, 208, 0.12);
             --adm-card-bg: #ffffff;
             --adm-card-border: rgba(0, 0, 0, 0.07);
             --adm-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(11, 87, 208, 0.03);
@@ -28,8 +28,8 @@
             --adm-text-sub: #5f6368;
             --adm-accent: #0b57d0;
             --adm-accent-hover: #0842a0;
-            --adm-topbar-bg: rgba(255, 255, 255, 0.94);
-            --adm-sidebar-hover: #f0f4f9;
+            --adm-topbar-bg: rgba(240, 245, 252, 0.94);
+            --adm-sidebar-hover: rgba(11, 87, 208, 0.08);
             --adm-sidebar-active: #c2e7ff;
             --adm-sidebar-active-text: #001d35;
             --adm-table-hover: #f8fafd;
@@ -166,7 +166,7 @@
             justify-content: center;
             background: #0b57d0;
             color: #ffffff;
-            font-size: 1.15rem;
+            font-size: 1.10rem;
             box-shadow: 0 2px 8px rgba(11, 87, 208, 0.25);
             flex-shrink: 0;
         }
@@ -962,6 +962,10 @@
                         <span><i class="bi bi-circle-fill"></i>Bayi Portalları &amp; Yetki</span>
                         <span class="admin-badge" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">3 Portal</span>
                     </a>
+                    <a asp-controller="Admin" asp-action="BayiAltKullanicilari" class="admin-sublink @(curAct == "BayiAltKullanicilari" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Bayi Alt Kullanıcı &amp; Şifre</span>
+                        <span class="admin-badge" style="background: rgba(14, 165, 233, 0.15); color: #0284c7;">AES-256</span>
+                    </a>
                     <a asp-controller="Admin" asp-action="BayiIslemLoglari" class="admin-sublink @(curMod == "BayiIslemLoglari" || curAct == "BayiIslemLoglari" ? "active" : "")">
                         <span><i class="bi bi-circle-fill"></i>Bayi Giriş &amp; İşlem İzi</span>
                         <span class="admin-badge">Denetim</span>
@@ -1026,6 +1030,14 @@
                     <a asp-controller="Admin" asp-action="BayiYonetimMerkezi" asp-route-tab="eskimusteriler" class="admin-sublink @(curAct == "BayiYonetimMerkezi" && ViewBag.AktifTab == "eskimusteriler" ? "active" : "")">
                         <span><i class="bi bi-circle-fill"></i>Eski Müşteriler &amp; Pasif Bayiler</span>
                         <span class="admin-badge" style="background: rgba(100, 116, 139, 0.15); color: #475569;">Arşiv</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="DemoTalepleri" class="admin-sublink @(curAct == "DemoTalepleri" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Demo Cihaz Talepleri</span>
+                        <span class="admin-badge" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6;">15 Gün</span>
+                    </a>
+                    <a asp-controller="Admin" asp-action="PazarlamaMateryalleri" class="admin-sublink @(curAct == "PazarlamaMateryalleri" ? "active" : "")">
+                        <span><i class="bi bi-circle-fill"></i>Pazarlama Materyalleri</span>
+                        <span class="admin-badge">Katalog</span>
                     </a>
                 </div>
             </div>

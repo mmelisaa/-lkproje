@@ -1,0 +1,163 @@
+@* Hayat İşleri - 6698 Sayılı KVKK & Çerez Yönetim Bileşeni *@
+
+<!-- 1. Yüzen Çerez Bildirim Banner'ı -->
+<div id="hayatCookieBannerWrap" class="hayat-cookie-banner-wrap" role="region" aria-label="Çerez ve Gizlilik Bildirimi">
+    <div class="hayat-cookie-banner">
+        <div class="hayat-cookie-header">
+            <div class="hayat-cookie-icon-box" aria-hidden="true">
+                <i class="bi bi-cookie"></i>
+            </div>
+            <div>
+                <div class="d-flex align-items-center gap-2">
+                    <h5 class="hayat-cookie-title">Çerez ve Gizlilik Tercihleriniz</h5>
+                    <span class="hayat-cookie-badge"><i class="bi bi-shield-check"></i> KVKK</span>
+                </div>
+                <small class="text-muted" style="font-size: 0.76rem;">Hayat İşleri Bilgi Teknolojileri</small>
+            </div>
+        </div>
+
+        <div class="hayat-cookie-text">
+            Sitemizin kesintisiz ve güvenli çalışması için <strong>zorunlu çerezler</strong> doğrudan çalıştırılmaktadır. Analiz veya reklam gibi verileri işleyecek çerezler ise yalnızca siz <strong>"Tümünü Kabul Et"</strong> butonuna bastıktan sonra devreye alınır. Detaylı bilgi için <a asp-controller="Home" asp-action="CerezPolitikasi">Çerez Politikamızı</a> inceleyebilirsiniz.
+        </div>
+
+        <div class="hayat-cookie-actions">
+            <div class="hayat-cookie-btn-group">
+                <button type="button" id="hayatCookieBtnAcceptAll" class="hayat-cookie-btn hayat-cookie-btn-primary">
+                    <i class="bi bi-check-lg"></i>
+                    <span>Tümünü Kabul Et</span>
+                </button>
+                <button type="button" id="hayatCookieBtnReject" class="hayat-cookie-btn hayat-cookie-btn-secondary">
+                    <i class="bi bi-x-lg"></i>
+                    <span>Yalnızca Zorunlular</span>
+                </button>
+            </div>
+            <button type="button" id="hayatCookieBtnCustomize" class="hayat-cookie-btn hayat-cookie-btn-outline w-100">
+                <i class="bi bi-sliders2-vertical"></i>
+                <span>Ayarları Özelleştir</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- 2. Sol Alt Çerez Tercihleri Rozet Butonu (Kullanıcı dilediği an rızasını değiştirebilir) -->
+<button type="button" id="hayatCookieFloatingTrigger" class="hayat-cookie-floating-trigger" title="Çerez ve Gizlilik Tercihleri" aria-label="Çerez Tercihlerini Aç">
+    <i class="bi bi-cookie"></i>
+</button>
+
+<!-- 3. Çerez Tercihleri Yönetim Modalı (KVKK Uyumlu Detaylı Tercih Merkezi) -->
+<div class="modal fade hayat-cookie-modal" id="hayatCookieModal" tabindex="-1" aria-labelledby="hayatCookieModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="hayat-cookie-icon-box" style="width: 38px; height: 38px; font-size: 1.15rem;">
+                        <i class="bi bi-sliders2"></i>
+                    </div>
+                    <div>
+                        <h5 class="modal-title fw-bold text-primary mb-0" id="hayatCookieModalLabel" style="font-family: 'Google Sans', sans-serif;">
+                            Çerez ve Gizlilik Tercih Merkezi
+                        </h5>
+                        <small class="text-muted">6698 sayılı KVKK ve Çerez Uygulamaları Rehberi Tam Uyumu</small>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+
+            <div class="modal-body p-4">
+                <div class="alert alert-light border rounded-3 small text-secondary mb-4 p-3">
+                    <i class="bi bi-info-circle-fill text-primary me-1.5"></i>
+                    Çerezler, web sitemizin sizi hatırlamasını, oturumunuzu güvenle korumasını ve tercihlerinizi hafızada tutmasını sağlayan küçük metin dosyalarıdır. Aşağıdaki kategorilerden dilediğiniz izinleri serbestçe yönetebilir, istediğiniz zaman rızanızı geri alabilirsiniz.
+                </div>
+
+                <!-- 1. Zorunlu Çerezler -->
+                <div class="hayat-cookie-card">
+                    <div class="hayat-cookie-card-header">
+                        <div class="hayat-cookie-card-title">
+                            <i class="bi bi-shield-fill-check text-primary"></i>
+                            <span>Zorunlu Çerezler</span>
+                            <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary small ms-2" style="font-size: 0.7rem;">Her Zaman Aktif</span>
+                        </div>
+                        <label class="hayat-cookie-switch-label" title="Zorunlu çerezler kapatılamaz">
+                            <input type="checkbox" checked disabled />
+                            <span class="hayat-cookie-slider"></span>
+                        </label>
+                    </div>
+                    <p class="hayat-cookie-card-desc">
+                        Web sitesinin güvenliği, CSRF saldırı engelleme, kullanıcı oturumu ve çerez onay durumunuzun hafızada tutulması için teknik olarak zorunludur. Devre dışı bırakılamaz.
+                    </p>
+                </div>
+
+                <!-- 2. İşlevsel Çerezler -->
+                <div class="hayat-cookie-card">
+                    <div class="hayat-cookie-card-header">
+                        <div class="hayat-cookie-card-title">
+                            <i class="bi bi-palette text-info"></i>
+                            <span>İşlevsel (Tercih) Çerezleri</span>
+                        </div>
+                        <label class="hayat-cookie-switch-label">
+                            <input type="checkbox" id="hayatCookieChkFunctional" />
+                            <span class="hayat-cookie-slider"></span>
+                        </label>
+                    </div>
+                    <p class="hayat-cookie-card-desc">
+                        Açık / koyu tema seçiminiz (Light/Dark mode) ve arayüz dili gibi kişiselleştirilmiş tercihlerinizi tarayıcınızda hatırlar ve sonraki ziyaretlerinizde uygular.
+                    </p>
+                </div>
+
+                <!-- 3. Performans ve Analitik Çerezleri -->
+                <div class="hayat-cookie-card">
+                    <div class="hayat-cookie-card-header">
+                        <div class="hayat-cookie-card-title">
+                            <i class="bi bi-graph-up-arrow text-warning"></i>
+                            <span>Performans ve Analitik Çerezleri</span>
+                        </div>
+                        <label class="hayat-cookie-switch-label">
+                            <input type="checkbox" id="hayatCookieChkAnalytics" />
+                            <span class="hayat-cookie-slider"></span>
+                        </label>
+                    </div>
+                    <p class="hayat-cookie-card-desc">
+                        Sitemizin kaç kişi tarafından ziyaret edildiğini ve sayfaların performansını anonim olarak ölçümleyerek web deneyimini geliştirmemize yardımcı olur.
+                    </p>
+                </div>
+
+                <!-- 4. Pazarlama ve Reklam Çerezleri -->
+                <div class="hayat-cookie-card">
+                    <div class="hayat-cookie-card-header">
+                        <div class="hayat-cookie-card-title">
+                            <i class="bi bi-megaphone text-danger"></i>
+                            <span>Pazarlama ve Hedefleme Çerezleri</span>
+                        </div>
+                        <label class="hayat-cookie-switch-label">
+                            <input type="checkbox" id="hayatCookieChkMarketing" />
+                            <span class="hayat-cookie-slider"></span>
+                        </label>
+                    </div>
+                    <p class="hayat-cookie-card-desc">
+                        İlgi alanlarınıza uygun ürün, kampanya ve kurumsal duyuruların gösterilmesini sağlar ve reklam dönüşümlerini analiz eder.
+                    </p>
+                </div>
+
+                <div class="mt-3 text-end">
+                    <a asp-controller="Home" asp-action="CerezPolitikasi" target="_blank" class="text-decoration-none small text-primary fw-semibold">
+                        <i class="bi bi-box-arrow-up-right me-1"></i> Detaylı Çerez Politikası Tablosunu İncele
+                    </a>
+                </div>
+            </div>
+
+            <div class="modal-footer d-flex flex-wrap align-items-center justify-content-between gap-2">
+                <button type="button" id="hayatCookieBtnRejectModal" class="btn btn-outline-secondary rounded-pill px-3 py-2 small fw-semibold">
+                    <i class="bi bi-x-circle me-1"></i> Yalnızca Zorunluları Kabul Et
+                </button>
+                <div class="d-flex align-items-center gap-2 ms-auto">
+                    <button type="button" id="hayatCookieBtnSaveModal" class="btn btn-outline-primary rounded-pill px-3.5 py-2 small fw-semibold">
+                        <i class="bi bi-save2 me-1"></i> Tercihleri Kaydet
+                    </button>
+                    <button type="button" id="hayatCookieBtnAcceptAllModal" class="btn btn-primary rounded-pill px-3.5 py-2 small fw-semibold shadow-sm">
+                        <i class="bi bi-check2-all me-1"></i> Tümünü Kabul Et
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

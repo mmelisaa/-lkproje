@@ -28,8 +28,24 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        [HttpGet]
+        [Route("gizlilik-politikasi")]
         public IActionResult Privacy()
         {
+            ViewData["Title"] = "Gizlilik ve KVKK Politikası";
+            ViewData["SeoBaslik"] = "Gizlilik ve Kişisel Verilerin Korunması (KVKK) Politikası | Hayat İşleri";
+            ViewData["SeoAciklama"] = "Hayat İşleri 6698 sayılı KVKK kapsamında kişisel verilerinizin işlenmesi, korunması ve gizlilik haklarınıza ilişkin aydınlatma metni.";
+            return View();
+        }
+
+        [HttpGet]
+        [Route("cerez-politikasi")]
+        [Route("Home/CerezPolitikasi")]
+        public IActionResult CerezPolitikasi()
+        {
+            ViewData["Title"] = "Çerez Politikası ve Aydınlatma Metni";
+            ViewData["SeoBaslik"] = "Çerez Politikası ve Aydınlatma Metni | Hayat İşleri";
+            ViewData["SeoAciklama"] = "6698 sayılı KVKK ve Çerez Rehberi uyarınca Hayat İşleri web sitesinde kullanılan zorunlu, işlevsel, analitik ve pazarlama çerezleri hakkında detaylı bilgi.";
             return View();
         }
 
@@ -92,26 +108,92 @@ namespace WebApplication1.Controllers
             return View(model);
         }
 
+        private static bool _dosyaKolonlariKontrolEdildi = false;
+        private async Task EnsureSiteMesajDosyaColumnsAsync()
+        {
+            if (_dosyaKolonlariKontrolEdildi) return;
+            try
+            {
+                await _context.Database.ExecuteSqlRawAsync(@"
+                    IF COL_LENGTH('SiteMesajlari', 'DosyaYolu') IS NULL ALTER TABLE [SiteMesajlari] ADD [DosyaYolu] nvarchar(max) NULL;
+                    IF COL_LENGTH('SiteMesajlari', 'DosyaAdi') IS NULL ALTER TABLE [SiteMesajlari] ADD [DosyaAdi] nvarchar(255) NULL;
+                ");
+                _dosyaKolonlariKontrolEdildi = true;
+            }
+            catch { }
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> InsanKaynaklariBasvuru(string adSoyad, string eposta, string? pozisyon, string? onYazi)
+        public async Task<IActionResult> InsanKaynaklariBasvuru(string adSoyad, string eposta, string? telefon, string? pozisyon, string? onYazi, IFormFile? cvDosyasi)
         {
+            if (string.IsNullOrWhiteSpace(adSoyad) || string.IsNullOrWhiteSpace(eposta))
+            {
+                TempData["HataMesaj"] = "Lütfen Ad Soyad ve E-Posta alanlarını eksiksiz doldurunuz.";
+                return RedirectToAction(nameof(InsanKaynaklari));
+            }
+
+            string? dosyaYolu = null;
+            string? dosyaAdi = null;
+
+            if (cvDosyasi != null && cvDosyasi.Length > 0)
+            {
+                // Maksimum 15 MB dosya boyutu kontrolü
+                if (cvDosyasi.Length > 15 * 1024 * 1024)
+                {
+                    TempData["HataMesaj"] = "Yüklenen özgeçmiş dosyası 15 MB'tan büyük olamaz.";
+                    return RedirectToAction(nameof(InsanKaynaklari));
+                }
+
+                var allowedExtensions = new[] { ".pdf", ".jpg", ".jpeg", ".png", ".doc", ".docx" };
+                var ext = Path.GetExtension(cvDosyasi.FileName).ToLowerInvariant();
+                if (!allowedExtensions.Contains(ext))
+                {
+                    TempData["HataMesaj"] = "Lütfen geçerli formatta bir dosya yükleyiniz (PDF, JPEG, PNG, DOC, DOCX).";
+                    return RedirectToAction(nameof(InsanKaynaklari));
+                }
+
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "cv");
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+
+                var uniqueFileName = $"cv_{DateTime.Now:yyyyMMdd_HHmmss}_{Guid.NewGuid():N}{ext}";
+                var fullFilePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var stream = new FileStream(fullFilePath, FileMode.Create))
+                {
+                    await cvDosyasi.CopyToAsync(stream);
+                }
+
+                dosyaYolu = "/uploads/cv/" + uniqueFileName;
+                dosyaAdi = Path.GetFileName(cvDosyasi.FileName);
+            }
+
+            await EnsureSiteMesajDosyaColumnsAsync();
+
             var mesaj = new SiteMesaj
             {
-                AdSoyad = adSoyad,
-                Eposta = eposta,
-                Pozisyon = pozisyon,
-                OnYazi = onYazi,
+                AdSoyad = adSoyad.Trim(),
+                Eposta = eposta.Trim(),
+                Telefon = telefon?.Trim(),
+                Pozisyon = pozisyon?.Trim(),
+                OnYazi = onYazi?.Trim(),
+                DosyaYolu = dosyaYolu,
+                DosyaAdi = dosyaAdi,
                 FormTipi = "İş Başvurusu",
+                Durum = CrmDurumlari.Yeni,
                 GonderimTarihi = DateTime.Now
             };
+
             _context.SiteMesajlari.Add(mesaj);
             await _context.SaveChangesAsync();
 
-            // E-Posta bildirimi gönder (berkayevrann.1903@gmail.com hesabı için)
-            await _emailService.SendFormNotificationAsync("İş Başvurusu", adSoyad, eposta, null, null, pozisyon, null, onYazi);
+            // Yöneticiye anlık e-posta bildirimi ve dosya ilişiği gönder
+            await _emailService.SendFormNotificationAsync("İş Başvurusu", adSoyad, eposta, telefon, null, pozisyon, null, onYazi, dosyaYolu, dosyaAdi);
 
-            TempData["FormMesaj"] = "Başvurunuz başarıyla gönderildi. En kısa sürede sizinle iletişime geçeceğiz.";
+            TempData["FormMesaj"] = "İş başvurunuz ve özgeçmişiniz başarıyla alındı. Yönetim ekibimiz en kısa sürede sizinle iletişime geçecektir.";
             return RedirectToAction(nameof(InsanKaynaklari));
         }
 
@@ -314,6 +396,8 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
+        [Route("bayi-girisi")]
+        [Route("Home/BayiGirisi")]
         public IActionResult BayiGirisi()
         {
             // Giriş yapmış bayi doğrudan kendi paneline gider

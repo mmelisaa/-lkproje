@@ -3179,7 +3179,7 @@
         </div>
 
         <!-- Kritik Stok Uyarı Çubuğu -->
-        <div class="alert alert-danger d-flex align-items-center justify-content-between rounded-4 shadow-sm mb-4 p-3.5" role="alert" style="background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25);">
+        <div class="alert alert-danger d-flex flex-wrap align-items-center justify-content-between rounded-4 shadow-sm mb-4 p-3.5 gap-3" role="alert" style="background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25);">
             <div class="d-flex align-items-center gap-3">
                 <i class="bi bi-exclamation-octagon-fill fs-3 text-danger"></i>
                 <div>
@@ -3187,13 +3187,19 @@
                     <span class="ms-1 small" style="color: var(--adm-text-main);">Zebra ZD220 (2 Adet), Sunmi D2s Dokunmatik POS (3 Adet) ve Datalogic QBT2400 (4 Adet) eşik değerin altına düştü.</span>
                 </div>
             </div>
-            <button class="btn btn-sm btn-danger rounded-pill px-3.5 fw-bold" onclick="yeniKayitModaliAc('TedarikSiparisi')">Özlem Ticaret / Tedarikçiye Sipariş Geç</button>
+            <div class="d-inline-flex align-items-center gap-2 px-3.5 py-1.5 rounded-pill border border-danger border-opacity-25" style="background: rgba(239, 68, 68, 0.12);">
+                <i class="bi bi-bell-fill text-danger small"></i>
+                <span class="small fw-bold text-danger">Tedarikçi Uyarısı: Özlem Ticaret ile sipariş geçilmeli</span>
+            </div>
         </div>
 
         <div class="rounded-4 overflow-hidden shadow-sm p-4 mb-4" style="background: var(--adm-card-bg); border: 1px solid var(--adm-card-border);">
             <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
                 <h5 class="fw-bold mb-0" style="color: var(--adm-text-main);">Seri No / IMEI Takibi &amp; 360° Cihaz Yaşam Döngüsü</h5>
-                <button class="btn btn-sm btn-primary rounded-pill px-3.5 fw-bold" onclick="yeniKayitModaliAc('SeriNoTakip')">+ Yeni Donanım Seri No Girişi</button>
+                <button class="btn btn-sm btn-primary rounded-pill px-3.5 fw-bold d-inline-flex align-items-center gap-1" onclick="yeniSeriNoModaliAc()">
+                    <i class="bi bi-plus-lg"></i>
+                    <span>+ Yeni Donanım Seri No Girişi</span>
+                </button>
             </div>
 
             <div class="table-responsive">
@@ -3209,8 +3215,8 @@
                             <th class="text-end">İşlemler</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
+                    <tbody id="donanimEnvanterTablosu">
+                        <tr data-seri="ZBR-ZT411-984210">
                             <td>
                                 <strong class="text-primary font-monospace">ZBR-ZT411-984210</strong>
                                 <div class="small text-secondary">Barkod: 869001234812</div>
@@ -3230,10 +3236,17 @@
                             </td>
                             <td><span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-1">Aktif &bull; Sorunsuz</span></td>
                             <td class="text-end">
-                                <button class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1">Yaşam Kartı</button>
+                                <div class="d-inline-flex gap-1.5">
+                                    <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-2.5 py-1 fw-semibold d-inline-flex align-items-center gap-1" onclick="yasamKartiGoster('ZBR-ZT411-984210')">
+                                        <i class="bi bi-clock-history"></i><span>Yaşam Kartı</span>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-warning rounded-pill px-2.5 py-1 text-dark fw-bold d-inline-flex align-items-center gap-1" onclick="servisFormuGoster('ZBR-ZT411-984210')">
+                                        <i class="bi bi-file-earmark-medical"></i><span>Servis Formu</span>
+                                    </button>
+                                </div>
                             </td>
                         </tr>
-                        <tr>
+                        <tr data-seri="SUN-D2-550192">
                             <td>
                                 <strong class="text-primary font-monospace">SUN-D2-550192</strong>
                                 <div class="small text-secondary">Barkod: 869004819201</div>
@@ -3253,10 +3266,17 @@
                             </td>
                             <td><span class="badge bg-warning bg-opacity-10 text-warning rounded-pill px-3 py-1">RMA: Termal Kafa Değişimi</span></td>
                             <td class="text-end">
-                                <button class="btn btn-sm btn-warning rounded-pill px-3 py-1 text-dark fw-bold">Servis Formu</button>
+                                <div class="d-inline-flex gap-1.5">
+                                    <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-2.5 py-1 fw-semibold d-inline-flex align-items-center gap-1" onclick="yasamKartiGoster('SUN-D2-550192')">
+                                        <i class="bi bi-clock-history"></i><span>Yaşam Kartı</span>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-warning rounded-pill px-2.5 py-1 text-dark fw-bold d-inline-flex align-items-center gap-1" onclick="servisFormuGoster('SUN-D2-550192')">
+                                        <i class="bi bi-file-earmark-medical"></i><span>Servis Formu</span>
+                                    </button>
+                                </div>
                             </td>
                         </tr>
-                        <tr>
+                        <tr data-seri="DAT-M10-330198">
                             <td>
                                 <strong class="text-primary font-monospace">DAT-M10-330198</strong>
                                 <div class="small text-secondary">IMEI: 354892019481023</div>
@@ -3276,9 +3296,54 @@
                             </td>
                             <td><span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-1">Aktif &bull; Sorunsuz</span></td>
                             <td class="text-end">
-                                <button class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1">Yaşam Kartı</button>
+                                <div class="d-inline-flex gap-1.5">
+                                    <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-2.5 py-1 fw-semibold d-inline-flex align-items-center gap-1" onclick="yasamKartiGoster('DAT-M10-330198')">
+                                        <i class="bi bi-clock-history"></i><span>Yaşam Kartı</span>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-warning rounded-pill px-2.5 py-1 text-dark fw-bold d-inline-flex align-items-center gap-1" onclick="servisFormuGoster('DAT-M10-330198')">
+                                        <i class="bi bi-file-earmark-medical"></i><span>Servis Formu</span>
+                                    </button>
+                                </div>
                             </td>
                         </tr>
+                        @{
+                            var digerRmaCihazlari = ViewBag.RmaKayitlari as List<RmaKaydi> ?? new List<RmaKaydi>();
+                            var gorunenler = new HashSet<string> { "ZBR-ZT411-984210", "SUN-D2-550192", "DAT-M10-330198" };
+                        }
+                        @foreach (var rk in digerRmaCihazlari.Where(x => !string.IsNullOrEmpty(x.SeriNo) && !gorunenler.Contains(x.SeriNo)))
+                        {
+                            var rmaKalan = rk.GarantiBitisTarihi.HasValue ? (int)(rk.GarantiBitisTarihi.Value.Date - DateTime.Now.Date).TotalDays : 0;
+                            <tr data-seri="@rk.SeriNo">
+                                <td>
+                                    <strong class="text-primary font-monospace">@rk.SeriNo</strong>
+                                    <div class="small text-secondary">RMA No: @rk.RmaNo</div>
+                                </td>
+                                <td>
+                                    <strong style="color: var(--adm-text-main);">@rk.CihazModeli</strong>
+                                    <div class="small text-secondary">RMA Servis Kaydı</div>
+                                </td>
+                                <td>
+                                    <div>@rk.MusteriAdi</div>
+                                    <small class="text-secondary">@(rk.Telefon ?? "Kayıtlı İletişim")</small>
+                                </td>
+                                <td><span class="badge bg-warning bg-opacity-10 text-warning rounded-pill px-2.5">@rk.Konum</span></td>
+                                <td>
+                                    <div class="fw-semibold">@(rk.GarantiBitisTarihi?.ToString("dd.MM.yyyy") ?? "Sözleşmeli")</div>
+                                    <small class="@(rk.GarantiKapsaminda ? "text-success" : "text-danger") fw-bold">@(rk.GarantiKapsaminda ? $"Garanti Aktif ({rmaKalan} Gün)" : "Garanti Dışı")</small>
+                                </td>
+                                <td><span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-1">@rk.Durum</span></td>
+                                <td class="text-end">
+                                    <div class="d-inline-flex gap-1.5">
+                                        <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-2.5 py-1 fw-semibold d-inline-flex align-items-center gap-1" onclick="yasamKartiGoster('@rk.SeriNo')">
+                                            <i class="bi bi-clock-history"></i><span>Yaşam Kartı</span>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-warning rounded-pill px-2.5 py-1 text-dark fw-bold d-inline-flex align-items-center gap-1" onclick="servisFormuGoster('@rk.SeriNo', '@rk.RmaNo')">
+                                            <i class="bi bi-file-earmark-medical"></i><span>Servis Formu</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
@@ -5356,6 +5421,283 @@
     </div>
 </div>
 
+<!-- Modal: 360° Cihaz Yaşam Döngüsü Kartı Modalı -->
+<div class="modal fade" id="modalYasamKarti" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content rounded-4 shadow border-0" style="background: var(--adm-card-bg); color: var(--adm-text-main);">
+            <div class="modal-header border-bottom d-flex align-items-center justify-content-between" style="border-color: var(--adm-card-border) !important;">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="p-2 rounded-3 bg-primary bg-opacity-10 text-primary">
+                        <i class="bi bi-clock-history fs-5"></i>
+                    </div>
+                    <div>
+                        <h5 class="modal-title fw-bold mb-0" id="ykBaslik">360° Cihaz Yaşam Kartı</h5>
+                        <small class="text-secondary" id="ykAltBaslik">Seri No &bull; Donanım ve Bakım Tarihçesi</small>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3" onclick="yasamKartiYazdir()">
+                        <i class="bi bi-printer me-1"></i> Yazdır / PDF
+                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                </div>
+            </div>
+            <div class="modal-body p-4" id="ykModalBody">
+                <!-- Cihaz Özet Kartı -->
+                <div class="p-3 rounded-4 mb-4" style="background: rgba(30, 58, 138, 0.05); border: 1px solid rgba(30, 58, 138, 0.15);">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-md-7">
+                            <span class="badge bg-primary bg-opacity-10 text-primary font-monospace px-2.5 py-1 mb-1 fs-6" id="ykSeriNo">ZBR-ZT411-984210</span>
+                            <h5 class="fw-bold mb-1" style="color: var(--adm-text-main);" id="ykModel">Zebra ZT411 Endüstriyel Yazıcı</h5>
+                            <div class="small text-secondary" id="ykMusteri"><i class="bi bi-building me-1"></i>Doğu Lojistik Dağıtım A.Ş. &bull; OSB Ana Depo</div>
+                        </div>
+                        <div class="col-md-5 text-md-end">
+                            <div class="mb-1" id="ykGarantiBadge">
+                                <span class="badge bg-success bg-opacity-15 text-success rounded-pill px-3 py-1.5 fw-bold">
+                                    <i class="bi bi-shield-check me-1"></i>Garanti Aktif (Kalan 268 Gün)
+                                </span>
+                            </div>
+                            <div class="small text-secondary" id="ykLokasyon"><i class="bi bi-geo-alt-fill text-danger me-1"></i>Saha (Müşteride Aktif)</div>
+                        </div>
+                    </div>
+
+                    <div class="row g-2 mt-2 pt-2 border-top text-secondary small">
+                        <div class="col-4"><strong>Barkod / MAC:</strong> <span class="font-monospace text-primary fw-semibold" id="ykBarkodMac">869001234812</span></div>
+                        <div class="col-4"><strong>Tedarikçi:</strong> <span class="fw-semibold" style="color: var(--adm-text-main);" id="ykTedarikci">Zebra Distribütör</span></div>
+                        <div class="col-4"><strong>Fatura &amp; Tarih:</strong> <span class="fw-semibold" style="color: var(--adm-text-main);" id="ykFatura">12.01.2025 (FTR-01948)</span></div>
+                    </div>
+                </div>
+
+                <!-- 360° Kronolojik Zaman Çizelgesi -->
+                <h6 class="fw-bold mb-3 d-flex align-items-center gap-2" style="color: var(--adm-text-main);">
+                    <i class="bi bi-diagram-3-fill text-primary"></i>
+                    <span>360° Uçtan Uca Cihaz Yaşam Döngüsü &amp; Olay Zaman Çizelgesi</span>
+                </h6>
+
+                <div class="yk-timeline ps-3" id="ykTimeline">
+                    <!-- JS ile dinamik doldurulur -->
+                </div>
+            </div>
+            <div class="modal-footer border-top d-flex justify-content-between p-3" style="border-color: var(--adm-card-border) !important;">
+                <button type="button" class="btn btn-warning rounded-pill px-3.5 py-2 fw-bold text-dark d-inline-flex align-items-center gap-1.5" onclick="servisFormunaGec()">
+                    <i class="bi bi-file-earmark-medical-fill"></i>
+                    <span>Bu Cihazın Servis Formunu Aç</span>
+                </button>
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-outline-secondary rounded-pill px-3.5 py-2" data-bs-dismiss="modal">Kapat</button>
+                    <button type="button" class="btn btn-primary rounded-pill px-4 py-2 fw-bold" onclick="yasamKartiYazdir()">
+                        <i class="bi bi-printer-fill me-1"></i> Yaşam Kartını Yazdır
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Teknik Servis & RMA Rapor Formu Modalı -->
+<div class="modal fade" id="modalServisFormu" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content rounded-4 shadow border-0" style="background: var(--adm-card-bg); color: var(--adm-text-main);">
+            <div class="modal-header border-bottom d-flex align-items-center justify-content-between" style="border-color: var(--adm-card-border) !important;">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="p-2 rounded-3 bg-warning bg-opacity-15 text-warning">
+                        <i class="bi bi-file-earmark-medical-fill fs-5"></i>
+                    </div>
+                    <div>
+                        <h5 class="modal-title fw-bold mb-0" id="sfBaslik">Donanım Teknik Servis &amp; RMA Formu</h5>
+                        <small class="text-secondary" id="sfAltBaslik">Resmi Kabul &bull; Arıza Teşhisi &bull; Parça Değişimi &bull; Teslim Tutanağı</small>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <a id="btnSfTamSayfa" href="/Admin/ServisFormu" target="_blank" class="btn btn-sm btn-dark rounded-pill px-3 fw-bold">
+                        <i class="bi bi-box-arrow-up-right me-1"></i> A4 Tam Sayfa
+                    </a>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                </div>
+            </div>
+            <div class="modal-body p-4" id="sfModalBody">
+                <!-- Resmi Servis Kartı Şablonu -->
+                <div class="p-4 rounded-4 mb-3" style="background: #ffffff; border: 1px solid #cbd5e1; color: #1e293b;">
+                    <div class="d-flex justify-content-between align-items-start border-bottom pb-3 mb-3">
+                        <div>
+                            <div class="fw-bold fs-6 text-primary">HAYAT İŞLERİ MÜHENDİSLİK TEKNİK SERVİS MASASI</div>
+                            <small class="text-secondary">Fırat Teknokent Kampüsü &bull; Destek Hattı: (0424) 237 00 00</small>
+                        </div>
+                        <div class="text-end">
+                            <span class="badge bg-dark font-monospace fs-6 px-3 py-1.5" id="sfRmaNo">RMA-2026-0002</span>
+                            <div class="small text-secondary mt-1" id="sfKabulTarihi">Kabul: 18.10.2026</div>
+                        </div>
+                    </div>
+
+                    <!-- Müşteri & Cihaz Bilgileri -->
+                    <div class="row g-3 mb-3">
+                        <div class="col-6">
+                            <div class="p-2.5 rounded bg-light border">
+                                <small class="text-secondary text-uppercase fw-bold" style="font-size:11px;">Müşteri / Cari Ünvanı</small>
+                                <div class="fw-bold text-dark fs-6" id="sfMusteri">Fırat Perakende Zinciri</div>
+                                <div class="small text-secondary" id="sfIletisim">Tel: 0424 555 01 22 &bull; Çarşı Şubesi Kasa-3</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-2.5 rounded bg-light border">
+                                <small class="text-secondary text-uppercase fw-bold" style="font-size:11px;">Donanım Cihaz Künyesi</small>
+                                <div class="fw-bold text-primary fs-6" id="sfCihazModeli">Sunmi D2s Plus Dokunmatik POS</div>
+                                <div class="small font-monospace text-dark" id="sfSeriNo">SN: SUN-D2-550192</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Şikayet & Teşhis -->
+                    <div class="mb-3">
+                        <div class="p-2.5 rounded bg-light border mb-2">
+                            <small class="text-secondary text-uppercase fw-bold d-block" style="font-size:11px;">Müşteri Şikayeti / Arıza Bildirimi</small>
+                            <span class="text-dark" id="sfArizaAciklama">Ana ekran dokunmatik tepki vermiyor, termal yazıcı silik ve çizgili basıyor.</span>
+                        </div>
+                        <div class="p-2.5 rounded bg-light border">
+                            <small class="text-secondary text-uppercase fw-bold d-block" style="font-size:11px;">Yetkili Teknisyen Teşhisi &amp; Yapılan İşlemler</small>
+                            <span class="text-dark fw-semibold" id="sfTeshis">Dokunmatik kontrolcü kartı ve 80mm Seiko termal baskı modülü test edildi; orijinal parça yenilendi.</span>
+                        </div>
+                    </div>
+
+                    <!-- Parça, İşçilik & Garanti Tablosu -->
+                    <div class="table-responsive mb-3">
+                        <table class="table table-sm table-bordered align-middle mb-0">
+                            <thead class="table-light">
+                                <tr class="small text-secondary">
+                                    <th>İşlem / Yedek Parça</th>
+                                    <th class="text-center">Miktar</th>
+                                    <th class="text-center">Garanti Durumu</th>
+                                    <th class="text-end">Tutar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="sfParcaTabloBody">
+                                <tr>
+                                    <td><strong id="sfDegisenParca">80mm Termal Baskı Kafası + Dokunmatik Panel</strong></td>
+                                    <td class="text-center">1 Adet</td>
+                                    <td class="text-center"><span class="badge bg-success rounded-pill px-2.5" id="sfGarantiKapsam">Garanti Kapsamında</span></td>
+                                    <td class="text-end fw-bold" id="sfUcret">0,00 ₺</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Konum & Kargo -->
+                    <div class="row g-2 p-2.5 rounded bg-light border small mb-3">
+                        <div class="col-md-4"><strong>Cihazın Konumu:</strong> <span class="badge bg-primary px-2" id="sfKonum">Teknik Servis Raf B-04</span></div>
+                        <div class="col-md-4"><strong>Servis Durumu:</strong> <span class="badge bg-warning text-dark px-2" id="sfDurum">RMA: Termal Kafa Değişimi</span></div>
+                        <div class="col-md-4"><strong>Teknisyen:</strong> <span class="text-dark" id="sfTeknisyen">Emre Can (Kıdemli Uzman)</span></div>
+                    </div>
+
+                    <!-- İmzalar -->
+                    <div class="row g-3 pt-2 text-center text-secondary small">
+                        <div class="col-6">
+                            <div class="p-2 border rounded border-dashed" style="height: 70px;">
+                                <div>Müşteri / Bayi Teslim Alan</div>
+                                <div class="fw-bold text-dark mt-2" id="sfImzaMusteri">Fırat Perakende Zinciri</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-2 border rounded border-dashed" style="height: 70px;">
+                                <div>Hayat İşleri Teknik Servis</div>
+                                <div class="fw-bold text-primary mt-2">Emre Can (Yetkili Teknisyen)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer border-top d-flex justify-content-between p-3" style="border-color: var(--adm-card-border) !important;">
+                <button type="button" class="btn btn-outline-primary rounded-pill px-3.5 py-2 fw-semibold d-inline-flex align-items-center gap-1.5" onclick="yasamKartinaGec()">
+                    <i class="bi bi-clock-history"></i>
+                    <span>Cihazın Yaşam Kartını İncele</span>
+                </button>
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-outline-secondary rounded-pill px-3.5 py-2" data-bs-dismiss="modal">Kapat</button>
+                    <button type="button" class="btn btn-primary rounded-pill px-4 py-2 fw-bold" onclick="servisFormuYazdir()">
+                        <i class="bi bi-printer-fill me-1"></i> Servis Formunu Yazdır / PDF İndir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Yeni Donanım Seri No Girişi Modalı -->
+<div class="modal fade" id="modalYeniDonanimSeriNo" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 shadow border-0" style="background: var(--adm-card-bg); color: var(--adm-text-main);">
+            <div class="modal-header border-bottom" style="border-color: var(--adm-card-border) !important;">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="p-2 rounded-3 bg-primary bg-opacity-10 text-primary">
+                        <i class="bi bi-upc-scan fs-5"></i>
+                    </div>
+                    <div>
+                        <h5 class="modal-title fw-bold mb-0">Yeni Donanım Seri No &bull; Envanter Girişi</h5>
+                        <small class="text-secondary">Uçtan uca takip ve 360° yaşam döngüsü başlat</small>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="formYeniDonanimSeriNo" onsubmit="event.preventDefault(); kaydetYeniDonanimSeriNo();">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-secondary">Seri Numarası (SN) *</label>
+                        <input type="text" id="inpSn" class="form-control font-monospace fw-bold" placeholder="Örn: ZBR-ZT421-440182" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-secondary">Barkod / IMEI / MAC Adresi</label>
+                        <input type="text" id="inpBarkod" class="form-control font-monospace" placeholder="Örn: 869002948102 veya 354892019481023" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-secondary">Donanım &amp; Cihaz Modeli *</label>
+                        <input type="text" id="inpModel" class="form-control" list="donanimModelListesi" placeholder="Örn: Zebra ZD421 Masaüstü Barkod Yazıcı" required />
+                        <datalist id="donanimModelListesi">
+                            <option value="Zebra ZT411 Endüstriyel Barkod Yazıcı (203 DPI)"></option>
+                            <option value="Zebra ZD421 Masaüstü Termal Transfer Yazıcı"></option>
+                            <option value="Sunmi D2s Plus Dokunmatik POS Terminali"></option>
+                            <option value="Sunmi V2s Android Mobil El Terminali"></option>
+                            <option value="Datalogic Memor 10 Android El Terminali"></option>
+                            <option value="Datalogic Gryphon GFS4470 2D Masaüstü Okuyucu"></option>
+                            <option value="KodPOS T500 All-in-One Dokunmatik POS Kasa"></option>
+                        </datalist>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-secondary">Müşteri / Kurumsal Bayi *</label>
+                        <input type="text" id="inpMusteri" class="form-control" placeholder="Örn: Toros Otomasyon & Perakende Ltd." required />
+                    </div>
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <label class="form-label small fw-bold text-secondary">Depo / Raf Lokasyonu</label>
+                            <select id="inpLokasyon" class="form-select">
+                                <option value="Saha (Müşteride Aktif)">Saha (Müşteride Aktif)</option>
+                                <option value="Merkez Depo Raf A-01">Merkez Depo Raf A-01</option>
+                                <option value="Merkez Depo Raf B-04">Merkez Depo Raf B-04</option>
+                                <option value="Teknik Servis Raf B-02">Teknik Servis Raf B-02</option>
+                                <option value="Konsinye Yedek Stok">Konsinye Yedek Stok</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small fw-bold text-secondary">Garanti Bitiş Tarihi</label>
+                            <input type="date" id="inpGarantiBitis" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-secondary">Başlangıç Durumu</label>
+                        <select id="inpDurum" class="form-select">
+                            <option value="Aktif &bull; Sorunsuz">Aktif &bull; Sorunsuz</option>
+                            <option value="RMA: Serviste">RMA: Serviste</option>
+                            <option value="Depo Test Aşamasında">Depo Test Aşamasında</option>
+                        </select>
+                    </div>
+                    <div class="d-flex justify-content-end gap-2 pt-2">
+                        <button type="button" class="btn btn-sm btn-secondary rounded-pill px-3.5" data-bs-dismiss="modal">İptal</button>
+                        <button type="submit" class="btn btn-sm btn-primary rounded-pill px-4 fw-bold">Seri Numarasını Kaydet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
 <script>
     // Sekme Değiştirici (Site Ayarları İçin)
@@ -5528,6 +5870,424 @@
         document.getElementById('formDinamikKayit')?.reset();
     }
 
+    // ================= 360° CİHAZ YAŞAM KARTI & SERVİS FORMU MOTORU =================
+    window.seciliSeriNo = 'ZBR-ZT411-984210';
+    window.cihazVeritabani = {
+        'ZBR-ZT411-984210': {
+            seriNo: 'ZBR-ZT411-984210',
+            barkod: '869001234812',
+            model: 'Zebra ZT411 Endüstriyel Yazıcı',
+            altModel: '203 DPI • Termal Transfer • RFID Opsiyonel',
+            musteri: 'Doğu Lojistik Dağıtım A.Ş.',
+            lokasyon: 'Saha (Müşteride Aktif)',
+            tedarikci: 'Özlem Ticaret / Zebra Türkiye Distribütörü',
+            fatura: '12.01.2025 (FTR-2025-01948)',
+            garantiDurum: 'Garanti Aktif (Kalan 268 Gün)',
+            garantiKapsam: true,
+            garantiKalanGun: 268,
+            rmaNo: 'RMA-2026-0001',
+            kabulTarihi: '15.10.2026 10:30',
+            iletisim: '0501 014 6623 • OSB Ana Depo & Hat 1',
+            ariza: 'Baskıda yatay çizgiler oluşuyor, ribon sarma mili periyodik kalibrasyon gerektiriyor.',
+            teshis: 'Termal transfer 203 DPI baskı kafasında kılcal aşınma tespit edildi; temizlik, kafa hizalama ve mikron kalibrasyon uygulandı.',
+            degisenParca: 'Termal Baskı Kafası 203 DPI (P1058930-009)',
+            ucret: '0,00 ₺ (Garanti İçi)',
+            durum: 'Aktif • Sorunsuz',
+            konum: 'Saha (Müşteride Aktif)',
+            teknisyen: 'Emre Can (Kıdemli Donanım Teknisyeni)',
+            timeline: [
+                { tarih: '10.01.2025', baslik: 'Üretim & İthalat Mal Kabul', detay: 'Distribütör üzerinden depoya mal kabul yapıldı. Seri No ve MAC eşleştirildi.', tip: 'success' },
+                { tarih: '11.01.2025', baslik: 'Merkez Depo Envanter & Test', detay: 'OSB Ana Depo kabulü, 50 test baskısı yapıldı ve barkodlandı.', tip: 'primary' },
+                { tarih: '12.01.2025', baslik: 'Sevkiyat ve Müşteri Kurulumu', detay: 'Doğu Lojistik Hat 1 deposuna kuruldu, 2 yıllık resmi garanti başlatıldı.', tip: 'primary' },
+                { tarih: '15.08.2025', baslik: 'Yıllık Periyodik Bakım & Kalibrasyon', detay: 'Baskı kafası alkollü solüsyonla temizlendi, ribon gerginlik ayarı yapıldı.', tip: 'info' },
+                { tarih: '15.10.2026', baslik: 'RMA-2026-0001 Servis İşlemi', detay: 'Termal kafa kalibrasyonu ve sensör bakımı distribütör garantisiyle tamamlandı.', tip: 'warning' },
+                { tarih: 'Bugün', baslik: 'Güncel Durum: Saha Aktif Kullanım', detay: 'Cihaz Doğu Lojistik bünyesinde aktif çalışmaktadır. Kalan Garanti: 268 Gün.', tip: 'success' }
+            ]
+        },
+        'SUN-D2-550192': {
+            seriNo: 'SUN-D2-550192',
+            barkod: '869004819201',
+            model: 'Sunmi D2s Plus Dokunmatik POS',
+            altModel: '15.6" Çift Ekran + 80mm Termal Yazıcı',
+            musteri: 'Fırat Perakende Zinciri',
+            lokasyon: 'Teknik Servis Raf B-04',
+            tedarikci: 'Sunmi Türkiye Distribütörlüğü',
+            fatura: '15.06.2024 (FTR-2024-00812)',
+            garantiDurum: 'Garanti Devam Ediyor (120 Gün Kaldı)',
+            garantiKapsam: true,
+            garantiKalanGun: 120,
+            rmaNo: 'RMA-2026-0002',
+            kabulTarihi: '18.10.2026 14:15',
+            iletisim: '0424 555 01 22 • Çarşı Şubesi Kasa-3',
+            ariza: 'Ana ekran dokunmatik algılamasında takılma ve 80mm fiş yazıcı kafasında silik baskı şikayeti.',
+            teshis: 'Dokunmatik kontrol ünitesi ve Seiko 80mm termal kafa modülü test edildi; parça değişimi onaylandı.',
+            degisenParca: '80mm Termal Kafa Modülü + Dokunmatik Cam Panel',
+            ucret: '0,00 ₺ (Garanti İçi)',
+            durum: 'RMA: Termal Kafa Değişimi',
+            konum: 'Teknik Servis Raf B-04',
+            teknisyen: 'Emre Can (Kıdemli Donanım Teknisyeni)',
+            timeline: [
+                { tarih: '12.06.2024', baslik: 'Distribütör İthalat & Depo Kabulü', detay: 'Sunmi Türkiye ana depodan teslim alındı, seri no ve barkod kaydı yapıldı.', tip: 'success' },
+                { tarih: '15.06.2024', baslik: 'Fırat Perakende Saha Teslimatı', detay: 'Çarşı Şubesi Kasa-3 olarak kuruldu, HiCari POS yazılımı lisansı aktif edildi.', tip: 'primary' },
+                { tarih: '10.03.2025', baslik: 'Firmware & Güvenlik Güncellemesi', detay: 'Sunmi OS v2.4 ve Android POS güvenlik yamaları başarıyla uygulandı.', tip: 'info' },
+                { tarih: '18.10.2026', baslik: 'RMA-2026-0002 Servis Kabulü', detay: 'Dokunmatik ekran gecikmesi şikayetiyle servis merkezimize kabul edildi.', tip: 'warning' },
+                { tarih: '19.10.2026', baslik: 'Parça Değişimi & Test Çıktısı', detay: 'Yeni termal kafa ve dokunmatik modülü monte edildi. Dayanıklılık testi sürüyor.', tip: 'warning' },
+                { tarih: 'Bugün', baslik: 'Teknik Servis Raf B-04', detay: 'Son kalite kontrol testleri yapılıyor, teslimata hazırlanıyor.', tip: 'warning' }
+            ]
+        },
+        'DAT-M10-330198': {
+            seriNo: 'DAT-M10-330198',
+            barkod: '354892019481023 (IMEI)',
+            model: 'Datalogic Memor 10 El Terminali',
+            altModel: 'Android 10 Enterprise • 2D Okuyucu',
+            musteri: 'Harput Toptan Gıda Ltd.',
+            lokasyon: 'Saha (Müşteride Aktif)',
+            tedarikci: 'Datalogic EMEA Dağıtım',
+            fatura: '28.08.2024 (FTR-2024-02319)',
+            garantiDurum: 'Genişletilmiş Garanti (190 Gün Kaldı)',
+            garantiKapsam: true,
+            garantiKalanGun: 190,
+            rmaNo: 'RMA-2026-0003',
+            kabulTarihi: '20.09.2026 09:00',
+            iletisim: '0424 712 40 18 • Mal Kabul Departmanı',
+            ariza: '2D barkod okuyucu lazer penceresi tozlanması ve pil sağlığı kontrolü talebi.',
+            teshis: 'Kamera ve optik tarayıcı prizması temizlendi, batarya hücre sağlığı %97 olarak ölçüldü.',
+            degisenParca: 'Parça Değişimi Gerekmedi (Optik Temizlik & Kalibrasyon)',
+            ucret: '0,00 ₺ (Garanti İçi)',
+            durum: 'Aktif • Sorunsuz',
+            konum: 'Saha (Müşteride Aktif)',
+            teknisyen: 'Burak Kaya (Saha Sistemleri Uzmanı)',
+            timeline: [
+                { tarih: '25.08.2024', baslik: 'Distribütör İthalat & BTK Kaydı', detay: 'IMEI numarası BTK sistemine işlendi, merkez depoda mal kabul tamamlandı.', tip: 'success' },
+                { tarih: '28.08.2024', baslik: 'Harput Toptan Gıda Teslimatı', detay: 'Mal kabul ekibine el terminali teslim edildi, barkod okuma şablonları yüklendi.', tip: 'primary' },
+                { tarih: '14.04.2025', baslik: 'Yıllık Periyodik Muayene', detay: 'Saha denetiminde cihaz incelendi, batarya ve Wi-Fi sinyal testleri yapıldı.', tip: 'info' },
+                { tarih: '20.09.2026', baslik: 'Optik Tarayıcı Temizliği', detay: 'Optik lazer lensi özel solüsyonla temizlendi, okuma hızı optimize edildi.', tip: 'info' },
+                { tarih: 'Bugün', baslik: 'Güncel Durum: Saha Sorunsuz Çalışıyor', detay: 'Cihaz sahada aktif çalışmaktadır. Genişletilmiş garanti koruması sürüyor.', tip: 'success' }
+            ]
+        }
+    };
+
+    function cihazBilgisiGetir(seriNo) {
+        if (window.cihazVeritabani[seriNo]) {
+            return window.cihazVeritabani[seriNo];
+        }
+        const tr = document.querySelector(`tr[data-seri="${seriNo}"]`);
+        const modelAdi = tr ? tr.children[1].querySelector('strong').innerText : 'Kurumsal Donanım Cihazı';
+        const musteriAdi = tr ? tr.children[2].querySelector('div').innerText : 'Kurumsal Müşteri';
+        const lokasyon = tr ? tr.children[3].innerText : 'Merkez Depo';
+        const durum = tr ? tr.children[5].innerText : 'Aktif • Sorunsuz';
+        
+        const fallback = {
+            seriNo: seriNo,
+            barkod: '86900' + Math.floor(100000 + Math.random() * 900000),
+            model: modelAdi,
+            altModel: 'Kurumsal Donanım Serisi',
+            musteri: musteriAdi,
+            lokasyon: lokasyon,
+            tedarikci: 'Resmi Distribütör İthalatı',
+            fatura: '15.02.2025 (FTR-2025-00412)',
+            garantiDurum: 'Garanti Kapsamında (Aktif)',
+            garantiKapsam: true,
+            garantiKalanGun: 310,
+            rmaNo: 'RMA-2026-0099',
+            kabulTarihi: '10.10.2026 11:00',
+            iletisim: '0501 014 6623 • Saha Sorumlusu',
+            ariza: 'Periyodik cihaz sağlık taraması ve donanım kontrolü.',
+            teshis: 'Tüm elektronik ve mekanik aksamlar incelendi; testler başarılı.',
+            degisenParca: 'Genel Bakım & Kalibrasyon (Parça değişimi gerekmedi)',
+            ucret: '0,00 ₺ (Garanti İçi)',
+            durum: durum,
+            konum: lokasyon,
+            teknisyen: 'Emre Can (Donanım Uzmanı)',
+            timeline: [
+                { tarih: '12.02.2025', baslik: 'Mal Kabul & Seri No Girişi', detay: 'Distribütör faturası ile sisteme kaydedildi.', tip: 'success' },
+                { tarih: '15.02.2025', baslik: 'Müşteri Teslimatı & Kurulum', detay: musteriAdi + ' sahasında kurulum yapıldı.', tip: 'primary' },
+                { tarih: 'Bugün', baslik: 'Güncel Saha Durumu: ' + durum, detay: 'Cihaz ' + lokasyon + ' konumunda takip edilmektedir.', tip: 'success' }
+            ]
+        };
+        window.cihazVeritabani[seriNo] = fallback;
+        return fallback;
+    }
+
+    function yasamKartiGoster(seriNo) {
+        window.seciliSeriNo = seriNo;
+        const c = cihazBilgisiGetir(seriNo);
+
+        const elSeri = document.getElementById('ykSeriNo');
+        const elModel = document.getElementById('ykModel');
+        const elMusteri = document.getElementById('ykMusteri');
+        const elLokasyon = document.getElementById('ykLokasyon');
+        const elGaranti = document.getElementById('ykGarantiBadge');
+        const elBarkod = document.getElementById('ykBarkodMac');
+        const elTedarikci = document.getElementById('ykTedarikci');
+        const elFatura = document.getElementById('ykFatura');
+        const elTimeline = document.getElementById('ykTimeline');
+
+        if (elSeri) elSeri.innerText = c.seriNo;
+        if (elModel) elModel.innerText = c.model;
+        if (elMusteri) elMusteri.innerHTML = `<i class="bi bi-building me-1"></i>${c.musteri}`;
+        if (elLokasyon) elLokasyon.innerHTML = `<i class="bi bi-geo-alt-fill text-danger me-1"></i>${c.lokasyon}`;
+        if (elBarkod) elBarkod.innerText = c.barkod;
+        if (elTedarikci) elTedarikci.innerText = c.tedarikci;
+        if (elFatura) elFatura.innerText = c.fatura;
+        if (elGaranti) {
+            elGaranti.innerHTML = `<span class="badge ${c.garantiKapsam ? 'bg-success' : 'bg-danger'} bg-opacity-15 ${c.garantiKapsam ? 'text-success' : 'text-danger'} rounded-pill px-3 py-1.5 fw-bold"><i class="bi bi-shield-check me-1"></i>${c.garantiDurum}</span>`;
+        }
+
+        if (elTimeline && c.timeline) {
+            elTimeline.innerHTML = c.timeline.map(item => `
+                <div class="yk-timeline-item">
+                    <div class="yk-timeline-dot ${item.tip}"></div>
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <strong style="color: var(--adm-text-main);" class="small">${item.baslik}</strong>
+                        <span class="badge bg-secondary bg-opacity-10 text-secondary font-monospace" style="font-size:10px;">${item.tarih}</span>
+                    </div>
+                    <p class="text-secondary small mb-0">${item.detay}</p>
+                </div>
+            `).join('');
+        }
+
+        const modalEl = document.getElementById('modalYasamKarti');
+        const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+        modal.show();
+    }
+
+    function servisFormuGoster(seriNo, rmaNo) {
+        window.seciliSeriNo = seriNo;
+        const c = cihazBilgisiGetir(seriNo);
+        if (rmaNo) c.rmaNo = rmaNo;
+
+        const elRma = document.getElementById('sfRmaNo');
+        const elKabul = document.getElementById('sfKabulTarihi');
+        const elMusteri = document.getElementById('sfMusteri');
+        const elIletisim = document.getElementById('sfIletisim');
+        const elModel = document.getElementById('sfCihazModeli');
+        const elSeri = document.getElementById('sfSeriNo');
+        const elAriza = document.getElementById('sfArizaAciklama');
+        const elTeshis = document.getElementById('sfTeshis');
+        const elDegisen = document.getElementById('sfDegisenParca');
+        const elGaranti = document.getElementById('sfGarantiKapsam');
+        const elUcret = document.getElementById('sfUcret');
+        const elKonum = document.getElementById('sfKonum');
+        const elDurum = document.getElementById('sfDurum');
+        const elTeknisyen = document.getElementById('sfTeknisyen');
+        const elImza = document.getElementById('sfImzaMusteri');
+        const btnTamSayfa = document.getElementById('btnSfTamSayfa');
+
+        if (elRma) elRma.innerText = c.rmaNo || 'RMA-2026-0042';
+        if (elKabul) elKabul.innerText = `Kabul: ${c.kabulTarihi || '18.10.2026'}`;
+        if (elMusteri) elMusteri.innerText = c.musteri;
+        if (elIletisim) elIletisim.innerText = c.iletisim;
+        if (elModel) elModel.innerText = c.model;
+        if (elSeri) elSeri.innerText = `SN: ${c.seriNo}`;
+        if (elAriza) elAriza.innerText = c.ariza;
+        if (elTeshis) elTeshis.innerText = c.teshis;
+        if (elDegisen) elDegisen.innerText = c.degisenParca;
+        if (elGaranti) elGaranti.innerText = c.garantiKapsam ? 'Garanti Kapsamında' : 'Garanti Dışı';
+        if (elUcret) elUcret.innerText = c.ucret;
+        if (elKonum) elKonum.innerText = c.konum;
+        if (elDurum) elDurum.innerText = c.durum;
+        if (elTeknisyen) elTeknisyen.innerText = c.teknisyen;
+        if (elImza) elImza.innerText = c.musteri;
+
+        if (btnTamSayfa) {
+            btnTamSayfa.href = `/Admin/ServisFormu?sn=${encodeURIComponent(c.seriNo)}&rmaNo=${encodeURIComponent(c.rmaNo || '')}`;
+        }
+
+        const modalEl = document.getElementById('modalServisFormu');
+        const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+        modal.show();
+    }
+
+    function servisFormunaGec() {
+        const modalYk = bootstrap.Modal.getInstance(document.getElementById('modalYasamKarti'));
+        if (modalYk) modalYk.hide();
+        setTimeout(() => {
+            servisFormuGoster(window.seciliSeriNo);
+        }, 300);
+    }
+
+    function yasamKartinaGec() {
+        const modalSf = bootstrap.Modal.getInstance(document.getElementById('modalServisFormu'));
+        if (modalSf) modalSf.hide();
+        setTimeout(() => {
+            yasamKartiGoster(window.seciliSeriNo);
+        }, 300);
+    }
+
+    function servisFormuYazdir() {
+        window.open(`/Admin/ServisFormu?sn=${encodeURIComponent(window.seciliSeriNo)}`, '_blank');
+    }
+
+    function yasamKartiYazdir() {
+        const c = cihazBilgisiGetir(window.seciliSeriNo);
+        const printWin = window.open('', '_blank', 'width=900,height=750');
+        printWin.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="utf-8">
+                <title>360° Cihaz Yaşam Kartı - ${c.seriNo}</title>
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+                <style>
+                    body { font-family: sans-serif; padding: 30px; color: #1e293b; background: #fff; }
+                    .header-box { border-bottom: 2px solid #1e3a8a; padding-bottom: 12px; margin-bottom: 20px; }
+                    .timeline-line { border-left: 2px solid #3b82f6; padding-left: 15px; margin-left: 10px; }
+                    .timeline-box { margin-bottom: 16px; position: relative; }
+                    .dot { position: absolute; left: -21px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: #3b82f6; }
+                    @@media print { .no-print { display: none; } }
+                </style>
+            </head>
+            <body>
+                <div class="no-print mb-3 text-end">
+                    <button class="btn btn-primary fw-bold" onclick="window.print()">Yazdır / PDF Olarak Kaydet</button>
+                    <button class="btn btn-secondary ms-2" onclick="window.close()">Kapat</button>
+                </div>
+                <div class="header-box d-flex justify-content-between align-items-center">
+                    <div>
+                        <h4 class="fw-bold mb-0 text-primary">HAYAT İŞLERİ MÜHENDİSLİK</h4>
+                        <div class="small text-muted">Donanım Yaşam Döngüsü & 360° Cihaz Takip Kartı</div>
+                    </div>
+                    <div class="text-end">
+                        <div class="badge bg-dark font-monospace fs-6">${c.seriNo}</div>
+                        <div class="small text-muted mt-1">Barkod: ${c.barkod}</div>
+                    </div>
+                </div>
+                <div class="card p-3 mb-4 bg-light border-0">
+                    <div class="row g-2">
+                        <div class="col-6"><strong>Cihaz Modeli:</strong> ${c.model}</div>
+                        <div class="col-6"><strong>Müşteri:</strong> ${c.musteri}</div>
+                        <div class="col-6 mt-2"><strong>Lokasyon:</strong> ${c.lokasyon}</div>
+                        <div class="col-6 mt-2"><strong>Garanti Durumu:</strong> ${c.garantiDurum}</div>
+                        <div class="col-6 mt-2"><strong>Tedarikçi:</strong> ${c.tedarikci}</div>
+                        <div class="col-6 mt-2"><strong>Fatura & Tarih:</strong> ${c.fatura}</div>
+                    </div>
+                </div>
+                <h5 class="fw-bold mb-3">360° Kronolojik Olay & Servis Zaman Çizelgesi</h5>
+                <div class="timeline-line">
+                    ${c.timeline.map(t => `
+                        <div class="timeline-box">
+                            <div class="dot"></div>
+                            <div class="d-flex justify-content-between">
+                                <strong class="small text-dark">${t.baslik}</strong>
+                                <span class="badge bg-light text-dark border">${t.tarih}</span>
+                            </div>
+                            <div class="small text-muted">${t.detay}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            </body>
+            </html>
+        `);
+        printWin.document.close();
+        setTimeout(() => {
+            printWin.focus();
+            printWin.print();
+        }, 500);
+    }
+
+    function yeniSeriNoModaliAc() {
+        document.getElementById('formYeniDonanimSeriNo')?.reset();
+        const bugunArtİkiYil = new Date();
+        bugunArtİkiYil.setFullYear(bugunArtİkiYil.getFullYear() + 2);
+        const tarihStr = bugunArtİkiYil.toISOString().split('T')[0];
+        const inpGaranti = document.getElementById('inpGarantiBitis');
+        if (inpGaranti) inpGaranti.value = tarihStr;
+
+        const modalEl = document.getElementById('modalYeniDonanimSeriNo');
+        const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+        modal.show();
+    }
+
+    function kaydetYeniDonanimSeriNo() {
+        const sn = document.getElementById('inpSn')?.value?.trim();
+        const barkod = document.getElementById('inpBarkod')?.value?.trim() || ('869' + Math.floor(100000000 + Math.random() * 900000000));
+        const model = document.getElementById('inpModel')?.value?.trim();
+        const musteri = document.getElementById('inpMusteri')?.value?.trim();
+        const lokasyon = document.getElementById('inpLokasyon')?.value || 'Saha (Müşteride Aktif)';
+        const garanti = document.getElementById('inpGarantiBitis')?.value || '31.12.2027';
+        const durum = document.getElementById('inpDurum')?.value || 'Aktif • Sorunsuz';
+
+        if (!sn || !model || !musteri) {
+            alert('Lütfen Seri Numarası, Cihaz Modeli ve Müşteri bilgilerini eksiksiz giriniz.');
+            return;
+        }
+
+        // Cihaz veritabanına ekle
+        window.cihazVeritabani[sn] = {
+            seriNo: sn,
+            barkod: barkod,
+            model: model,
+            altModel: 'Yeni Eklenen Donanım Kaydı',
+            musteri: musteri,
+            lokasyon: lokasyon,
+            tedarikci: 'Özlem Ticaret / Hayat İşleri Tedarik',
+            fatura: new Date().toLocaleDateString('tr-TR') + ' (FTR-' + Math.floor(10000 + Math.random() * 90000) + ')',
+            garantiDurum: 'Garanti Aktif (730 Gün Kaldı)',
+            garantiKapsam: true,
+            garantiKalanGun: 730,
+            rmaNo: 'RMA-2026-' + Math.floor(1000 + Math.random() * 9000),
+            kabulTarihi: new Date().toLocaleDateString('tr-TR') + ' ' + new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
+            iletisim: musteri + ' Yetkili İletişim',
+            ariza: 'Sisteme yeni donanım seri numarası tanımlandı. Cihaz ilk testleri başarıyla geçti.',
+            teshis: 'İlk fabrika ve mal kabul testleri tamamlandı, seri no ve barkod eşleştirildi.',
+            degisenParca: 'Sıfır Donanım (Parça değişimi yok)',
+            ucret: '0,00 ₺ (Garanti İçi)',
+            durum: durum,
+            konum: lokasyon,
+            teknisyen: 'Emre Can (Kıdemli Donanım Teknisyeni)',
+            timeline: [
+                { tarih: new Date().toLocaleDateString('tr-TR'), baslik: 'Mal Kabul & Seri No Girişi', detay: 'Yeni seri no envantere kaydedildi. 360° yaşam döngüsü başlatıldı.', tip: 'success' },
+                { tarih: new Date().toLocaleDateString('tr-TR'), baslik: 'Lokasyon Yerleşimi: ' + lokasyon, detay: musteri + ' adına tahsis edildi.', tip: 'primary' },
+                { tarih: 'Bugün', baslik: 'Güncel Durum: ' + durum, detay: 'Donanım izleme ve garanti koruması devrede.', tip: 'success' }
+            ]
+        };
+
+        // Tabloya yeni satır ekle
+        const tbody = document.getElementById('donanimEnvanterTablosu');
+        if (tbody) {
+            const tr = document.createElement('tr');
+            tr.setAttribute('data-seri', sn);
+            tr.innerHTML = `
+                <td>
+                    <strong class="text-primary font-monospace">${sn}</strong>
+                    <div class="small text-secondary">Barkod: ${barkod}</div>
+                </td>
+                <td>
+                    <strong style="color: var(--adm-text-main);">${model}</strong>
+                    <div class="small text-secondary">Yeni Eklenen Donanım</div>
+                </td>
+                <td>
+                    <div>${musteri}</div>
+                    <small class="text-secondary">OSB Saha Kurulumu</small>
+                </td>
+                <td><span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill px-2.5">${lokasyon}</span></td>
+                <td>
+                    <div class="fw-semibold">${garanti}</div>
+                    <small class="text-success fw-bold">Garanti Aktif</small>
+                </td>
+                <td><span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-1">${durum}</span></td>
+                <td class="text-end">
+                    <div class="d-inline-flex gap-1.5">
+                        <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-2.5 py-1 fw-semibold d-inline-flex align-items-center gap-1" onclick="yasamKartiGoster('${sn}')">
+                            <i class="bi bi-clock-history"></i><span>Yaşam Kartı</span>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-warning rounded-pill px-2.5 py-1 text-dark fw-bold d-inline-flex align-items-center gap-1" onclick="servisFormuGoster('${sn}')">
+                            <i class="bi bi-file-earmark-medical"></i><span>Servis Formu</span>
+                        </button>
+                    </div>
+                </td>
+            `;
+            tbody.insertBefore(tr, tbody.firstChild);
+        }
+
+        const modalEl = document.getElementById('modalYeniDonanimSeriNo');
+        const modal = bootstrap.Modal.getInstance(modalEl);
+        if (modal) modal.hide();
+
+        toastGoster(`"${sn}" seri numaralı donanım sisteme kaydedildi ve 360° yaşam kartı oluşturuldu.`);
+    }
+
     // İlk yüklemede döviz hesaplayıcıyı çalıştır
     document.addEventListener('DOMContentLoaded', function() {
         hesaplaDovizKuru();
@@ -5541,6 +6301,46 @@
     .spin-animation {
         display: inline-block;
         animation: spin 0.8s linear infinite;
+    }
+    .yk-timeline {
+        position: relative;
+        border-left: 2px solid #3b82f6;
+        margin-left: 14px;
+    }
+    .yk-timeline-item {
+        position: relative;
+        padding-bottom: 20px;
+        padding-left: 20px;
+    }
+    .yk-timeline-item:last-child {
+        padding-bottom: 0;
+    }
+    .yk-timeline-dot {
+        position: absolute;
+        left: -27px;
+        top: 2px;
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        background: #3b82f6;
+        border: 2px solid #ffffff;
+        box-shadow: 0 0 0 2px #3b82f6;
+    }
+    .yk-timeline-dot.success {
+        background: #10b981;
+        box-shadow: 0 0 0 2px #10b981;
+    }
+    .yk-timeline-dot.warning {
+        background: #f59e0b;
+        box-shadow: 0 0 0 2px #f59e0b;
+    }
+    .yk-timeline-dot.danger {
+        background: #ef4444;
+        box-shadow: 0 0 0 2px #ef4444;
+    }
+    .yk-timeline-dot.info {
+        background: #0ea5e9;
+        box-shadow: 0 0 0 2px #0ea5e9;
     }
 </style>
 }

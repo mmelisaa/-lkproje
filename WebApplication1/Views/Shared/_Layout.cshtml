@@ -27,6 +27,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Text:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/hayat-cookies.css" asp-append-version="true" />
     <script>
         (function () {
             try {
@@ -90,22 +91,22 @@
             gap: 0.65rem;
         }
         .lusion-drawer-sub-group {
-            background: var(--g1-surface, #ffffff);
-            border: 1px solid var(--g1-border, rgba(31, 31, 31, 0.08));
+            background: rgba(255, 255, 255, 0.68);
+            border: 1px solid rgba(11, 87, 208, 0.14);
             border-radius: 16px;
             overflow: hidden;
             transition: all 0.2s ease;
-            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
+            box-shadow: 0 2px 8px rgba(11, 87, 208, 0.04);
         }
         .lusion-drawer-sub-group:hover {
-            border-color: rgba(11, 87, 208, 0.24);
-            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+            border-color: rgba(11, 87, 208, 0.28);
+            box-shadow: 0 4px 14px rgba(11, 87, 208, 0.08);
         }
         .lusion-drawer-sub-header {
             width: 100%;
-            background: var(--g1-surface, #ffffff);
+            background: rgba(236, 243, 252, 0.65);
             border: none;
-            border-bottom: 1px solid var(--g1-border, rgba(31, 31, 31, 0.06));
+            border-bottom: 1px solid rgba(11, 87, 208, 0.10);
             color: var(--g1-text, #1f1f1f);
             font-family: 'Google Sans', 'Google Sans Text', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 0.92rem;
@@ -120,7 +121,7 @@
         }
         .lusion-drawer-sub-header:hover {
             color: #0b57d0;
-            background: var(--g1-surface-container, #f0f4f9);
+            background: rgba(210, 227, 252, 0.55);
         }
         .lusion-sub-icon-box {
             width: 28px;
@@ -159,9 +160,9 @@
             font-size: 0.68rem;
             letter-spacing: 0.2px;
             padding: 0.2rem 0.6rem;
-            background: var(--g1-surface-container, #f0f4f9);
-            color: var(--g1-muted, #444746);
-            border: 1px solid var(--g1-border, #e0e2ec);
+            background: rgba(11, 87, 208, 0.08);
+            color: #0b57d0;
+            border: 1px solid rgba(11, 87, 208, 0.16);
             border-radius: 99px;
         }
         .lusion-drawer-sub-list {
@@ -173,7 +174,18 @@
             overflow-y: auto;
             scrollbar-width: thin;
             scrollbar-color: rgba(11, 87, 208, 0.35) transparent;
-            background: var(--g1-surface, #ffffff);
+            background: rgba(244, 248, 254, 0.75);
+        }
+        html[data-theme="dark"] .lusion-drawer-sub-group {
+            background: rgba(24, 28, 38, 0.85);
+            border-color: rgba(255, 255, 255, 0.10);
+        }
+        html[data-theme="dark"] .lusion-drawer-sub-header {
+            background: rgba(30, 36, 48, 0.9);
+            border-bottom-color: rgba(255, 255, 255, 0.08);
+        }
+        html[data-theme="dark"] .lusion-drawer-sub-list {
+            background: rgba(20, 24, 33, 0.9);
         }
         .lusion-drawer-sub-list::-webkit-scrollbar {
             width: 4px;
@@ -221,90 +233,90 @@
         }
 
         /* ==================================================================== */
-        /* HEADER SEARCH & DUAL-LANGUAGE (TR/EN) TOGGLE (APPLE & GOOGLE ONE)    */
+        /* SPLINE COMMUNITY EXACT SEARCH BAR (https://app.spline.design/community) */
         /* ==================================================================== */
         .lusion-header-search-wrap {
             position: relative;
-            width: 300px;
-            max-width: 30vw;
-            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            flex: 1;
+            max-width: 440px;
+            margin: 0 auto;
+            min-width: 160px;
+            z-index: 1050;
         }
         .lusion-header-search-form {
             position: relative;
             display: flex;
             align-items: center;
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 999px;
-            padding: 0.36rem 0.85rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-            transition: all 0.25s ease;
+            height: 36px;
+            border-radius: 9999px;
+            padding: 0 10px 0 12px;
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: none;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .lusion-header-search-form:hover {
+            background: rgba(0, 0, 0, 0.08);
+            border-color: rgba(0, 0, 0, 0.12);
         }
         .lusion-header-search-form:focus-within {
             background: #ffffff;
-            border-color: #0b57d0;
-            box-shadow: 0 0 0 3px rgba(11, 87, 208, 0.15), 0 4px 16px rgba(11, 87, 208, 0.08);
+            border-color: #5f51ff;
+            box-shadow: 0 0 0 1px #5f51ff, 0 4px 16px rgba(95, 81, 255, 0.15);
         }
-        .lusion-search-icon {
-            font-size: 0.85rem;
-            color: #5f6368;
-            margin-right: 0.5rem;
+        .spline-search-icon {
+            width: 15px;
+            height: 15px;
+            color: rgba(0, 0, 0, 0.45);
+            margin-right: 8px;
             flex-shrink: 0;
             transition: color 0.2s ease;
         }
-        .lusion-header-search-form:focus-within .lusion-search-icon {
-            color: #0b57d0;
+        .lusion-header-search-form:focus-within .spline-search-icon {
+            color: #5f51ff;
         }
         .lusion-header-search-input {
             width: 100%;
+            height: 100%;
             border: none;
             outline: none;
             background: transparent;
-            font-family: 'Google Sans Text', sans-serif;
-            font-size: 0.84rem;
-            color: #1f1f1f;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Google Sans Text", sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            color: #18191d;
             padding: 0;
+            letter-spacing: -0.01em;
         }
         .lusion-header-search-input::placeholder {
-            color: #747775;
-            font-size: 0.82rem;
-        }
-        .lusion-search-kbd {
-            font-size: 0.68rem;
-            font-weight: 600;
-            padding: 0.15rem 0.4rem;
-            background: rgba(0, 0, 0, 0.06);
-            border-radius: 6px;
-            color: #5f6368;
-            margin-left: 0.4rem;
-            letter-spacing: 0.5px;
-            flex-shrink: 0;
-            border: 1px solid rgba(0, 0, 0, 0.04);
-            user-select: none;
+            color: rgba(0, 0, 0, 0.45);
+            font-size: 13px;
         }
         .lusion-search-clear-btn {
             background: none;
             border: none;
-            color: #747775;
+            color: rgba(0, 0, 0, 0.4);
             padding: 0;
-            font-size: 0.85rem;
+            font-size: 14px;
             cursor: pointer;
-            margin-left: 0.25rem;
+            margin-left: 4px;
+            display: inline-flex;
+            align-items: center;
         }
         .lusion-search-clear-btn:hover {
-            color: #0b57d0;
+            color: #5f51ff;
         }
 
-        /* Hızlı Arama Dropdown */
+        /* Hızlı Arama Dropdown - Spline Tarzı */
         .lusion-search-quick-drop {
             position: absolute;
             top: calc(100% + 8px);
             left: 0;
             right: 0;
             background: #ffffff;
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            border-radius: 18px;
-            box-shadow: 0 12px 36px rgba(15, 23, 42, 0.12);
+            border: 1px solid rgba(0, 0, 0, 0.09);
+            border-radius: 16px;
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04);
             overflow: hidden;
             z-index: 1080;
             animation: lusionDropFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -315,9 +327,11 @@
         }
         .lusion-search-drop-header {
             padding: 0.65rem 0.95rem;
-            background: #f8fafc;
+            background: #f9fafb;
             border-bottom: 1px solid rgba(0, 0, 0, 0.06);
             font-size: 0.72rem;
+            font-weight: 600;
+            color: #6b7280;
         }
         .lusion-search-drop-body {
             padding: 0.4rem 0;
@@ -330,12 +344,12 @@
             gap: 0.75rem;
             padding: 0.55rem 0.95rem;
             text-decoration: none;
-            color: #1f1f1f;
+            color: #1f2937;
             transition: all 0.15s ease;
         }
         .lusion-search-drop-item:hover {
-            background: #f0f4f9;
-            color: #0b57d0;
+            background: rgba(95, 81, 255, 0.06);
+            color: #5f51ff;
         }
         .lusion-search-drop-item i {
             font-size: 1.1rem;
@@ -349,42 +363,44 @@
             font-size: 0.72rem;
         }
 
-        /* DİL SEÇİCİ HAP BUTON (🇹🇷 TR / 🇬🇧 EN EMOJİLİ) */
+        /* DİL SEÇİCİ HAP BUTON (ON/OFF İLE YAN YANA MÜKEMMEL HİZALAMA) */
         .lusion-lang-pill-btn {
             display: inline-flex;
             align-items: center;
-            gap: 0.45rem;
-            padding: 0.4rem 0.85rem;
+            gap: 0.42rem;
+            height: 32px;
+            padding: 0 0.82rem;
             background: rgba(255, 255, 255, 0.92);
             border: 1px solid rgba(0, 0, 0, 0.1);
             border-radius: 999px;
-            font-family: 'Google Sans', sans-serif;
-            font-weight: 700;
-            font-size: 0.82rem;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, 'Google Sans', sans-serif;
+            font-weight: 600;
+            font-size: 0.80rem;
             color: #1f1f1f;
             cursor: pointer;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
             transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
             user-select: none;
+            flex-shrink: 0;
         }
         .lusion-lang-pill-btn:hover {
             background: #ffffff;
-            border-color: #0b57d0;
-            color: #0b57d0;
+            border-color: #5f51ff;
+            color: #5f51ff;
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(11, 87, 208, 0.12);
+            box-shadow: 0 4px 12px rgba(95, 81, 255, 0.12);
         }
         .lusion-lang-flag {
-            font-size: 1.05rem;
+            font-size: 1rem;
             line-height: 1;
             filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
         }
         .lusion-lang-code {
-            letter-spacing: 0.5px;
-            font-size: 0.8rem;
+            letter-spacing: 0.4px;
+            font-size: 0.78rem;
         }
         .lusion-lang-icon {
-            font-size: 0.78rem;
+            font-size: 0.76rem;
             opacity: 0.65;
             transition: transform 0.2s ease;
         }
@@ -393,80 +409,89 @@
             opacity: 1;
         }
 
-        /* KOYU MOD */
+        /* DARK MODE - EXACT SPLINE COMMUNITY COLORS (#5f51ff accent) */
         html[data-theme="dark"] .lusion-header-search-form {
-            background: rgba(22, 27, 34, 0.88);
-            border-color: rgba(255, 255, 255, 0.12);
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: none;
+        }
+        html[data-theme="dark"] .lusion-header-search-form:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.14);
         }
         html[data-theme="dark"] .lusion-header-search-form:focus-within {
-            background: #161b22;
-            border-color: #38bdf8;
-            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2), 0 4px 18px rgba(0, 0, 0, 0.4);
+            background: #18191d;
+            border-color: #5f51ff;
+            box-shadow: 0 0 0 1px #5f51ff, 0 4px 20px rgba(95, 81, 255, 0.28);
+        }
+        html[data-theme="dark"] .spline-search-icon {
+            color: rgba(255, 255, 255, 0.45);
+        }
+        html[data-theme="dark"] .lusion-header-search-form:focus-within .spline-search-icon {
+            color: #7585ff;
         }
         html[data-theme="dark"] .lusion-header-search-input {
-            color: #f8fafc;
+            color: #ffffff;
         }
         html[data-theme="dark"] .lusion-header-search-input::placeholder {
-            color: #94a3b8;
+            color: rgba(255, 255, 255, 0.4);
         }
-        html[data-theme="dark"] .lusion-search-icon {
-            color: #94a3b8;
+        html[data-theme="dark"] .lusion-search-clear-btn {
+            color: rgba(255, 255, 255, 0.4);
         }
-        html[data-theme="dark"] .lusion-header-search-form:focus-within .lusion-search-icon {
-            color: #38bdf8;
-        }
-        html[data-theme="dark"] .lusion-search-kbd {
-            background: rgba(255, 255, 255, 0.08);
-            color: #94a3b8;
-            border-color: rgba(255, 255, 255, 0.06);
+        html[data-theme="dark"] .lusion-search-clear-btn:hover {
+            color: #7585ff;
         }
         html[data-theme="dark"] .lusion-search-quick-drop {
-            background: #0e1118;
+            background: #18191d;
             border-color: rgba(255, 255, 255, 0.12);
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 16px 44px rgba(0, 0, 0, 0.7);
         }
         html[data-theme="dark"] .lusion-search-drop-header {
-            background: #131722;
+            background: #131417;
             border-bottom-color: rgba(255, 255, 255, 0.08);
-            color: #94a3b8 !important;
+            color: rgba(255, 255, 255, 0.5) !important;
         }
         html[data-theme="dark"] .lusion-search-drop-item {
-            color: #f1f5f9;
+            color: #f3f4f6;
         }
         html[data-theme="dark"] .lusion-search-drop-item:hover {
-            background: rgba(56, 189, 248, 0.08);
-            color: #38bdf8;
+            background: rgba(95, 81, 255, 0.12);
+            color: #7585ff;
         }
         html[data-theme="dark"] .lusion-lang-pill-btn {
-            background: rgba(22, 27, 34, 0.9);
-            border-color: rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.1);
             color: #f8fafc;
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
         }
         html[data-theme="dark"] .lusion-lang-pill-btn:hover {
-            background: #1e293b;
-            border-color: #38bdf8;
-            color: #38bdf8;
-            box-shadow: 0 4px 16px rgba(56, 189, 248, 0.2);
+            background: rgba(255, 255, 255, 0.14);
+            border-color: #5f51ff;
+            color: #7585ff;
+            box-shadow: 0 4px 16px rgba(95, 81, 255, 0.2);
         }
 
+        @@media (max-width: 991px) {
+            .lusion-header-search-wrap {
+                max-width: 280px;
+            }
+        }
         @@media (max-width: 768px) {
             .lusion-header-search-wrap {
-                width: 150px;
-                max-width: 32vw;
+                max-width: 180px;
             }
             .lusion-header-search-input {
-                font-size: 0.76rem;
+                font-size: 12px;
             }
             .lusion-lang-code {
                 display: none;
             }
             .lusion-lang-pill-btn {
-                padding: 0.4rem 0.55rem;
+                padding: 0 0.55rem;
             }
         }
-        @@media (max-width: 480px) {
+        @@media (max-width: 576px) {
             .lusion-header-search-wrap {
                 display: none;
             }
@@ -505,7 +530,69 @@
                 <span class="hayat-header-brand-text">Hayat İşleri</span>
             </a>
 
-            <!-- Sağ Kontroller: ON/OFF Tema + Arama Çubuğu + TR/EN Dil Seçici + Menu Butonu -->
+            <!-- ORTA: SPLINE COMMUNITY STİLİ ARAMA ÇUBUĞU (https://app.spline.design/community) -->
+            <div class="lusion-header-search-wrap" id="globalHeaderSearchWrap">
+                <form action="/Home/Urunler" method="get" class="lusion-header-search-form" id="globalHeaderSearchForm">
+                    <svg class="spline-search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M6.5 1a5.5 5.5 0 0 1 4.226 9.019l4.087 4.087a.5.5 0 0 1-.707.707l-4.087-4.087A5.5 5.5 0 1 1 6.5 1m0 1a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9" fill="currentColor"></path>
+                    </svg>
+                    <input type="text"
+                           name="q"
+                           id="globalHeaderSearchInput"
+                           class="lusion-header-search-input"
+                           placeholder="Search..."
+                           autocomplete="off"
+                           aria-label="Search" />
+                    <button type="button" class="lusion-search-clear-btn" id="globalHeaderSearchClear" aria-label="Temizle" style="display:none;">
+                        <i class="bi bi-x-circle-fill"></i>
+                    </button>
+                </form>
+                <!-- Hızlı Arama & Popüler Dropdown -->
+                <div class="lusion-search-quick-drop" id="globalSearchQuickDrop" style="display: none;">
+                    <div class="lusion-search-drop-header">
+                        <span class="small fw-bold text-muted text-uppercase tracking-wider">Hızlı Erişim &amp; Popüler</span>
+                    </div>
+                    <div class="lusion-search-drop-body">
+                        <a href="/Home/Urunler?kategori=para-cekmecesi" class="lusion-search-drop-item">
+                            <i class="bi bi-inbox-fill text-primary"></i>
+                            <div>
+                                <div class="fw-semibold">Para Çekmecesi Modelleri</div>
+                                <small class="text-muted">POS Donanımı &amp; Kasa Çekmeceleri (7 Model)</small>
+                            </div>
+                        </a>
+                        <a href="/Home/Urunler?kategori=yazarkasa-pos" class="lusion-search-drop-item">
+                            <i class="bi bi-credit-card-2-front-fill text-success"></i>
+                            <div>
+                                <div class="fw-semibold">Yazarkasa POS (ÖKC)</div>
+                                <small class="text-muted">Mali Onaylı Mobil &amp; Sabit POS (9 Model)</small>
+                            </div>
+                        </a>
+                        <a href="/Home/Urunler?kategori=barkod-okuyucular" class="lusion-search-drop-item">
+                            <i class="bi bi-upc-scan text-info"></i>
+                            <div>
+                                <div class="fw-semibold">Barkod Okuyucular</div>
+                                <small class="text-muted">Kablolu, Kablosuz, 2D Karekod (47 Model)</small>
+                            </div>
+                        </a>
+                        <a href="/Home/Urunler?kategori=el-terminalleri" class="lusion-search-drop-item">
+                            <i class="bi bi-phone-fill text-warning"></i>
+                            <div>
+                                <div class="fw-semibold">El Terminalleri (Android/Endüstriyel)</div>
+                                <small class="text-muted">Depo, Saha &amp; Sevkiyat (49 Model)</small>
+                            </div>
+                        </a>
+                        <a href="/Home/Urunler?kategori=endustriyel-yazicilar" class="lusion-search-drop-item">
+                            <i class="bi bi-printer-fill text-danger"></i>
+                            <div>
+                                <div class="fw-semibold">Endüstriyel Barkod Yazıcılar</div>
+                                <small class="text-muted">Ağır Hizmet Termal Etiket (39 Model)</small>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sağ Kontroller: ON/OFF Tema + TR/EN Dil Seçici (YAN YANA) + Menu Butonu -->
             <div class="lusion-header-right">
                 <!-- SPLINE 3D ON/OFF TEMA ANAHTARI (ON = Açık Mod, OFF = Koyu Mod) -->
                 <button type="button"
@@ -528,68 +615,7 @@
                     </span>
                 </button>
 
-                <!-- ORTADA: KURUMSAL CANLI ARAMA ÇUBUĞU (SEARCH BAR) -->
-                <div class="lusion-header-search-wrap" id="globalHeaderSearchWrap">
-                    <form action="/Home/Urunler" method="get" class="lusion-header-search-form" id="globalHeaderSearchForm">
-                        <i class="bi bi-search lusion-search-icon"></i>
-                        <input type="text"
-                               name="q"
-                               id="globalHeaderSearchInput"
-                               class="lusion-header-search-input"
-                               placeholder="Ürün, barkod, POS veya yazılım ara..."
-                               autocomplete="off"
-                               aria-label="Arama" />
-                        <button type="button" class="lusion-search-clear-btn" id="globalHeaderSearchClear" aria-label="Temizle" style="display:none;">
-                            <i class="bi bi-x-circle-fill"></i>
-                        </button>
-                        <span class="lusion-search-kbd d-none d-md-inline-block">⌘K</span>
-                    </form>
-                    <!-- Hızlı Arama & Popüler Dropdown -->
-                    <div class="lusion-search-quick-drop" id="globalSearchQuickDrop" style="display: none;">
-                        <div class="lusion-search-drop-header">
-                            <span class="small fw-bold text-muted text-uppercase tracking-wider">Hızlı Erişim &amp; Popüler</span>
-                        </div>
-                        <div class="lusion-search-drop-body">
-                            <a href="/Home/Urunler?kategori=para-cekmecesi" class="lusion-search-drop-item">
-                                <i class="bi bi-inbox-fill text-primary"></i>
-                                <div>
-                                    <div class="fw-semibold">Para Çekmecesi Modelleri</div>
-                                    <small class="text-muted">POS Donanımı &amp; Kasa Çekmeceleri (7 Model)</small>
-                                </div>
-                            </a>
-                            <a href="/Home/Urunler?kategori=yazarkasa-pos" class="lusion-search-drop-item">
-                                <i class="bi bi-credit-card-2-front-fill text-success"></i>
-                                <div>
-                                    <div class="fw-semibold">Yazarkasa POS (ÖKC)</div>
-                                    <small class="text-muted">Mali Onaylı Mobil &amp; Sabit POS (9 Model)</small>
-                                </div>
-                            </a>
-                            <a href="/Home/Urunler?kategori=barkod-okuyucular" class="lusion-search-drop-item">
-                                <i class="bi bi-upc-scan text-info"></i>
-                                <div>
-                                    <div class="fw-semibold">Barkod Okuyucular</div>
-                                    <small class="text-muted">Kablolu, Kablosuz, 2D Karekod (47 Model)</small>
-                                </div>
-                            </a>
-                            <a href="/Home/Urunler?kategori=el-terminalleri" class="lusion-search-drop-item">
-                                <i class="bi bi-phone-fill text-warning"></i>
-                                <div>
-                                    <div class="fw-semibold">El Terminalleri (Android/Endüstriyel)</div>
-                                    <small class="text-muted">Depo, Saha &amp; Sevkiyat (49 Model)</small>
-                                </div>
-                            </a>
-                            <a href="/Home/Urunler?kategori=endustriyel-yazicilar" class="lusion-search-drop-item">
-                                <i class="bi bi-printer-fill text-danger"></i>
-                                <div>
-                                    <div class="fw-semibold">Endüstriyel Barkod Yazıcılar</div>
-                                    <small class="text-muted">Ağır Hizmet Termal Etiket (39 Model)</small>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ORTADA: TÜRKÇE & İNGİLİZCE DİL DESTEĞİ BUTONU (EMOJİ DESTEKLİ) -->
+                <!-- TÜRKÇE & İNGİLİZCE DİL DESTEĞİ BUTONU (ON/OFF İLE YAN YANA) -->
                 <button type="button"
                         id="hytLangToggle"
                         class="lusion-lang-pill-btn"
@@ -825,9 +851,9 @@
                 <span class="lusion-drawer-num">10</span>
                 <span>Destek Merkezi</span>
             </a>
-            <a asp-controller="Home" asp-action="BayiGirisi" class="lusion-drawer-link">
+            <a href="/bayi-girisi" class="lusion-drawer-link">
                 <span class="lusion-drawer-num">11</span>
-                <span>Bayi Girişi</span>
+                <span>Yetkili Bayi Girişi</span>
             </a>
         </nav>
 
@@ -1010,7 +1036,7 @@
                     <h6 class="text-uppercase fw-bold g1-footer-heading mb-3" style="font-size: 0.8rem; letter-spacing: 0.8px;">Destek &amp; Kanal</h6>
                     <ul class="list-unstyled small lh-lg mb-0">
                         <li><a asp-controller="Home" asp-action="Destek" class="g1-footer-link">Destek Merkezi</a></li>
-                        <li><a asp-controller="Home" asp-action="BayiGirisi" class="g1-footer-link">Bayi Girişi &amp; Başvuru</a></li>
+                        <li><a href="/bayi-girisi" class="g1-footer-link">Bayi Girişi &amp; Başvuru</a></li>
                         <li><a asp-controller="Home" asp-action="HesapNumaralarimiz" class="g1-footer-link">Banka Hesaplarımız</a></li>
                         <li><a asp-controller="Home" asp-action="TeklifAl" class="g1-footer-link">Teklif Formu</a></li>
                     </ul>
@@ -1032,12 +1058,16 @@
                 <p class="g1-footer-text small mb-0">
                     &copy; 2026 Hayat İşleri. Tüm Hakları Saklıdır.
                 </p>
-                <div class="d-flex align-items-center gap-3 g1-footer-text small">
-                    <a asp-controller="Home" asp-action="Privacy" class="g1-footer-link">Gizlilik</a>
+                <div class="d-flex align-items-center flex-wrap gap-2 gap-md-3 g1-footer-text small">
+                    <a asp-controller="Home" asp-action="Privacy" class="g1-footer-link">Gizlilik &amp; KVKK</a>
+                    <span>&bull;</span>
+                    <a asp-controller="Home" asp-action="CerezPolitikasi" class="g1-footer-link">Çerez Politikası</a>
+                    <span>&bull;</span>
+                    <button type="button" class="btn btn-link p-0 g1-footer-link text-decoration-none small" onclick="if(window.HayatCookies) window.HayatCookies.openPreferences();" style="font-size: inherit; vertical-align: baseline;">Çerez Tercihleri</button>
                     <span>&bull;</span>
                     <a asp-controller="Home" asp-action="Destek" class="g1-footer-link">Destek</a>
                     <span>&bull;</span>
-                    <a asp-controller="Home" asp-action="BayiGirisi" class="g1-footer-link">Bayi Portalı</a>
+                    <a href="/bayi-girisi" class="g1-footer-link">Bayi Portalı</a>
                 </div>
             </div>
         </div>
@@ -1079,7 +1109,7 @@
             <div class="hayat-sticky-divider"></div>
 
             <!-- 3. B2B Portal & Yetkili Bayi Girişi -->
-            <a asp-controller="Home" asp-action="BayiGirisi" class="hayat-sticky-item">
+            <a href="/bayi-girisi" class="hayat-sticky-item">
                 <span class="hayat-sticky-icon hayat-sticky-dealer-icon">
                     <i class="bi bi-person-badge-fill"></i>
                 </span>
@@ -1692,5 +1722,9 @@
 
     <!-- HAYAT İŞLERİ GLOBAL ÇOKLU DİL (I18N) MOTORU -->
     <script src="~/js/hayat-i18n.js" asp-append-version="true"></script>
+
+    <!-- HAYAT İŞLERİ 6698 SAYILI KVKK & ÇEREZ YÖNETİM SİSTEMİ -->
+    <partial name="_CookieConsent" />
+    <script src="~/js/hayat-cookies.js" asp-append-version="true"></script>
 </body>
 </html>

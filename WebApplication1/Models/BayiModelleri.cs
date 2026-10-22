@@ -275,12 +275,22 @@ namespace WebApplication1.Models
 
     public class SubUserItem
     {
+        public string Id { get; set; } = "";
         public string AdSoyad { get; set; } = "";
         public string Eposta { get; set; } = "";
+        public string Telefon { get; set; } = "";
         public string Unvan { get; set; } = "Muhasebe Yetkilisi";
-        public string YetkiAlani { get; set; } = "Yalnızca Finans & Fatura";
+        public string YetkiAlani { get; set; } = "Özel Tanımlı";
         public DateTime SonGiris { get; set; }
         public bool Aktif { get; set; } = true;
+        public bool IzinFinansSanalPos { get; set; }
+        public bool IzinDenetimIzi { get; set; }
+        public bool IzinSiparisVeSarf { get; set; }
+        public bool IzinTeknikServisRma { get; set; } = true;
+        public bool IzinDestekTalepleri { get; set; } = true;
+        public bool IzinFiyatListesi { get; set; } = true;
+        public bool IzinKutuphaneDriver { get; set; } = true;
+        public bool IzinProjeFirsat { get; set; } = true;
     }
 
     public class BayiGirisLogItem
@@ -303,13 +313,39 @@ namespace WebApplication1.Models
         public string? YeniDeger { get; set; }
     }
 
+    public class AdminAltKullaniciGorunumModel
+    {
+        public string Id { get; set; } = "";
+        public string AnaBayiId { get; set; } = "";
+        public string AnaBayiFirmaAdi { get; set; } = "";
+        public string AnaBayiCariKodu { get; set; } = "";
+        public string AdSoyad { get; set; } = "";
+        public string Eposta { get; set; } = "";
+        public string Telefon { get; set; } = "";
+        public string Unvan { get; set; } = "";
+        public bool Aktif { get; set; } = true;
+        public DateTime KayitTarihi { get; set; }
+        public DateTime? SonGirisTarihi { get; set; }
+        public string SifreKriptolu { get; set; } = "";
+        public bool IzinFinansSanalPos { get; set; }
+        public bool IzinDenetimIzi { get; set; }
+        public bool IzinSiparisVeSarf { get; set; }
+        public bool IzinTeknikServisRma { get; set; }
+        public bool IzinDestekTalepleri { get; set; }
+        public bool IzinFiyatListesi { get; set; }
+        public bool IzinKutuphaneDriver { get; set; }
+        public bool IzinProjeFirsat { get; set; }
+    }
+
     // =========================================================================
     // MERKEZİ BAYİ DASHBOARD VIEW MODEL
     // =========================================================================
     public class BayiDashboardViewModel
     {
         public ApplicationUser Kullanici { get; set; } = null!;
-        public int PortalTipi => Kullanici.BayiPortalTipi;
+        public ApplicationUser? AnaBayiKullanici { get; set; }
+        public bool IsAltKullanici => Kullanici?.IsAltKullanici ?? false;
+        public int PortalTipi => (AnaBayiKullanici ?? Kullanici)?.BayiPortalTipi ?? 1;
 
         // Donanım & POS Verileri (Portal 1 & 3)
         public List<CihazEnvanterItem> EnvanterListesi { get; set; } = new();
@@ -657,6 +693,51 @@ namespace WebApplication1.Models
         public string AktiflikDurumu { get; set; } = "Artık Müşterimiz Değil (Pasif)";
         public string GeriKazanimDurumu { get; set; } = "Teklif Hazırlanabilir"; // "Teklif Gönderildi", "Teklif Hazırlanabilir", "Ulaşılamadı", "Sektör Değiştirdi"
         public string? SonIletisimNotu { get; set; }
+    }
+
+    public class B2BSepetTalepModel
+    {
+        public List<B2BSepetItemModel> Urunler { get; set; } = new();
+        public decimal GenelToplam { get; set; }
+        public string? SiparisNotu { get; set; }
+    }
+
+    public class B2BSepetItemModel
+    {
+        public string? Id { get; set; }
+        public string Baslik { get; set; } = "";
+        public string? Kategori { get; set; }
+        public int Adet { get; set; } = 1;
+        public decimal Fiyat { get; set; }
+        public decimal Toplam => Adet * Fiyat;
+    }
+
+    public class AdminDemoTalepKaydi
+    {
+        public string TalepNo { get; set; } = "";
+        public string BayiId { get; set; } = "";
+        public string BayiAdi { get; set; } = "";
+        public string CariKodu { get; set; } = "";
+        public string CihazModeli { get; set; } = "";
+        public string MusteriAdi { get; set; } = "";
+        public int GunSure { get; set; } = 15;
+        public DateTime TalepTarihi { get; set; } = DateTime.Now;
+        public string KargoTakipNo { get; set; } = "";
+        public string Durum { get; set; } = "Müşteride (Test Aşamasında)";
+        public string? AdminNotu { get; set; }
+    }
+
+    public class AdminPazarlamaMateryalKaydi
+    {
+        public string Id { get; set; } = "";
+        public string Baslik { get; set; } = "";
+        public string Format { get; set; } = "PDF";
+        public string Boyut { get; set; } = "24.5 MB";
+        public string Tur { get; set; } = "Katalog";
+        public string OnizlemeUrl { get; set; } = "/images/donanim.jpg";
+        public string DosyaUrl { get; set; } = "/images/donanim.jpg";
+        public DateTime EklenmeTarihi { get; set; } = DateTime.Now;
+        public int IndirilmeSayisi { get; set; } = 0;
     }
 }
 

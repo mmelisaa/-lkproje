@@ -15,7 +15,7 @@ namespace WebApplication1.Services
             _logger = logger;
         }
 
-        public async Task SendFormNotificationAsync(string formTipi, string adSoyad, string eposta, string? telefon, string? konu, string? pozisyon, string? mesaj, string? onYazi)
+        public async Task SendFormNotificationAsync(string formTipi, string adSoyad, string eposta, string? telefon, string? konu, string? pozisyon, string? mesaj, string? onYazi, string? dosyaYolu = null, string? dosyaAdi = null)
         {
             try
             {
@@ -74,6 +74,11 @@ namespace WebApplication1.Services
                                 <td style='padding: 10px; color: #94a3b8; font-weight: bold;'>Konu / Hizmet:</td>
                                 <td style='padding: 10px; color: #ffffff;'>{konu}</td>
                             </tr>")}
+                            {(string.IsNullOrEmpty(dosyaYolu) ? "" : $@"
+                            <tr>
+                                <td style='padding: 10px; color: #94a3b8; font-weight: bold;'>Ek Dosya / CV:</td>
+                                <td style='padding: 10px; color: #10b981; font-weight: bold;'>📎 {dosyaAdi ?? "Özgeçmiş Belgesi"} (E-postaya iliştirildi)</td>
+                            </tr>")}
                             <tr>
                                 <td style='padding: 10px; color: #94a3b8; font-weight: bold;'>Tarih:</td>
                                 <td style='padding: 10px; color: #94a3b8;'>{DateTime.Now:dd.MM.yyyy HH:mm}</td>
@@ -108,6 +113,25 @@ namespace WebApplication1.Services
                     {
                         HtmlBody = htmlBody
                     };
+
+                    // Dosya eklentisi varsa MailKit bodyBuilder'a ekle (PDF veya JPEG/PNG)
+                    if (!string.IsNullOrEmpty(dosyaYolu))
+                    {
+                        try
+                        {
+                            var cleanRelative = dosyaYolu.TrimStart('/', '\\').Replace('/', Path.DirectorySeparatorChar);
+                            var physicalPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", cleanRelative);
+                            if (File.Exists(physicalPath))
+                            {
+                                bodyBuilder.Attachments.Add(physicalPath);
+                            }
+                        }
+                        catch (Exception exAttach)
+                        {
+                            _logger.LogWarning(exAttach, "Ek dosya e-postaya iliştirilirken hata oluştu: {DosyaYolu}", dosyaYolu);
+                        }
+                    }
+
                     message.Body = bodyBuilder.ToMessageBody();
 
                     using var client = new SmtpClient();

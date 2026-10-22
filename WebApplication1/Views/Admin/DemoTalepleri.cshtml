@@ -1,0 +1,242 @@
+@model List<WebApplication1.Models.AdminDemoTalepKaydi>
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Demo Test Cihazı Talepleri";
+    var q = ViewBag.ArananKelime as string ?? "";
+    var durumFiltre = ViewBag.SecilenDurum as string ?? "hepsi";
+}
+
+<div class="container-fluid px-0">
+    <!-- Üst Başlık & Eylemler -->
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
+        <div>
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge rounded-pill px-3 py-1.5" style="background: rgba(11, 87, 208, 0.12); color: #0b57d0; font-weight: 700; border: 1px solid rgba(11, 87, 208, 0.25);">
+                    <i class="bi bi-box-seam me-1"></i> Donanım &amp; POS Demo Havuzu
+                </span>
+                <span class="badge bg-secondary bg-opacity-10 text-secondary border rounded-pill px-2.5 py-1">15 Günlük Test Takibi</span>
+            </div>
+            <h2 class="fw-bold mb-1" style="color: var(--adm-text-main); letter-spacing: -0.5px;">Demo Test Cihazı Talepleri</h2>
+            <p class="text-secondary small mb-0">
+                Bayilerin sahada müşterilerine sunum yapabilmek için talep ettiği 15 günlük ücretsiz demo test cihazlarının sevkiyatı, kargo takibi ve satışa dönüşüm süreçleri.
+            </p>
+        </div>
+        <div>
+            <span class="badge bg-primary bg-opacity-10 text-primary border rounded-pill px-3 py-2 fw-bold">
+                <i class="bi bi-cpu me-1"></i> Toplam @Model.Count Demo Cihaz Kaydı
+            </span>
+        </div>
+    </div>
+
+    <!-- Özet İstatistik Kartları -->
+    <div class="row g-3 mb-4">
+        <div class="col-sm-6 col-lg-3">
+            <div class="p-3.5 rounded-4 h-100" style="background: var(--adm-card-bg); border: 1px solid var(--adm-card-border); box-shadow: var(--adm-card-shadow);">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-secondary small fw-semibold">Toplam Talep</span>
+                    <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill p-2"><i class="bi bi-box-seam"></i></span>
+                </div>
+                <div class="fs-3 fw-bold" style="color: var(--adm-text-main);">@Model.Count</div>
+                <small class="text-secondary">Tüm zamanlar</small>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="p-3.5 rounded-4 h-100" style="background: var(--adm-card-bg); border: 1px solid var(--adm-card-border); box-shadow: var(--adm-card-shadow);">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-secondary small fw-semibold">Sahada / Müşteride</span>
+                    <span class="badge bg-warning bg-opacity-10 text-warning rounded-pill p-2"><i class="bi bi-clock-history"></i></span>
+                </div>
+                <div class="fs-3 fw-bold text-warning">@Model.Count(d => d.Durum.Contains("Müşteride") || d.Durum.Contains("Kargo"))</div>
+                <small class="text-secondary">Aktif testte olan cihazlar</small>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="p-3.5 rounded-4 h-100" style="background: var(--adm-card-bg); border: 1px solid var(--adm-card-border); box-shadow: var(--adm-card-shadow);">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-secondary small fw-semibold">Satışa Döndü</span>
+                    <span class="badge bg-success bg-opacity-10 text-success rounded-pill p-2"><i class="bi bi-check-circle-fill"></i></span>
+                </div>
+                <div class="fs-3 fw-bold text-success">@Model.Count(d => d.Durum.Contains("Satış"))</div>
+                <small class="text-secondary">Başarıyla faturalananlar</small>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="p-3.5 rounded-4 h-100" style="background: var(--adm-card-bg); border: 1px solid var(--adm-card-border); box-shadow: var(--adm-card-shadow);">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-secondary small fw-semibold">İade / Tamamlandı</span>
+                    <span class="badge bg-info bg-opacity-10 text-info rounded-pill p-2"><i class="bi bi-arrow-return-left"></i></span>
+                </div>
+                <div class="fs-3 fw-bold text-info">@Model.Count(d => d.Durum.Contains("İade") || d.Durum.Contains("Tamamlandı"))</div>
+                <small class="text-secondary">Merkez depoya dönenler</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filtre & Arama Formu -->
+    <div class="p-3.5 rounded-4 mb-4" style="background: var(--adm-card-bg); border: 1px solid var(--adm-card-border);">
+        <form method="get" asp-action="DemoTalepleri" class="row g-2 align-items-center">
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-end-0 text-secondary"><i class="bi bi-search"></i></span>
+                    <input type="text" name="q" value="@q" class="form-control border-start-0" placeholder="Talep no, bayi adı, cihaz modeli veya kargo takip..." />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <select name="durum" class="form-select">
+                    <option value="hepsi" selected="@(durumFiltre == "hepsi")">Tüm Durumlar (Tümü)</option>
+                    <option value="Müşteride" selected="@(durumFiltre == "Müşteride")">Müşteride (Test Aşamasında)</option>
+                    <option value="Kargo" selected="@(durumFiltre == "Kargo")">Kargoya Verildi</option>
+                    <option value="Satış" selected="@(durumFiltre == "Satış")">Satışa Döndü</option>
+                    <option value="İade" selected="@(durumFiltre == "İade")">İade Alındı / Depoda</option>
+                </select>
+            </div>
+            <div class="col-md-3 d-flex gap-2">
+                <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold flex-grow-1" style="background: #0b57d0; border: none;">
+                    Filtrele
+                </button>
+                @if (!string.IsNullOrWhiteSpace(q) || durumFiltre != "hepsi")
+                {
+                    <a asp-action="DemoTalepleri" class="btn btn-light rounded-pill px-3" title="Filtreyi Temizle">
+                        <i class="bi bi-x-circle"></i>
+                    </a>
+                }
+            </div>
+        </form>
+    </div>
+
+    <!-- Demo Talepleri Tablosu -->
+    <div class="rounded-4 overflow-hidden" style="background: var(--adm-card-bg); border: 1px solid var(--adm-card-border); box-shadow: var(--adm-card-shadow);">
+        <div class="table-responsive">
+            <table class="table align-middle mb-0">
+                <thead style="background: rgba(15, 23, 42, 0.03); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                    <tr>
+                        <th class="ps-4">Talep No &amp; Tarih</th>
+                        <th>Bayi &amp; Müşteri</th>
+                        <th>Cihaz Modeli</th>
+                        <th>Test Süresi</th>
+                        <th>Kargo Kodu</th>
+                        <th>Durum</th>
+                        <th class="text-end pe-4">İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center py-5 text-secondary">
+                                <i class="bi bi-inbox fs-1 d-block mb-2 text-muted"></i>
+                                Eşleşen demo cihaz talebi bulunamadı.
+                            </td>
+                        </tr>
+                    }
+                    @foreach (var d in Model)
+                    {
+                        <tr>
+                            <td class="ps-4">
+                                <div class="fw-bold text-primary">@d.TalepNo</div>
+                                <small class="text-secondary">@d.TalepTarihi.ToString("dd.MM.yyyy")</small>
+                            </td>
+                            <td>
+                                <strong style="color: var(--adm-text-main);">@d.BayiAdi</strong>
+                                <div class="small text-secondary">
+                                    <span class="badge bg-light text-secondary border px-1.5 py-0.5">@d.CariKodu</span>
+                                    <span>Müşteri: @d.MusteriAdi</span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="fw-bold" style="color: var(--adm-text-main);">@d.CihazModeli</span>
+                            </td>
+                            <td>
+                                <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 rounded-pill px-2.5 py-1">
+                                    @d.GunSure Gün
+                                </span>
+                            </td>
+                            <td>
+                                @if (!string.IsNullOrWhiteSpace(d.KargoTakipNo))
+                                {
+                                    <span class="badge bg-light text-dark border px-2.5 py-1">
+                                        <i class="bi bi-truck me-1 text-primary"></i>@d.KargoTakipNo
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted small">Henüz Verilmedi</span>
+                                }
+                            </td>
+                            <td>
+                                @if (d.Durum.Contains("Satış"))
+                                {
+                                    <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 rounded-pill px-2.5 py-1">
+                                        <i class="bi bi-check-circle me-1"></i>@d.Durum
+                                    </span>
+                                }
+                                else if (d.Durum.Contains("Müşteride"))
+                                {
+                                    <span class="badge bg-warning bg-opacity-10 text-warning border border-warning border-opacity-25 rounded-pill px-2.5 py-1">
+                                        <i class="bi bi-clock me-1"></i>@d.Durum
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-info bg-opacity-10 text-info border border-info border-opacity-25 rounded-pill px-2.5 py-1">
+                                        @d.Durum
+                                    </span>
+                                }
+                            </td>
+                            <td class="text-end pe-4">
+                                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1 fw-bold" data-bs-toggle="modal" data-bs-target="#modalGuncelle_@d.TalepNo.Replace("-", "_")">
+                                    <i class="bi bi-pencil-square me-1"></i> Güncelle
+                                </button>
+
+                                <!-- Güncelleme Modalı -->
+                                <div class="modal fade" id="modalGuncelle_@d.TalepNo.Replace("-", "_")" tabindex="-1">
+                                    <div class="modal-dialog modal-dialog-centered text-start">
+                                        <div class="modal-content rounded-4 border-0 shadow">
+                                            <form asp-action="DemoTalepGuncelle" method="post">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="talepNo" value="@d.TalepNo" />
+                                                <div class="modal-header border-bottom">
+                                                    <h5 class="modal-title fw-bold">Demo Talebi Yönetimi (@d.TalepNo)</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        <label class="small text-secondary fw-semibold mb-1">Bayi &amp; Cihaz:</label>
+                                                        <input type="text" class="form-control" value="@d.BayiAdi - @d.CihazModeli" readonly />
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="small text-secondary fw-semibold mb-1">Durum:</label>
+                                                        <select name="durum" class="form-select">
+                                                            <option value="Müşteride (Test Aşamasında - 9 Gün Kaldı)" selected="@(d.Durum.Contains("Müşteride"))">Müşteride (Test Aşamasında)</option>
+                                                            <option value="Onaylandı - Kargoya Verildi" selected="@(d.Durum.Contains("Kargo"))">Onaylandı - Kargoya Verildi</option>
+                                                            <option value="Test Tamamlandı (Satışa Döndü)" selected="@(d.Durum.Contains("Satış"))">Test Tamamlandı (Satışa Döndü)</option>
+                                                            <option value="İade Alındı (Merkez Depoya Teslim)" selected="@(d.Durum.Contains("İade"))">İade Alındı (Merkez Depoya Teslim)</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="small text-secondary fw-semibold mb-1">Kargo Takip No:</label>
+                                                        <input type="text" name="kargoTakipNo" class="form-control" value="@d.KargoTakipNo" placeholder="Örn: YRT-90184421" />
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="small text-secondary fw-semibold mb-1">Merkez / Admin Notu:</label>
+                                                        <textarea name="adminNotu" class="form-control" rows="2" placeholder="Test süreci, teslimat veya satış notları...">@d.AdminNotu</textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer border-top">
+                                                    <button type="button" class="btn btn-light rounded-pill px-3" data-bs-dismiss="modal">Vazgeç</button>
+                                                    <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold" style="background: #0b57d0; border: none;">
+                                                        Kaydet
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

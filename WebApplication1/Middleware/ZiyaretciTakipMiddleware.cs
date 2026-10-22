@@ -25,15 +25,34 @@ namespace WebApplication1.Middleware
                 !path.Contains(".") &&
                 context.Request.Method == "GET")
             {
-                var log = new ZiyaretciLog
+                // KVKK & Çerez Uyumu: Kullanıcı analitik çerez izni vermemişse veya reddetmişse izleme yapma
+                var cookieConsent = context.Request.Cookies["hayat_cookie_consent"];
+                bool analyticsAllowed = false;
+                if (!string.IsNullOrEmpty(cookieConsent))
                 {
-                    SayfaYolu = path,
-                    IpAdresi = context.Connection.RemoteIpAddress?.ToString(),
-                    UserAgent = context.Request.Headers.UserAgent.ToString(),
-                    ZiyaretTarihi = DateTime.Now
-                };
-                db.ZiyaretciLoglari.Add(log);
-                await db.SaveChangesAsync();
+                    try
+                    {
+                        var decoded = System.Net.WebUtility.UrlDecode(cookieConsent);
+                        analyticsAllowed = decoded.Contains("\"analytics\":true", StringComparison.OrdinalIgnoreCase);
+                    }
+                    catch
+                    {
+                        analyticsAllowed = false;
+                    }
+                }
+
+                if (analyticsAllowed)
+                {
+                    var log = new ZiyaretciLog
+                    {
+                        SayfaYolu = path,
+                        IpAdresi = context.Connection.RemoteIpAddress?.ToString(),
+                        UserAgent = context.Request.Headers.UserAgent.ToString(),
+                        ZiyaretTarihi = DateTime.Now
+                    };
+                    db.ZiyaretciLoglari.Add(log);
+                    await db.SaveChangesAsync();
+                }
             }
 
             await _next(context);

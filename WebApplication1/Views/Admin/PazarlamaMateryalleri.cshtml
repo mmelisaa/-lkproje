@@ -1,0 +1,118 @@
+@model List<WebApplication1.Models.AdminPazarlamaMateryalKaydi>
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Pazarlama ve Tanıtım Materyalleri";
+}
+
+<div class="container-fluid px-0">
+    <!-- Üst Başlık & Eylemler -->
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
+        <div>
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge rounded-pill px-3 py-1.5" style="background: rgba(52, 168, 83, 0.12); color: #34a853; font-weight: 700; border: 1px solid rgba(52, 168, 83, 0.25);">
+                    <i class="bi bi-images me-1"></i> B2B Kurumsal Tanıtım Seti
+                </span>
+                <span class="badge bg-secondary bg-opacity-10 text-secondary border rounded-pill px-2.5 py-1">Katalog &amp; Broşür Havuzu</span>
+            </div>
+            <h2 class="fw-bold mb-1" style="color: var(--adm-text-main); letter-spacing: -0.5px;">Pazarlama &amp; Kurumsal Tanıtım Materyalleri</h2>
+            <p class="text-secondary small mb-0">
+                Merkez pazarlama departmanının B2B bayiler, kurumsal fuarlar ve satış danışmanları için hazırladığı baskıya hazır ürün katalogları, teknik şartnameler ve tanıtım afişleri.
+            </p>
+        </div>
+        <button type="button" class="btn btn-primary btn-sm rounded-pill px-4 py-2 fw-bold shadow-sm" style="background: #0b57d0; border: none;" data-bs-toggle="modal" data-bs-target="#modalYeniMateryal">
+            <i class="bi bi-plus-circle me-1"></i> Yeni Materyal Ekle
+        </button>
+    </div>
+
+    <!-- Materyal Kartları -->
+    <div class="row g-3">
+        @foreach (var m in Model)
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="p-4 rounded-4 h-100 d-flex flex-column justify-content-between" style="background: var(--adm-card-bg); border: 1px solid var(--adm-card-border); box-shadow: var(--adm-card-shadow);">
+                    <div>
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 rounded-pill px-2.5 py-1 small">
+                                @m.Tur
+                            </span>
+                            <span class="badge bg-light text-secondary border px-2 py-0.5 small">
+                                @m.Format &bull; @m.Boyut
+                            </span>
+                        </div>
+                        <h5 class="fw-bold mb-2" style="color: var(--adm-text-main);">@m.Baslik</h5>
+                        <div class="small text-secondary mb-3">
+                            <i class="bi bi-clock me-1"></i>Eklenme: @m.EklenmeTarihi.ToString("dd.MM.yyyy")
+                            <span class="ms-2"><i class="bi bi-download me-1"></i>@m.IndirilmeSayisi İndirme</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2 pt-3 border-top">
+                        <a href="@m.DosyaUrl" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill flex-grow-1 fw-bold">
+                            <i class="bi bi-file-earmark-arrow-down me-1"></i> Önizle &amp; İndir
+                        </a>
+                        <form asp-action="PazarlamaMateryalSil" method="post" onsubmit="return confirm('Bu materyali silmek istediğinizden emin misiniz?');">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@m.Id" />
+                            <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill px-3" title="Sil">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Yeni Materyal Ekleme Modalı -->
+    <div class="modal fade" id="modalYeniMateryal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <form asp-action="PazarlamaMateryalEkle" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="modal-header border-bottom">
+                        <h5 class="modal-title fw-bold"><i class="bi bi-cloud-arrow-up text-primary me-2"></i>Yeni Pazarlama Materyali Ekle</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="small text-secondary fw-semibold mb-1">Materyal Başlığı:</label>
+                            <input type="text" name="baslik" class="form-control" placeholder="Örn: 2026 Barkod Okuyucu Çözüm Kataloğu" required />
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <label class="small text-secondary fw-semibold mb-1">Materyal Türü:</label>
+                                <select name="tur" class="form-select">
+                                    <option value="Baskıya Hazır Katalog">Baskıya Hazır Katalog</option>
+                                    <option value="Fuar &amp; Stand Grafiği">Fuar &amp; Stand Grafiği</option>
+                                    <option value="Resmi Şartname">Resmi Şartname</option>
+                                    <option value="Kurumsal Sunum">Kurumsal Sunum</option>
+                                    <option value="Logo &amp; Şablon Seti">Logo &amp; Şablon Seti</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="small text-secondary fw-semibold mb-1">Dosya Formatı:</label>
+                                <input type="text" name="format" class="form-control" value="PDF" placeholder="PDF, ZIP, PPTX..." required />
+                            </div>
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <label class="small text-secondary fw-semibold mb-1">Dosya Boyutu:</label>
+                                <input type="text" name="boyut" class="form-control" value="18.5 MB" required />
+                            </div>
+                            <div class="col-6">
+                                <label class="small text-secondary fw-semibold mb-1">Dosya / Önizleme URL:</label>
+                                <input type="text" name="onizlemeUrl" class="form-control" value="/images/donanim.jpg" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-top">
+                        <button type="button" class="btn btn-light rounded-pill px-3" data-bs-dismiss="modal">İptal</button>
+                        <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold" style="background: #0b57d0; border: none;">
+                            Materyali Kaydet
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

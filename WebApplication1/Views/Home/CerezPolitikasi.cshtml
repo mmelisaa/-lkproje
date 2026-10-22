@@ -1,0 +1,388 @@
+@{
+    ViewData["Title"] = "Çerez Politikası ve Aydınlatma Metni";
+}
+
+<div class="container py-5 my-3">
+    <!-- Breadcrumb & Üst Rozet -->
+    <div class="d-flex align-items-center gap-2 mb-3">
+        <a asp-controller="Home" asp-action="Index" class="text-decoration-none text-muted small">
+            <i class="bi bi-house-door-fill"></i> Anasayfa
+        </a>
+        <span class="text-muted small">/</span>
+        <span class="text-primary small fw-semibold">Çerez Politikası</span>
+    </div>
+
+    <!-- Hero Başlık Alanı -->
+    <div class="card border-0 rounded-4 shadow-sm mb-5 overflow-hidden" style="background: linear-gradient(135deg, rgba(11, 87, 208, 0.06) 0%, rgba(56, 189, 248, 0.08) 100%); border: 1px solid rgba(11, 87, 208, 0.15) !important;">
+        <div class="card-body p-4 p-md-5">
+            <div class="row align-items-center gy-4">
+                <div class="col-lg-8">
+                    <span class="badge rounded-pill px-3 py-2 text-primary bg-primary bg-opacity-10 fw-bold mb-3 d-inline-flex align-items-center gap-1.5" style="letter-spacing: 0.5px;">
+                        <i class="bi bi-shield-check"></i> 6698 SAYILI KVKK &amp; ÇEREZ REHBERİ TAM UYUMLU
+                    </span>
+                    <h1 class="display-6 fw-bold text-dark mb-3" style="font-family: 'Google Sans', sans-serif;">
+                        Çerez (Cookie) Politikası ve Aydınlatma Metni
+                    </h1>
+                    <p class="lead text-secondary mb-4" style="font-size: 1.05rem; line-height: 1.7;">
+                        <strong>Hayat İşleri Bilgi Teknolojileri ve Otomasyon San. Tic. Ltd. Şti.</strong> olarak, web sitemizi ziyaret eden kullanıcılarımızın ve iş ortaklarımızın kişisel verilerinin korunmasına, gizliliğine ve şeffaf bilgilendirilmesine azami özen gösteriyoruz.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <button type="button" class="btn btn-primary rounded-pill px-4 py-2.5 fw-semibold shadow-sm d-inline-flex align-items-center gap-2" onclick="if(window.HayatCookies) window.HayatCookies.openPreferences();">
+                            <i class="bi bi-sliders2-vertical"></i>
+                            <span>Çerez Tercihlerimi Yönet</span>
+                        </button>
+                        <a asp-controller="Home" asp-action="Privacy" class="btn btn-outline-secondary rounded-pill px-4 py-2.5 fw-semibold d-inline-flex align-items-center gap-2">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>KVKK Gizlilik Politikası</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center d-none d-lg-block">
+                    <div class="p-4 rounded-4 bg-white shadow-sm border border-light-subtle d-inline-block">
+                        <div class="display-4 text-primary mb-2">
+                            <i class="bi bi-cookie"></i>
+                        </div>
+                        <h6 class="fw-bold mb-1">Güvenli &amp; Şeffaf Deneyim</h6>
+                        <small class="text-muted">Son Güncelleme: 21 Ekim 2026</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ana İçerik Bloğu -->
+    <div class="row g-4">
+        <!-- Sol İçindekiler Navigasyonu -->
+        <div class="col-lg-3 d-none d-lg-block">
+            <div class="sticky-top" style="top: 100px; z-index: 10;">
+                <div class="card border rounded-4 shadow-sm p-3 bg-body">
+                    <h6 class="fw-bold text-uppercase small text-muted mb-3" style="letter-spacing: 0.5px;">İçindekiler</h6>
+                    <nav class="nav flex-column small gap-1">
+                        <a class="nav-link py-1.5 px-2 rounded text-dark" href="#cerez-nedir">1. Çerez (Cookie) Nedir?</a>
+                        <a class="nav-link py-1.5 px-2 rounded text-dark" href="#amac-hukuk">2. Kullanım Amacı ve Hukuki Sebepler</a>
+                        <a class="nav-link py-1.5 px-2 rounded text-dark" href="#cerez-turleri">3. Sitede Kullanılan Çerezler</a>
+                        <a class="nav-link py-1.5 px-2 rounded text-dark" href="#tercih-yonetimi">4. Çerez Tercihlerini Yönetme</a>
+                        <a class="nav-link py-1.5 px-2 rounded text-dark" href="#ilgili-kisi-haklari">5. KVKK Kapsamında Haklarınız</a>
+                        <a class="nav-link py-1.5 px-2 rounded text-dark" href="#iletisim">6. İletişim ve Veri Sorumlusu</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sağ Hukuki ve Teknik Metin Alanı -->
+        <div class="col-lg-9">
+            <div class="card border rounded-4 shadow-sm p-4 p-md-5 bg-body">
+                
+                <!-- 1. Çerez Nedir? -->
+                <section id="cerez-nedir" class="mb-5 pb-4 border-bottom">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <span class="badge bg-primary rounded-circle p-2 d-inline-flex align-items-center justify-content-center" style="width: 28px; height: 28px;">1</span>
+                        <h3 class="h4 fw-bold mb-0">Çerez (Cookie) Nedir?</h3>
+                    </div>
+                    <p class="text-secondary leading-relaxed">
+                        Çerezler (cookies), bir web sitesini ziyaret ettiğinizde tarayıcınız aracılığıyla bilgisayarınıza, tabletinize veya akıllı telefonunuza kaydedilen küçük boyutlu metin dosyalarıdır. Çerezlerin temel amacı; web sitesinin sizi tanımasını, tercihlerinizi (dil, açık/koyu tema gibi) hafızada tutmasını, oturum güvenliğinizi sağlamasını ve arka plandaki operasyonel işlemlerin kesintisiz çalışmasına olanak tanımaktır.
+                    </p>
+                    <p class="text-secondary leading-relaxed mb-0">
+                        Çerezler cihazınızdaki dosyalara veya kişisel verilerinize erişemez; yalnızca çerezi yerleştiren web sunucusu tarafından okunabilir.
+                    </p>
+                </section>
+
+                <!-- 2. Hukuki Sebepler -->
+                <section id="amac-hukuk" class="mb-5 pb-4 border-bottom">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <span class="badge bg-primary rounded-circle p-2 d-inline-flex align-items-center justify-content-center" style="width: 28px; height: 28px;">2</span>
+                        <h3 class="h4 fw-bold mb-0">Çerezlerin Kullanım Amacı ve KVKK Hukuki Sebepleri</h3>
+                    </div>
+                    <p class="text-secondary leading-relaxed">
+                        Hayat İşleri web sitemizde çerezler, <strong>6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK)</strong>’nun 5. maddesinde ve Kişisel Verileri Koruma Kurumu tarafından yayımlanan <em>Çerez Uygulamaları Hakkında Rehber</em>’de belirtilen hukuki sebeplere titizlikle uygun olarak işlenmektedir:
+                    </p>
+
+                    <div class="row g-3 mt-1">
+                        <div class="col-md-6">
+                            <div class="p-3 rounded-3 border bg-light h-100">
+                                <h6 class="fw-bold text-primary mb-2"><i class="bi bi-shield-lock-fill me-1"></i> Zorunlu Çerezler İçin</h6>
+                                <p class="small text-secondary mb-0">
+                                    KVKK Madde 5/2 (c) gereği <em>"Sözleşmenin kurulması veya ifasıyla doğrudan doğruya ilgili olması"</em> ve Madde 5/2 (f) gereği <em>"İlgili kişinin temel hak ve özgürlüklerine zarar vermemek kaydıyla, veri sorumlusunun meşru menfaatleri için veri işlenmesinin zorunlu olması"</em> hukuki sebebine dayanır. Açık rıza şartına tabi değildir ancak aydınlatma yükümlülüğü yerine getirilmektedir.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 rounded-3 border bg-light h-100">
+                                <h6 class="fw-bold text-success mb-2"><i class="bi bi-hand-thumbs-up-fill me-1"></i> Analitik ve Pazarlama Çerezleri İçin</h6>
+                                <p class="small text-secondary mb-0">
+                                    KVKK Madde 5/1 gereğince <strong>"İlgili kişinin açık rızası"</strong> hukuki sebebine dayanır. Bu çerezler siz kullanıcılarımız sitemizdeki çerez banner'ı veya tercih yönetim merkezi aracılığıyla açık onay vermedikçe <u>kesinlikle aktif edilmez ve arka planda çalıştırılmaz</u>.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. Sitede Kullanılan Çerezler Tablosu -->
+                <section id="cerez-turleri" class="mb-5 pb-4 border-bottom">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <span class="badge bg-primary rounded-circle p-2 d-inline-flex align-items-center justify-content-center" style="width: 28px; height: 28px;">3</span>
+                        <h3 class="h4 fw-bold mb-0">Sitemizde Kullanılan Çerez Türleri ve Detayları</h3>
+                    </div>
+                    <p class="text-secondary leading-relaxed">
+                        Web sitemizde kullanılan çerezler, kullanım amaçları ve işlevlerine göre aşağıdaki kategorilere ayrılmaktadır:
+                    </p>
+
+                    <!-- Kategori 1: Zorunlu Çerezler -->
+                    <div class="mb-4">
+                        <div class="d-flex align-items-center justify-content-between p-2 px-3 rounded-3 bg-primary bg-opacity-10 mb-2">
+                            <span class="fw-bold text-primary"><i class="bi bi-shield-fill-check me-1"></i> 1. Zorunlu (Kesinlikle Gerekli) Çerezler</span>
+                            <span class="badge bg-secondary">Her Zaman Aktif (Kapatılamaz)</span>
+                        </div>
+                        <p class="small text-secondary mb-2">
+                            Sitenin güvenliğini sağlamak, sahte istekleri (CSRF) engellemek, kullanıcı oturumunu yürütmek ve çerez tercihlerinizi hafızada tutmak için zorunludur. Devre dışı bırakılması halinde web sitesi düzgün çalışamaz.
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered small align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Çerez Adı</th>
+                                        <th>Sağlayıcı</th>
+                                        <th>Kullanım Amacı</th>
+                                        <th>Saklama Süresi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>.HayatIsleri.Auth</code></td>
+                                        <td>Hayat İşleri</td>
+                                        <td>Yetkili kullanıcı / Bayi güvenli oturum kimlik doğrulaması.</td>
+                                        <td>30 Dakika (Hareketsizlik)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.AspNetCore.Antiforgery.*</code></td>
+                                        <td>Hayat İşleri</td>
+                                        <td>Çapraz site istek sahteciliği (CSRF) saldırılarını engellemek ve form güvenliğini sağlamak.</td>
+                                        <td>Tarayıcı Oturumu Süresince</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>.AspNetCore.Session</code></td>
+                                        <td>Hayat İşleri</td>
+                                        <td>Sipariş sepeti, hızlı form geçişleri ve geçici kullanıcı oturum durumu.</td>
+                                        <td>Tarayıcı Oturumu Süresince</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>hayat_cookie_consent</code></td>
+                                        <td>Hayat İşleri</td>
+                                        <td>Kullanıcının vermiş olduğu çerez izin tercihlerini (Zorunlu, İşlevsel, Analitik, Pazarlama) kaydeder.</td>
+                                        <td>1 Yıl</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Kategori 2: İşlevsel Çerezler -->
+                    <div class="mb-4">
+                        <div class="d-flex align-items-center justify-content-between p-2 px-3 rounded-3 bg-info bg-opacity-10 mb-2">
+                            <span class="fw-bold text-info-emphasis"><i class="bi bi-palette-fill me-1"></i> 2. İşlevsel (Tercih) Çerezleri</span>
+                            <span class="badge bg-outline-info text-dark border">Kullanıcı İznine Tabi</span>
+                        </div>
+                        <p class="small text-secondary mb-2">
+                            Web sitesinin kişiselleştirilmiş özellikler sunmasını sağlar. Ziyaretçinin açık/koyu tema tercihi, dil seçimi veya yazı boyutu ayarlarını hafızada tutar.
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered small align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Çerez Adı</th>
+                                        <th>Sağlayıcı</th>
+                                        <th>Kullanım Amacı</th>
+                                        <th>Saklama Süresi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>hayat_theme</code></td>
+                                        <td>Hayat İşleri</td>
+                                        <td>Kullanıcının açık (Light) veya koyu (Dark) mod temasını hatırlar.</td>
+                                        <td>1 Yıl</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>hayat_lang</code></td>
+                                        <td>Hayat İşleri</td>
+                                        <td>Kullanıcının tercih ettiği arayüz dilini hatırlar.</td>
+                                        <td>1 Yıl</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Kategori 3: Performans ve Analitik Çerezleri -->
+                    <div class="mb-4">
+                        <div class="d-flex align-items-center justify-content-between p-2 px-3 rounded-3 bg-warning bg-opacity-10 mb-2">
+                            <span class="fw-bold text-warning-emphasis"><i class="bi bi-bar-chart-line-fill me-1"></i> 3. Performans ve Analitik Çerezleri</span>
+                            <span class="badge bg-warning text-dark">Açık Rıza Gerektirir (Varsayılan: Kapalı)</span>
+                        </div>
+                        <p class="small text-secondary mb-2">
+                            Sitemizin kaç kişi tarafından ziyaret edildiğini, hangi sayfaların en çok incelendiğini ve ziyaretçilerin sitede nasıl gezindiğini anonim olarak analiz etmemize yarar. Bu veriler yalnızca web sitemizi optimize etmek ve kullanıcı deneyimini iyileştirmek için kullanılır.
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered small align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Çerez Adı</th>
+                                        <th>Sağlayıcı</th>
+                                        <th>Kullanım Amacı</th>
+                                        <th>Saklama Süresi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>_ga</code>, <code>_ga_*</code></td>
+                                        <td>Google Analytics / Hayat İşleri</td>
+                                        <td>Ziyaretçileri anonim olarak ayırt ederek sayfa görüntüleme istatistiklerini toplar.</td>
+                                        <td>2 Yıl</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>_gid</code></td>
+                                        <td>Google Analytics</td>
+                                        <td>Günlük tekil ziyaretçi sayısını ve oturum akışını takip eder.</td>
+                                        <td>24 Saat</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Kategori 4: Pazarlama ve Hedefleme Çerezleri -->
+                    <div class="mb-2">
+                        <div class="d-flex align-items-center justify-content-between p-2 px-3 rounded-3 bg-danger bg-opacity-10 mb-2">
+                            <span class="fw-bold text-danger-emphasis"><i class="bi bi-megaphone-fill me-1"></i> 4. Pazarlama ve Hedefleme Çerezleri</span>
+                            <span class="badge bg-danger text-white">Açık Rıza Gerektirir (Varsayılan: Kapalı)</span>
+                        </div>
+                        <p class="small text-secondary mb-2">
+                            İlgi alanlarınıza uygun ürün, kampanya ve kurumsal duyuruların gösterilmesini sağlar. Ayrıca pazarlama kampanyalarımızın etkinliğini ölçümlemeye yardımcı olur.
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered small align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Çerez Adı</th>
+                                        <th>Sağlayıcı</th>
+                                        <th>Kullanım Amacı</th>
+                                        <th>Saklama Süresi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>_fbp</code></td>
+                                        <td>Meta Platforms</td>
+                                        <td>Sosyal medya platformları üzerinden kurumsal reklam dönüşümlerini ölçümler.</td>
+                                        <td>3 Ay</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>_gcl_au</code></td>
+                                        <td>Google Ads</td>
+                                        <td>Google reklam kampanyalarından gelen kurumsal teklif taleplerini ölçümler.</td>
+                                        <td>3 Ay</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 4. Çerez Tercihlerini Yönetme -->
+                <section id="tercih-yonetimi" class="mb-5 pb-4 border-bottom">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <span class="badge bg-primary rounded-circle p-2 d-inline-flex align-items-center justify-content-center" style="width: 28px; height: 28px;">4</span>
+                        <h3 class="h4 fw-bold mb-0">Çerez Tercihlerini Nasıl Yönetebilirsiniz?</h3>
+                    </div>
+                    <p class="text-secondary leading-relaxed">
+                        T.C. Anayasası ve 6698 sayılı KVKK gereği, kişisel verileriniz üzerindeki kontrol tamamen size aittir. Çerez tercihlerinizi dilediğiniz zaman aşağıdaki iki yöntemle değiştirebilir veya daha önce verdiğiniz rızayı geri çekebilirsiniz:
+                    </p>
+
+                    <div class="p-4 rounded-4 border bg-light mb-4 text-center">
+                        <h5 class="fw-bold mb-2">Web Sitemiz Üzerinden Kolay Yönetim</h5>
+                        <p class="text-secondary small mb-3">
+                            Aşağıdaki butona basarak çerez ayar merkezimizi açabilir; Analitik, İşlevsel veya Pazarlama çerezlerini tek tıkla açıp kapatabilirsiniz:
+                        </p>
+                        <button type="button" class="btn btn-primary rounded-pill px-4 py-2.5 fw-semibold shadow-sm d-inline-flex align-items-center gap-2" onclick="if(window.HayatCookies) window.HayatCookies.openPreferences();">
+                            <i class="bi bi-sliders"></i>
+                            <span>Çerez Tercihleri Merkezini Aç</span>
+                        </button>
+                    </div>
+
+                    <h6 class="fw-bold mb-2">Tarayıcı Ayarları Üzerinden Çerezleri Silme / Engelleme:</h6>
+                    <p class="text-secondary small leading-relaxed mb-3">
+                        Kullandığınız internet tarayıcısının ayarlar menüsünden mevcut tüm çerezleri silebilir veya yeni çerez kabulünü engelleyebilirsiniz. Popüler tarayıcılarda çerez yönetimi için aşağıdaki bağlantıları inceleyebilirsiniz:
+                    </p>
+                    <div class="row g-2">
+                        <div class="col-sm-6 col-md-3">
+                            <a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer" class="btn btn-outline-secondary w-100 rounded-3 py-2 small d-flex align-items-center justify-content-center gap-1.5">
+                                <i class="bi bi-browser-chrome text-primary"></i> Google Chrome
+                            </a>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <a href="https://support.microsoft.com/tr-tr/microsoft-edge/%C3%A7erezleri-silme-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank" rel="noopener noreferrer" class="btn btn-outline-secondary w-100 rounded-3 py-2 small d-flex align-items-center justify-content-center gap-1.5">
+                                <i class="bi bi-browser-edge text-info"></i> Microsoft Edge
+                            </a>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <a href="https://support.mozilla.org/tr/kb/cerezleri-silme-web-sitelerinin-bilgilerini-kaldirma" target="_blank" rel="noopener noreferrer" class="btn btn-outline-secondary w-100 rounded-3 py-2 small d-flex align-items-center justify-content-center gap-1.5">
+                                <i class="bi bi-browser-firefox text-danger"></i> Mozilla Firefox
+                            </a>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <a href="https://support.apple.com/tr-tr/guide/safari/sfri11471/mac" target="_blank" rel="noopener noreferrer" class="btn btn-outline-secondary w-100 rounded-3 py-2 small d-flex align-items-center justify-content-center gap-1.5">
+                                <i class="bi bi-browser-safari text-primary"></i> Apple Safari
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 5. İlgili Kişi Hakları (KVKK Madde 11) -->
+                <section id="ilgili-kisi-haklari" class="mb-5 pb-4 border-bottom">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <span class="badge bg-primary rounded-circle p-2 d-inline-flex align-items-center justify-content-center" style="width: 28px; height: 28px;">5</span>
+                        <h3 class="h4 fw-bold mb-0">Kişisel Verilerin Korunması Kanunu (KVKK) Kapsamındaki Haklarınız</h3>
+                    </div>
+                    <p class="text-secondary leading-relaxed">
+                        6698 sayılı KVKK’nın 11. maddesi uyarınca veri sahibi olarak şirketimize başvurarak aşağıdaki haklarınızı kullanabilirsiniz:
+                    </p>
+                    <ul class="text-secondary small leading-relaxed mb-0">
+                        <li class="mb-1.5">Kişisel verilerinizin işlenip işlenmediğini öğrenme,</li>
+                        <li class="mb-1.5">Kişisel verileriniz işlenmişse buna ilişkin bilgi talep etme,</li>
+                        <li class="mb-1.5">Kişisel verilerinizin işlenme amacını ve bunların amacına uygun kullanılıp kullanılmadığını öğrenme,</li>
+                        <li class="mb-1.5">Yurt içinde veya yurt dışında kişisel verilerinizin aktarıldığı üçüncü kişileri bilme,</li>
+                        <li class="mb-1.5">Kişisel verilerinizin eksik veya yanlış işlenmiş olması hâlinde bunların düzeltilmesini isteme,</li>
+                        <li class="mb-1.5">KVKK’nın 7. maddesinde öngörülen şartlar çerçevesinde kişisel verilerinizin silinmesini veya yok edilmesini isteme,</li>
+                        <li class="mb-1.5">Düzeltme, silme ve yok edilme işlemlerinin verilerin aktarıldığı üçüncü kişilere bildirilmesini isteme,</li>
+                        <li class="mb-1.5">İşlenen verilerin münhasıran otomatik sistemler vasıtasıyla analiz edilmesi suretiyle aleyhinize bir sonucun ortaya çıkmasına itiraz etme,</li>
+                        <li>Kişisel verilerinizin kanuna aykırı olarak işlenmesi sebebiyle zarara uğramanız hâlinde zararın giderilmesini talep etme.</li>
+                    </ul>
+                </section>
+
+                <!-- 6. İletişim ve Veri Sorumlusu -->
+                <section id="iletisim">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <span class="badge bg-primary rounded-circle p-2 d-inline-flex align-items-center justify-content-center" style="width: 28px; height: 28px;">6</span>
+                        <h3 class="h4 fw-bold mb-0">Veri Sorumlusu ve Başvuru Kanalları</h3>
+                    </div>
+                    <p class="text-secondary leading-relaxed">
+                        Yukarıda belirtilen haklarınızı kullanmak için kimliğinizi tespit edici belgeler ile birlikte talebinizi yazılı olarak veya Kişisel Verileri Koruma Kurulu tarafından belirlenen diğer yöntemlerle veri sorumlusu olan şirketimize iletebilirsiniz:
+                    </p>
+                    <div class="p-3 rounded-3 bg-light border">
+                        <div class="row g-3 small">
+                            <div class="col-md-6">
+                                <strong>Veri Sorumlusu:</strong> Hayat İşleri Bilgi Teknolojileri ve Otomasyon San. Tic. Ltd. Şti.<br />
+                                <strong>Adres:</strong> Çaydaçıra Mah. / Elazığ / Türkiye
+                            </div>
+                            <div class="col-md-6">
+                                <strong>E-Posta:</strong> <a href="mailto:info@hayatisleri.com" class="text-decoration-none">info@hayatisleri.com</a><br />
+                                <strong>Telefon / WhatsApp:</strong> <a href="tel:+905010146623" class="text-decoration-none">0501 014 66 23</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+</div>

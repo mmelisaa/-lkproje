@@ -55,6 +55,7 @@
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
         <div class="d-flex gap-2 flex-wrap">
             <a asp-action="MesajListesi" asp-route-filtre="Tümü" asp-route-durum="@seciliDurum" class="btn btn-sm rounded-pill @(seciliFiltre == "Tümü" ? "btn-primary" : "btn-outline-primary")">Tümü</a>
+            <a asp-action="MesajListesi" asp-route-filtre="Kampanya Talebi" asp-route-durum="@seciliDurum" class="btn btn-sm rounded-pill @(seciliFiltre == "Kampanya Talebi" ? "btn-purple text-white fw-bold" : "btn-outline-primary")" style="@(seciliFiltre == "Kampanya Talebi" ? "background:#7952b3;border-color:#7952b3;" : "border-color:#7952b3;color:#7952b3;")"><i class="bi bi-tag-fill me-1"></i>Kampanya Talepleri</a>
             <a asp-action="MesajListesi" asp-route-filtre="İletişim" asp-route-durum="@seciliDurum" class="btn btn-sm rounded-pill @(seciliFiltre == "İletişim" ? "btn-primary" : "btn-outline-primary")">İletişim</a>
             <a asp-action="MesajListesi" asp-route-filtre="Teklif Talebi" asp-route-durum="@seciliDurum" class="btn btn-sm rounded-pill @(seciliFiltre == "Teklif Talebi" ? "btn-success" : "btn-outline-success")">Teklif Talepleri</a>
             <a asp-action="MesajListesi" asp-route-filtre="Bayilik Başvurusu" asp-route-durum="@seciliDurum" class="btn btn-sm rounded-pill @(seciliFiltre == "Bayilik Başvurusu" ? "btn-info text-dark fw-bold" : "btn-outline-info")">Bayilik Başvuruları</a>
@@ -106,7 +107,14 @@
                                     <small class="text-secondary">@item.Eposta @(string.IsNullOrEmpty(item.Telefon) ? "" : " • " + item.Telefon)</small>
                                 </td>
                                 <td>
-                                    <span class="badge rounded-pill px-3 py-1 bg-primary bg-opacity-10 text-primary">@item.FormTipi</span>
+                                    @if (item.FormTipi == "Kampanya Talebi")
+                                    {
+                                        <span class="badge rounded-pill px-3 py-1 text-white fw-bold" style="background: #7952b3;"><i class="bi bi-tag-fill me-1"></i>Kampanya Talebi</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge rounded-pill px-3 py-1 bg-primary bg-opacity-10 text-primary">@item.FormTipi</span>
+                                    }
                                 </td>
                                 <td>
                                     @if (!string.IsNullOrEmpty(item.Pozisyon))
@@ -120,6 +128,20 @@
                                     else
                                     {
                                         <span class="text-muted">Genel Talep</span>
+                                    }
+
+                                    @if (!string.IsNullOrEmpty(item.DosyaYolu))
+                                    {
+                                        var isPdf = item.DosyaYolu.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase);
+                                        <div class="mt-1 d-inline-flex align-items-center gap-1">
+                                            <a asp-action="BasvuruDosyasiGoruntule" asp-route-id="@item.Id" target="_blank" class="badge @(isPdf ? "bg-danger bg-opacity-10 text-danger border-danger" : "bg-info bg-opacity-10 text-info border-info") border border-opacity-25 rounded-pill text-decoration-none px-2.5 py-1" title="Yeni sekmede aç">
+                                                <i class="bi @(isPdf ? "bi-file-earmark-pdf-fill" : "bi-file-earmark-image-fill") me-1"></i>
+                                                @(isPdf ? "PDF CV" : "Görsel CV")
+                                            </a>
+                                            <a asp-action="BasvuruDosyasiIndir" asp-route-id="@item.Id" class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary border-opacity-25 rounded-pill text-decoration-none px-2 py-1" title="İndir">
+                                                <i class="bi bi-download"></i>
+                                            </a>
+                                        </div>
                                     }
                                 </td>
                                 <td>

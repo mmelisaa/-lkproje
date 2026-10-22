@@ -74,9 +74,16 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             }
+            @if (TempData["HataMesaj"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show mb-4 rounded-4 border-0 shadow-sm" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill me-2 text-danger"></i> @TempData["HataMesaj"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
 
             <!-- Form Başlangıcı -->
-            <form asp-controller="Home" asp-action="InsanKaynaklariBasvuru" method="post">
+            <form asp-controller="Home" asp-action="InsanKaynaklariBasvuru" method="post" enctype="multipart/form-data">
                 @Html.AntiForgeryToken()
                 <div class="row g-3 mb-3">
                     <!-- Ad Soyad -->
@@ -99,13 +106,43 @@
                     </div>
                 </div>
 
-                <!-- Pozisyon -->
+                <div class="row g-3 mb-3">
+                    <!-- Telefon -->
+                    <div class="col-md-6">
+                        <div class="hayat-ai-plus-input-box p-3 rounded-4">
+                            <label class="form-label fw-semibold small mb-1 hayat-ai-plus-label">
+                                <i class="bi bi-telephone-fill me-1 text-primary"></i> Telefon Numaranız
+                            </label>
+                            <input type="tel" name="telefon" class="form-control bg-transparent border-0 shadow-none py-1 px-0 hayat-ai-plus-input" placeholder="0532 000 00 00">
+                        </div>
+                    </div>
+                    <!-- Pozisyon -->
+                    <div class="col-md-6">
+                        <div class="hayat-ai-plus-input-box p-3 rounded-4">
+                            <label class="form-label fw-semibold small mb-1 hayat-ai-plus-label">
+                                <i class="bi bi-briefcase-fill me-1 text-primary"></i> Başvurmak İstediğiniz Pozisyon / Alan
+                            </label>
+                            <input type="text" name="pozisyon" class="form-control bg-transparent border-0 shadow-none py-1 px-0 hayat-ai-plus-input" placeholder="Örn: Web Geliştirici, Saha Otomasyon...">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CV / Özgeçmiş Dosyası Yükleme (PDF, JPEG, JPG, PNG) -->
                 <div class="mb-3">
                     <div class="hayat-ai-plus-input-box p-3 rounded-4">
-                        <label class="form-label fw-semibold small mb-1 hayat-ai-plus-label">
-                            <i class="bi bi-briefcase-fill me-1 text-primary"></i> Başvurmak İstediğiniz Pozisyon / Alan
+                        <label class="form-label fw-semibold small mb-1 hayat-ai-plus-label d-flex justify-content-between align-items-center flex-wrap gap-1">
+                            <span><i class="bi bi-file-earmark-arrow-up-fill me-1 text-primary"></i> Özgeçmiş / CV Dosyanız (PDF, JPEG veya PNG Görsel)</span>
+                            <span class="badge rounded-pill px-2.5 py-1" style="background: rgba(11, 87, 208, 0.1); color: #0b57d0; font-size: 0.72rem;">PDF, JPG, PNG, DOC (Maks 15 MB)</span>
                         </label>
-                        <input type="text" name="pozisyon" class="form-control bg-transparent border-0 shadow-none py-1 px-0 hayat-ai-plus-input" placeholder="Örn: Web Geliştirici, UI/UX Tasarımcı, Saha Otomasyon Uzmanı...">
+                        <input type="file" name="cvDosyasi" id="cvDosyasiInput" class="form-control bg-transparent border-0 shadow-none py-1 px-0 hayat-ai-plus-input" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" onchange="previewCvFileInfo(this)">
+                        <div id="cvDosyasiOnizleme" class="small mt-2 p-2 rounded-3 d-none align-items-center gap-2" style="background: rgba(16, 185, 129, 0.08); border: 1px dashed #10b981;">
+                            <i class="bi bi-check-circle-fill text-success fs-6"></i>
+                            <span id="cvDosyasiAdi" class="fw-semibold text-success"></span>
+                            <span id="cvDosyasiBoyut" class="badge bg-light text-dark border ms-auto small"></span>
+                        </div>
+                        <small class="text-muted d-block mt-1" style="font-size: 0.72rem;">
+                            Özgeçmişinizi PDF veya fotoğraf (JPG, PNG) olarak yükleyebilirsiniz. Yüklenen dosya doğrudan insan kaynakları departmanımıza ve yönetim paneline iletilecektir.
+                        </small>
                     </div>
                 </div>
 
@@ -115,7 +152,7 @@
                         <label class="form-label fw-semibold small mb-1 hayat-ai-plus-label">
                             <i class="bi bi-chat-text-fill me-1 text-primary"></i> Ön Yazınız / Kendinizden Bahsedin
                         </label>
-                        <textarea name="onYazi" class="form-control bg-transparent border-0 shadow-none px-0 hayat-ai-plus-input" rows="3" placeholder="Yeteneklerinizi ve kariyer hedeflerinizi kısaca bahsedin..."></textarea>
+                        <textarea name="onYazi" class="form-control bg-transparent border-0 shadow-none px-0 hayat-ai-plus-input" rows="3" placeholder="Yeteneklerinizi, tecrübelerinizi ve kariyer hedeflerinizi kısaca bahsedin..."></textarea>
                     </div>
                 </div>
 
@@ -222,5 +259,22 @@
         });
     });
 })();
+
+function previewCvFileInfo(input) {
+    var preview = document.getElementById('cvDosyasiOnizleme');
+    var nameSpan = document.getElementById('cvDosyasiAdi');
+    var sizeBadge = document.getElementById('cvDosyasiBoyut');
+    if (input.files && input.files[0]) {
+        var file = input.files[0];
+        nameSpan.textContent = file.name;
+        var sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+        sizeBadge.textContent = sizeMB + ' MB';
+        preview.classList.remove('d-none');
+        preview.classList.add('d-flex');
+    } else {
+        preview.classList.add('d-none');
+        preview.classList.remove('d-flex');
+    }
+}
 </script>
 }

@@ -1,0 +1,412 @@
+@model List<WebApplication1.Models.AdminAltKullaniciGorunumModel>
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Bayi Alt Kullanıcıları & Güvenli Şifre Yönetimi";
+    var arama = ViewBag.Arama as string ?? "";
+    var seciliBayiId = ViewBag.SeciliBayiId as string ?? "";
+    var anaBayiler = ViewBag.AnaBayiler as IEnumerable<dynamic> ?? Enumerable.Empty<dynamic>();
+}
+
+<div class="container-fluid px-0">
+    <!-- Üst Başlık & Bilgi -->
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
+        <div>
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="badge rounded-pill px-3 py-1.5" style="background: rgba(14, 165, 233, 0.12); color: #0284c7; font-weight: 700; border: 1px solid rgba(14, 165, 233, 0.25);">
+                    <i class="bi bi-shield-lock-fill me-1"></i> B2B Güvenlik &amp; Yetki Matrisi
+                </span>
+                <span class="badge bg-secondary bg-opacity-10 text-secondary border rounded-pill px-2.5 py-1">AES-256 Kriptolu Şifreleme</span>
+            </div>
+            <h2 class="fw-bold mb-1" style="color: var(--adm-text-main); letter-spacing: -0.5px;">Bayi Alt Kullanıcıları &amp; Şifre Kasası</h2>
+            <p class="text-secondary small mb-0">
+                Ana bayilerin yetkilendirdiği alt kullanıcı personelleri, modül kısıtlamaları (Cari Bakiye, 3D Sanal POS, Sepet &amp; Denetim İzi) ve unutulan şifrelerin bayiye güvenli iletimi.
+            </p>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+            <span class="badge bg-info bg-opacity-10 text-info border rounded-pill px-3 py-2 fw-bold">
+                <i class="bi bi-people-fill me-1"></i> Toplam @Model.Count Alt Kullanıcı
+            </span>
+        </div>
+    </div>
+
+    <!-- İstatistik Kartları -->
+    <div class="row g-3 mb-4">
+        <div class="col-sm-6 col-lg-3">
+            <div class="p-3.5 rounded-4 h-100" style="background: var(--adm-card-bg); border: 1px solid var(--adm-card-border); box-shadow: var(--adm-card-shadow);">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-secondary small fw-semibold">Toplam Alt Kullanıcı</span>
+                    <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill p-2"><i class="bi bi-person-badge"></i></span>
+                </div>
+                <div class="fs-3 fw-bold" style="color: var(--adm-text-main);">@Model.Count</div>
+                <small class="text-secondary">Sistemde kayıtlı tüm personeller</small>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="p-3.5 rounded-4 h-100" style="background: var(--adm-card-bg); border: 1px solid var(--adm-card-border); box-shadow: var(--adm-card-shadow);">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-secondary small fw-semibold">Finans / POS İzni Olan</span>
+                    <span class="badge bg-danger bg-opacity-10 text-danger rounded-pill p-2"><i class="bi bi-credit-card-2-front"></i></span>
+                </div>
+                <div class="fs-3 fw-bold text-danger">@Model.Count(u => u.IzinFinansSanalPos)</div>
+                <small class="text-secondary">Ana bayi tarafından özel izinli</small>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="p-3.5 rounded-4 h-100" style="background: var(--adm-card-bg); border: 1px solid var(--adm-card-border); box-shadow: var(--adm-card-shadow);">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-secondary small fw-semibold">Sipariş &amp; Sepet İzinli</span>
+                    <span class="badge bg-success bg-opacity-10 text-success rounded-pill p-2"><i class="bi bi-cart-check"></i></span>
+                </div>
+                <div class="fs-3 fw-bold text-success">@Model.Count(u => u.IzinSiparisVeSarf)</div>
+                <small class="text-secondary">Satın alma yetkisi verilmiş</small>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="p-3.5 rounded-4 h-100" style="background: var(--adm-card-bg); border: 1px solid var(--adm-card-border); box-shadow: var(--adm-card-shadow);">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="text-secondary small fw-semibold">Finansı Tam Korumalı</span>
+                    <span class="badge bg-info bg-opacity-10 text-info rounded-pill p-2"><i class="bi bi-shield-check"></i></span>
+                </div>
+                <div class="fs-3 fw-bold text-info">@Model.Count(u => !u.IzinFinansSanalPos && !u.IzinSiparisVeSarf)</div>
+                <small class="text-secondary">Sadece teknik/operasyon yetkili</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filtreleme Alanı -->
+    <div class="p-3.5 rounded-4 mb-4" style="background: var(--adm-card-bg); border: 1px solid var(--adm-card-border);">
+        <form method="get" asp-action="BayiAltKullanicilari" class="row g-2 align-items-center">
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-end-0 text-secondary"><i class="bi bi-search"></i></span>
+                    <input type="text" name="q" value="@arama" class="form-control border-start-0" placeholder="Kullanıcı adı, e-posta, unvan veya bayi firma adı..." />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <select name="bayiId" class="form-select">
+                    <option value="">Tüm Ana Bayiler (Hepsi)</option>
+                    @foreach (var ab in anaBayiler)
+                    {
+                        <option value="@ab.Id" selected="@(seciliBayiId == ab.Id)">@ab.Firma (@ab.Cari)</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-3 d-flex gap-2">
+                <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold flex-grow-1" style="background: #0284c7; border: none;">
+                    <i class="bi bi-funnel me-1"></i> Filtrele
+                </button>
+                @if (!string.IsNullOrWhiteSpace(arama) || !string.IsNullOrWhiteSpace(seciliBayiId))
+                {
+                    <a asp-action="BayiAltKullanicilari" class="btn btn-light rounded-pill px-3" title="Filtreyi Temizle">
+                        <i class="bi bi-x-circle"></i>
+                    </a>
+                }
+            </div>
+        </form>
+    </div>
+
+    <!-- Alt Kullanıcılar Tablosu -->
+    <div class="card rounded-4 overflow-hidden border-0 shadow-sm" style="background: var(--adm-card-bg); border: 1px solid var(--adm-card-border) !important;">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light text-secondary small text-uppercase" style="background: rgba(0,0,0,0.02); font-size: 0.75rem; letter-spacing: 0.5px;">
+                    <tr>
+                        <th class="ps-4">Alt Kullanıcı / Görev</th>
+                        <th>Bağlı Ana Bayi</th>
+                        <th>İletişim</th>
+                        <th>Modül Yetkileri (İzinler)</th>
+                        <th>Durum / Tarih</th>
+                        <th class="text-end pe-4">Güvenlik &amp; Şifre İşlemleri</th>
+                    </tr>
+                </thead>
+                <tbody class="border-top-0">
+                    @if (Model.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center py-5 text-secondary">
+                                <i class="bi bi-person-x fs-1 d-block mb-2 text-muted"></i>
+                                <span>Kriterlere uygun bayi alt kullanıcısı bulunamadı.</span>
+                            </td>
+                        </tr>
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="ps-4">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold shadow-sm" style="width: 42px; height: 42px; background: linear-gradient(135deg, #0284c7, #0369a1); font-size: 0.95rem;">
+                                        @(string.IsNullOrWhiteSpace(item.AdSoyad) ? "AK" : (item.AdSoyad.Length > 2 ? item.AdSoyad[..2].ToUpper() : item.AdSoyad.ToUpper()))
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold" style="color: var(--adm-text-main);">@item.AdSoyad</div>
+                                        <div class="badge bg-secondary bg-opacity-10 text-secondary border rounded-pill px-2 py-0.5" style="font-size: 0.72rem;">
+                                            <i class="bi bi-briefcase me-1"></i> @item.Unvan
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="fw-semibold text-primary">@item.AnaBayiFirmaAdi</div>
+                                <small class="text-secondary font-monospace"><i class="bi bi-upc-scan me-1"></i>Cari: @item.AnaBayiCariKodu</small>
+                            </td>
+                            <td>
+                                <div class="small fw-semibold text-dark"><i class="bi bi-envelope me-1 text-secondary"></i>@item.Eposta</div>
+                                <div class="small text-secondary"><i class="bi bi-telephone me-1 text-secondary"></i>@(string.IsNullOrWhiteSpace(item.Telefon) ? "-" : item.Telefon)</div>
+                            </td>
+                            <td>
+                                <div class="d-flex flex-wrap gap-1" style="max-width: 320px;">
+                                    @if (item.IzinFinansSanalPos)
+                                    {
+                                        <span class="badge bg-danger bg-opacity-10 text-danger border border-danger-subtle rounded-pill px-2 py-1" style="font-size: 0.7rem;" title="Cari bakiye ve 3D Secure POS erişebilir">
+                                            <i class="bi bi-credit-card-2-front-fill me-1"></i> Finans/POS
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary bg-opacity-10 text-secondary border rounded-pill px-2 py-1" style="font-size: 0.7rem;" title="Finans ve POS gizli/engelli">
+                                            <i class="bi bi-lock me-1"></i> Finans Yok
+                                        </span>
+                                    }
+
+                                    @if (item.IzinSiparisVeSarf)
+                                    {
+                                        <span class="badge bg-primary bg-opacity-10 text-primary border border-primary-subtle rounded-pill px-2 py-1" style="font-size: 0.7rem;" title="Sepet ve sarf malzeme siparişi verebilir">
+                                            <i class="bi bi-cart-check-fill me-1"></i> Sipariş Açık
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary bg-opacity-10 text-secondary border rounded-pill px-2 py-1" style="font-size: 0.7rem;" title="Satın alma engelli">
+                                            <i class="bi bi-cart-x me-1"></i> Sipariş Yok
+                                        </span>
+                                    }
+
+                                    @if (item.IzinDenetimIzi)
+                                    {
+                                        <span class="badge bg-warning bg-opacity-10 text-warning border border-warning-subtle rounded-pill px-2 py-1" style="font-size: 0.7rem;" title="Giriş ve işlem loglarını görebilir">
+                                            <i class="bi bi-journal-text me-1"></i> İşlem İzi
+                                        </span>
+                                    }
+
+                                    @if (item.IzinTeknikServisRma)
+                                    {
+                                        <span class="badge bg-info bg-opacity-10 text-info border rounded-pill px-2 py-1" style="font-size: 0.7rem;">RMA</span>
+                                    }
+                                    @if (item.IzinDestekTalepleri)
+                                    {
+                                        <span class="badge bg-secondary bg-opacity-10 text-secondary border rounded-pill px-2 py-1" style="font-size: 0.7rem;">Destek</span>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    @if (item.Aktif)
+                                    {
+                                        <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-2 py-1 fw-bold">
+                                            <span class="pulse-online-dot me-1"></span> Aktif
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary rounded-pill px-2 py-1">Pasif</span>
+                                    }
+                                </div>
+                                <small class="text-secondary d-block mt-1" style="font-size: 0.72rem;">
+                                    Kayıt: @item.KayitTarihi.ToString("dd.MM.yyyy")
+                                </small>
+                            </td>
+                            <td class="text-end pe-4">
+                                <div class="d-inline-flex gap-1">
+                                    <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-bold" onclick="sifreyiCozVeGoster('@item.Id', '@item.AdSoyad', '@item.Eposta', '@item.AnaBayiFirmaAdi')">
+                                        <i class="bi bi-key-fill me-1 text-warning"></i> Şifreyi Çöz
+                                    </button>
+
+                                    <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-2.5" title="Yeni Şifre Belirle" onclick="sifreSifirlaModalAc('@item.Id', '@item.AdSoyad')">
+                                        <i class="bi bi-arrow-repeat"></i>
+                                    </button>
+
+                                    <form method="post" asp-action="AdminAltKullaniciSil" onsubmit="return confirm('@item.AdSoyad isimli alt kullanıcı hesabını kalıcı olarak silmek istediğinizden emin misiniz?');" class="d-inline">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@item.Id" />
+                                        <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-2.5" title="Kullanıcıyı Sil">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ŞİFRE ÇÖZÜM & WHATSAPP BİLDİRİM MODALI -->
+<div class="modal fade" id="modalSifreCoz" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow-lg" style="background: var(--adm-card-bg);">
+            <div class="modal-header border-bottom py-3 px-4">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-warning bg-opacity-10 text-warning p-2 rounded-circle">
+                        <i class="bi bi-shield-lock-fill fs-5"></i>
+                    </span>
+                    <div>
+                        <h5 class="modal-title fw-bold mb-0" style="color: var(--adm-text-main);">AES-256 Kriptolu Şifre Kasası</h5>
+                        <small class="text-secondary">Bayi Güvenlik Doğrulama Protokolü</small>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="p-3 rounded-3 mb-3" style="background: rgba(14, 165, 233, 0.08); border: 1px solid rgba(14, 165, 233, 0.2);">
+                    <div class="d-flex align-items-center gap-2 text-primary fw-bold small mb-1">
+                        <i class="bi bi-info-circle-fill"></i> Güvenlik &amp; Yetki Hatırlatma
+                    </div>
+                    <p class="small text-secondary mb-0">
+                        Bu alt kullanıcı şifresi sadece yetkili ana bayi yöneticisine unutulan durumlarda hatırlatılmak üzere AES-256 standartlarında çözülmüştür.
+                    </p>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label small text-secondary fw-semibold mb-1">Alt Kullanıcı</label>
+                    <div class="fw-bold fs-6" id="scAdSoyad">-</div>
+                    <div class="small text-muted" id="scEposta">-</div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label small text-secondary fw-semibold mb-1">Bağlı Ana Bayi</label>
+                    <div class="fw-semibold text-primary" id="scAnaBayi">-</div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label small text-secondary fw-semibold mb-1">Çözülen Güncel Giriş Şifresi</label>
+                    <div class="input-group">
+                        <input type="text" id="scSifre" class="form-control font-monospace fw-bold fs-5 text-dark bg-light text-center" readonly style="letter-spacing: 2px;" />
+                        <button type="button" class="btn btn-outline-secondary px-3" onclick="kopyalaSifre()" title="Kopyala">
+                            <i class="bi bi-clipboard me-1"></i> Kopyala
+                        </button>
+                    </div>
+                    <small id="scKopyaBildirim" class="text-success small fw-semibold d-none mt-1"><i class="bi bi-check2"></i> Şifre panoya kopyalandı!</small>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <a id="btnWhatsAppIlet" href="#" target="_blank" class="btn btn-success rounded-pill py-2.5 fw-bold shadow-sm" style="background: #25D366; border: none;">
+                        <i class="bi bi-whatsapp me-2"></i> Ana Bayiye WhatsApp ile İlet
+                    </a>
+                    <button type="button" class="btn btn-light rounded-pill py-2 fw-semibold" data-bs-dismiss="modal">
+                        Kapat
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ŞİFRE SIFIRLAMA MODALI -->
+<div class="modal fade" id="modalSifreSifirla" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow-lg" style="background: var(--adm-card-bg);">
+            <form method="post" asp-action="AltKullaniciSifreSifirla">
+                @Html.AntiForgeryToken()
+                <input type="hidden" id="resetUserId" name="id" />
+                <div class="modal-header border-bottom py-3 px-4">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="badge bg-primary bg-opacity-10 text-primary p-2 rounded-circle">
+                            <i class="bi bi-arrow-repeat fs-5"></i>
+                        </span>
+                        <div>
+                            <h5 class="modal-title fw-bold mb-0" style="color: var(--adm-text-main);">Yeni Şifre Ata</h5>
+                            <small class="text-secondary" id="resetUserName">-</small>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p class="small text-secondary mb-3">
+                        Alt kullanıcı için yeni bir şifre belirleyin. Belirlediğiniz şifre Identity veri tabanında hashlenirken aynı zamanda AES-256 ile kasaya kaydedilecektir.
+                    </p>
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold text-secondary">Yeni Şifre (En az 6 karakter)</label>
+                        <div class="input-group">
+                            <input type="text" name="yeniSifre" id="inputYeniSifre" class="form-control font-monospace" required minlength="6" placeholder="Yeni şifre..." />
+                            <button type="button" class="btn btn-outline-secondary" onclick="rastgeleSifreUret()">
+                                <i class="bi bi-magic me-1"></i> Rastgele Üret
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-top px-4 py-3">
+                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">İptal</button>
+                    <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold">Şifreyi Güncelle</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function sifreyiCozVeGoster(userId, adSoyad, eposta, anaBayi) {
+            var token = $('input[name="__RequestVerificationToken"]').first().val();
+
+            $('#scAdSoyad').text(adSoyad);
+            $('#scEposta').text(eposta);
+            $('#scAnaBayi').text(anaBayi);
+            $('#scSifre').val('Çözülüyor...');
+            $('#btnWhatsAppIlet').attr('href', '#').addClass('disabled');
+            $('#scKopyaBildirim').addClass('d-none');
+
+            var modal = new bootstrap.Modal(document.getElementById('modalSifreCoz'));
+            modal.show();
+
+            $.ajax({
+                url: '@Url.Action("AltKullaniciSifreCoz", "Admin")',
+                type: 'POST',
+                data: {
+                    id: userId,
+                    __RequestVerificationToken: token
+                },
+                success: function (res) {
+                    if (res && res.success) {
+                        $('#scSifre').val(res.sifre);
+                        $('#btnWhatsAppIlet').attr('href', res.whatsappUrl).removeClass('disabled');
+                    } else {
+                        $('#scSifre').val('Hata: ' + (res.message || 'Çözülemedi'));
+                    }
+                },
+                error: function () {
+                    $('#scSifre').val('Sunucu ile bağlantı kurulamadı.');
+                }
+            });
+        }
+
+        function kopyalaSifre() {
+            var copyText = document.getElementById("scSifre");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(copyText.value);
+            $('#scKopyaBildirim').removeClass('d-none');
+            setTimeout(function () {
+                $('#scKopyaBildirim').addClass('d-none');
+            }, 3000);
+        }
+
+        function sifreSifirlaModalAc(userId, adSoyad) {
+            $('#resetUserId').val(userId);
+            $('#resetUserName').text(adSoyad + ' hesabına yeni şifre atanıyor');
+            rastgeleSifreUret();
+            var modal = new bootstrap.Modal(document.getElementById('modalSifreSifirla'));
+            modal.show();
+        }
+
+        function rastgeleSifreUret() {
+            var chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!#$";
+            var pass = "";
+            for (var i = 0; i < 10; i++) {
+                pass += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            $('#inputYeniSifre').val(pass);
+        }
+    </script>
+}

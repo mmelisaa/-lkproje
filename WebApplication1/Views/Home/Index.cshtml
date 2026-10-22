@@ -369,299 +369,8 @@
     </div>
 </section>
 
-<!-- 3. BÖLÜM: REFERANSLARIMIZ & DİJİTAL ESERLER (Cam kırıldıktan hemen sonra 3D parçacık efektleriyle görünür) -->
-<section class="lusion-works-section" id="referanslarimiz" style="border-top: none !important;">
-    <div class="container position-relative" style="z-index: 2;">
-        
-        <!-- Üst Başlık & Kategori Filtre Butonları (Simetrik Google One Mimarisi) -->
-        <div class="text-center mb-5">
-            <span class="badge px-3.5 py-2 rounded-pill small fw-medium text-uppercase mb-3 d-inline-flex align-items-center gap-1.5" style="background: #e8f0fe; color: #0b57d0; border: 1px solid rgba(11, 87, 208, 0.25); font-family: 'Google Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.5px;">
-                <i class="bi bi-star-fill" style="color: #FBBC04;"></i> Referanslarımız &amp; Eserlerimiz
-            </span>
-            <h2 class="display-5 fw-bold mb-3" style="font-family: 'Google Sans', sans-serif; color: #1f1f1f; letter-spacing: -1.2px;">Öne Çıkan Referanslarımız</h2>
-            <p class="mx-auto mb-4" style="font-family: 'Google Sans Text', sans-serif; color: #444746; max-width: 680px; font-size: 1.05rem; line-height: 1.7;">
-                İşletmelerin dijital dönüşüm süreçlerine güç katan kurumsal yazılım, e-ticaret ve otomasyon projelerimiz.
-            </p>
-            
-            <!-- Dinamik Kategori Filtreleri (Tam Simetrik & Ortalanmış) -->
-            <div class="d-flex flex-wrap justify-content-center gap-2" id="refFilterButtons">
-                <button type="button" class="lusion-filter-btn active" data-filter="all">Tümü</button>
-                <button type="button" class="lusion-filter-btn" data-filter="yazilim">Özel Yazılım</button>
-                <button type="button" class="lusion-filter-btn" data-filter="tasarim">Web Tasarım</button>
-                <button type="button" class="lusion-filter-btn" data-filter="eticaret">E-Ticaret</button>
-            </div>
-        </div>
-
-        <!-- Referans Kartları Izgarası (Simetrik 2x2 Google One Kartları) -->
-        <div class="row g-4" id="refCardsContainer">
-            @if (referanslar != null && referanslar.Any())
-            {
-                int refLoopIdx = 0;
-                string[] g1BadgeClasses = new string[] { "g1-badge-blue", "g1-badge-green", "g1-badge-yellow", "g1-badge-red" };
-                string[] realRefPhotos = new string[] { "/images/ref-real-1.jpg", "/images/ref-real-2.jpg", "/images/ref-real-3.jpg", "/images/ref-real-4.jpg" };
-                @foreach (var refItem in referanslar)
-                {
-                    string defaultImg = realRefPhotos[refLoopIdx % 4];
-                    string b = refItem.Baslik ?? "";
-                    string k = refItem.Kategori ?? "";
-                    
-                    if (b.Contains("Cari", StringComparison.OrdinalIgnoreCase) || b.Contains("Muhasebe", StringComparison.OrdinalIgnoreCase) || k.Contains("Muhasebe", StringComparison.OrdinalIgnoreCase) || b.Contains("Lojistik", StringComparison.OrdinalIgnoreCase))
-                    {
-                        defaultImg = "/images/ref-real-1.jpg";
-                    }
-                    else if (b.Contains("POS", StringComparison.OrdinalIgnoreCase) || b.Contains("Barkod", StringComparison.OrdinalIgnoreCase) || k.Contains("POS", StringComparison.OrdinalIgnoreCase) || k.Contains("Barkod", StringComparison.OrdinalIgnoreCase) || b.Contains("Mimar", StringComparison.OrdinalIgnoreCase))
-                    {
-                        defaultImg = "/images/ref-real-2.jpg";
-                    }
-                    else if (b.Contains("Adisyon", StringComparison.OrdinalIgnoreCase) || b.Contains("Restoran", StringComparison.OrdinalIgnoreCase) || b.Contains("Kafe", StringComparison.OrdinalIgnoreCase) || b.Contains("Tarım", StringComparison.OrdinalIgnoreCase))
-                    {
-                        defaultImg = "/images/ref-real-3.jpg";
-                    }
-                    else if (b.Contains("Web", StringComparison.OrdinalIgnoreCase) || b.Contains("Ticaret", StringComparison.OrdinalIgnoreCase) || b.Contains("Portal", StringComparison.OrdinalIgnoreCase) || b.Contains("Akademi", StringComparison.OrdinalIgnoreCase))
-                    {
-                        defaultImg = "/images/ref-real-4.jpg";
-                    }
-
-                    string gorselSrc = (string.IsNullOrEmpty(refItem.GorselUrl) || refItem.GorselUrl.Contains("unsplash") || refItem.GorselUrl.EndsWith(".svg", StringComparison.OrdinalIgnoreCase)) ? defaultImg : refItem.GorselUrl;
-
-                    string catFilter = "yazilim";
-                    if (k.Contains("Tasarım", StringComparison.OrdinalIgnoreCase) || k.Contains("Web", StringComparison.OrdinalIgnoreCase))
-                    {
-                        catFilter = "tasarim";
-                    }
-                    else if (k.Contains("Ticaret", StringComparison.OrdinalIgnoreCase) || k.Contains("Market", StringComparison.OrdinalIgnoreCase))
-                    {
-                        catFilter = "eticaret";
-                    }
-
-                    string badgeClass = g1BadgeClasses[refLoopIdx % 4];
-                    bool isFirstOrHiCari = (refLoopIdx == 0) || b.Contains("Cari", StringComparison.OrdinalIgnoreCase) || b.Contains("Muhasebe", StringComparison.OrdinalIgnoreCase);
-                    refLoopIdx++;
-
-                    <div class="col-md-6 d-flex align-items-stretch ref-item" data-category="@catFilter">
-                        <div class="g1-ref-card d-flex flex-column h-100 w-100">
-                            <div class="lusion-card-sheen"></div>
-                            <div class="g1-ref-img-wrap">
-                                <img src="@gorselSrc" alt="@(isFirstOrHiCari ? "HiCariTakip - Bulut Ön Muhasebe & ERP" : refItem.Baslik)" onerror="this.onerror=null; this.src='@defaultImg';" />
-                                <span class="badge position-absolute top-0 start-0 m-3 px-3 py-1.5 rounded-pill fw-medium @badgeClass" style="font-size: 0.76rem; font-family: 'Google Sans', sans-serif;">
-                                    @(isFirstOrHiCari ? "Özel Yazılım & Finans" : refItem.Kategori)
-                                </span>
-                            </div>
-                            <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
-                                <div>
-                                    @if (isFirstOrHiCari)
-                                    {
-                                        <h4 class="g1-ref-title mb-2">
-                                            <a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" class="text-decoration-none" style="color: inherit;">
-                                                HiCariTakip - Bulut Ön Muhasebe &amp; ERP
-                                            </a>
-                                        </h4>
-                                        <p class="g1-ref-desc mb-2">GİB e-Fatura/e-Arşiv entegrasyonu, gerçek zamanlı stok, cari hesap takibi ve çok şubeli gelir-gider analitiği.</p>
-                                        <div class="mb-3">
-                                            <a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" class="g1-ref-web-link">
-                                                <i class="bi bi-globe2"></i>
-                                                <span>Ön Muhasebe Programı ve B2B Cari Yönetimi | HiCariTakip</span>
-                                                <i class="bi bi-box-arrow-up-right ms-auto"></i>
-                                            </a>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <h4 class="g1-ref-title mb-2">@refItem.Baslik</h4>
-                                        <p class="g1-ref-desc mb-3">@refItem.Aciklama</p>
-                                    }
-                                    <div class="d-flex flex-wrap gap-1.5 mb-3 g1-ref-tags">
-                                        @if (isFirstOrHiCari)
-                                        {
-                                            <span class="badge g1-ref-tag">e-Fatura GİB</span>
-                                            <span class="badge g1-ref-tag">Bulut ERP</span>
-                                            <span class="badge g1-ref-tag">Stok Yönetimi</span>
-                                        }
-                                        else if (!string.IsNullOrEmpty(refItem.Etiketler))
-                                        {
-                                            @foreach (var tag in refItem.Etiketler.Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries).Take(3))
-                                            {
-                                                <span class="badge g1-ref-tag">@tag.Trim()</span>
-                                            }
-                                        }
-                                    </div>
-                                </div>
-                                <div class="pt-3 d-flex justify-content-between align-items-center flex-wrap gap-2 g1-ref-footer">
-                                    <span class="small d-inline-flex align-items-center gap-1.5 g1-ref-status"><i class="bi bi-check-circle-fill" style="color: #34A853;"></i> @(isFirstOrHiCari ? "Aktif Kullanımda" : "Tamamlanan Proje")</span>
-                                    @if (isFirstOrHiCari)
-                                    {
-                                        <div class="d-flex align-items-center gap-2">
-                                            <a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" class="g1-btn-card">
-                                                <i class="bi bi-box-arrow-up-right" style="font-size: 0.78rem;"></i> <span>hicari.com.tr</span>
-                                            </a>
-                                            <a asp-controller="Home" asp-action="TeklifAl" class="g1-btn-card">
-                                                <span>Teklif Al</span> <i class="bi bi-arrow-right-short fs-6"></i>
-                                            </a>
-                                        </div>
-                                    }
-                                    else if (!string.IsNullOrEmpty(refItem.ProjeLinki) && refItem.ProjeLinki != "#")
-                                    {
-                                        <a href="@refItem.ProjeLinki" target="_blank" rel="noopener noreferrer" class="g1-btn-card">
-                                            <span>Canlı Gör</span> <i class="bi bi-arrow-right-short fs-6"></i>
-                                        </a>
-                                    }
-                                    else
-                                    {
-                                        <a asp-controller="Home" asp-action="TeklifAl" class="g1-btn-card">
-                                            <span>Teklif Al</span> <i class="bi bi-arrow-right-short fs-6"></i>
-                                        </a>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-            }
-            else
-            {
-                <!-- Veritabanı Yedeği: 4 Simetrik Google One Temalı Hayat İşleri Eseri -->
-                <!-- Kart 1: Google Mavi (Özel Yazılım & ERP) -->
-                <div class="col-md-6 d-flex align-items-stretch ref-item" data-category="yazilim">
-                    <div class="g1-ref-card d-flex flex-column h-100 w-100">
-                        <div class="lusion-card-sheen"></div>
-                        <div class="g1-ref-img-wrap">
-                            <img src="/images/ref-real-1.jpg" alt="HiCariTakip - Bulut Ön Muhasebe & ERP" />
-                            <span class="badge position-absolute top-0 start-0 m-3 px-3 py-1.5 rounded-pill fw-medium g1-badge-blue" style="font-size: 0.76rem; font-family: 'Google Sans', sans-serif;">
-                                Özel Yazılım &amp; Finans
-                            </span>
-                        </div>
-                        <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
-                            <div>
-                                <h4 class="g1-ref-title mb-2">
-                                    <a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" class="text-decoration-none" style="color: inherit;">
-                                        HiCariTakip - Bulut Ön Muhasebe &amp; ERP
-                                    </a>
-                                </h4>
-                                <p class="g1-ref-desc mb-2">GİB e-Fatura/e-Arşiv entegrasyonu, gerçek zamanlı stok, cari hesap takibi ve çok şubeli gelir-gider analitiği.</p>
-                                <div class="mb-3">
-                                    <a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" class="g1-ref-web-link">
-                                        <i class="bi bi-globe2"></i>
-                                        <span>Ön Muhasebe Programı ve B2B Cari Yönetimi | HiCariTakip</span>
-                                        <i class="bi bi-box-arrow-up-right ms-auto"></i>
-                                    </a>
-                                </div>
-                                <div class="d-flex flex-wrap gap-1.5 mb-3 g1-ref-tags">
-                                    <span class="badge g1-ref-tag">e-Fatura GİB</span>
-                                    <span class="badge g1-ref-tag">Bulut ERP</span>
-                                    <span class="badge g1-ref-tag">Stok Yönetimi</span>
-                                </div>
-                            </div>
-                            <div class="pt-3 d-flex justify-content-between align-items-center flex-wrap gap-2 g1-ref-footer">
-                                <span class="small d-inline-flex align-items-center gap-1.5 g1-ref-status"><i class="bi bi-check-circle-fill" style="color: #34A853;"></i> Aktif Kullanımda</span>
-                                <div class="d-flex align-items-center gap-2">
-                                    <a href="https://www.hicari.com.tr/" target="_blank" rel="noopener noreferrer" class="g1-btn-card">
-                                        <i class="bi bi-box-arrow-up-right" style="font-size: 0.78rem;"></i> <span>hicari.com.tr</span>
-                                    </a>
-                                    <a asp-controller="Home" asp-action="TeklifAl" class="g1-btn-card">
-                                        <span>Teklif Al</span> <i class="bi bi-arrow-right-short fs-6"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Kart 2: Google Yeşil (POS & Barkod) -->
-                <div class="col-md-6 d-flex align-items-stretch ref-item" data-category="yazilim">
-                    <div class="g1-ref-card d-flex flex-column h-100 w-100">
-                        <div class="lusion-card-sheen"></div>
-                        <div class="g1-ref-img-wrap">
-                            <img src="/images/ref-real-2.jpg" alt="Market & Perakende Barkodlu Satış & POS" />
-                            <span class="badge position-absolute top-0 start-0 m-3 px-3 py-1.5 rounded-pill fw-medium g1-badge-green" style="font-size: 0.76rem; font-family: 'Google Sans', sans-serif;">
-                                POS &amp; Barkod Otomasyonu
-                            </span>
-                        </div>
-                        <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
-                            <div>
-                                <h4 class="g1-ref-title mb-2">Market &amp; Perakende Barkodlu Satış &amp; POS</h4>
-                                <p class="g1-ref-desc mb-3">Dokunmatik POS terminalleri, hızlı lazer barkod okuyucular, terazi ve fiş yazıcıları tam donanım entegrasyonu.</p>
-                                <div class="d-flex flex-wrap gap-1.5 mb-3 g1-ref-tags">
-                                    <span class="badge g1-ref-tag">Hızlı Satış</span>
-                                    <span class="badge g1-ref-tag">Barkod &amp; Terazi</span>
-                                    <span class="badge g1-ref-tag">Kasa Yönetimi</span>
-                                </div>
-                            </div>
-                            <div class="pt-3 d-flex justify-content-between align-items-center g1-ref-footer">
-                                <span class="small d-inline-flex align-items-center gap-1.5 g1-ref-status"><i class="bi bi-check-circle-fill" style="color: #34A853;"></i> Aktif Kullanımda</span>
-                                <a asp-controller="Home" asp-action="TeklifAl" class="g1-btn-card">
-                                    <span>Teklif Al</span> <i class="bi bi-arrow-right-short fs-6"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Kart 3: Google Sarı (Kafe & Restoran) -->
-                <div class="col-md-6 d-flex align-items-stretch ref-item" data-category="yazilim">
-                    <div class="g1-ref-card d-flex flex-column h-100 w-100">
-                        <div class="lusion-card-sheen"></div>
-                        <div class="g1-ref-img-wrap">
-                            <img src="/images/ref-real-3.jpg" alt="Kafe & Restoran Dokunmatik Adisyon Sistemi" />
-                            <span class="badge position-absolute top-0 start-0 m-3 px-3 py-1.5 rounded-pill fw-medium g1-badge-yellow" style="font-size: 0.76rem; font-family: 'Google Sans', sans-serif;">
-                                Restoran &amp; Kafe Otomasyonu
-                            </span>
-                        </div>
-                        <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
-                            <div>
-                                <h4 class="g1-ref-title mb-2">Kafe &amp; Restoran Dokunmatik Adisyon Sistemi</h4>
-                                <p class="g1-ref-desc mb-3">Masa yerleşim planı, garson el terminalleri, mutfak yazıcı yönlendirmesi ve QR dijital menü altyapısı.</p>
-                                <div class="d-flex flex-wrap gap-1.5 mb-3 g1-ref-tags">
-                                    <span class="badge g1-ref-tag">Masa Planı</span>
-                                    <span class="badge g1-ref-tag">El Terminali</span>
-                                    <span class="badge g1-ref-tag">Mutfak Ekranı</span>
-                                </div>
-                            </div>
-                            <div class="pt-3 d-flex justify-content-between align-items-center g1-ref-footer">
-                                <span class="small d-inline-flex align-items-center gap-1.5 g1-ref-status"><i class="bi bi-check-circle-fill" style="color: #34A853;"></i> Aktif Kullanımda</span>
-                                <a asp-controller="Home" asp-action="TeklifAl" class="g1-btn-card">
-                                    <span>Teklif Al</span> <i class="bi bi-arrow-right-short fs-6"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Kart 4: Google Kırmızı/Mercan (Kurumsal Web & E-Ticaret) -->
-                <div class="col-md-6 d-flex align-items-stretch ref-item" data-category="eticaret">
-                    <div class="g1-ref-card d-flex flex-column h-100 w-100">
-                        <div class="lusion-card-sheen"></div>
-                        <div class="g1-ref-img-wrap">
-                            <img src="/images/ref-real-4.jpg" alt="B2B Bayi Portalı & Kurumsal Web Altyapısı" />
-                            <span class="badge position-absolute top-0 start-0 m-3 px-3 py-1.5 rounded-pill fw-medium g1-badge-red" style="font-size: 0.76rem; font-family: 'Google Sans', sans-serif;">
-                                Kurumsal Web &amp; B2B E-Ticaret
-                            </span>
-                        </div>
-                        <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
-                            <div>
-                                <h4 class="g1-ref-title mb-2">B2B Bayi Portalı &amp; Kurumsal Web Altyapısı</h4>
-                                <p class="g1-ref-desc mb-3">Bayi bazlı iskonto/fiyatlandırma, online tahsilat (Sanal POS), ERP cari senkronizasyonu ve mobil uyumlu vitrin.</p>
-                                <div class="d-flex flex-wrap gap-1.5 mb-3 g1-ref-tags">
-                                    <span class="badge g1-ref-tag">B2B Portal</span>
-                                    <span class="badge g1-ref-tag">Sanal POS</span>
-                                    <span class="badge g1-ref-tag">ERP Entegre</span>
-                                </div>
-                            </div>
-                            <div class="pt-3 d-flex justify-content-between align-items-center g1-ref-footer">
-                                <span class="small d-inline-flex align-items-center gap-1.5 g1-ref-status"><i class="bi bi-check-circle-fill" style="color: #34A853;"></i> Aktif Kullanımda</span>
-                                <a asp-controller="Home" asp-action="TeklifAl" class="g1-btn-card">
-                                    <span>Teklif Al</span> <i class="bi bi-arrow-right-short fs-6"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
-</section>
-
-<!-- 3.B BÖLÜM: DİKKAT ÇEKİCİ BAYİ BAŞVURU & İŞBİRLİĞİ KUTUCUĞU -->
-<section class="py-4 my-2 position-relative" id="bayiBasvuruCtaSection" style="z-index: 3;">
+<!-- 3. BÖLÜM: DİKKAT ÇEKİCİ BAYİ BAŞVURU & İŞBİRLİĞİ KUTUCUĞU -->
+<section class="py-5 my-2 position-relative" id="bayiBasvuruCtaSection" style="z-index: 3;">
     <div class="container">
         <div class="g1-dealer-cta-box position-relative overflow-hidden">
             <!-- Animated Rainbow Top Accent Bar -->
@@ -711,12 +420,12 @@
 
                     <!-- Eylem Butonları -->
                     <div class="d-flex flex-wrap align-items-center gap-3 pt-1">
-                        <a asp-controller="Home" asp-action="BayiGirisi" asp-fragment="bayiBasvuruFormu" class="g1-dealer-btn-primary">
+                        <a href="/bayi-girisi#bayiBasvuruFormu" class="g1-dealer-btn-primary">
                             <i class="bi bi-rocket-takeoff-fill"></i>
                             <span>Hemen Bayilik Başvurusu Yap</span>
                             <i class="bi bi-arrow-right"></i>
                         </a>
-                        <a asp-controller="Home" asp-action="BayiGirisi" class="g1-dealer-btn-secondary">
+                        <a href="/bayi-girisi#bayiGiris" class="g1-dealer-btn-secondary">
                             <i class="bi bi-box-arrow-in-right"></i>
                             <span>Yetkili Bayi Girişi</span>
                         </a>
@@ -786,6 +495,343 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 3.B BÖLÜM: REFERANSLARIMIZ & İŞ ORTAKLARIMIZ (Sağdan Sola Kesintisiz Akıcı Logo Vitrini) -->
+<section class="lusion-works-section" id="referanslarimiz" style="border-top: none !important; overflow: hidden; padding-top: 2rem;">
+    <div class="container position-relative" style="z-index: 2;">
+        
+        <!-- Üst Başlık & Açıklama (Simetrik Google One Mimarisi) -->
+        <div class="text-center mb-4">
+            <span class="badge px-3.5 py-2 rounded-pill small fw-medium text-uppercase mb-3 d-inline-flex align-items-center gap-1.5" style="background: #e8f0fe; color: #0b57d0; border: 1px solid rgba(11, 87, 208, 0.25); font-family: 'Google Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.5px;">
+                <i class="bi bi-star-fill" style="color: #FBBC04;"></i> Referanslarımız &amp; İş Ortaklarımız
+            </span>
+            <h2 class="display-5 fw-bold mb-3" style="font-family: 'Google Sans', sans-serif; color: #1f1f1f; letter-spacing: -1.2px;">Öne Çıkan Referanslarımız</h2>
+            <p class="mx-auto mb-3" style="font-family: 'Google Sans Text', sans-serif; color: #444746; max-width: 720px; font-size: 1.05rem; line-height: 1.7;">
+                Hayat İşleri teknolojileriyle dijital altyapısını güçlendiren, kurumsal yazılım, POS ve otomasyon çözümlerimizi güvenle kullanan değerli referanslarımız.
+            </p>
+            <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill" style="background: rgba(11, 87, 208, 0.06); color: #0b57d0; font-size: 0.82rem; font-family: 'Google Sans Text', sans-serif;">
+                <i class="bi bi-info-circle-fill"></i>
+                <span>İncelemek için kartın üzerine gelebilirsiniz, akış otomatik duraklar.</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SAĞDAN SOLA KESİNTİSİZ AKAN REFERANS VİTRİNİ (Infinite Flowing Marquee) -->
+    <div class="ref-stream-viewport position-relative" style="z-index: 2;">
+        <!-- Kenar Yumuşatma Gölgeleri (Gradient Fade Edges) -->
+        <div class="ref-stream-fade ref-stream-fade-left"></div>
+        <div class="ref-stream-fade ref-stream-fade-right"></div>
+
+        <div class="ref-stream-track" id="refMarqueeTrack">
+            <!-- 1. SET (8 ŞİRKET) -->
+            <!-- 1. Başarı Team -->
+            <div class="ref-stream-card">
+                <div class="ref-logo-box">
+                    <img src="/images/referanslar/ref-basari-team.jpg" alt="Başarı Team - Gamze Usluer" class="ref-logo-img" />
+                    <span class="badge ref-stream-badge" style="background: #e8f0fe; color: #0b57d0;">Liderlik &amp; Ekip</span>
+                </div>
+                <h4 class="ref-stream-title">Başarı Team</h4>
+                <div class="ref-stream-role">Gamze Usluer • Vice President</div>
+                <p class="ref-stream-desc">Kurumsal takım yönetimi, organizasyon koordinasyonu ve profesyonel liderlik altyapısı.</p>
+                <div class="ref-stream-footer">
+                    <span class="small d-inline-flex align-items-center gap-1.5" style="color: #34A853; font-weight: 600; font-size: 0.8rem;">
+                        <i class="bi bi-patch-check-fill"></i> Resmi Referans
+                    </span>
+                    <a asp-controller="Home" asp-action="TeklifAl" class="ref-stream-action-btn">
+                        <span>Teklif Al</span> <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 2. Hilabis -->
+            <div class="ref-stream-card">
+                <div class="ref-logo-box">
+                    <img src="/images/referanslar/ref-hilabis.jpg" alt="Hilabis Gözlük & Optik" class="ref-logo-img" />
+                    <span class="badge ref-stream-badge" style="background: #e6f4ea; color: #137333;">Optik &amp; Perakende</span>
+                </div>
+                <h4 class="ref-stream-title">Hilabis</h4>
+                <div class="ref-stream-role">Gözlük &amp; Optik Teknolojileri</div>
+                <p class="ref-stream-desc">Optik perakende mağazacılık, karekodlu ürün ve stok takip sistemleri tam donanım entegrasyonu.</p>
+                <div class="ref-stream-footer">
+                    <span class="small d-inline-flex align-items-center gap-1.5" style="color: #34A853; font-weight: 600; font-size: 0.8rem;">
+                        <i class="bi bi-patch-check-fill"></i> Resmi Referans
+                    </span>
+                    <a asp-controller="Home" asp-action="TeklifAl" class="ref-stream-action-btn">
+                        <span>Teklif Al</span> <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 3. Lotus By Topuz -->
+            <div class="ref-stream-card">
+                <div class="ref-logo-box">
+                    <img src="/images/referanslar/ref-lotus.jpg" alt="Lotus By Topuz" class="ref-logo-img" />
+                    <span class="badge ref-stream-badge" style="background: #fce8e6; color: #c5221f;">Güzellik &amp; Estetik</span>
+                </div>
+                <h4 class="ref-stream-title">Lotus By Topuz</h4>
+                <div class="ref-stream-role">Güzellik &amp; Kişisel Bakım Merkezi</div>
+                <p class="ref-stream-desc">Müşteri randevu takip altyapısı, seans otomasyonu ve dijital salon yönetim çözümleri.</p>
+                <div class="ref-stream-footer">
+                    <span class="small d-inline-flex align-items-center gap-1.5" style="color: #34A853; font-weight: 600; font-size: 0.8rem;">
+                        <i class="bi bi-patch-check-fill"></i> Resmi Referans
+                    </span>
+                    <a asp-controller="Home" asp-action="TeklifAl" class="ref-stream-action-btn">
+                        <span>Teklif Al</span> <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 4. Turan Oto Çekici -->
+            <div class="ref-stream-card">
+                <div class="ref-logo-box">
+                    <img src="/images/referanslar/ref-turan-oto-cekici.jpg" alt="Turan Oto Çekici Kurtarma Hizmeti" class="ref-logo-img" />
+                    <span class="badge ref-stream-badge" style="background: #fef7e0; color: #b06000;">7/24 Yol Yardım</span>
+                </div>
+                <h4 class="ref-stream-title">Turan Oto Çekici</h4>
+                <div class="ref-stream-role">Kurtarma Hizmeti &amp; Yol Yardım</div>
+                <p class="ref-stream-desc">7/24 anlık çağrı yönlendirme, araç kurtarma filo yönetimi ve kesintisiz saha operasyonları.</p>
+                <div class="ref-stream-footer">
+                    <span class="small d-inline-flex align-items-center gap-1.5" style="color: #34A853; font-weight: 600; font-size: 0.8rem;">
+                        <i class="bi bi-patch-check-fill"></i> Resmi Referans
+                    </span>
+                    <a asp-controller="Home" asp-action="TeklifAl" class="ref-stream-action-btn">
+                        <span>Teklif Al</span> <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 5. Zerrin Aypar -->
+            <div class="ref-stream-card">
+                <div class="ref-logo-box">
+                    <img src="/images/referanslar/ref-zerrin-aypar.jpg" alt="Zerrin Aypar - Platin Organizasyon Lideri" class="ref-logo-img" />
+                    <span class="badge ref-stream-badge" style="background: #f3e8fd; color: #7627bb;">Liderlik &amp; Mentörlük</span>
+                </div>
+                <h4 class="ref-stream-title">Zerrin Aypar</h4>
+                <div class="ref-stream-role">Platin Organizasyon Lideri</div>
+                <p class="ref-stream-desc">Stratejik organizasyon yönetimi, profesyonel ekip liderliği ve dijital koçluk ağı.</p>
+                <div class="ref-stream-footer">
+                    <span class="small d-inline-flex align-items-center gap-1.5" style="color: #34A853; font-weight: 600; font-size: 0.8rem;">
+                        <i class="bi bi-patch-check-fill"></i> Resmi Referans
+                    </span>
+                    <a asp-controller="Home" asp-action="TeklifAl" class="ref-stream-action-btn">
+                        <span>Teklif Al</span> <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 6. Emlak 10'da -->
+            <div class="ref-stream-card">
+                <div class="ref-logo-box">
+                    <img src="/images/referanslar/ref-emlak10.jpg" alt="Emlak 10'da" class="ref-logo-img" />
+                    <span class="badge ref-stream-badge" style="background: #e8f0fe; color: #0b57d0;">Gayrimenkul &amp; Portföy</span>
+                </div>
+                <h4 class="ref-stream-title">Emlak 10'da</h4>
+                <div class="ref-stream-role">Gayrimenkule Dair Ne Varsa</div>
+                <p class="ref-stream-desc">Emlakta güven, hizmette kalite; dijital portföy ve müşteri ilişkileri operasyon altyapısı.</p>
+                <div class="ref-stream-footer">
+                    <span class="small d-inline-flex align-items-center gap-1.5" style="color: #34A853; font-weight: 600; font-size: 0.8rem;">
+                        <i class="bi bi-patch-check-fill"></i> Resmi Referans
+                    </span>
+                    <a asp-controller="Home" asp-action="TeklifAl" class="ref-stream-action-btn">
+                        <span>Teklif Al</span> <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 7. Zülbiye Ayaz -->
+            <div class="ref-stream-card">
+                <div class="ref-logo-box">
+                    <img src="/images/referanslar/ref-zulbiye-ayaz.jpg" alt="Zülbiye Ayaz" class="ref-logo-img" />
+                    <span class="badge ref-stream-badge" style="background: #fce8e6; color: #a51d24;">Eğitim &amp; Yaşam</span>
+                </div>
+                <h4 class="ref-stream-title">Zülbiye Ayaz</h4>
+                <div class="ref-stream-role">Education &amp; Quality of Life</div>
+                <p class="ref-stream-desc">Bireysel ve kurumsal gelişim danışmanlığı, yaşam kalitesi koçluğu ve eğitim programları.</p>
+                <div class="ref-stream-footer">
+                    <span class="small d-inline-flex align-items-center gap-1.5" style="color: #34A853; font-weight: 600; font-size: 0.8rem;">
+                        <i class="bi bi-patch-check-fill"></i> Resmi Referans
+                    </span>
+                    <a asp-controller="Home" asp-action="TeklifAl" class="ref-stream-action-btn">
+                        <span>Teklif Al</span> <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 8. RMT Enerji Aydınlatma -->
+            <div class="ref-stream-card">
+                <div class="ref-logo-box">
+                    <img src="/images/referanslar/ref-rmt-enerji.jpg" alt="RMT Enerji Aydınlatma" class="ref-logo-img" />
+                    <span class="badge ref-stream-badge" style="background: #fef7e0; color: #b06000;">Enerji &amp; Aydınlatma</span>
+                </div>
+                <h4 class="ref-stream-title">RMT Enerji Aydınlatma</h4>
+                <div class="ref-stream-role">Elektrik Malzemeleri &amp; Aydınlatma</div>
+                <p class="ref-stream-desc">Elektrik malzemeleri, aydınlatma, anahtar priz, kablo ve endüstriyel aksesuar toptan ticareti.</p>
+                <div class="ref-stream-footer">
+                    <span class="small d-inline-flex align-items-center gap-1.5" style="color: #34A853; font-weight: 600; font-size: 0.8rem;">
+                        <i class="bi bi-patch-check-fill"></i> Resmi Referans
+                    </span>
+                    <a asp-controller="Home" asp-action="TeklifAl" class="ref-stream-action-btn">
+                        <span>Teklif Al</span> <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 2. SET (KESİNTİSİZ DÖNGÜ İÇİN İKİZ SET - Seamless Infinite Loop) -->
+            <!-- 1. Başarı Team -->
+            <div class="ref-stream-card" aria-hidden="true">
+                <div class="ref-logo-box">
+                    <img src="/images/referanslar/ref-basari-team.jpg" alt="Başarı Team - Gamze Usluer" class="ref-logo-img" />
+                    <span class="badge ref-stream-badge" style="background: #e8f0fe; color: #0b57d0;">Liderlik &amp; Ekip</span>
+                </div>
+                <h4 class="ref-stream-title">Başarı Team</h4>
+                <div class="ref-stream-role">Gamze Usluer • Vice President</div>
+                <p class="ref-stream-desc">Kurumsal takım yönetimi, organizasyon koordinasyonu ve profesyonel liderlik altyapısı.</p>
+                <div class="ref-stream-footer">
+                    <span class="small d-inline-flex align-items-center gap-1.5" style="color: #34A853; font-weight: 600; font-size: 0.8rem;">
+                        <i class="bi bi-patch-check-fill"></i> Resmi Referans
+                    </span>
+                    <a asp-controller="Home" asp-action="TeklifAl" class="ref-stream-action-btn">
+                        <span>Teklif Al</span> <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 2. Hilabis -->
+            <div class="ref-stream-card" aria-hidden="true">
+                <div class="ref-logo-box">
+                    <img src="/images/referanslar/ref-hilabis.jpg" alt="Hilabis Gözlük & Optik" class="ref-logo-img" />
+                    <span class="badge ref-stream-badge" style="background: #e6f4ea; color: #137333;">Optik &amp; Perakende</span>
+                </div>
+                <h4 class="ref-stream-title">Hilabis</h4>
+                <div class="ref-stream-role">Gözlük &amp; Optik Teknolojileri</div>
+                <p class="ref-stream-desc">Optik perakende mağazacılık, karekodlu ürün ve stok takip sistemleri tam donanım entegrasyonu.</p>
+                <div class="ref-stream-footer">
+                    <span class="small d-inline-flex align-items-center gap-1.5" style="color: #34A853; font-weight: 600; font-size: 0.8rem;">
+                        <i class="bi bi-patch-check-fill"></i> Resmi Referans
+                    </span>
+                    <a asp-controller="Home" asp-action="TeklifAl" class="ref-stream-action-btn">
+                        <span>Teklif Al</span> <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 3. Lotus By Topuz -->
+            <div class="ref-stream-card" aria-hidden="true">
+                <div class="ref-logo-box">
+                    <img src="/images/referanslar/ref-lotus.jpg" alt="Lotus By Topuz" class="ref-logo-img" />
+                    <span class="badge ref-stream-badge" style="background: #fce8e6; color: #c5221f;">Güzellik &amp; Estetik</span>
+                </div>
+                <h4 class="ref-stream-title">Lotus By Topuz</h4>
+                <div class="ref-stream-role">Güzellik &amp; Kişisel Bakım Merkezi</div>
+                <p class="ref-stream-desc">Müşteri randevu takip altyapısı, seans otomasyonu ve dijital salon yönetim çözümleri.</p>
+                <div class="ref-stream-footer">
+                    <span class="small d-inline-flex align-items-center gap-1.5" style="color: #34A853; font-weight: 600; font-size: 0.8rem;">
+                        <i class="bi bi-patch-check-fill"></i> Resmi Referans
+                    </span>
+                    <a asp-controller="Home" asp-action="TeklifAl" class="ref-stream-action-btn">
+                        <span>Teklif Al</span> <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 4. Turan Oto Çekici -->
+            <div class="ref-stream-card" aria-hidden="true">
+                <div class="ref-logo-box">
+                    <img src="/images/referanslar/ref-turan-oto-cekici.jpg" alt="Turan Oto Çekici Kurtarma Hizmeti" class="ref-logo-img" />
+                    <span class="badge ref-stream-badge" style="background: #fef7e0; color: #b06000;">7/24 Yol Yardım</span>
+                </div>
+                <h4 class="ref-stream-title">Turan Oto Çekici</h4>
+                <div class="ref-stream-role">Kurtarma Hizmeti &amp; Yol Yardım</div>
+                <p class="ref-stream-desc">7/24 anlık çağrı yönlendirme, araç kurtarma filo yönetimi ve kesintisiz saha operasyonları.</p>
+                <div class="ref-stream-footer">
+                    <span class="small d-inline-flex align-items-center gap-1.5" style="color: #34A853; font-weight: 600; font-size: 0.8rem;">
+                        <i class="bi bi-patch-check-fill"></i> Resmi Referans
+                    </span>
+                    <a asp-controller="Home" asp-action="TeklifAl" class="ref-stream-action-btn">
+                        <span>Teklif Al</span> <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 5. Zerrin Aypar -->
+            <div class="ref-stream-card" aria-hidden="true">
+                <div class="ref-logo-box">
+                    <img src="/images/referanslar/ref-zerrin-aypar.jpg" alt="Zerrin Aypar - Platin Organizasyon Lideri" class="ref-logo-img" />
+                    <span class="badge ref-stream-badge" style="background: #f3e8fd; color: #7627bb;">Liderlik &amp; Mentörlük</span>
+                </div>
+                <h4 class="ref-stream-title">Zerrin Aypar</h4>
+                <div class="ref-stream-role">Platin Organizasyon Lideri</div>
+                <p class="ref-stream-desc">Stratejik organizasyon yönetimi, profesyonel ekip liderliği ve dijital koçluk ağı.</p>
+                <div class="ref-stream-footer">
+                    <span class="small d-inline-flex align-items-center gap-1.5" style="color: #34A853; font-weight: 600; font-size: 0.8rem;">
+                        <i class="bi bi-patch-check-fill"></i> Resmi Referans
+                    </span>
+                    <a asp-controller="Home" asp-action="TeklifAl" class="ref-stream-action-btn">
+                        <span>Teklif Al</span> <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 6. Emlak 10'da -->
+            <div class="ref-stream-card" aria-hidden="true">
+                <div class="ref-logo-box">
+                    <img src="/images/referanslar/ref-emlak10.jpg" alt="Emlak 10'da" class="ref-logo-img" />
+                    <span class="badge ref-stream-badge" style="background: #e8f0fe; color: #0b57d0;">Gayrimenkul &amp; Portföy</span>
+                </div>
+                <h4 class="ref-stream-title">Emlak 10'da</h4>
+                <div class="ref-stream-role">Gayrimenkule Dair Ne Varsa</div>
+                <p class="ref-stream-desc">Emlakta güven, hizmette kalite; dijital portföy ve müşteri ilişkileri operasyon altyapısı.</p>
+                <div class="ref-stream-footer">
+                    <span class="small d-inline-flex align-items-center gap-1.5" style="color: #34A853; font-weight: 600; font-size: 0.8rem;">
+                        <i class="bi bi-patch-check-fill"></i> Resmi Referans
+                    </span>
+                    <a asp-controller="Home" asp-action="TeklifAl" class="ref-stream-action-btn">
+                        <span>Teklif Al</span> <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 7. Zülbiye Ayaz -->
+            <div class="ref-stream-card" aria-hidden="true">
+                <div class="ref-logo-box">
+                    <img src="/images/referanslar/ref-zulbiye-ayaz.jpg" alt="Zülbiye Ayaz" class="ref-logo-img" />
+                    <span class="badge ref-stream-badge" style="background: #fce8e6; color: #a51d24;">Eğitim &amp; Yaşam</span>
+                </div>
+                <h4 class="ref-stream-title">Zülbiye Ayaz</h4>
+                <div class="ref-stream-role">Education &amp; Quality of Life</div>
+                <p class="ref-stream-desc">Bireysel ve kurumsal gelişim danışmanlığı, yaşam kalitesi koçluğu ve eğitim programları.</p>
+                <div class="ref-stream-footer">
+                    <span class="small d-inline-flex align-items-center gap-1.5" style="color: #34A853; font-weight: 600; font-size: 0.8rem;">
+                        <i class="bi bi-patch-check-fill"></i> Resmi Referans
+                    </span>
+                    <a asp-controller="Home" asp-action="TeklifAl" class="ref-stream-action-btn">
+                        <span>Teklif Al</span> <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 8. RMT Enerji Aydınlatma -->
+            <div class="ref-stream-card" aria-hidden="true">
+                <div class="ref-logo-box">
+                    <img src="/images/referanslar/ref-rmt-enerji.jpg" alt="RMT Enerji Aydınlatma" class="ref-logo-img" />
+                    <span class="badge ref-stream-badge" style="background: #fef7e0; color: #b06000;">Enerji &amp; Aydınlatma</span>
+                </div>
+                <h4 class="ref-stream-title">RMT Enerji Aydınlatma</h4>
+                <div class="ref-stream-role">Elektrik Malzemeleri &amp; Aydınlatma</div>
+                <p class="ref-stream-desc">Elektrik malzemeleri, aydınlatma, anahtar priz, kablo ve endüstriyel aksesuar toptan ticareti.</p>
+                <div class="ref-stream-footer">
+                    <span class="small d-inline-flex align-items-center gap-1.5" style="color: #34A853; font-weight: 600; font-size: 0.8rem;">
+                        <i class="bi bi-patch-check-fill"></i> Resmi Referans
+                    </span>
+                    <a asp-controller="Home" asp-action="TeklifAl" class="ref-stream-action-btn">
+                        <span>Teklif Al</span> <i class="bi bi-arrow-right"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -1346,6 +1392,7 @@
     align-items: center;
     min-height: 380px;
     padding: 15px 10px;
+    contain: layout style;
 }
 
 .spline-3d-backplate {
@@ -1355,14 +1402,18 @@
     top: 3%;
     left: 2%;
     background: rgba(255, 255, 255, 0.45);
-    backdrop-filter: blur(28px);
-    -webkit-backdrop-filter: blur(28px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.85);
     border-radius: 30px;
-    transform: rotateX(12deg) rotateY(-18deg) rotateZ(2.5deg) translateZ(-35px);
+    transform: rotateX(12deg) rotateY(-18deg) rotateZ(2.5deg) translateZ(-35px) translate3d(0, 0, 0);
+    -webkit-transform: rotateX(12deg) rotateY(-18deg) rotateZ(2.5deg) translateZ(-35px) translate3d(0, 0, 0);
     box-shadow: 0 30px 70px rgba(11, 87, 208, 0.12), 0 12px 28px rgba(15, 23, 42, 0.08);
     transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     pointer-events: none;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
 }
 
 .spline-3d-card {
@@ -1373,13 +1424,17 @@
     border-radius: 24px;
     padding: 18px 16px 20px 16px;
     transform: rotateX(12deg) rotateY(-18deg) rotateZ(2.5deg);
+    -webkit-transform: rotateX(12deg) rotateY(-18deg) rotateZ(2.5deg);
     transform-style: preserve-3d;
     box-shadow: 
         0 0 0 1px rgba(255, 255, 255, 0.8),
         8px 12px 0px rgba(130, 150, 225, 0.35),
         14px 20px 35px rgba(15, 23, 42, 0.16);
-    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s;
     user-select: none;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
 }
 
 .spline-card-sheen {
@@ -2468,9 +2523,20 @@
                 renderer.render(scene, camera);
             }
 
+            let threeThrottle = 0;
             function tick() {
                 requestAnimationFrame(tick);
                 if (document.hidden) return;
+
+                const scrollY = window.scrollY || window.pageYOffset || 0;
+                // When user scrolls deep into page (past referanslar & into dark immersion section),
+                // throttle background Three.js render to free up GPU for 3D dropdown and smooth scrolling
+                if (refSec && refSecTop > 0 && scrollY > (refSecTop + 250)) {
+                    threeThrottle++;
+                    if (threeThrottle % 2 !== 0) {
+                        return;
+                    }
+                }
 
                 const delta = Math.min(clock.getDelta(), 0.1);
                 const time = clock.getElapsedTime();
@@ -2687,7 +2753,7 @@
                 actionBtn.addEventListener('click', toggleDropdown);
             }
 
-            // 3D Mousemove Parallax Tilt
+            // 3D Mousemove Parallax Tilt (Ultra Akıcı 60-120 FPS)
             let isHovering = false;
             let targetRotX = 12;
             let targetRotY = -18;
@@ -2696,19 +2762,29 @@
             let rafId = null;
 
             function updateTilt() {
-                currentRotX += (targetRotX - currentRotX) * 0.12;
-                currentRotY += (targetRotY - currentRotY) * 0.12;
+                currentRotX += (targetRotX - currentRotX) * 0.16;
+                currentRotY += (targetRotY - currentRotY) * 0.16;
 
                 if (window.innerWidth >= 992) {
                     card.style.transform = `rotateX(${currentRotX.toFixed(2)}deg) rotateY(${currentRotY.toFixed(2)}deg) rotateZ(2.5deg)`;
                 }
 
-                if (isHovering || Math.abs(currentRotX - 12) > 0.05 || Math.abs(currentRotY - (-18)) > 0.05) {
+                if (isHovering || Math.abs(currentRotX - 12) > 0.04 || Math.abs(currentRotY - (-18)) > 0.04) {
                     rafId = requestAnimationFrame(updateTilt);
                 } else {
                     rafId = null;
+                    card.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s';
                 }
             }
+
+            stage.addEventListener('mouseenter', function() {
+                if (window.innerWidth < 992) return;
+                isHovering = true;
+                card.style.transition = 'box-shadow 0.25s'; // CSS animasyon çakışmasını engelle
+                if (!rafId) {
+                    rafId = requestAnimationFrame(updateTilt);
+                }
+            });
 
             stage.addEventListener('mousemove', function(e) {
                 if (window.innerWidth < 992) return;
@@ -2717,19 +2793,20 @@
                 const x = e.clientX - rect.left - rect.width / 2;
                 const y = e.clientY - rect.top - rect.height / 2;
 
-                const maxTilt = 12;
+                const maxTilt = 10;
                 targetRotX = 12 - (y / (rect.height / 2)) * maxTilt;
                 targetRotY = -18 + (x / (rect.width / 2)) * maxTilt;
 
                 if (!rafId) {
                     rafId = requestAnimationFrame(updateTilt);
                 }
-            });
+            }, { passive: true });
 
             stage.addEventListener('mouseleave', function() {
                 isHovering = false;
                 targetRotX = 12;
                 targetRotY = -18;
+                card.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s';
                 if (!rafId) {
                     rafId = requestAnimationFrame(updateTilt);
                 }
@@ -2750,7 +2827,7 @@
             });
         })();
 
-        // GOOGLE ONE SCROLL-DRIVEN DARK IMMERSION TRANSITION (Sıfır Reflow)
+        // GOOGLE ONE SCROLL-DRIVEN DARK IMMERSION TRANSITION (Akıcı 60 FPS)
         (function() {
             const darkStage = document.getElementById('g1DarkScrollStage');
             const darkSection = document.getElementById('isbirliklerimiz');
@@ -2759,6 +2836,9 @@
             let ticking = false;
             let stageTop = 0;
             let stageHeight = 0;
+            let lastScale = null;
+            let lastRadius = null;
+            let lastProg = null;
 
             function updateStageMetrics() {
                 const r = darkStage.getBoundingClientRect();
@@ -2787,11 +2867,22 @@
                 }
                 progress = Math.max(0, Math.min(1, progress));
 
-                const scale = 0.92 + (progress * 0.08);
+                const scale = (0.92 + (progress * 0.08)).toFixed(4);
                 const radius = Math.round(48 - (progress * 20));
-                darkSection.style.setProperty('--g1-dark-scale', scale.toFixed(4));
-                darkSection.style.setProperty('--g1-dark-radius', radius + 'px');
-                darkStage.style.setProperty('--g1-stage-progress', progress.toFixed(3));
+                const progStr = progress.toFixed(3);
+
+                if (scale !== lastScale) {
+                    lastScale = scale;
+                    darkSection.style.setProperty('--g1-dark-scale', scale);
+                }
+                if (radius !== lastRadius) {
+                    lastRadius = radius;
+                    darkSection.style.setProperty('--g1-dark-radius', radius + 'px');
+                }
+                if (progStr !== lastProg) {
+                    lastProg = progStr;
+                    darkStage.style.setProperty('--g1-stage-progress', progStr);
+                }
 
                 if (progress > 0.38) {
                     if (!document.body.classList.contains('g1-dark-scroll-active')) {

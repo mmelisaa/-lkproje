@@ -1,6 +1,97 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
+@{
+    ViewData["Title"] = "Gizlilik ve KVKK Aydınlatma Metni";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="container py-5 my-3">
+    <!-- Breadcrumb -->
+    <div class="d-flex align-items-center gap-2 mb-3">
+        <a asp-controller="Home" asp-action="Index" class="text-decoration-none text-muted small">
+            <i class="bi bi-house-door-fill"></i> Anasayfa
+        </a>
+        <span class="text-muted small">/</span>
+        <span class="text-primary small fw-semibold">Gizlilik &amp; KVKK Politikası</span>
+    </div>
+
+    <!-- Hero Başlık Kartı -->
+    <div class="card border-0 rounded-4 shadow-sm mb-5 overflow-hidden" style="background: linear-gradient(135deg, rgba(11, 87, 208, 0.06) 0%, rgba(99, 102, 241, 0.08) 100%); border: 1px solid rgba(11, 87, 208, 0.15) !important;">
+        <div class="card-body p-4 p-md-5">
+            <div class="row align-items-center gy-4">
+                <div class="col-lg-8">
+                    <span class="badge rounded-pill px-3 py-2 text-primary bg-primary bg-opacity-10 fw-bold mb-3 d-inline-flex align-items-center gap-1.5" style="letter-spacing: 0.5px;">
+                        <i class="bi bi-shield-lock-fill"></i> T.C. 6698 SAYILI KVKK AYDINLATMA METNİ
+                    </span>
+                    <h1 class="display-6 fw-bold text-dark mb-3" style="font-family: 'Google Sans', sans-serif;">
+                        Gizlilik Politikası ve Kişisel Verilerin Korunması
+                    </h1>
+                    <p class="lead text-secondary mb-4" style="font-size: 1.05rem; line-height: 1.7;">
+                        <strong>Hayat İşleri Bilgi Teknolojileri ve Otomasyon San. Tic. Ltd. Şti.</strong> (“Hayat İşleri”), kullanıcılarımızın ve kurumsal bayilerimizin veri güvenliğini en üst seviyede tutmayı temel ilke kabul eder.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a asp-controller="Home" asp-action="CerezPolitikasi" class="btn btn-primary rounded-pill px-4 py-2.5 fw-semibold shadow-sm d-inline-flex align-items-center gap-2">
+                            <i class="bi bi-cookie"></i>
+                            <span>Çerez Politikasını İncele</span>
+                        </a>
+                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4 py-2.5 fw-semibold d-inline-flex align-items-center gap-2" onclick="if(window.HayatCookies) window.HayatCookies.openPreferences();">
+                            <i class="bi bi-sliders2-vertical"></i>
+                            <span>Çerez Tercihlerini Yönet</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center d-none d-lg-block">
+                    <div class="p-4 rounded-4 bg-white shadow-sm border border-light-subtle d-inline-block">
+                        <div class="display-4 text-primary mb-2">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <h6 class="fw-bold mb-1">Veri Güvenliği ve Gizlilik</h6>
+                        <small class="text-muted">Son Güncelleme: 21 Ekim 2026</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Metin Gövdesi -->
+    <div class="card border rounded-4 shadow-sm p-4 p-md-5 bg-body">
+        <section class="mb-5 pb-4 border-bottom">
+            <h3 class="h4 fw-bold mb-3 text-dark">1. Veri Sorumlusunun Kimliği</h3>
+            <p class="text-secondary leading-relaxed">
+                6698 sayılı Kişisel Verilerin Korunması Kanunu (“KVKK”) uyarınca, veri sorumlusu sıfatıyla <strong>Hayat İşleri Bilgi Teknolojileri ve Otomasyon San. Tic. Ltd. Şti.</strong> (Çaydaçıra Mah. / Elazığ), elde edilen kişisel verilerin hukuka uygun olarak işlenmesinden, muhafazasından ve güvenliğinin temininden sorumludur.
+            </p>
+        </section>
+
+        <section class="mb-5 pb-4 border-bottom">
+            <h3 class="h4 fw-bold mb-3 text-dark">2. İşlenen Kişisel Veriler ve İşleme Amaçları</h3>
+            <p class="text-secondary leading-relaxed">
+                Web sitemiz ve B2B portalımız üzerinden toplanan kişisel veriler (Ad, Soyad, Kurumsal E-Posta, Telefon, Firma Unvanı, Vergi Kimlik Numarası, IP ve oturum logları):
+            </p>
+            <ul class="text-secondary small leading-relaxed">
+                <li class="mb-1.5">HiCariTakip ERP, ön muhasebe, barkod ve POS otomasyon sistemlerine ilişkin kurumsal teklif ve destek taleplerinin karşılanması,</li>
+                <li class="mb-1.5">B2B Bayi portalı üyeliklerinin açılması, alt kullanıcı yetkilendirmesi ve güvenli oturum yönetimi,</li>
+                <li class="mb-1.5">3D Secure Sanal POS altyapısı ile sipariş ve cari bakiye tahsilat süreçlerinin yürütülmesi,</li>
+                <li class="mb-1.5">T.C. Vergi Usul Kanunu ve ilgili mevzuat uyarınca e-Fatura / e-Arşiv belgelerinin düzenlenmesi ve arşivlenmesi,</li>
+                <li class="mb-1.5">Bilgi güvenliği süreçlerinin yürütülmesi ve 5651 sayılı Kanun kapsamındaki yasal log tutma yükümlülüklerinin yerine getirilmesi amaçlarıyla işlenmektedir.</li>
+            </ul>
+        </section>
+
+        <section class="mb-5 pb-4 border-bottom">
+            <h3 class="h4 fw-bold mb-3 text-dark">3. Kişisel Verilerin Aktarımı</h3>
+            <p class="text-secondary leading-relaxed">
+                Toplanan kişisel veriler, kanunen yetkili kamu kurum ve kuruluşlarına (GİB, BDDK, adli merciler) ve hizmet ifası için zorunlu olan lisanslı ödeme kuruluşlarına (3D Secure Sanal POS banka altyapısı), güvenli kargo/lojistik firmalarına yasal sınırlar dâhilinde aktarılabilmektedir. Kişisel verileriniz hiçbir surette üçüncü şahıslara ticari amaçlarla satılmaz veya izinsiz devredilmez.
+            </p>
+        </section>
+
+        <section class="mb-5 pb-4 border-bottom">
+            <h3 class="h4 fw-bold mb-3 text-dark">4. Çerezler (Cookies) ve Çerez Yönetimi</h3>
+            <p class="text-secondary leading-relaxed">
+                Web sitemizde yalnızca sitenin çalışması için gereken zorunlu çerezler doğrudan çalıştırılır. Analiz, performans veya reklam verilerini işleyecek çerezler ise kullanıcının açık rızası (“Kabul Et” seçeneği) sonrasında devreye alınır. Detaylı bilgi ve çerez türleri tablosu için lütfen <a asp-controller="Home" asp-action="CerezPolitikasi" class="text-primary fw-semibold">Çerez Politikamızı</a> inceleyiniz.
+            </p>
+        </section>
+
+        <section>
+            <h3 class="h4 fw-bold mb-3 text-dark">5. İlgili Kişi Olarak Haklarınız ve İletişim</h3>
+            <p class="text-secondary leading-relaxed mb-3">
+                KVKK’nın 11. maddesinde sayılan haklarınıza (verilerinizin silinmesi, düzeltilmesi, bilgi talep edilmesi vb.) ilişkin taleplerinizi <a href="mailto:info@hayatisleri.com" class="text-primary fw-semibold">info@hayatisleri.com</a> e-posta adresimize veya <strong>0501 014 66 23</strong> numaralı kurumsal hattımıza iletebilirsiniz.
+            </p>
+        </section>
+    </div>
+</div>

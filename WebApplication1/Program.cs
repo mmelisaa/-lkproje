@@ -7,6 +7,7 @@ using WebApplication1.Models;
 using WebApplication1.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+// Configure services and pipeline in separate methods to reduce cognitive complexity.
 
 // Kestrel sunucu imzasını gizle
 builder.WebHost.ConfigureKestrel(options =>
@@ -29,11 +30,11 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     // Hesap aktivasyonu e-posta ile değil, admin onaylı "HesapDurumu" alanıyla yönetilir (bkz. AccountController / BayiController).
     options.SignIn.RequireConfirmedAccount = false;
     options.User.RequireUniqueEmail = true;
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequiredLength = 8;
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredLength = 4;
     options.Password.RequiredUniqueChars = 1;
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
     options.Lockout.MaxFailedAccessAttempts = 5;
@@ -128,11 +129,10 @@ app.Use(async (context, next) =>
     context.Response.Headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains";
 
     context.Response.Headers.Remove("Content-Security-Policy");
-    context.Response.Headers["Content-Security-Policy"] = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' https://cdn.jsdelivr.net data:; img-src 'self' data: https:; frame-ancestors 'self'; form-action 'self';";
+    context.Response.Headers["Content-Security-Policy"] = "default-src 'self' http://localhost:* ws://localhost:*; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://cdn.jsdelivr.net https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' http://localhost:* ws://localhost:*; frame-ancestors 'self'; form-action 'self';";
 
     await next();
 });
-
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

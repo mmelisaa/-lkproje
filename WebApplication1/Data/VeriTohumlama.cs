@@ -110,19 +110,37 @@ IF COL_LENGTH('AspNetUsers', 'OnaylayanKullanici') IS NULL ALTER TABLE [AspNetUs
 IF COL_LENGTH('AspNetUsers', 'SonGirisTarihi') IS NULL ALTER TABLE [AspNetUsers] ADD [SonGirisTarihi] datetime2 NULL;
 IF COL_LENGTH('AspNetUsers', 'YoneticiNotu') IS NULL ALTER TABLE [AspNetUsers] ADD [YoneticiNotu] nvarchar(500) NULL;
 
+IF COL_LENGTH('AspNetUsers', 'AnaBayiId') IS NULL ALTER TABLE [AspNetUsers] ADD [AnaBayiId] nvarchar(450) NULL;
+IF COL_LENGTH('AspNetUsers', 'Unvan') IS NULL ALTER TABLE [AspNetUsers] ADD [Unvan] nvarchar(100) NULL;
+IF COL_LENGTH('AspNetUsers', 'SifreKriptolu') IS NULL ALTER TABLE [AspNetUsers] ADD [SifreKriptolu] nvarchar(max) NULL;
+IF COL_LENGTH('AspNetUsers', 'IzinFinansSanalPos') IS NULL ALTER TABLE [AspNetUsers] ADD [IzinFinansSanalPos] bit NOT NULL CONSTRAINT DF_AspNetUsers_IzinFinans DEFAULT 0;
+IF COL_LENGTH('AspNetUsers', 'IzinDenetimIzi') IS NULL ALTER TABLE [AspNetUsers] ADD [IzinDenetimIzi] bit NOT NULL CONSTRAINT DF_AspNetUsers_IzinDenetim DEFAULT 0;
+IF COL_LENGTH('AspNetUsers', 'IzinSiparisVeSarf') IS NULL ALTER TABLE [AspNetUsers] ADD [IzinSiparisVeSarf] bit NOT NULL CONSTRAINT DF_AspNetUsers_IzinSiparis DEFAULT 0;
+IF COL_LENGTH('AspNetUsers', 'IzinTeknikServisRma') IS NULL ALTER TABLE [AspNetUsers] ADD [IzinTeknikServisRma] bit NOT NULL CONSTRAINT DF_AspNetUsers_IzinRma DEFAULT 1;
+IF COL_LENGTH('AspNetUsers', 'IzinDestekTalepleri') IS NULL ALTER TABLE [AspNetUsers] ADD [IzinDestekTalepleri] bit NOT NULL CONSTRAINT DF_AspNetUsers_IzinDestek DEFAULT 1;
+IF COL_LENGTH('AspNetUsers', 'IzinFiyatListesi') IS NULL ALTER TABLE [AspNetUsers] ADD [IzinFiyatListesi] bit NOT NULL CONSTRAINT DF_AspNetUsers_IzinFiyat DEFAULT 1;
+IF COL_LENGTH('AspNetUsers', 'IzinKutuphaneDriver') IS NULL ALTER TABLE [AspNetUsers] ADD [IzinKutuphaneDriver] bit NOT NULL CONSTRAINT DF_AspNetUsers_IzinDriver DEFAULT 1;
+IF COL_LENGTH('AspNetUsers', 'IzinProjeFirsat') IS NULL ALTER TABLE [AspNetUsers] ADD [IzinProjeFirsat] bit NOT NULL CONSTRAINT DF_AspNetUsers_IzinProje DEFAULT 1;
+IF COL_LENGTH('AspNetUsers', 'IzinLisanslar') IS NULL ALTER TABLE [AspNetUsers] ADD [IzinLisanslar] bit NOT NULL CONSTRAINT DF_AspNetUsers_IzinLisans DEFAULT 0;
+
 IF COL_LENGTH('SiteMesajlari', 'Durum') IS NULL ALTER TABLE [SiteMesajlari] ADD [Durum] nvarchar(30) NOT NULL CONSTRAINT DF_SiteMesajlari_Durum DEFAULT 'Yeni';
 IF COL_LENGTH('SiteMesajlari', 'AtananKisi') IS NULL ALTER TABLE [SiteMesajlari] ADD [AtananKisi] nvarchar(100) NULL;
 IF COL_LENGTH('SiteMesajlari', 'DahiliNotlar') IS NULL ALTER TABLE [SiteMesajlari] ADD [DahiliNotlar] nvarchar(max) NULL;
 IF COL_LENGTH('SiteMesajlari', 'CevapMetni') IS NULL ALTER TABLE [SiteMesajlari] ADD [CevapMetni] nvarchar(max) NULL;
 IF COL_LENGTH('SiteMesajlari', 'CevapTarihi') IS NULL ALTER TABLE [SiteMesajlari] ADD [CevapTarihi] datetime2 NULL;
 IF COL_LENGTH('SiteMesajlari', 'SonIslemTarihi') IS NULL ALTER TABLE [SiteMesajlari] ADD [SonIslemTarihi] datetime2 NULL;
+IF COL_LENGTH('SiteMesajlari', 'DosyaYolu') IS NULL ALTER TABLE [SiteMesajlari] ADD [DosyaYolu] nvarchar(max) NULL;
+IF COL_LENGTH('SiteMesajlari', 'DosyaAdi') IS NULL ALTER TABLE [SiteMesajlari] ADD [DosyaAdi] nvarchar(255) NULL;
 
-IF OBJECT_ID('DenetimKayitlari', 'U') IS NOT NULL AND COL_LENGTH('DenetimKayitlari', 'Ozet') IS not NULL
+IF OBJECT_ID('DenetimKayitlari', 'U') IS NOT NULL
 BEGIN
-    ALTER TABLE [DenetimKayitlari] ALTER COLUMN [Rol] nvarchar(60) NULL;
-    ALTER TABLE [DenetimKayitlari] ALTER COLUMN [IpAdresi] nvarchar(60) NULL;
-    ALTER TABLE [DenetimKayitlari] ALTER COLUMN [KayitId] nvarchar(60) NULL;
-    ALTER TABLE [DenetimKayitlari] ALTER COLUMN [Ozet] nvarchar(400) NULL;
+    ALTER TABLE [DenetimKayitlari] ALTER COLUMN [Rol] nvarchar(256) NULL;
+    ALTER TABLE [DenetimKayitlari] ALTER COLUMN [IpAdresi] nvarchar(100) NULL;
+    ALTER TABLE [DenetimKayitlari] ALTER COLUMN [KayitId] nvarchar(450) NULL;
+    ALTER TABLE [DenetimKayitlari] ALTER COLUMN [Ozet] nvarchar(max) NULL;
+    ALTER TABLE [DenetimKayitlari] ALTER COLUMN [Eylem] nvarchar(100) NOT NULL;
+    ALTER TABLE [DenetimKayitlari] ALTER COLUMN [KullaniciAdi] nvarchar(256) NOT NULL;
+    ALTER TABLE [DenetimKayitlari] ALTER COLUMN [TabloAdi] nvarchar(150) NOT NULL;
 END;
 
 IF OBJECT_ID('DenetimKayitlari', 'U') IS NOT NULL AND COL_LENGTH('DenetimKayitlari', 'BilgisayarCihaz') IS NULL
@@ -135,14 +153,14 @@ BEGIN
     CREATE TABLE [DenetimKayitlari] (
         [Id] int NOT NULL IDENTITY(1,1) PRIMARY KEY,
         [Zaman] datetime2 NOT NULL,
-        [KullaniciAdi] nvarchar(100) NOT NULL,
-        [Rol] nvarchar(60) NULL,
-        [IpAdresi] nvarchar(60) NULL,
+        [KullaniciAdi] nvarchar(256) NOT NULL,
+        [Rol] nvarchar(256) NULL,
+        [IpAdresi] nvarchar(100) NULL,
         [BilgisayarCihaz] nvarchar(250) NULL,
-        [Eylem] nvarchar(40) NOT NULL,
-        [TabloAdi] nvarchar(80) NOT NULL,
-        [KayitId] nvarchar(60) NULL,
-        [Ozet] nvarchar(400) NULL,
+        [Eylem] nvarchar(100) NOT NULL,
+        [TabloAdi] nvarchar(150) NOT NULL,
+        [KayitId] nvarchar(450) NULL,
+        [Ozet] nvarchar(max) NULL,
         [EskiDeger] nvarchar(max) NULL,
         [YeniDeger] nvarchar(max) NULL
     );

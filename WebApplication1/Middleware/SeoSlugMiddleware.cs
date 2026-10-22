@@ -38,8 +38,7 @@ namespace WebApplication1.Middleware
                         var eskiYol = kayitlar.FirstOrDefault(k => string.Equals("/" + k.SayfaKodu, yol.TrimEnd('/'), StringComparison.OrdinalIgnoreCase));
                         if (eskiYol != null)
                         {
-                            context.Response.StatusCode = StatusCodes.Status301MovedPermanently;
-                            context.Response.Headers.Location = "/" + eskiYol.Slug + context.Request.QueryString;
+                            context.Response.Redirect("/" + eskiYol.Slug + context.Request.QueryString, permanent: true);
                             return;
                         }
                     }

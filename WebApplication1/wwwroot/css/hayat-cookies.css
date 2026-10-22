@@ -1,0 +1,423 @@
+/* ==========================================================================
+   HAYAT İŞLERİ - 6698 SAYILI KVKK & ÇEREZ YÖNETİM SİSTEMİ STİLLERİ
+   Google Sans Tipografisi | Glassmorphism | Açık/Koyu Mod Uyumlu
+   ========================================================================== */
+
+/* 1. Yüzen Çerez Bildirim Banner'ı */
+.hayat-cookie-banner-wrap {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    max-width: 460px;
+    width: calc(100% - 32px);
+    z-index: 1060;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+    opacity: 0;
+    transform: translateY(30px);
+    pointer-events: none;
+    font-family: 'Google Sans', 'Google Sans Text', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.hayat-cookie-banner-wrap.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.hayat-cookie-banner {
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(11, 87, 208, 0.16);
+    border-radius: 20px;
+    box-shadow: 0 16px 40px rgba(11, 87, 208, 0.12), 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 1.4rem 1.4rem 1.2rem 1.4rem;
+    color: #1f1f1f;
+}
+
+.hayat-cookie-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.65rem;
+}
+
+.hayat-cookie-icon-box {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #0b57d0 0%, #38bdf8 100%);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(11, 87, 208, 0.25);
+}
+
+.hayat-cookie-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0;
+    color: #0b57d0;
+    letter-spacing: -0.2px;
+}
+
+.hayat-cookie-badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 12px;
+    background: rgba(11, 87, 208, 0.1);
+    color: #0b57d0;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.hayat-cookie-text {
+    font-size: 0.86rem;
+    line-height: 1.55;
+    color: #4b5563;
+    margin-bottom: 1rem;
+}
+
+.hayat-cookie-text a {
+    color: #0b57d0;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.hayat-cookie-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.hayat-cookie-btn-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+}
+
+.hayat-cookie-btn {
+    border: none;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 0.84rem;
+    font-weight: 600;
+    padding: 0.65rem 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.hayat-cookie-btn-primary {
+    background: #0b57d0;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(11, 87, 208, 0.25);
+}
+
+.hayat-cookie-btn-primary:hover {
+    background: #0842a0;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(11, 87, 208, 0.35);
+}
+
+.hayat-cookie-btn-secondary {
+    background: rgba(11, 87, 208, 0.08);
+    color: #0b57d0;
+    border: 1px solid rgba(11, 87, 208, 0.15);
+}
+
+.hayat-cookie-btn-secondary:hover {
+    background: rgba(11, 87, 208, 0.14);
+    color: #0842a0;
+}
+
+.hayat-cookie-btn-outline {
+    background: transparent;
+    color: #4b5563;
+    border: 1px solid #d1d5db;
+}
+
+.hayat-cookie-btn-outline:hover {
+    background: rgba(0, 0, 0, 0.04);
+    color: #1f1f1f;
+    border-color: #9ca3af;
+}
+
+/* 2. Sol Alt Çerez Tercihleri Rozet Butonu (Kalıcı Rıza Yönetimi) */
+.hayat-cookie-floating-trigger {
+    position: fixed;
+    bottom: 84px;
+    left: 20px;
+    z-index: 1045;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(11, 87, 208, 0.2);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+    color: #0b57d0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hayat-cookie-floating-trigger:hover {
+    transform: scale(1.08) rotate(12deg);
+    background: #0b57d0;
+    color: #ffffff;
+    box-shadow: 0 6px 22px rgba(11, 87, 208, 0.35);
+}
+
+/* 3. Çerez Tercihleri Modalı */
+.hayat-cookie-modal .modal-content {
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(11, 87, 208, 0.16);
+    border-radius: 24px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2);
+    font-family: 'Google Sans', 'Google Sans Text', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.hayat-cookie-modal .modal-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    padding: 1.25rem 1.5rem;
+}
+
+.hayat-cookie-modal .modal-footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    padding: 1rem 1.5rem;
+    background: rgba(248, 250, 252, 0.6);
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 24px;
+}
+
+.hayat-cookie-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 1.1rem;
+    margin-bottom: 0.85rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hayat-cookie-card:hover {
+    border-color: rgba(11, 87, 208, 0.35);
+    box-shadow: 0 4px 14px rgba(11, 87, 208, 0.06);
+}
+
+.hayat-cookie-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.4rem;
+}
+
+.hayat-cookie-card-title {
+    font-size: 0.96rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.hayat-cookie-card-desc {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: #6b7280;
+    margin: 0;
+}
+
+.hayat-cookie-switch-label {
+    position: relative;
+    display: inline-block;
+    width: 46px;
+    height: 24px;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.hayat-cookie-switch-label input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.hayat-cookie-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cbd5e1;
+    transition: 0.25s;
+    border-radius: 24px;
+}
+
+.hayat-cookie-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.25s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+input:checked + .hayat-cookie-slider {
+    background-color: #0b57d0;
+}
+
+input:focus + .hayat-cookie-slider {
+    box-shadow: 0 0 1px #0b57d0;
+}
+
+input:checked + .hayat-cookie-slider:before {
+    transform: translateX(22px);
+}
+
+input:disabled + .hayat-cookie-slider {
+    background-color: #0b57d0;
+    opacity: 0.75;
+    cursor: not-allowed;
+}
+
+/* 4. Koyu Mod (Dark Theme) Desteği */
+html[data-theme="dark"] .hayat-cookie-banner {
+    background: rgba(15, 23, 42, 0.94);
+    border-color: rgba(138, 180, 248, 0.28);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(66, 133, 244, 0.15);
+    color: #f8fafc;
+}
+
+html[data-theme="dark"] .hayat-cookie-title {
+    color: #8ab4f8;
+}
+
+html[data-theme="dark"] .hayat-cookie-badge {
+    background: rgba(138, 180, 248, 0.18);
+    color: #8ab4f8;
+}
+
+html[data-theme="dark"] .hayat-cookie-text {
+    color: #cbd5e1;
+}
+
+html[data-theme="dark"] .hayat-cookie-text a {
+    color: #8ab4f8;
+}
+
+html[data-theme="dark"] .hayat-cookie-btn-primary {
+    background: #8ab4f8;
+    color: #0f172a;
+}
+
+html[data-theme="dark"] .hayat-cookie-btn-primary:hover {
+    background: #a8c7fa;
+    color: #0f172a;
+}
+
+html[data-theme="dark"] .hayat-cookie-btn-secondary {
+    background: rgba(138, 180, 248, 0.12);
+    color: #8ab4f8;
+    border-color: rgba(138, 180, 248, 0.25);
+}
+
+html[data-theme="dark"] .hayat-cookie-btn-secondary:hover {
+    background: rgba(138, 180, 248, 0.2);
+    color: #d3e3fd;
+}
+
+html[data-theme="dark"] .hayat-cookie-btn-outline {
+    background: transparent;
+    color: #cbd5e1;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+html[data-theme="dark"] .hayat-cookie-btn-outline:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+}
+
+html[data-theme="dark"] .hayat-cookie-floating-trigger {
+    background: rgba(30, 41, 59, 0.92);
+    border-color: rgba(138, 180, 248, 0.3);
+    color: #8ab4f8;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+}
+
+html[data-theme="dark"] .hayat-cookie-floating-trigger:hover {
+    background: #8ab4f8;
+    color: #0f172a;
+}
+
+html[data-theme="dark"] .hayat-cookie-modal .modal-content {
+    background: rgba(15, 23, 42, 0.96);
+    border-color: rgba(138, 180, 248, 0.28);
+    color: #f8fafc;
+}
+
+html[data-theme="dark"] .hayat-cookie-modal .modal-header,
+html[data-theme="dark"] .hayat-cookie-modal .modal-footer {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+html[data-theme="dark"] .hayat-cookie-modal .modal-footer {
+    background: rgba(22, 30, 49, 0.7);
+}
+
+html[data-theme="dark"] .hayat-cookie-card {
+    background: rgba(30, 41, 59, 0.7);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+html[data-theme="dark"] .hayat-cookie-card:hover {
+    border-color: rgba(138, 180, 248, 0.4);
+}
+
+html[data-theme="dark"] .hayat-cookie-card-title {
+    color: #f1f5f9;
+}
+
+html[data-theme="dark"] .hayat-cookie-card-desc {
+    color: #94a3b8;
+}
+
+@media (max-width: 576px) {
+    .hayat-cookie-banner-wrap {
+        bottom: 74px; /* sticky bar üzerinde kalsın */
+        right: 12px;
+        left: 12px;
+        width: auto;
+    }
+    .hayat-cookie-btn-group {
+        grid-template-columns: 1fr;
+    }
+    .hayat-cookie-floating-trigger {
+        bottom: 80px;
+        left: 12px;
+        width: 38px;
+        height: 38px;
+        font-size: 1.1rem;
+    }
+}

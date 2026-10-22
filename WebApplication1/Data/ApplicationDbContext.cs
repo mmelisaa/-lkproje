@@ -210,8 +210,8 @@ namespace WebApplication1.Data
                     BilgisayarCihaz = cihaz,
                     Eylem = t.Eylem,
                     TabloAdi = t.Tablo,
-                    KayitId = id,
-                    Ozet = ozet.Length > 590 ? ozet[..590] : ozet,
+                    KayitId = id != null && id.Length > 400 ? id[..400] : id,
+                    Ozet = ozet,
                     EskiDeger = t.Eski,
                     YeniDeger = t.Yeni
                 });

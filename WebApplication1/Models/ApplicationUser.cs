@@ -33,6 +33,57 @@ namespace WebApplication1.Models
         public string? OnaylayanKullanici { get; set; }
         public DateTime? SonGirisTarihi { get; set; }
         public string? YoneticiNotu { get; set; }
+
+        // =====================================================================
+        // BAYİ ALT KULLANICI (SUB-USER) HİYERARŞİSİ VE GÜVENLİK
+        // =====================================================================
+        /// <summary>
+        /// Eğer bu kullanıcı bir alt kullanıcı ise, bağlı olduğu ana bayinin User.Id değeri.
+        /// Boş ise bu kullanıcı Ana Bayi (Master User) rolündedir.
+        /// </summary>
+        public string? AnaBayiId { get; set; }
+
+        public bool IsAltKullanici => !string.IsNullOrEmpty(AnaBayiId);
+
+        /// <summary>Alt kullanıcının görev veya departman unvanı (Örn: Muhasebe Yetkilisi, Depo Sorumlusu, Saha Satış vb.)</summary>
+        public string? Unvan { get; set; }
+
+        /// <summary>
+        /// Şifre unutulduğunda Admin'in bayiye güvenle iletebilmesi için AES-256 ile şifrelenmiş parola.
+        /// Kesinlikle düz metin (plain text) olarak tutulmaz.
+        /// </summary>
+        public string? SifreKriptolu { get; set; }
+
+        // =====================================================================
+        // AYRINTILI MODÜL VE MENÜ ERİŞİM İZİNLERİ (GRANULAR PERMISSIONS)
+        // Yalnızca Ana Bayi yetkisi ile yönetilir.
+        // =====================================================================
+        /// <summary>Cari bakiye, fatura ekstresi ve 3D Secure Sanal POS ödemesi izni (Varsayılan: Kapalı)</summary>
+        public bool IzinFinansSanalPos { get; set; } = false;
+
+        /// <summary>Giriş ve işlem denetim izi (Audit Log) görme izni (Varsayılan: Kapalı)</summary>
+        public bool IzinDenetimIzi { get; set; } = false;
+
+        /// <summary>Sarf malzeme, donanım satın alma ve hızlı sepet siparişi verme izni (Varsayılan: Kapalı)</summary>
+        public bool IzinSiparisVeSarf { get; set; } = false;
+
+        /// <summary>Teknik Servis ve Arızalı Cihaz (RMA) kaydı açma / takip izni</summary>
+        public bool IzinTeknikServisRma { get; set; } = true;
+
+        /// <summary>Destek talebi (Ticket) oluşturma ve yanıtlaşma izni</summary>
+        public bool IzinDestekTalepleri { get; set; } = true;
+
+        /// <summary>B2B İskontolu Fiyat Listesini inceleme izni</summary>
+        public bool IzinFiyatListesi { get; set; } = true;
+
+        /// <summary>Yazılım, Sürücü (Driver) & SDK Kütüphanesine erişim ve indirme izni</summary>
+        public bool IzinKutuphaneDriver { get; set; } = true;
+
+        /// <summary>Fırsat ve Proje Kaydı oluşturma izni</summary>
+        public bool IzinProjeFirsat { get; set; } = true;
+
+        /// <summary>Alt Müşteri ve Lisans yönetimi izni</summary>
+        public bool IzinLisanslar { get; set; } = false;
     }
 
     public static class HesapDurumlari

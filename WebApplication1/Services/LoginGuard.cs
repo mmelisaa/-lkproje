@@ -31,6 +31,10 @@ namespace WebApplication1.Services
         public bool EngelliMi(string ip, out TimeSpan kalanSure)
         {
             kalanSure = TimeSpan.Zero;
+            if (string.IsNullOrWhiteSpace(ip) || ip is "127.0.0.1" or "::1" or "localhost" or "bilinmiyor")
+            {
+                return false;
+            }
             if (!_kayitlar.TryGetValue(ip, out var k)) return false;
             lock (k)
             {

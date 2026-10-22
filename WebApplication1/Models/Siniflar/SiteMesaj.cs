@@ -18,6 +18,12 @@ namespace WebApplication1.Models.Siniflar
         public string? Pozisyon { get; set; }
         public string? OnYazi { get; set; }
 
+        /// <summary>Yüklenen CV veya görsel dosyasının web yolu (/uploads/cv/...)</summary>
+        public string? DosyaYolu { get; set; }
+
+        /// <summary>Yüklenen dosyanın orijinal adı (Örn: Ahmet_Yilmaz_CV.pdf)</summary>
+        public string? DosyaAdi { get; set; }
+
         /// <summary>
         /// İletişim, İşBaşvurusu, TeklifTalebi, İşbirliği
         /// </summary>

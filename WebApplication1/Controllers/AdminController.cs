@@ -37,10 +37,15 @@ namespace WebApplication1.Controllers
         {
             base.OnActionExecuting(context);
 
-            var sessionOk = HttpContext.Session.GetString("AdminGirisYapildi") == "true";
-            if (!sessionOk || User.Identity?.IsAuthenticated != true)
+            if (User.Identity?.IsAuthenticated != true || !Roller.PersonelMi(User))
             {
                 context.Result = new RedirectToActionResult("Login", "Account", new { returnUrl = HttpContext.Request.Path.Value });
+                return;
+            }
+
+            if (HttpContext.Session.GetString("AdminGirisYapildi") != "true")
+            {
+                HttpContext.Session.SetString("AdminGirisYapildi", "true");
             }
         }
 
@@ -253,6 +258,61 @@ namespace WebApplication1.Controllers
             return RedirectToAction(nameof(MesajListesi));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> BasvuruDosyasiGoruntule(int id)
+        {
+            var mesaj = await _context.SiteMesajlari.FindAsync(id);
+            if (mesaj == null || string.IsNullOrEmpty(mesaj.DosyaYolu))
+                return NotFound("Özgeçmiş / başvuru dosyası bulunamadı.");
+
+            var cleanPath = mesaj.DosyaYolu.TrimStart('/', '\\').Replace('/', Path.DirectorySeparatorChar);
+            var physicalPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", cleanPath);
+
+            if (!System.IO.File.Exists(physicalPath))
+                return NotFound("Dosya sunucu diskinde bulunamadı.");
+
+            var ext = Path.GetExtension(physicalPath).ToLowerInvariant();
+            var contentType = ext switch
+            {
+                ".pdf" => "application/pdf",
+                ".jpg" or ".jpeg" => "image/jpeg",
+                ".png" => "image/png",
+                ".doc" => "application/msword",
+                ".docx" => "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                _ => "application/octet-stream"
+            };
+
+            return PhysicalFile(physicalPath, contentType);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> BasvuruDosyasiIndir(int id)
+        {
+            var mesaj = await _context.SiteMesajlari.FindAsync(id);
+            if (mesaj == null || string.IsNullOrEmpty(mesaj.DosyaYolu))
+                return NotFound("Özgeçmiş / başvuru dosyası bulunamadı.");
+
+            var cleanPath = mesaj.DosyaYolu.TrimStart('/', '\\').Replace('/', Path.DirectorySeparatorChar);
+            var physicalPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", cleanPath);
+
+            if (!System.IO.File.Exists(physicalPath))
+                return NotFound("Dosya sunucu diskinde bulunamadı.");
+
+            var ext = Path.GetExtension(physicalPath).ToLowerInvariant();
+            var contentType = ext switch
+            {
+                ".pdf" => "application/pdf",
+                ".jpg" or ".jpeg" => "image/jpeg",
+                ".png" => "image/png",
+                ".doc" => "application/msword",
+                ".docx" => "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                _ => "application/octet-stream"
+            };
+
+            var downloadName = !string.IsNullOrEmpty(mesaj.DosyaAdi) ? mesaj.DosyaAdi : Path.GetFileName(physicalPath);
+            return PhysicalFile(physicalPath, contentType, downloadName);
+        }
+
         // ============ BLOG YÖNETİMİ ============
         public async Task<IActionResult> BlogListesi()
         {
@@ -460,7 +520,7 @@ namespace WebApplication1.Controllers
         {
             ViewBag.SeciliModul = modul;
 
-            if (modul == "RmaServis" || modul == "SeriNoTakip" || modul == "CihazYasamDongusu" || modul == "GarantiBakim")
+            if (modul == "RmaServis" || modul == "SeriNoTakip" || modul == "CihazYasamDongusu" || modul == "GarantiBakim" || modul == "KritikStok" || modul == "DepoLokasyonYonetimi")
             {
                 ViewBag.RmaKayitlari = _context.RmaKayitlari
                     .Include(r => r.Hareketler)
@@ -593,6 +653,90 @@ namespace WebApplication1.Controllers
             await _context.SaveChangesAsync();
             TempData["Mesaj"] = $"{rma.RmaNo} servis kaydı güncellendi (Konum: {konum}, Durum: {durum}).";
             return RedirectToAction(nameof(KurumsalModuller), new { modul = "RmaServis" });
+        }
+
+        // ============ DONANIM TEKNİK SERVİS FORMU (RESMİ RMA FORMU & YAZDIR / PDF) ============
+        [HttpGet]
+        [Route("Admin/ServisFormu")]
+        [Route("Admin/RmaServisFormuPdf")]
+        public async Task<IActionResult> ServisFormu(string? sn, string? rmaNo)
+        {
+            RmaKaydi? kayit = null;
+            if (!string.IsNullOrWhiteSpace(rmaNo))
+            {
+                kayit = await _context.RmaKayitlari.Include(r => r.Hareketler).FirstOrDefaultAsync(r => r.RmaNo == rmaNo);
+            }
+            if (kayit == null && !string.IsNullOrWhiteSpace(sn))
+            {
+                kayit = await _context.RmaKayitlari.Include(r => r.Hareketler).FirstOrDefaultAsync(r => r.SeriNo == sn);
+            }
+
+            if (kayit == null)
+            {
+                var seri = string.IsNullOrWhiteSpace(sn) ? "ZBR-ZT411-984210" : sn.Trim();
+                var rmaKod = string.IsNullOrWhiteSpace(rmaNo) ? $"RMA-{DateTime.Now.Year}-0042" : rmaNo.Trim();
+                kayit = new RmaKaydi
+                {
+                    RmaNo = rmaKod,
+                    SeriNo = seri,
+                    CihazModeli = seri.Contains("ZT411") ? "Zebra ZT411 Endüstriyel Barkod Yazıcı" :
+                                  (seri.Contains("SUN") || seri.Contains("D2") ? "Sunmi D2s Plus Dokunmatik POS Terminali" :
+                                  (seri.Contains("DAT") || seri.Contains("M10") ? "Datalogic Memor 10 El Terminali" : "Kurumsal Barkod / POS Donanımı")),
+                    MusteriAdi = seri.Contains("ZT411") ? "Doğu Lojistik Dağıtım A.Ş." :
+                                 (seri.Contains("SUN") ? "Fırat Perakende Zinciri" :
+                                 (seri.Contains("DAT") ? "Harput Toptan Gıda Ltd." : "Hayat İşleri Kurumsal İş Ortağı")),
+                    Telefon = "0501 014 6623",
+                    Eposta = "destek@hayatisleri.com",
+                    ArizaAciklamasi = seri.Contains("SUN") ? "Dokunmatik ekranda algılama gecikmesi ve 80mm fiş yazıcı kafasında aşınma." :
+                                      (seri.Contains("ZT411") ? "Baskıda yatay çizgiler oluşuyor, ribon sarma mili periyodik kalibrasyon ihtiyacı." :
+                                      "Cihaz genel donanım muayenesi, 2D lazer okuyucu kalibrasyonu ve batarya performans testi."),
+                    Teshis = seri.Contains("SUN") ? "Dokunmatik sayısallaştırıcı kontrol entegresi ve Seiko termal kafa modülü test edildi; orijinal yedek parça montajı tamamlandı." :
+                             (seri.Contains("ZT411") ? "Termal transfer 203 DPI baskı kafası ve çekici silindir rulo temizlendi, mikron seviye kalibrasyon uygulandı." :
+                             "BTK IMEI onay kontrolü, Android OS güvenlik yaması ve 2D optik lazer cam temizliği yapıldı."),
+                    GarantiKapsaminda = true,
+                    GarantiBitisTarihi = DateTime.Now.AddDays(268),
+                    GarantiNotu = "Resmi distribütör garantisi kapsamında parça ve işçilik bedelsiz karşılanmıştır.",
+                    Cozum = seri.Contains("SUN") ? "Parça Değişimi" : "Onarım & Kalibrasyon",
+                    DegisenParca = seri.Contains("SUN") ? "80mm Termal Kafa Modülü + Dokunmatik Cam Panel" : "Termal Kafa P1058930-009",
+                    Ucret = 0m,
+                    Durum = seri.Contains("SUN") ? "RMA: Termal Kafa Değişimi" : "Teslime Hazır",
+                    Konum = seri.Contains("SUN") ? "Teknik Servis Raf B-04" : "Merkez Servis (Elazığ)",
+                    KargoYonu = "Kargo Yok",
+                    KargoFirmasi = "Yurtiçi Kargo",
+                    KargoTakipNo = "YK-98412033",
+                    KargoTarihi = DateTime.Now.AddDays(-1),
+                    AtananTeknisyen = "Emre Can (Kıdemli Donanım Uzmanı)",
+                    KabulTarihi = DateTime.Now.AddDays(-3),
+                    TahminiTeslimTarihi = DateTime.Now.AddDays(1),
+                    SonGuncelleme = DateTime.Now
+                };
+                kayit.Hareketler.Add(new RmaHareket
+                {
+                    Zaman = DateTime.Now.AddDays(-3),
+                    Durum = "Teslim Alındı",
+                    Konum = "Merkez Servis (Elazığ)",
+                    Aciklama = "Cihaz servis kabul masasına alındı, seri no ve barkod eşleştirmesi yapıldı.",
+                    Kullanici = "servis_kabul"
+                });
+                kayit.Hareketler.Add(new RmaHareket
+                {
+                    Zaman = DateTime.Now.AddDays(-2),
+                    Durum = "Arıza Teşhisinde",
+                    Konum = "Merkez Servis (Elazığ)",
+                    Aciklama = "Donanım teşhis testleri tamamlandı, garanti kapsamında parça temini onaylandı.",
+                    Kullanici = "emre_can"
+                });
+                kayit.Hareketler.Add(new RmaHareket
+                {
+                    Zaman = DateTime.Now.AddDays(-1),
+                    Durum = "Onarımda",
+                    Konum = "Merkez Servis (Elazığ)",
+                    Aciklama = "Orijinal yedek parça montajı yapıldı; 50 adet ardışık test baskısı başarıyla sonuçlandı.",
+                    Kullanici = "emre_can"
+                });
+            }
+
+            return View("ServisFormu", kayit);
         }
 
         // ============ DİNAMİK SEO & SLUG YÖNETİMİ ============
@@ -787,8 +931,9 @@ namespace WebApplication1.Controllers
         [Route("Admin/Kampanyalar/Index")]
         public IActionResult Kampanyalar() => KurumsalModuller("Kampanyalar");
 
+        [Route("Admin/KampanyaBasvurulari")]
         [Route("Admin/KampanyaBasvurulari/Index")]
-        public IActionResult KampanyaBasvurulari() => KurumsalModuller("KampanyaBasvurulari");
+        public IActionResult KampanyaBasvurulari() => RedirectToAction(nameof(MesajListesi), new { filtre = "Kampanya Talebi" });
 
         [Route("Admin/DestekTalepleri/Index")]
         public IActionResult DestekTalepleri() => KurumsalModuller("DestekTalepleri");
@@ -1406,6 +1551,273 @@ namespace WebApplication1.Controllers
 
             return RedirectToAction(nameof(BayiYonetimMerkezi), new { tab = "eskimusteriler" });
         }
+
+        // ============ DEMO CİHAZ TALEPLERİ YÖNETİMİ ============
+        public IActionResult DemoTalepleri(string? q, string? durum)
+        {
+            var list = BayiOperasyonVeriHavuzu.GetDemoTalepleri(q, durum);
+            ViewBag.ArananKelime = q;
+            ViewBag.SecilenDurum = durum ?? "hepsi";
+            return View(list);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DemoTalepGuncelle(string talepNo, string durum, string? kargoTakipNo, string? adminNotu)
+        {
+            var talep = BayiOperasyonVeriHavuzu.DemoTalepleri.FirstOrDefault(d => d.TalepNo == talepNo);
+            if (talep != null)
+            {
+                talep.Durum = durum;
+                if (!string.IsNullOrWhiteSpace(kargoTakipNo)) talep.KargoTakipNo = kargoTakipNo.Trim();
+                if (!string.IsNullOrWhiteSpace(adminNotu)) talep.AdminNotu = adminNotu.Trim();
+
+                var ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "bilinmiyor";
+                var ua = Request.Headers.UserAgent.ToString();
+                var cihaz = ApplicationDbContext.CihazBilgisiCoz(ua, ip);
+
+                _context.DenetimKayitlari.Add(new DenetimKaydi
+                {
+                    Zaman = DateTime.Now,
+                    KullaniciAdi = User.Identity?.Name ?? "admin",
+                    Rol = "Admin",
+                    IpAdresi = ip,
+                    BilgisayarCihaz = cihaz,
+                    Eylem = "DemoCihazTalepGuncelleme",
+                    TabloAdi = "DemoTalepleri",
+                    KayitId = talep.TalepNo,
+                    Ozet = $"'{talep.BayiAdi}' firmasının {talep.CihazModeli} demo talebi güncellendi. Yeni Durum: {durum}",
+                    YeniDeger = $"Kargo: {talep.KargoTakipNo} | Not: {adminNotu}"
+                });
+
+                await _context.SaveChangesAsync();
+                TempData["AdminBasari"] = $"{talep.TalepNo} nolu demo cihaz talebi başarıyla güncellendi.";
+            }
+            return RedirectToAction(nameof(DemoTalepleri));
+        }
+
+        // ============ PAZARLAMA MATERYALLERİ YÖNETİMİ ============
+        public IActionResult PazarlamaMateryalleri()
+        {
+            var list = BayiOperasyonVeriHavuzu.GetPazarlamaMateryalleri();
+            return View(list);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult PazarlamaMateryalEkle(string baslik, string tur, string format, string boyut, string onizlemeUrl)
+        {
+            if (!string.IsNullOrWhiteSpace(baslik))
+            {
+                var yeni = new AdminPazarlamaMateryalKaydi
+                {
+                    Id = "PM-" + (BayiOperasyonVeriHavuzu.PazarlamaMateryalleri.Count + 1).ToString("D3"),
+                    Baslik = baslik.Trim(),
+                    Tur = string.IsNullOrWhiteSpace(tur) ? "Katalog" : tur.Trim(),
+                    Format = string.IsNullOrWhiteSpace(format) ? "PDF" : format.Trim(),
+                    Boyut = string.IsNullOrWhiteSpace(boyut) ? "15.0 MB" : boyut.Trim(),
+                    OnizlemeUrl = string.IsNullOrWhiteSpace(onizlemeUrl) ? "/images/donanim.jpg" : onizlemeUrl.Trim(),
+                    DosyaUrl = string.IsNullOrWhiteSpace(onizlemeUrl) ? "/images/donanim.jpg" : onizlemeUrl.Trim(),
+                    EklenmeTarihi = DateTime.Now
+                };
+
+                lock (BayiOperasyonVeriHavuzu.PazarlamaMateryalleri)
+                {
+                    BayiOperasyonVeriHavuzu.PazarlamaMateryalleri.Insert(0, yeni);
+                }
+
+                TempData["AdminBasari"] = $"'{yeni.Baslik}' pazarlama materyali başarıyla eklendi.";
+            }
+            return RedirectToAction(nameof(PazarlamaMateryalleri));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult PazarlamaMateryalSil(string id)
+        {
+            var mat = BayiOperasyonVeriHavuzu.PazarlamaMateryalleri.FirstOrDefault(p => p.Id == id);
+            if (mat != null)
+            {
+                lock (BayiOperasyonVeriHavuzu.PazarlamaMateryalleri)
+                {
+                    BayiOperasyonVeriHavuzu.PazarlamaMateryalleri.Remove(mat);
+                }
+                TempData["AdminBasari"] = $"'{mat.Baslik}' pazarlama materyali silindi.";
+            }
+            return RedirectToAction(nameof(PazarlamaMateryalleri));
+        }
+
+        // ============ BAYİ ALT KULLANICILARI & ŞİFRE YÖNETİMİ ============
+        public async Task<IActionResult> BayiAltKullanicilari(string? bayiId, string? q)
+        {
+            var subUsersQuery = _userManager.Users.Where(u => !string.IsNullOrEmpty(u.AnaBayiId));
+
+            if (!string.IsNullOrWhiteSpace(bayiId))
+            {
+                subUsersQuery = subUsersQuery.Where(u => u.AnaBayiId == bayiId);
+            }
+
+            var subUsers = await subUsersQuery.OrderByDescending(u => u.KayitTarihi).ToListAsync();
+
+            var anaBayiIds = subUsers.Select(u => u.AnaBayiId).Distinct().ToList();
+            var anaBayiler = await _userManager.Users
+                .Where(u => anaBayiIds.Contains(u.Id))
+                .ToDictionaryAsync(u => u.Id, u => u);
+
+            var list = new List<AdminAltKullaniciGorunumModel>();
+            foreach (var su in subUsers)
+            {
+                anaBayiler.TryGetValue(su.AnaBayiId ?? "", out var ana);
+
+                if (!string.IsNullOrWhiteSpace(q))
+                {
+                    var kw = q.ToLowerInvariant();
+                    var match = (su.AdSoyad != null && su.AdSoyad.ToLowerInvariant().Contains(kw)) ||
+                                (su.Email != null && su.Email.ToLowerInvariant().Contains(kw)) ||
+                                (su.PhoneNumber != null && su.PhoneNumber.Contains(kw)) ||
+                                (su.Unvan != null && su.Unvan.ToLowerInvariant().Contains(kw)) ||
+                                (ana != null && ((ana.FirmaAdi != null && ana.FirmaAdi.ToLowerInvariant().Contains(kw)) ||
+                                                 (ana.CariKodu != null && ana.CariKodu.ToLowerInvariant().Contains(kw))));
+                    if (!match) continue;
+                }
+
+                list.Add(new AdminAltKullaniciGorunumModel
+                {
+                    Id = su.Id,
+                    AnaBayiId = su.AnaBayiId ?? "",
+                    AnaBayiFirmaAdi = ana?.FirmaAdi ?? ana?.AdSoyad ?? "Ana Bayi",
+                    AnaBayiCariKodu = ana?.CariKodu ?? "-",
+                    AdSoyad = su.AdSoyad ?? "-",
+                    Eposta = su.Email ?? "-",
+                    Telefon = su.PhoneNumber ?? "-",
+                    Unvan = su.Unvan ?? "Alt Kullanıcı",
+                    Aktif = su.HesapDurumu == HesapDurumlari.Aktif,
+                    KayitTarihi = su.KayitTarihi,
+                    SonGirisTarihi = su.SonGirisTarihi,
+                    SifreKriptolu = su.SifreKriptolu ?? "",
+                    IzinFinansSanalPos = su.IzinFinansSanalPos,
+                    IzinDenetimIzi = su.IzinDenetimIzi,
+                    IzinSiparisVeSarf = su.IzinSiparisVeSarf,
+                    IzinTeknikServisRma = su.IzinTeknikServisRma,
+                    IzinDestekTalepleri = su.IzinDestekTalepleri,
+                    IzinFiyatListesi = su.IzinFiyatListesi,
+                    IzinKutuphaneDriver = su.IzinKutuphaneDriver,
+                    IzinProjeFirsat = su.IzinProjeFirsat
+                });
+            }
+
+            ViewBag.AnaBayiler = await _userManager.Users
+                .Where(u => string.IsNullOrEmpty(u.AnaBayiId) && u.HesapDurumu == HesapDurumlari.Aktif)
+                .OrderBy(u => u.FirmaAdi)
+                .Select(u => new { u.Id, Firma = u.FirmaAdi ?? u.AdSoyad, Cari = u.CariKodu })
+                .ToListAsync();
+
+            ViewBag.SeciliBayiId = bayiId;
+            ViewBag.Arama = q;
+
+            return View(list);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AltKullaniciSifreCoz(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null || string.IsNullOrEmpty(user.AnaBayiId))
+            {
+                return Json(new { success = false, message = "Alt kullanıcı kaydı bulunamadı." });
+            }
+
+            if (string.IsNullOrEmpty(user.SifreKriptolu))
+            {
+                return Json(new { success = false, message = "Kullanıcıya ait şifrelenmiş kayıt bulunamadı." });
+            }
+
+            var decrypted = SubUserSecurityService.DecryptPassword(user.SifreKriptolu);
+            if (string.IsNullOrEmpty(decrypted) || decrypted == "Şifre Çözülemedi")
+            {
+                return Json(new { success = false, message = "Şifre çözülemedi veya anahtar doğrulanamadı." });
+            }
+
+            var anaBayi = await _userManager.FindByIdAsync(user.AnaBayiId);
+
+            var waMetin = $"Sayın {anaBayi?.FirmaAdi ?? "Yetkili Bayimiz"},\n\n" +
+                          $"Talep ettiğiniz alt kullanıcı giriş bilgileriniz aşağıdadır:\n" +
+                          $"• Kullanıcı: {user.AdSoyad} ({user.Unvan ?? "Alt Kullanıcı"})\n" +
+                          $"• Giriş E-Posta: {user.Email}\n" +
+                          $"• Güvenli Şifre: {decrypted}\n" +
+                          $"• Giriş Portalı: https://hayatisleri.com/bayi-girisi\n\n" +
+                          $"Güvenliğiniz için lütfen şifreyi yetkili personeliniz haricinde kimseyle paylaşmayınız.";
+
+            string cleanPhone = "";
+            if (anaBayi?.PhoneNumber != null)
+            {
+                cleanPhone = System.Text.RegularExpressions.Regex.Replace(anaBayi.PhoneNumber, @"\D", "");
+                if (cleanPhone.StartsWith("0")) cleanPhone = "9" + cleanPhone;
+                else if (!cleanPhone.StartsWith("90") && cleanPhone.Length == 10) cleanPhone = "90" + cleanPhone;
+            }
+
+            var waUrl = !string.IsNullOrEmpty(cleanPhone)
+                ? $"https://wa.me/{cleanPhone}?text={Uri.EscapeDataString(waMetin)}"
+                : $"https://wa.me/?text={Uri.EscapeDataString(waMetin)}";
+
+            return Json(new
+            {
+                success = true,
+                adSoyad = user.AdSoyad,
+                eposta = user.Email,
+                unvan = user.Unvan ?? "Alt Kullanıcı",
+                sifre = decrypted,
+                anaBayiFirma = anaBayi?.FirmaAdi ?? anaBayi?.AdSoyad ?? "Ana Bayi",
+                anaBayiTelefon = anaBayi?.PhoneNumber ?? "-",
+                whatsappUrl = waUrl
+            });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AltKullaniciSifreSifirla(string id, string yeniSifre)
+        {
+            if (string.IsNullOrWhiteSpace(yeniSifre) || yeniSifre.Length < 6)
+            {
+                TempData["Hata"] = "Yeni şifre en az 6 karakter olmalıdır.";
+                return RedirectToAction(nameof(BayiAltKullanicilari));
+            }
+
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null || string.IsNullOrEmpty(user.AnaBayiId))
+            {
+                TempData["Hata"] = "Alt kullanıcı bulunamadı.";
+                return RedirectToAction(nameof(BayiAltKullanicilari));
+            }
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var result = await _userManager.ResetPasswordAsync(user, token, yeniSifre);
+            if (!result.Succeeded)
+            {
+                TempData["Hata"] = "Şifre sıfırlanamadı: " + string.Join(", ", result.Errors.Select(e => e.Description));
+                return RedirectToAction(nameof(BayiAltKullanicilari));
+            }
+
+            user.SifreKriptolu = SubUserSecurityService.EncryptPassword(yeniSifre);
+            await _userManager.UpdateAsync(user);
+
+            TempData["AdminBasari"] = $"{user.AdSoyad} kullanıcısının şifresi başarıyla güncellendi ve AES-256 ile kaydedildi.";
+            return RedirectToAction(nameof(BayiAltKullanicilari));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AdminAltKullaniciSil(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user != null && !string.IsNullOrEmpty(user.AnaBayiId))
+            {
+                await _userManager.DeleteAsync(user);
+                TempData["AdminBasari"] = $"{user.AdSoyad} adlı alt kullanıcı hesabı sistemden kaldırıldı.";
+            }
+            return RedirectToAction(nameof(BayiAltKullanicilari));
+        }
     }
 
     // =========================================================================
@@ -1422,6 +1834,8 @@ namespace WebApplication1.Controllers
         public static List<BayiSatisKaydi> Satislar { get; } = new();
         public static List<BozukCihazSwapKaydi> SwapKayitlari { get; } = new();
         public static List<EskiBayiMusteriKaydi> EskiMusteriler { get; } = new();
+        public static List<AdminDemoTalepKaydi> DemoTalepleri { get; } = new();
+        public static List<AdminPazarlamaMateryalKaydi> PazarlamaMateryalleri { get; } = new();
 
         static BayiOperasyonVeriHavuzu()
         {
@@ -1993,6 +2407,106 @@ namespace WebApplication1.Controllers
                     SonIletisimNotu = "Satın alma sorumlusu değişti, yeni yetkiliye kurumsal indirim listemiz mail atıldı."
                 }
             });
+
+            // 8. DEMO TEST CİHAZI TALEPLERİ
+            DemoTalepleri.AddRange(new[]
+            {
+                new AdminDemoTalepKaydi
+                {
+                    TalepNo = "DEMO-2026-001",
+                    BayiId = "bayi-1",
+                    BayiAdi = "Ege Otomasyon Sistemleri Ltd. Şti.",
+                    CariKodu = "CARİ-EGE-01",
+                    CihazModeli = "Sunmi D2s Çift Ekranlı Restoran POS",
+                    MusteriAdi = "Gusto Bistro Kafe",
+                    GunSure = 15,
+                    TalepTarihi = DateTime.Now.AddDays(-6),
+                    KargoTakipNo = "YRT-90184421",
+                    Durum = "Müşteride (Test Aşamasında - 9 Gün Kaldı)",
+                    AdminNotu = "Cihaz sağlam teslim edildi, müşteri yazılım demo entegrasyonu başarılı."
+                },
+                new AdminDemoTalepKaydi
+                {
+                    TalepNo = "DEMO-2026-002",
+                    BayiId = "bayi-2",
+                    BayiAdi = "Marmara Barkod ve Depo Teknolojileri",
+                    CariKodu = "CARİ-MARMARA-02",
+                    CihazModeli = "Zebra ZT411 Endüstriyel Barkod Yazıcı",
+                    MusteriAdi = "Atlas Dağıtım & Depo A.Ş.",
+                    GunSure = 15,
+                    TalepTarihi = DateTime.Now.AddDays(-2),
+                    KargoTakipNo = "ARAS-7749102",
+                    Durum = "Onaylandı - Kargoya Verildi",
+                    AdminNotu = "Test amaçlı 2 rulo termal transfer etiket ve 1 resin ribon pakete eklendi."
+                },
+                new AdminDemoTalepKaydi
+                {
+                    TalepNo = "DEMO-2026-003",
+                    BayiId = "bayi-3",
+                    BayiAdi = "İç Anadolu Bilişim Teknolojileri",
+                    CariKodu = "CARİ-ANADOLU-03",
+                    CihazModeli = "Datalogic Gryphon GFS4400 2D İmaj Okuyucu",
+                    MusteriAdi = "Konya Şekerleme & İmalat Ltd.",
+                    GunSure = 15,
+                    TalepTarihi = DateTime.Now.AddDays(-18),
+                    KargoTakipNo = "YRT-8841029",
+                    Durum = "Test Tamamlandı (Satışa Döndü)",
+                    AdminNotu = "Müşteri cihazı beğendi, 5 adet sıfır sipariş faturaya dönüştürüldü."
+                }
+            });
+
+            // 9. PAZARLAMA VE KURUMSAL TANITIM MATERYALLERİ
+            PazarlamaMateryalleri.AddRange(new[]
+            {
+                new AdminPazarlamaMateryalKaydi
+                {
+                    Id = "PM-001",
+                    Baslik = "2026 Endüstriyel Donanım & POS Çözüm Kataloğu",
+                    Tur = "Baskıya Hazır Katalog",
+                    Format = "PDF",
+                    Boyut = "24.5 MB",
+                    OnizlemeUrl = "/images/donanim.jpg",
+                    DosyaUrl = "/images/donanim.jpg",
+                    EklenmeTarihi = DateTime.Now.AddDays(-20),
+                    IndirilmeSayisi = 142
+                },
+                new AdminPazarlamaMateryalKaydi
+                {
+                    Id = "PM-002",
+                    Baslik = "Sunmi & Zebra Kurumsal Fuar Roll-up & Afiş Şablonları",
+                    Tur = "Fuar & Stand Grafiği",
+                    Format = "ZIP (AI + PDF)",
+                    Boyut = "62.0 MB",
+                    OnizlemeUrl = "/images/hardware_chip.jpg",
+                    DosyaUrl = "/images/hardware_chip.jpg",
+                    EklenmeTarihi = DateTime.Now.AddDays(-15),
+                    IndirilmeSayisi = 89
+                },
+                new AdminPazarlamaMateryalKaydi
+                {
+                    Id = "PM-003",
+                    Baslik = "KodPOS T500 & Yazarkasa POS Teknik Şartname & CE Beyanı",
+                    Tur = "Resmi Şartname",
+                    Format = "PDF",
+                    Boyut = "8.2 MB",
+                    OnizlemeUrl = "/images/donanim.jpg",
+                    DosyaUrl = "/images/donanim.jpg",
+                    EklenmeTarihi = DateTime.Now.AddDays(-10),
+                    IndirilmeSayisi = 215
+                },
+                new AdminPazarlamaMateryalKaydi
+                {
+                    Id = "PM-004",
+                    Baslik = "HiCariTakip Cloud ERP 2026 Tanıtım Sunumu & Broşür",
+                    Tur = "Kurumsal Sunum",
+                    Format = "PDF / PPTX",
+                    Boyut = "18.0 MB",
+                    OnizlemeUrl = "/images/software.jpg",
+                    DosyaUrl = "/images/software.jpg",
+                    EklenmeTarihi = DateTime.Now.AddDays(-5),
+                    IndirilmeSayisi = 176
+                }
+            });
         }
 
         public static void DuyuruEkle(DuyuruBildirimKaydi duyuru)
@@ -2172,6 +2686,36 @@ namespace WebApplication1.Controllers
                                            x.Sehir.ToLowerInvariant().Contains(kw));
                 }
                 return list.ToList();
+            }
+        }
+
+        public static List<AdminDemoTalepKaydi> GetDemoTalepleri(string? q, string? durum)
+        {
+            lock (_lock)
+            {
+                var list = DemoTalepleri.AsEnumerable();
+                if (!string.IsNullOrWhiteSpace(durum) && durum != "hepsi" && durum != "tum")
+                {
+                    list = list.Where(d => d.Durum.Contains(durum, StringComparison.OrdinalIgnoreCase));
+                }
+                if (!string.IsNullOrWhiteSpace(q))
+                {
+                    var kw = q.ToLowerInvariant();
+                    list = list.Where(d => d.TalepNo.ToLowerInvariant().Contains(kw) ||
+                                           d.BayiAdi.ToLowerInvariant().Contains(kw) ||
+                                           d.CihazModeli.ToLowerInvariant().Contains(kw) ||
+                                           d.MusteriAdi.ToLowerInvariant().Contains(kw) ||
+                                           d.KargoTakipNo.ToLowerInvariant().Contains(kw));
+                }
+                return list.ToList();
+            }
+        }
+
+        public static List<AdminPazarlamaMateryalKaydi> GetPazarlamaMateryalleri()
+        {
+            lock (_lock)
+            {
+                return PazarlamaMateryalleri.ToList();
             }
         }
     }
